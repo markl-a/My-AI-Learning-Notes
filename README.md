@@ -1,7 +1,7 @@
 # 我的 AI學習相關筆記
 ## 相關的框架以及算法學習
-0. [使用 Python 進行 ETL的流程](https://github.com/markl-a/My-AI-Learning-Notes/blob/main/1.%E5%BE%9EAI%E5%88%B0LLM%E5%9F%BA%E7%A4%8E/1.AI%2CML/%E4%BD%BF%E7%94%A8_Python_%E9%80%B2%E8%A1%8C%E7%AE%A1%E9%81%93_ETL.ipynb)
-1. [python快速入門](https://github.com/markl-a/My-AI-Engineer-s-Notes/blob/main/1.%E5%BE%9EAI%E5%88%B0LLM%E5%9F%BA%E7%A4%8E/1.AI%2CML/1.%E5%BF%AB%E9%80%9F%E5%85%A5%E9%96%80python.ipynb)
+0. [使用 Python 進行 ETL的流程](https://github.com/markl-a/My-AI-Learning-Notes/blob/main/1.%E5%BE%9EAI%E5%88%B0LLM%E5%9F%BA%E7%A4%8E/3.ML_%26_Data_Analysis/5_Best_Practices_and_MLOps_Basics/%E4%BD%BF%E7%94%A8_Python_%E9%80%B2%E8%A1%8C%E7%AE%A1%E9%81%93_ETL.ipynb)
+1. [python快速入門](https://github.com/markl-a/My-AI-Learning-Notes/blob/main/1.%E5%BE%9EAI%E5%88%B0LLM%E5%9F%BA%E7%A4%8E/2.AI_Intro/1.%E5%BF%AB%E9%80%9F%E5%85%A5%E9%96%80python.ipynb)
 2. [numpy,pandas學習紀錄](https://github.com/markl-a/My-AI-Engineer-s-Notes/blob/main/1.%E5%BE%9EAI%E5%88%B0LLM%E5%9F%BA%E7%A4%8E/1.AI%2CML/2.Python%E7%9A%84%EF%BC%AD%EF%BC%AC%E7%9B%B8%E9%97%9C%E6%A8%A1%E5%A1%8A%E5%A5%97%E4%BB%B6%E4%BD%BF%E7%94%A8.ipynb)
 3. [tensorflow 學習紀錄](https://github.com/markl-a/My-AI-Engineer-s-Notes/tree/main/1.%E5%BE%9EAI%E5%88%B0LLM%E5%9F%BA%E7%A4%8E/2.DL%2CMLOps/01.DL-Tensorflow2)
 4. [keras 學習紀錄](https://github.com/markl-a/My-AI-Engineer-s-Notes/blob/main/1.%E5%BE%9EAI%E5%88%B0LLM%E5%9F%BA%E7%A4%8E/2.DL%2CMLOps/02.DL-Keras3/1.ANN/ANN.ipynb)
