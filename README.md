@@ -483,6 +483,15 @@ LLM通常基於Transformer架構，其中特別採用了僅使用解碼器的設
 [yentinglin's Collections](https://huggingface.co/collections/yentinglin/taiwan-llm-6523f5a2d6ca498dc3810f07?source=post_page-----165f53147e6c--------------------------------)
 4. [群創光電-白龍](https://huggingface.co/INX-TEXT/Bailong-instruct-7B?fbclid=IwAR22LjrWw2LfqOXGLHp3dScUf4uQAM6ozpBP7xLhO7lfvuEb8qLTuaq_0hE)(這個我不確定)
 
+#### 最新開源模型 (2024~2025)
+
+* [Llama 3](https://ai.meta.com/blog/meta-llama-3/)
+* [phi-3](https://www.microsoft.com/en-us/research/project/phi-3/)
+* [Qwen2](https://github.com/QwenLM/Qwen2)
+* [Gemma](https://ai.google.dev/gemma)
+* [GPT-4o](https://openai.com/gpt-4o)
+* 新興框架如 [LangGraph](https://github.com/langchain-ai/langgraph) 或 [Llamafile](https://github.com/jart/llamafile) 亦值得關注。
+
 國外可用於微調的開放大模型(可在其他家雲端或本地運作)基本是 LLAMA, GEMMA, BLOOM, Mistral。
 
 只能在遠端微調的大概就很多了(Gemini , GPT系列 等等)。
