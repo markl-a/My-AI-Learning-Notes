@@ -109,13 +109,11 @@ personal_writing_style.zip
   - **調用：** 在 `skill.md` 的指令中，使用 Bash 命令來執行您的腳本，例如：
     ````markdown
     To analyze the data, run the following script and report the results:
-
+    ````
     ```bash
     python scripts/analyze_data.py --input /path/to/data.csv
     ````
-    ```
-    
-    ```
+
 
 ### **2. 拆分複雜指令**
 
