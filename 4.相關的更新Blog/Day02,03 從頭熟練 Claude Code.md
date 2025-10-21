@@ -1,4 +1,4 @@
-# Day02,03 從頭熟練 Claude Code
+# Day02,03 從頭熟練 Claude Code(逐步驗證中)
 
 > 完整的 Claude Code 學習指南 - 從基礎到進階
 
