@@ -590,11 +590,108 @@ print(f"輸出 logits 形狀: {logits.shape}")
 
 ---
 
+---
+
+## 2024-2025 年最新進展
+
+### 新增內容
+
+本目錄新增了以下2024-2025年LLM領域的重要內容：
+
+1. **[2024-2025 LLM 模型重大突破](./2024-2025_LLM模型重大突破.md)**
+   - OpenAI GPT-4o、o1 系列（推理模型）
+   - Anthropic Claude 3.5 系列（Computer Use 功能）
+   - Google Gemini 1.5/2.5 系列（超長上下文）
+   - DeepSeek-V3（671B MoE，極低成本）
+   - 各大模型的詳細對比與實作範例
+
+2. **[Mixture of Experts (MoE) 架構詳解](./Mixture_of_Experts_架構詳解.md)**
+   - MoE 核心概念與工作原理
+   - DeepSeek-MoE 創新架構（細粒度專家、共享專家）
+   - Mixtral 8x7B、8x22B 實現
+   - 完整的 Python 實作範例
+   - 訓練技巧與最佳實踐
+
+### 重要技術趨勢（2024-2025）
+
+#### 1. 推理能力突破
+- **OpenAI o1**：逐步推理，數學/科學任務顯著提升
+- **DeepSeek-R1**：強化學習實現低成本高性能推理
+
+#### 2. 超長上下文窗口
+- **百萬 Token**：Claude 4、Gemini 2.5、GPT-4.1
+- **200萬 Token**：Gemini 1.5 Pro
+- 能處理整本書籍、長篇文檔、複雜多輪對話
+
+#### 3. MoE 架構普及
+- **稀疏激活**：只激活相關專家，大幅降低計算成本
+- **DeepSeek-V3**：671B 參數僅激活 37B（5.5%）
+- **經濟效益**：訓練成本僅 $5.576M
+
+#### 4. 多模態整合
+- **GPT-4o**：實時處理文字、視覺、音頻
+- **Gemini Pro Vision**：強大的視覺理解
+- **Claude 3.5**：Computer Use 功能
+
+#### 5. 注意力機制優化
+- **Flash Attention 2/3**：更快的推理速度
+- **Multi-Query Attention (MQA)**：減少推理內存
+- **Grouped-Query Attention (GQA)**：平衡性能與效率
+
+### 架構演進圖
+
+```
+2017: Transformer
+  ↓
+2018-2019: GPT-1/2, BERT
+  ↓
+2020: GPT-3 (175B Dense)
+  ↓
+2021-2023: 規模擴大 + 對齊
+  ↓
+2024-2025: 多路徑演進
+  ├─ 推理模型 (o1, DeepSeek-R1)
+  ├─ 超長上下文 (Gemini 2M tokens)
+  ├─ MoE 架構 (DeepSeek-V3 671B)
+  ├─ 多模態 (GPT-4o, Claude 3.5)
+  └─ 經濟高效訓練 (<$6M)
+```
+
+### 實用建議
+
+**選擇模型時的考量：**
+
+1. **任務類型**
+   - 推理任務 → o1, DeepSeek-R1
+   - 長文檔 → Gemini 1.5 Pro, Claude 4
+   - 多模態 → GPT-4o, Gemini Pro Vision
+   - 代碼生成 → Claude 3.5, GPT-4o
+
+2. **成本預算**
+   - 高預算：Claude Opus, GPT-4o
+   - 中預算：Claude Sonnet, Gemini Flash
+   - 低預算：開源模型（LLaMA, DeepSeek）
+
+3. **部署場景**
+   - 雲端 API：OpenAI, Anthropic, Google
+   - 自部署：開源 MoE 模型
+   - 邊緣設備：量化模型
+
+---
+
 ## 參考資源
 
+### 基礎資源
 - [Attention is All You Need (原始論文)](https://arxiv.org/abs/1706.03762)
 - [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)
 - [The Annotated Transformer](http://nlp.seas.harvard.edu/2018/04/03/attention.html)
 - [Hugging Face Transformers 文檔](https://huggingface.co/docs/transformers)
-- [LLaMA: Open and Efficient Foundation Language Models](https://arxiv.org/abs/2302.13971)
+
+### 經典論文
 - [GPT-3 論文](https://arxiv.org/abs/2005.14165)
+- [LLaMA: Open and Efficient Foundation Language Models](https://arxiv.org/abs/2302.13971)
+
+### 2024-2025 最新論文
+- [DeepSeekMoE: Towards Ultimate Expert Specialization](https://arxiv.org/abs/2401.06066)
+- [Flash Attention 論文](https://arxiv.org/abs/2205.14135)
+- [Mixtral of Experts](https://arxiv.org/abs/2401.04088)
