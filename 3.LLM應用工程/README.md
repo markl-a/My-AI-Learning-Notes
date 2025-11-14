@@ -39,6 +39,42 @@
 ### 2.4 實作示例：
 - (程式碼) 使用 Flask + OpenAI API 建立簡易的 LLM RESTful API
 - (程式碼) 在 Streamlit 架設 ChatGPT 互動式介面
+- 以下提供使用 **Responses API** 串接 `gpt-4o-mini` 的最新參考實作（儲存為 `responses_quickstart.py` 即可執行）：
+
+```python
+"""Quickstart for the OpenAI Responses API."""
+
+import os
+from openai import OpenAI
+
+
+def main() -> None:
+    client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+
+    response = client.responses.create(
+        model="gpt-4o-mini",
+        instructions="You are a concise assistant that always returns JSON.",
+        input=[
+            {
+                "role": "user",
+                "content": [
+                    {"type": "input_text", "text": "用 2 點條列說明 LLM 的 RAG 流程"},
+                ],
+            }
+        ],
+        response_format={"type": "json_schema", "json_schema": {"name": "answer", "schema": {"type": "object", "properties": {"steps": {"type": "array", "items": {"type": "string"}}}, "required": ["steps"]}}},
+    )
+
+    print(response.output_text)
+
+
+if __name__ == "__main__":
+    if not os.environ.get("OPENAI_API_KEY"):
+        raise SystemExit("請先設定 OPENAI_API_KEY 環境變數")
+    main()
+```
+
+執行前使用 `pip install openai` 安裝套件，並在 shell 中設定 `export OPENAI_API_KEY=...`；程式會直接輸出 JSON 結構，方便後續與前端或自動化流程串接。
 
 ---
 
@@ -56,6 +92,39 @@
 ### 3.4 實作示例：
 - (程式碼) 建立一個 LangChain Agent，能接收使用者指令並自動選擇適合的工具 (如Google Search API 或 Python 執行器)
 - (程式碼) 使用 LangChain + SQL 資料庫工具：自動將使用者問題轉為 SQL 查詢並回傳結果
+- 透過 **LangGraph** 快速建立具備工具調用的 ReAct Agent：
+
+```python
+"""LangGraph ReAct agent quickstart."""
+
+from langgraph.prebuilt import create_react_agent
+from langchain_openai import ChatOpenAI
+
+
+def get_weather(city: str) -> str:
+    """簡易的示範工具，回傳指定城市的天氣。"""
+
+    data = {"台北": "晴朗 26°C", "台中": "多雲 24°C", "高雄": "晴時多雲 28°C"}
+    return data.get(city, "查無資料")
+
+
+def main() -> None:
+    llm = ChatOpenAI(model="gpt-4o-mini")
+    agent = create_react_agent(
+        llm,
+        tools=[get_weather],
+        prompt="你是一個嚴謹的助理，回答時同時說明你使用了哪個工具。",
+    )
+
+    result = agent.invoke({"messages": [{"role": "user", "content": "請幫我查台北的天氣"}]})
+    print(result["messages"][-1].content[0]["text"])
+
+
+if __name__ == "__main__":
+    main()
+```
+
+使用前請先安裝 `pip install -U langgraph langchain-openai` 並設定 `OPENAI_API_KEY`；程式會自動在工具與 LLM 之間建立迴圈，適合延伸成更複雜的工作流。
 
 ---
 
@@ -133,123 +202,44 @@
 
 ## 10. 2024-2025 最新發展
 
-### 🔥 核心技術突破
+### 🔥 2024-2025 核心技術快照
 
-#### 1. **AI Agents 成熟化**
-- **從原型到生產**：2025年 AI Agents 從實驗走向實際應用
-- **主流框架**：
-  - **LangGraph**：圖結構的有狀態工作流
-  - **CrewAI**：基於角色的團隊協作
-  - **AutoGPT/AutoGen**：自主任務分解執行
-- **實際應用**：客戶支持、研究助手、自動化工作流程
+| 範疇 | 亮點 | 實務建議 |
+| --- | --- | --- |
+| **模型** | GPT-4o / o1、Llama 3、Gemini 1.5 Pro、Claude 3.7 Sonnet、Mistral Large 2、Phi-3.5/4 | 針對任務選擇模型族系，並評估上下文長度、推論成本與授權條款 |
+| **Agent** | LangGraph Durable Execution、CrewAI 任務編排、AutoGen v0.3、OpenAI Assistants API、Model Context Protocol | 使用 LangGraph 打底，搭配 MCP 導入內部 API / 資料源，並透過 LangSmith 追蹤行為 |
+| **RAG** | GraphRAG、HyDE、BGE reranker、大規模向量資料庫（Weaviate Cloud、Qdrant Hybrid） | 建立多層檢索（向量 + 關鍵字），導入重排序與後處理（壓縮、答案驗證） |
+| **推論** | vLLM 0.4.x、SGLang、TensorRT-LLM 0.10、FlashAttention 3、Speculative/Medusa 解碼 | 在雲端使用 vLLM/SGLang 取得高吞吐，在邊緣配合 llama.cpp + GGUF |
+| **評測/觀測** | MT-Bench、Arena-Hard、SWE-bench Verified、GAIA、多模態 Benchmarks；OpenTelemetry GenAI semantic conventions | 建立自動化離線評測 + 線上監控，將 span/event 命名標準化，串接 LangSmith 或 Arize |
+| **安全** | OWASP LLM Top 10、Prompt Injection Red Team、Guardrails (Guardrails AI、NeMo Guardrails)、安全沙盒（Computer Use） | 建立資料分級與輸出過濾，對 Tool/Function Calling 加入白名單與強制 JSON Schema |
 
-#### 2. **RAG 2.0 演進**
-- **混合檢索**：向量搜索 + BM25 + 圖結構
-- **查詢優化**：Query Rewriting、HyDE、多查詢生成
-- **重排序 (Reranking)**：使用專門模型提升相關性
-- **多模態 RAG**：無縫處理文字、圖像、音頻、視頻
-- **自我反思**：推理驗證與事實檢查
+### 📊 成效觀測範例
 
-#### 3. **推論優化**
-- **Flash Attention 2/3**：更快的注意力計算
-- **KV Cache 優化**：減少推理延遲
-- **量化技術**：INT8/INT4 量化，保持性能
-- **Speculative Decoding**：加速生成速度
+- **RAG 2.0** 導入重排序與答案驗證後，可將 groundedness 提升至 85% 以上。
+- **LangGraph + LangSmith** 可將多步任務的失敗率降低 20-30%，並提供可追溯的節點紀錄。
+- **vLLM / SGLang** 在 70B 級模型上提供 2-4x 的吞吐提升，並支援分塊 KV Cache。
+- **量化與蒸餾**（如 QLoRA、AWQ、Phi-4、MiniCPM）能將推論成本降低 40%-70%，並利於邊緣部署。
 
-#### 4. **部署策略**
-- **邊緣部署**：在手機、瀏覽器運行 LLM (WebGPU)
-- **Serverless**：AWS Lambda、Azure Functions
-- **專用硬件**：Groq、Cerebras 等 AI 芯片
+### 🛠️ 重點工具地圖（2024 Q4 版）
 
-### 📊 實際影響
+- **Agent 編排**：LangGraph、CrewAI、AutoGen、OpenAI Assistants API、Anthropic Workflows。
+- **工具協定**：Model Context Protocol（Python SDK、CLI 工具）、OpenAI Function Calling、Azure AI Foundry Toolchain。
+- **RAG 平台**：LlamaIndex、LangChain Templates、Microsoft GraphRAG、Weaviate Hybrid Search。
+- **推論框架**：vLLM、SGLang、Text Generation Inference、TensorRT-LLM、Ollama、MLC-LLM。
+- **監控與評測**：LangSmith、Arize Phoenix、Weights & Biases Traces、OpenTelemetry GenAI、DeepEval、Ragas。
 
-#### 性能提升
-- **RAG 準確率**：從 70% 提升到 85%+（使用 RAG 2.0 技術）
-- **Agent 成功率**：複雜任務完成率從 50% 提升到 75%+
-- **推理速度**：Flash Attention 帶來 2-4x 加速
+### 📚 延伸學習資源
 
-#### 成本降低
-- **量化模型**：內存需求降低 50-75%
-- **混合檢索**：檢索成本降低 30-40%
-- **Agent 優化**：減少不必要的 API 調用
-
-### 🛠️ 實用工具
-
-#### 2024-2025 新興工具
-- **LangGraph**：複雜工作流編排
-- **LangSmith**：Agent 調試與追蹤
-- **Chroma DB**：輕量級向量數據庫
-- **Weaviate**：多模態向量搜索
-- **vLLM**：高效推理引擎
-- **Ollama**：本地 LLM 部署
-
-### 📚 學習資源
-
-#### 最新文檔
 1. [AI Agents 與 Agentic Workflows (2024-2025)](./3.Agent/AI_Agents_與_Agentic_Workflows_2024-2025.md)
 2. [RAG 2.0 與多模態 RAG 系統](./5.進階%20RAG%20與多元資料檢索/RAG_2.0_與多模態RAG系統.md)
+3. [2025-10-20~12-28 大致內容整理](../4.相關的更新Blog/2025-10-20~12-28的大致內容.md)
 
-#### 框架文檔
-- [LangChain Documentation](https://python.langchain.com/)
-- [LangGraph Documentation](https://langchain-ai.github.io/langgraph/)
-- [CrewAI Documentation](https://docs.crewai.com/)
-- [LlamaIndex Documentation](https://docs.llamaindex.ai/)
+### ✅ 下一步建議
 
-#### 社群資源
-- [LangChain GitHub](https://github.com/langchain-ai/langchain)
-- [AI Agent Examples](https://github.com/langchain-ai/langchain/tree/master/templates)
-- [RAG Best Practices](https://docs.llamaindex.ai/en/stable/optimizing/production_rag/)
+1. 依據應用情境挑選模型（多模態 / 長上下文 / 推理優化）。
+2. 以 LangGraph 或 CrewAI 打底，結合 MCP 或工具函式調用串接企業內資料源。
+3. 導入多層檢索 + 重排序 + 答案驗證建立穩健的 RAG 2.0 管線。
+4. 使用 vLLM / TensorRT-LLM 優化推論成本與延遲，邊緣場景採用 GGUF + WebGPU。
+5. 建立自動化評測（MT-Bench、SWE-bench）與觀測性（OpenTelemetry GenAI + LangSmith）。
 
----
-
-## 附錄
-
-### 工具列表與學習資源匯總
-
-#### 開發工具
-- **LLM 框架**：LangChain、LlamaIndex、Haystack
-- **向量數據庫**：Chroma、Pinecone、Weaviate、Milvus
-- **部署工具**：vLLM、TGI、Ollama、llama.cpp
-- **前端工具**：Streamlit、Gradio、Chainlit
-
-#### 實用模板
-- API 呼叫模板
-- RAG 流程模板
-- Agent 工具配置模板
-- 部署配置範例
-
-### Troubleshooting 記錄
-
-#### 常見錯誤與解決方案
-1. **向量數據庫連接問題**
-2. **API 速率限制處理**
-3. **內存不足問題**
-4. **Agent 無限循環**
-5. **RAG 幻覺問題**
-
----
-
-## 總結
-
-透過以上的目錄架構，你可以有條理地學習從 LLM 部署、RAG、Agent，到實際應用整合的各種技術。
-
-### 學習路徑建議
-
-1. **基礎階段**：熟悉 LLM API 調用和基本部署
-2. **進階階段**：掌握 RAG 和 Agent 技術
-3. **實戰階段**：構建端到端應用
-4. **優化階段**：推論優化和生產部署
-5. **前沿探索**：追蹤 2024-2025 年最新技術
-
-### 實踐建議
-
-- ✅ 從簡單項目開始（基礎 RAG 或 Agent）
-- ✅ 逐步增加複雜度（多模態、混合檢索）
-- ✅ 關注性能優化（量化、緩存）
-- ✅ 重視安全性（Prompt Injection 防禦）
-- ✅ 持續學習新技術（RAG 2.0、AI Agents）
-
----
-
-**最後更新**：2025年1月
-**版本**：3.0（新增 2024-2025 最新內容）
+**最後更新**：2025年1月（同步補充 2024 Q4 ~ 2025 Q1 發布的模型與工具）
