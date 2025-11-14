@@ -33,6 +33,40 @@
 
 不過目前會是以LLM為主，除了我之前就弄過的相關內容之外，其他的內容會是必須的才會被添加。
 
+## 2024-2025 最新技術追蹤
+
+2024 年之後 LLM 與多模態技術的演進速度更快，以下整理近期值得追蹤的重點，並對應到本筆記中可以延伸閱讀或實作的章節：
+
+### 🔑 大型基礎模型與推理模型
+
+- **OpenAI GPT-4o / GPT-4o mini（2024.05）**：多模態（文字、影像、音訊）一次性整合，延伸出的 *Responses API* 已在 [LLM 應用工程](./3.LLM應用工程/README.md#24-實作示例) 中加入可直接執行的範例程式。
+- **OpenAI o1 reasoning 系列（2024.09）**：針對長鏈推理與程式問題提供多步驟思考結果，建議搭配 `model=gpt-4o` 或 `model=o1-mini` 進行對照測試。
+- **Meta Llama 3（2024.04）**：提供 8B / 70B 開源權重，指令調優版支援 8K+ context，可在 `1.LLM 部署` 與 `6.推論優化` 章節套用。
+- **Google Gemini 1.5 Pro / Flash（2024.02）**：原生支援百萬 token 長上下文與多模態輸入，適合整合至多媒體 RAG 或 Agent 任務。
+- **Mistral Large 2（2024.07）** 與 **Microsoft Phi-3.5 / Phi-4（2024 Q3-Q4）**：在雲端與邊緣端提供更輕量的模型選擇，便於在 `8.邊緣與端側` 所述場景中部署。
+
+### 🧠 Agentic 生態與工具鏈
+
+- **LangGraph 0.2+**：官方提供耐久執行、檢查點、LangSmith 追蹤與 LangGraph Studio 可視化的整合，在 [Agent 工作流筆記](./3.LLM應用工程/3.Agent/AI_Agents_與_Agentic_Workflows_2024-2025.md) 中新增了更新摘要與範例程式。
+- **Model Context Protocol（MCP）**：成為 OpenAI、Anthropic 等工具調用的共同標準，使用 Python SDK 就能快速建立 MCP 伺服器，相關說明新增於 Agent 工具整合章節。
+- **CrewAI、AutoGen、LlamaIndex 2025 系列更新**：針對多 Agent 協作、任務排程、觀測性加強，對應資料更新於 `3.Agent` 與 `5.進階 RAG` 章節。
+
+### 🚀 推論與部署生態
+
+- **vLLM 0.4.x、SGLang、TensorRT-LLM 0.10**：提供多路併發、分塊 KV Cache 與 Streaming 的高效率推論，筆記在 `6.推論優化` 節補充了差異與部署建議。
+- **Ollama 0.3、LM Studio 0.3**：本地模型管理器支援動態量化、OpenAI-Compatible API，可以與 `RAG`/`Agent` 範例直接接軌。
+- **OpenTelemetry GenAI、LangSmith / Arize Phoenix 2024**：建立評測與追蹤基礎建設，在 `產品級評測` 章節加入了新的指引。
+
+### 🧪 實作與練習建議
+
+- 先閱讀 [LLM 應用工程](./3.LLM應用工程/README.md) 的更新章節，裡面整理了最新模型、推論框架與安全清單。
+- 嘗試執行「Responses API × LangGraph Agent」的組合範例：
+  1. 依 `README` 指引安裝 `openai`, `langgraph` 套件。
+  2. 設定 `OPENAI_API_KEY` 後，先測試 `responses_quickstart.py` 範例，確定多模態輸入正常。
+  3. 進一步執行 `langgraph_agent_demo.py`，觀察耐久執行與工具調用紀錄如何在 LangSmith 中被追蹤。
+
+以上整理會持續更新，若有新的模型或工具，也會在對應章節補充評測與實作紀錄。
+
 ## 算法與資料結構
 
 這邊主要會是我算法提練習的紀錄以及閱讀的心得，因為我不是大學教授或專家等級的，所以目前難免會有點錯誤。

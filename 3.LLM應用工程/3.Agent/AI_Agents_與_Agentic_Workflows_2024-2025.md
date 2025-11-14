@@ -543,7 +543,7 @@ agent = initialize_agent(
 
 # 執行查詢
 response = agent.run(
-    "2024 年諾貝爾物理學獎得主是誰？他們的主要貢獻是什麼？"
+    "2023 年諾貝爾物理學獎得主是誰？他們的主要貢獻是什麼？"
 )
 print(response)
 ```
@@ -552,14 +552,14 @@ print(response)
 ```
 > Entering new AgentExecutor chain...
 
-Thought: 我需要搜尋 2024 年諾貝爾物理學獎的資訊
+Thought: 我需要搜尋 2023 年諾貝爾物理學獎的資訊
 Action: Search
-Action Input: "2024 Nobel Prize in Physics"
+Action Input: "2023 Nobel Prize in Physics"
 
-Observation: The 2024 Nobel Prize in Physics was awarded to John Hopfield and Geoffrey Hinton for foundational discoveries and inventions that enable machine learning with artificial neural networks...
+Observation: The 2023 Nobel Prize in Physics was awarded to Pierre Agostini, Ferenc Krausz and Anne L'Huillier for experimental methods that generate attosecond pulses of light for the study of electron dynamics in matter...
 
 Thought: 我現在知道答案了
-Final Answer: 2024年諾貝爾物理學獎授予 John Hopfield 和 Geoffrey Hinton，表彰他們在人工神經網路機器學習方面的基礎性發現和發明。
+Final Answer: 2023 年諾貝爾物理學獎由 Pierre Agostini、Ferenc Krausz 與 Anne L'Huillier 共同獲得，肯定他們在產生阿秒雷射脈衝以研究物質中電子動態的實驗方法。
 
 > Finished chain.
 ```
@@ -800,6 +800,14 @@ result = agent.invoke(
 - 複雜的多步驟工作流
 - 需要人機協作的系統
 - 需要狀態持久化的應用
+
+#### 4.1.6 2024-2025 版本更新重點
+
+- **Durable Execution**：內建檢查點（Checkpointing）與恢復機制，可在長時間任務或失敗後從中斷點繼續執行。
+- **Human-in-the-loop**：任意節點都能插入人工審核與改寫狀態，適合金融、法務等需要合規把關的流程。
+- **Comprehensive Memory**：同時支援短期、長期記憶，官方文件提供工作記憶與持久存儲的設計參考。
+- **LangSmith / LangGraph Studio**：透過官方平台可視化節點執行、檢查 state diff，並提供雲端部署選項。
+- **生態整合**：維持與 LangChain、LangGraphJS 同步更新，可直接使用 LangChain 模組或轉換成前端工作流。
 
 ---
 
@@ -1245,3 +1253,73 @@ user_proxy.initiate_chat(
 **執行流程**：
 ```
 UserProxy: 請幫我用 Python 計算斐波那契數列的前 10 項
+Assistant: 產生 Python 程式碼並呼叫執行
+UserProxy: 執行程式並回報結果
+```
+
+---
+
+## 7. Agent 工具設計與整合
+
+### 7.1 Model Context Protocol（MCP）
+
+2024 年底開始，OpenAI、Anthropic、Claude Desktop 等主流平台紛紛導入 **Model Context Protocol**，讓 Agent 能以標準化方式連接內部 API、資料庫或檔案系統。MCP 將「工具伺服器」與「模型客戶端」分離，具備以下優點：
+
+- **標準訊息格式**：所有呼叫都透過 JSON-RPC + JSON Schema 定義的 `tools`、`resources`、`prompts` 進行交換。
+- **跨客戶端互通**：同一個 MCP 伺服器可以同時被 Claude Desktop、OpenAI Assistants API、LangGraph 等客戶端使用。
+- **安全控管**：伺服器端可限制指令、檔案路徑與參數，並提供審計紀錄。
+
+以下示範如何使用官方 Python SDK（`pip install "mcp[cli]"`）建立一個可以被 Claude Desktop 或 LangGraph 使用的工具伺服器：
+
+```python
+"""server.py — 最小 MCP 伺服器示例"""
+
+from mcp.server.fastmcp import FastMCP
+
+mcp = FastMCP("Demo")
+
+
+@mcp.tool()
+def add(a: int, b: int) -> int:
+    """Add two numbers"""
+
+    return a + b
+
+
+@mcp.resource("weather://{city}")
+def get_weather(city: str) -> str:
+    """Return a static weather string for demo purposes."""
+
+    data = {"taipei": "Cloudy 26°C", "taichung": "Sunny 24°C"}
+    return data.get(city.lower(), "No data")
+
+
+@mcp.prompt()
+def greet_user(name: str, tone: str = "friendly") -> str:
+    """Return a reusable prompt template."""
+
+    styles = {
+        "friendly": "Please write a warm greeting",
+        "formal": "Please compose a formal greeting",
+    }
+    return f"{styles.get(tone, styles['friendly'])} for {name}."
+
+
+if __name__ == "__main__":
+    mcp.run()
+```
+
+開發時可以使用：
+
+```bash
+uv run mcp dev server.py        # 啟動 MCP Inspector，測試工具/資源
+uv run mcp install server.py    # 安裝到 Claude Desktop 或其他客戶端
+```
+
+**整合建議**：
+
+1. **權限設計**：限制工具可讀寫的路徑與 API 金鑰，必要時加入審計日誌。
+2. **錯誤回傳**：確保所有工具都回傳結構化錯誤（HTTP 狀態碼、錯誤訊息、重試建議）。
+3. **與 LangGraph / CrewAI 結合**：可以將 MCP 工具包裝成 LangChain `Tool`，並在 Agent workflow 中統一管理。
+4. **版本管理**：使用 `pyproject.toml` 或 `uv` 管理 MCP 伺服器依賴，並以 CI 驗證工具行為。
+5. **安全測試**：將 MCP 伺服器納入紅隊測試與 Prompt Injection 防護範圍，避免被惡意利用。
