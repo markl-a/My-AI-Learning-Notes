@@ -104,9 +104,380 @@
 - **病態條件 (Ill-conditioned)**：矩陣條件數大時，微小的輸入誤差將被放大。需採用數值方法如 SVD、QR 分解穩定求解。
 - 實務上多使用數值線代函式庫 (NumPy、TensorFlow、PyTorch) 提供高效穩定的矩陣計算。
 
-## 10. 延伸閱讀與實務參考
+## 10. Python 實作範例
+
+### 10.1 基本矩陣運算
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# 創建向量和矩陣
+vector_a = np.array([1, 2, 3])
+vector_b = np.array([4, 5, 6])
+
+matrix_A = np.array([[1, 2], [3, 4], [5, 6]])
+matrix_B = np.array([[7, 8], [9, 10]])
+
+print("向量 a:", vector_a)
+print("向量 b:", vector_b)
+print("矩陣 A:\n", matrix_A)
+print("矩陣 B:\n", matrix_B)
+
+# 向量操作
+dot_product = np.dot(vector_a, vector_b)  # 點積
+print("\n向量點積:", dot_product)
+
+# 矩陣乘法
+matrix_C = np.dot(matrix_A, matrix_B)
+print("\n矩陣乘法 A @ B:\n", matrix_C)
+
+# 轉置
+print("\n矩陣 A 的轉置:\n", matrix_A.T)
+
+# 單位矩陣
+identity = np.eye(3)
+print("\n3x3 單位矩陣:\n", identity)
+```
+
+### 10.2 計算逆矩陣和求解線性方程組
+
+```python
+import numpy as np
+
+# 創建可逆矩陣
+A = np.array([[4, 7], [2, 6]])
+print("矩陣 A:\n", A)
+
+# 計算逆矩陣
+A_inv = np.linalg.inv(A)
+print("\nA 的逆矩陣:\n", A_inv)
+
+# 驗證 A @ A_inv = I
+print("\nA @ A_inv (應該是單位矩陣):\n", np.dot(A, A_inv))
+
+# 求解線性方程組 Ax = b
+b = np.array([1, 2])
+x = np.linalg.solve(A, b)
+print("\n解 x:", x)
+print("驗證 Ax:", np.dot(A, x))
+```
+
+### 10.3 范數計算
+
+```python
+import numpy as np
+
+vector = np.array([3, 4])
+
+# L1 范數 (曼哈頓距離)
+l1_norm = np.linalg.norm(vector, ord=1)
+print("L1 范數:", l1_norm)
+
+# L2 范數 (歐幾里得距離)
+l2_norm = np.linalg.norm(vector, ord=2)
+print("L2 范數:", l2_norm)
+
+# L∞ 范數 (最大值)
+linf_norm = np.linalg.norm(vector, ord=np.inf)
+print("L∞ 范數:", linf_norm)
+
+# 矩陣的 Frobenius 范數
+matrix = np.array([[1, 2], [3, 4]])
+frobenius_norm = np.linalg.norm(matrix, 'fro')
+print("\nFrobenius 范數:", frobenius_norm)
+```
+
+### 10.4 特徵值與特徵向量
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# 創建對稱矩陣
+A = np.array([[4, 2], [2, 3]])
+
+# 計算特徵值和特徵向量
+eigenvalues, eigenvectors = np.linalg.eig(A)
+
+print("矩陣 A:\n", A)
+print("\n特徵值:", eigenvalues)
+print("\n特徵向量:\n", eigenvectors)
+
+# 驗證 Av = λv
+for i in range(len(eigenvalues)):
+    v = eigenvectors[:, i]
+    lambda_v = eigenvalues[i]
+    Av = np.dot(A, v)
+    lambda_times_v = lambda_v * v
+    print(f"\n特徵值 {i+1}: {lambda_v}")
+    print(f"Av = {Av}")
+    print(f"λv = {lambda_times_v}")
+    print(f"是否相等: {np.allclose(Av, lambda_times_v)}")
+
+# 視覺化特徵向量
+plt.figure(figsize=(8, 8))
+plt.quiver(0, 0, eigenvectors[0, 0], eigenvectors[1, 0],
+           angles='xy', scale_units='xy', scale=1, color='r',
+           label=f'特徵向量 1 (λ={eigenvalues[0]:.2f})')
+plt.quiver(0, 0, eigenvectors[0, 1], eigenvectors[1, 1],
+           angles='xy', scale_units='xy', scale=1, color='b',
+           label=f'特徵向量 2 (λ={eigenvalues[1]:.2f})')
+plt.xlim(-1, 1)
+plt.ylim(-1, 1)
+plt.grid(True)
+plt.axhline(y=0, color='k', linewidth=0.5)
+plt.axvline(x=0, color='k', linewidth=0.5)
+plt.legend()
+plt.title('特徵向量視覺化')
+plt.savefig('eigenvectors.png', dpi=100, bbox_inches='tight')
+plt.close()
+```
+
+### 10.5 奇異值分解 (SVD)
+
+```python
+import numpy as np
+
+# 創建矩陣
+A = np.array([[1, 2, 3],
+              [4, 5, 6],
+              [7, 8, 9],
+              [10, 11, 12]])
+
+print("原始矩陣 A (4x3):\n", A)
+
+# 進行 SVD 分解: A = U @ S @ V^T
+U, s, VT = np.linalg.svd(A, full_matrices=False)
+
+print("\nU 的形狀:", U.shape)
+print("奇異值:", s)
+print("V^T 的形狀:", VT.shape)
+
+# 重建矩陣
+S = np.diag(s)
+A_reconstructed = U @ S @ VT
+
+print("\n重建的矩陣:\n", A_reconstructed)
+print("\n重建誤差:", np.linalg.norm(A - A_reconstructed))
+
+# 低秩近似 (保留前2個奇異值)
+k = 2
+A_approx = U[:, :k] @ np.diag(s[:k]) @ VT[:k, :]
+print(f"\n保留前 {k} 個奇異值的近似矩陣:\n", A_approx)
+print(f"近似誤差:", np.linalg.norm(A - A_approx))
+```
+
+### 10.6 主成分分析 (PCA) 實作
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_iris
+
+# 載入數據
+iris = load_iris()
+X = iris.data
+y = iris.target
+
+# 數據標準化
+X_mean = np.mean(X, axis=0)
+X_centered = X - X_mean
+
+# 計算協方差矩陣
+cov_matrix = np.cov(X_centered.T)
+
+# 特徵分解
+eigenvalues, eigenvectors = np.linalg.eig(cov_matrix)
+
+# 按特徵值排序
+idx = eigenvalues.argsort()[::-1]
+eigenvalues = eigenvalues[idx]
+eigenvectors = eigenvectors[:, idx]
+
+print("特徵值:", eigenvalues)
+print("解釋方差比:", eigenvalues / np.sum(eigenvalues))
+
+# 投影到前2個主成分
+n_components = 2
+W = eigenvectors[:, :n_components]
+X_pca = X_centered @ W
+
+# 視覺化
+plt.figure(figsize=(10, 6))
+colors = ['r', 'g', 'b']
+for i, color in enumerate(colors):
+    mask = y == i
+    plt.scatter(X_pca[mask, 0], X_pca[mask, 1],
+                c=color, label=iris.target_names[i], alpha=0.7)
+plt.xlabel('第一主成分')
+plt.ylabel('第二主成分')
+plt.title('PCA 降維結果')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.savefig('pca_visualization.png', dpi=100, bbox_inches='tight')
+plt.close()
+
+print("\n降維後的數據形狀:", X_pca.shape)
+```
+
+### 10.7 在神經網路中的應用：權重矩陣初始化
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+def xavier_uniform(n_in, n_out):
+    """Xavier/Glorot 均勻初始化"""
+    limit = np.sqrt(6 / (n_in + n_out))
+    return np.random.uniform(-limit, limit, (n_in, n_out))
+
+def xavier_normal(n_in, n_out):
+    """Xavier/Glorot 正態初始化"""
+    std = np.sqrt(2 / (n_in + n_out))
+    return np.random.normal(0, std, (n_in, n_out))
+
+def he_normal(n_in, n_out):
+    """He 初始化 (適用於 ReLU)"""
+    std = np.sqrt(2 / n_in)
+    return np.random.normal(0, std, (n_in, n_out))
+
+# 創建不同初始化方法的權重
+n_in, n_out = 128, 64
+
+W_xavier_uniform = xavier_uniform(n_in, n_out)
+W_xavier_normal = xavier_normal(n_in, n_out)
+W_he = he_normal(n_in, n_out)
+
+# 視覺化權重分佈
+fig, axes = plt.subplots(1, 3, figsize=(15, 4))
+
+axes[0].hist(W_xavier_uniform.flatten(), bins=50, alpha=0.7, color='blue')
+axes[0].set_title('Xavier Uniform')
+axes[0].set_xlabel('權重值')
+axes[0].set_ylabel('頻率')
+
+axes[1].hist(W_xavier_normal.flatten(), bins=50, alpha=0.7, color='green')
+axes[1].set_title('Xavier Normal')
+axes[1].set_xlabel('權重值')
+
+axes[2].hist(W_he.flatten(), bins=50, alpha=0.7, color='red')
+axes[2].set_title('He Normal')
+axes[2].set_xlabel('權重值')
+
+plt.tight_layout()
+plt.savefig('weight_initialization.png', dpi=100, bbox_inches='tight')
+plt.close()
+
+print("Xavier Uniform - 均值:", np.mean(W_xavier_uniform), "標準差:", np.std(W_xavier_uniform))
+print("Xavier Normal - 均值:", np.mean(W_xavier_normal), "標準差:", np.std(W_xavier_normal))
+print("He Normal - 均值:", np.mean(W_he), "標準差:", np.std(W_he))
+```
+
+### 10.8 線性迴歸的矩陣解法
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# 生成數據
+np.random.seed(42)
+X = 2 * np.random.rand(100, 1)
+y = 4 + 3 * X + np.random.randn(100, 1)
+
+# 添加偏置項 (x0 = 1)
+X_b = np.c_[np.ones((100, 1)), X]
+
+# 使用正規方程求解: θ = (X^T X)^(-1) X^T y
+theta_best = np.linalg.inv(X_b.T @ X_b) @ X_b.T @ y
+
+print("最佳參數 θ:", theta_best.ravel())
+
+# 預測
+X_new = np.array([[0], [2]])
+X_new_b = np.c_[np.ones((2, 1)), X_new]
+y_predict = X_new_b @ theta_best
+
+# 視覺化
+plt.figure(figsize=(10, 6))
+plt.scatter(X, y, alpha=0.5, label='數據點')
+plt.plot(X_new, y_predict, 'r-', linewidth=2, label='預測線')
+plt.xlabel('X')
+plt.ylabel('y')
+plt.title('線性迴歸 - 矩陣解法')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.savefig('linear_regression_matrix.png', dpi=100, bbox_inches='tight')
+plt.close()
+
+# 使用 SVD 求解 (更穩定的方法)
+U, s, VT = np.linalg.svd(X_b, full_matrices=False)
+theta_svd = VT.T @ np.linalg.inv(np.diag(s)) @ U.T @ y
+
+print("SVD 求解的參數:", theta_svd.ravel())
+```
+
+## 11. 實際應用案例
+
+### 11.1 圖像壓縮 (使用 SVD)
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from PIL import Image
+
+# 創建或載入圖像 (這裡用隨機數據示例)
+# 實際使用時可以用: img = np.array(Image.open('image.jpg').convert('L'))
+img = np.random.rand(100, 100) * 255
+
+# 進行 SVD
+U, s, VT = np.linalg.svd(img, full_matrices=False)
+
+# 使用不同數量的奇異值重建
+ranks = [5, 10, 20, 50]
+fig, axes = plt.subplots(2, 3, figsize=(12, 8))
+
+axes[0, 0].imshow(img, cmap='gray')
+axes[0, 0].set_title('原始圖像')
+axes[0, 0].axis('off')
+
+for idx, k in enumerate(ranks, 1):
+    # 重建圖像
+    img_approx = U[:, :k] @ np.diag(s[:k]) @ VT[:k, :]
+
+    # 計算壓縮率
+    original_size = img.shape[0] * img.shape[1]
+    compressed_size = k * (img.shape[0] + img.shape[1] + 1)
+    compression_ratio = compressed_size / original_size * 100
+
+    row = idx // 3
+    col = idx % 3
+    axes[row, col].imshow(img_approx, cmap='gray')
+    axes[row, col].set_title(f'rank={k} ({compression_ratio:.1f}%)')
+    axes[row, col].axis('off')
+
+# 奇異值分佈
+axes[1, 2].plot(s, 'b-', linewidth=2)
+axes[1, 2].set_xlabel('索引')
+axes[1, 2].set_ylabel('奇異值')
+axes[1, 2].set_title('奇異值分佈')
+axes[1, 2].grid(True, alpha=0.3)
+
+plt.tight_layout()
+plt.savefig('svd_image_compression.png', dpi=100, bbox_inches='tight')
+plt.close()
+```
+
+## 12. 延伸閱讀與實務參考
 
 - 深入了解更多分解法：LU、QR、Cholesky、Jordan Normal Form 等。
 - 高等線代主題：非齊次系統、廣義逆、張量分解 (Tensor Decomposition)。
 - 推薦閱讀: 《Linear Algebra and Its Applications》、深度學習教科書中關於線代的章節，以及《Matrix Cookbook》作為公式速查表。
+
+### 推薦資源
+
+- [NumPy 線性代數文檔](https://numpy.org/doc/stable/reference/routines.linalg.html)
+- [3Blue1Brown - 線性代數的本質](https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab)
+- [MIT 18.06 Linear Algebra](https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/)
+- [The Matrix Cookbook](https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf)
 
