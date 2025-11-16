@@ -468,6 +468,505 @@ plt.savefig('svd_image_compression.png', dpi=100, bbox_inches='tight')
 plt.close()
 ```
 
+### 10.9 Transformer 中的注意力機制
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+class ScaledDotProductAttention:
+    """縮放點積注意力 (Scaled Dot-Product Attention)"""
+
+    def __init__(self):
+        pass
+
+    def forward(self, Q, K, V, mask=None):
+        """
+        計算注意力
+
+        Args:
+            Q: Query 矩陣 (batch_size, seq_len_q, d_k)
+            K: Key 矩陣 (batch_size, seq_len_k, d_k)
+            V: Value 矩陣 (batch_size, seq_len_v, d_v)
+            mask: 遮罩矩陣 (可選)
+
+        Returns:
+            output: 注意力輸出 (batch_size, seq_len_q, d_v)
+            attention_weights: 注意力權重 (batch_size, seq_len_q, seq_len_k)
+        """
+        d_k = Q.shape[-1]
+
+        # 計算注意力分數: QK^T / sqrt(d_k)
+        scores = np.matmul(Q, K.transpose(0, 2, 1)) / np.sqrt(d_k)
+
+        # 應用遮罩（如果有）
+        if mask is not None:
+            scores = np.where(mask == 0, -1e9, scores)
+
+        # Softmax 得到注意力權重
+        attention_weights = self.softmax(scores)
+
+        # 加權求和
+        output = np.matmul(attention_weights, V)
+
+        return output, attention_weights
+
+    def softmax(self, x):
+        """數值穩定的 softmax"""
+        exp_x = np.exp(x - np.max(x, axis=-1, keepdims=True))
+        return exp_x / np.sum(exp_x, axis=-1, keepdims=True)
+
+class MultiHeadAttention:
+    """多頭注意力 (Multi-Head Attention)"""
+
+    def __init__(self, d_model, num_heads):
+        """
+        Args:
+            d_model: 模型維度
+            num_heads: 注意力頭數
+        """
+        assert d_model % num_heads == 0
+
+        self.d_model = d_model
+        self.num_heads = num_heads
+        self.d_k = d_model // num_heads
+
+        # 初始化權重矩陣
+        self.W_q = np.random.randn(d_model, d_model) * 0.01
+        self.W_k = np.random.randn(d_model, d_model) * 0.01
+        self.W_v = np.random.randn(d_model, d_model) * 0.01
+        self.W_o = np.random.randn(d_model, d_model) * 0.01
+
+        self.attention = ScaledDotProductAttention()
+
+    def split_heads(self, x, batch_size):
+        """分割最後一個維度到 (num_heads, d_k)"""
+        x = x.reshape(batch_size, -1, self.num_heads, self.d_k)
+        return x.transpose(0, 2, 1, 3)
+
+    def forward(self, Q, K, V, mask=None):
+        """
+        多頭注意力前向傳播
+
+        Args:
+            Q, K, V: 形狀為 (batch_size, seq_len, d_model)
+        """
+        batch_size = Q.shape[0]
+
+        # 線性投影
+        Q = np.matmul(Q, self.W_q)
+        K = np.matmul(K, self.W_k)
+        V = np.matmul(V, self.W_v)
+
+        # 分割成多個頭
+        Q = self.split_heads(Q, batch_size)  # (batch_size, num_heads, seq_len_q, d_k)
+        K = self.split_heads(K, batch_size)
+        V = self.split_heads(V, batch_size)
+
+        # 計算注意力
+        # 對每個頭分別計算
+        outputs = []
+        attention_weights_list = []
+
+        for i in range(self.num_heads):
+            output, attn_weights = self.attention.forward(
+                Q[:, i, :, :],
+                K[:, i, :, :],
+                V[:, i, :, :],
+                mask
+            )
+            outputs.append(output)
+            attention_weights_list.append(attn_weights)
+
+        # 連接所有頭
+        concat_output = np.concatenate(outputs, axis=-1)
+
+        # 最終線性投影
+        final_output = np.matmul(concat_output, self.W_o)
+
+        return final_output, attention_weights_list
+
+# 演示注意力機制
+def demonstrate_attention():
+    """演示注意力機制的工作原理"""
+    np.random.seed(42)
+
+    # 模擬輸入序列
+    batch_size = 1
+    seq_len = 5
+    d_model = 8
+
+    # 創建簡單的輸入（模擬詞嵌入）
+    X = np.random.randn(batch_size, seq_len, d_model)
+
+    # 自注意力（Q=K=V）
+    attention = ScaledDotProductAttention()
+    output, attention_weights = attention.forward(X, X, X)
+
+    print("=" * 60)
+    print("注意力機制演示")
+    print("=" * 60)
+    print(f"\n輸入形狀: {X.shape}")
+    print(f"輸出形狀: {output.shape}")
+    print(f"注意力權重形狀: {attention_weights.shape}")
+
+    # 視覺化注意力權重
+    plt.figure(figsize=(8, 6))
+    plt.imshow(attention_weights[0], cmap='viridis', aspect='auto')
+    plt.colorbar(label='Attention Weight')
+    plt.xlabel('Key Position')
+    plt.ylabel('Query Position')
+    plt.title('Self-Attention Weights Visualization')
+
+    # 添加數值標註
+    for i in range(seq_len):
+        for j in range(seq_len):
+            text = plt.text(j, i, f'{attention_weights[0, i, j]:.2f}',
+                          ha="center", va="center", color="white", fontsize=10)
+
+    plt.savefig('attention_weights.png', dpi=150, bbox_inches='tight')
+    plt.close()
+
+    # 多頭注意力演示
+    print("\n" + "=" * 60)
+    print("多頭注意力演示")
+    print("=" * 60)
+
+    num_heads = 4
+    mha = MultiHeadAttention(d_model, num_heads)
+    mha_output, mha_weights = mha.forward(X, X, X)
+
+    print(f"\n多頭注意力輸出形狀: {mha_output.shape}")
+    print(f"注意力頭數: {num_heads}")
+    print(f"每個頭的維度: {d_model // num_heads}")
+
+    # 視覺化多頭注意力
+    fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+    axes = axes.ravel()
+
+    for i in range(num_heads):
+        ax = axes[i]
+        im = ax.imshow(mha_weights[i][0], cmap='viridis', aspect='auto')
+        ax.set_title(f'Head {i+1}')
+        ax.set_xlabel('Key Position')
+        ax.set_ylabel('Query Position')
+        plt.colorbar(im, ax=ax)
+
+    plt.tight_layout()
+    plt.savefig('multi_head_attention.png', dpi=150, bbox_inches='tight')
+    plt.close()
+
+    print("\n注意力權重可視化已保存")
+
+demonstrate_attention()
+```
+
+### 10.10 張量操作與 Einstein Summation
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+def demonstrate_tensor_operations():
+    """演示張量操作"""
+    print("=" * 60)
+    print("張量操作演示")
+    print("=" * 60)
+
+    # 創建張量
+    A = np.random.randn(3, 4, 5)  # 3D 張量
+    B = np.random.randn(5, 6)     # 2D 張量 (矩陣)
+
+    print(f"\n張量 A 形狀: {A.shape}")
+    print(f"張量 B 形狀: {B.shape}")
+
+    # 張量縮約 (Tensor Contraction)
+    # 沿最後一個維度與 B 的第一個維度相乘
+    C = np.tensordot(A, B, axes=([2], [0]))
+    print(f"\n張量縮約 A ⊗ B 形狀: {C.shape}")
+
+    # Einstein Summation 演示
+    print("\n" + "=" * 60)
+    print("Einstein Summation 演示")
+    print("=" * 60)
+
+    # 示例 1: 矩陣乘法
+    X = np.random.randn(3, 4)
+    Y = np.random.randn(4, 5)
+
+    # 傳統方法
+    Z_traditional = np.matmul(X, Y)
+
+    # Einstein summation
+    Z_einsum = np.einsum('ij,jk->ik', X, Y)
+
+    print(f"\n矩陣乘法:")
+    print(f"  傳統方法結果形狀: {Z_traditional.shape}")
+    print(f"  Einsum 方法結果形狀: {Z_einsum.shape}")
+    print(f"  結果是否相同: {np.allclose(Z_traditional, Z_einsum)}")
+
+    # 示例 2: 批次矩陣乘法 (Batch Matrix Multiplication)
+    batch_size = 10
+    A_batch = np.random.randn(batch_size, 3, 4)
+    B_batch = np.random.randn(batch_size, 4, 5)
+
+    # 使用 einsum
+    C_batch = np.einsum('bij,bjk->bik', A_batch, B_batch)
+    print(f"\n批次矩陣乘法結果形狀: {C_batch.shape}")
+
+    # 示例 3: 注意力機制中的操作
+    print("\n" + "-" * 60)
+    print("注意力機制中的 Einstein Summation")
+    print("-" * 60)
+
+    batch_size, seq_len, d_model = 2, 4, 8
+    Q = np.random.randn(batch_size, seq_len, d_model)
+    K = np.random.randn(batch_size, seq_len, d_model)
+    V = np.random.randn(batch_size, seq_len, d_model)
+
+    # 計算注意力分數: Q @ K^T
+    scores_traditional = np.matmul(Q, K.transpose(0, 2, 1))
+    scores_einsum = np.einsum('bqd,bkd->bqk', Q, K)
+
+    print(f"  注意力分數 (傳統): {scores_traditional.shape}")
+    print(f"  注意力分數 (einsum): {scores_einsum.shape}")
+    print(f"  結果相同: {np.allclose(scores_traditional, scores_einsum)}")
+
+    # 常用的 Einstein Summation 模式
+    print("\n" + "=" * 60)
+    print("常用 Einstein Summation 模式")
+    print("=" * 60)
+
+    patterns = {
+        '矩陣轉置': ("ij->ji", np.random.randn(3, 4)),
+        '對角線求和 (跡)': ("ii->", np.random.randn(5, 5)),
+        '逐元素相乘後求和': ("i,i->", np.random.randn(10), np.random.randn(10)),
+        '外積': ("i,j->ij", np.random.randn(3), np.random.randn(4)),
+        '批次點積': ("bi,bi->b", np.random.randn(10, 5), np.random.randn(10, 5)),
+    }
+
+    for name, (pattern, *arrays) in patterns.items():
+        result = np.einsum(pattern, *arrays)
+        print(f"\n{name}:")
+        print(f"  模式: {pattern}")
+        if len(arrays) == 1:
+            print(f"  輸入形狀: {arrays[0].shape}")
+        else:
+            print(f"  輸入形狀: {[arr.shape for arr in arrays]}")
+        print(f"  輸出形狀: {result.shape if isinstance(result, np.ndarray) else 'scalar'}")
+
+demonstrate_tensor_operations()
+```
+
+### 10.11 模型壓縮：低秩分解應用
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+class LowRankDecomposition:
+    """低秩分解用於模型壓縮"""
+
+    def __init__(self, rank):
+        """
+        Args:
+            rank: 目標秩
+        """
+        self.rank = rank
+
+    def decompose_weight(self, W):
+        """
+        使用 SVD 將權重矩陣分解為低秩近似
+
+        Args:
+            W: 原始權重矩陣 (m, n)
+
+        Returns:
+            W_approx: 低秩近似 (m, n)
+            U_r: 左奇異向量 (m, rank)
+            s_r: 奇異值 (rank,)
+            VT_r: 右奇異向量 (rank, n)
+        """
+        # SVD 分解
+        U, s, VT = np.linalg.svd(W, full_matrices=False)
+
+        # 保留前 rank 個成分
+        U_r = U[:, :self.rank]
+        s_r = s[:self.rank]
+        VT_r = VT[:self.rank, :]
+
+        # 重建近似
+        W_approx = U_r @ np.diag(s_r) @ VT_r
+
+        return W_approx, U_r, s_r, VT_r
+
+    def compression_ratio(self, original_shape):
+        """
+        計算壓縮比
+
+        Args:
+            original_shape: (m, n)
+        """
+        m, n = original_shape
+        original_params = m * n
+        compressed_params = self.rank * (m + n + 1)  # U_r + s_r + VT_r
+        ratio = compressed_params / original_params
+
+        return ratio, original_params, compressed_params
+
+def demonstrate_model_compression():
+    """演示模型壓縮"""
+    print("=" * 60)
+    print("神經網路權重低秩分解壓縮")
+    print("=" * 60)
+
+    # 模擬一個大的全連接層權重
+    np.random.seed(42)
+    m, n = 1000, 2000  # 輸入維度 -> 輸出維度
+    W_original = np.random.randn(m, n) * 0.01
+
+    print(f"\n原始權重形狀: {W_original.shape}")
+    print(f"原始參數量: {W_original.size:,}")
+
+    # 測試不同的秩
+    ranks = [10, 50, 100, 200]
+
+    results = {}
+    for rank in ranks:
+        decomp = LowRankDecomposition(rank)
+        W_approx, U_r, s_r, VT_r = decomp.decompose_weight(W_original)
+
+        # 計算重建誤差
+        reconstruction_error = np.linalg.norm(W_original - W_approx, 'fro') / \
+                              np.linalg.norm(W_original, 'fro')
+
+        # 計算壓縮比
+        ratio, orig_params, comp_params = decomp.compression_ratio(W_original.shape)
+
+        results[rank] = {
+            'error': reconstruction_error,
+            'compression_ratio': ratio,
+            'original_params': orig_params,
+            'compressed_params': comp_params,
+            'singular_values': s_r
+        }
+
+        print(f"\nRank {rank}:")
+        print(f"  重建誤差: {reconstruction_error:.4%}")
+        print(f"  壓縮參數量: {comp_params:,}")
+        print(f"  壓縮比: {ratio:.2%}")
+        print(f"  節省參數: {(1-ratio):.2%}")
+
+    # 視覺化結果
+    fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+
+    # 子圖 1: 重建誤差 vs 秩
+    ax1 = axes[0, 0]
+    errors = [results[r]['error'] for r in ranks]
+    ax1.plot(ranks, errors, 'bo-', linewidth=2, markersize=8)
+    ax1.set_xlabel('Rank')
+    ax1.set_ylabel('Reconstruction Error')
+    ax1.set_title('Reconstruction Error vs Rank')
+    ax1.grid(True, alpha=0.3)
+
+    # 子圖 2: 壓縮比 vs 秩
+    ax2 = axes[0, 1]
+    ratios = [results[r]['compression_ratio'] for r in ranks]
+    ax2.plot(ranks, ratios, 'go-', linewidth=2, markersize=8)
+    ax2.axhline(y=1.0, color='r', linestyle='--', label='原始大小')
+    ax2.set_xlabel('Rank')
+    ax2.set_ylabel('Compression Ratio')
+    ax2.set_title('Compression Ratio vs Rank')
+    ax2.legend()
+    ax2.grid(True, alpha=0.3)
+
+    # 子圖 3: 參數量比較
+    ax3 = axes[1, 0]
+    params_original = [results[r]['original_params'] for r in ranks]
+    params_compressed = [results[r]['compressed_params'] for r in ranks]
+
+    x = np.arange(len(ranks))
+    width = 0.35
+
+    bars1 = ax3.bar(x - width/2, params_original, width, label='原始', alpha=0.7)
+    bars2 = ax3.bar(x + width/2, params_compressed, width, label='壓縮後', alpha=0.7)
+
+    ax3.set_xlabel('Rank')
+    ax3.set_ylabel('參數量')
+    ax3.set_title('參數量比較')
+    ax3.set_xticks(x)
+    ax3.set_xticklabels(ranks)
+    ax3.legend()
+    ax3.grid(True, alpha=0.3, axis='y')
+
+    # 子圖 4: 奇異值分佈
+    ax4 = axes[1, 1]
+
+    # 計算完整 SVD 以顯示所有奇異值
+    U, s_full, VT = np.linalg.svd(W_original, full_matrices=False)
+
+    ax4.semilogy(s_full, 'b-', linewidth=2, label='所有奇異值')
+    for rank in ranks:
+        ax4.axvline(x=rank, linestyle='--', alpha=0.7, label=f'Rank {rank}')
+
+    ax4.set_xlabel('Index')
+    ax4.set_ylabel('Singular Value (log scale)')
+    ax4.set_title('奇異值分佈')
+    ax4.legend()
+    ax4.grid(True, alpha=0.3)
+
+    plt.tight_layout()
+    plt.savefig('low_rank_compression.png', dpi=150, bbox_inches='tight')
+    plt.close()
+
+    print("\n可視化結果已保存")
+
+    # 實際應用示例：壓縮線性層
+    print("\n" + "=" * 60)
+    print("實際應用：壓縮神經網路層")
+    print("=" * 60)
+
+    class CompressedLinearLayer:
+        """壓縮的線性層"""
+        def __init__(self, W, rank):
+            decomp = LowRankDecomposition(rank)
+            _, self.U_r, self.s_r, self.VT_r = decomp.decompose_weight(W)
+
+        def forward(self, x):
+            """
+            前向傳播: y = x @ W ≈ x @ (U_r @ diag(s_r) @ VT_r)
+                     = ((x @ U_r) @ diag(s_r)) @ VT_r
+            """
+            # 分步計算以節省記憶體
+            temp1 = x @ self.U_r
+            temp2 = temp1 * self.s_r[np.newaxis, :]
+            output = temp2 @ self.VT_r
+            return output
+
+    # 測試壓縮層
+    batch_size = 32
+    x_input = np.random.randn(batch_size, m)
+
+    # 原始層
+    y_original = x_input @ W_original
+
+    # 壓縮層 (rank=100)
+    compressed_layer = CompressedLinearLayer(W_original, rank=100)
+    y_compressed = compressed_layer.forward(x_input)
+
+    # 計算輸出差異
+    output_error = np.linalg.norm(y_original - y_compressed) / np.linalg.norm(y_original)
+
+    print(f"\n批次大小: {batch_size}")
+    print(f"輸入維度: {m}")
+    print(f"輸出維度: {n}")
+    print(f"壓縮秩: 100")
+    print(f"輸出誤差: {output_error:.4%}")
+    print(f"\n結論: 使用低秩分解可以大幅減少參數量，同時保持合理的精度")
+
+demonstrate_model_compression()
+```
+
 ## 12. 延伸閱讀與實務參考
 
 - 深入了解更多分解法：LU、QR、Cholesky、Jordan Normal Form 等。
@@ -476,8 +975,29 @@ plt.close()
 
 ### 推薦資源
 
+**書籍：**
+- 《Linear Algebra and Its Applications》 (Gilbert Strang) - 經典線性代數教材
+- 《Matrix Computations》 (Golub & Van Loan) - 數值線性代數聖經
+- 《The Matrix Cookbook》 - 矩陣運算速查手冊
+
+**線上課程：**
 - [NumPy 線性代數文檔](https://numpy.org/doc/stable/reference/routines.linalg.html)
 - [3Blue1Brown - 線性代數的本質](https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab)
 - [MIT 18.06 Linear Algebra](https://ocw.mit.edu/courses/mathematics/18-06-linear-algebra-spring-2010/)
-- [The Matrix Cookbook](https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf)
+- [Fast.ai Numerical Linear Algebra](https://github.com/fastai/numerical-linear-algebra)
+
+**論文與文章：**
+- **Attention Is All You Need** (Vaswani et al., 2017) - Transformer 架構
+- **LoRA: Low-Rank Adaptation** (Hu et al., 2021) - 低秩適應用於大模型微調
+- **Tensor Decompositions and Applications** (Kolda & Bader, 2009) - 張量分解綜述
+
+**實用工具：**
+- **NumPy** - Python 科學計算基礎
+- **SciPy** - 科學計算工具包
+- **PyTorch / TensorFlow** - 深度學習框架（內建張量運算）
+- **Einops** - Einstein 記號的 Pythonic 實現
+
+---
+
+**總結：** 線性代數是深度學習的數學語言。從基礎的矩陣運算到 Transformer 的注意力機制，從 PCA 降維到模型壓縮，線性代數無處不在。掌握這些概念和工具，將幫助你更深入地理解現代深度學習技術。
 
