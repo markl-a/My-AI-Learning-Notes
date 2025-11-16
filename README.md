@@ -79,9 +79,41 @@
 
 這邊主要是根據 LLM course 上面的目錄為基礎的加深以及補強。
 
-主要內容為數學基礎,資料分析跟處理,機器學習,深度學習中的 NLP 以及 CV 和 MLOps
+主要內容為數學基礎、資料分析跟處理、機器學習、深度學習中的 NLP 以及 CV 和 MLOps
 
 (為原內容再加深之外再加上CV 跟 MLOps等工作上可能會用到的內容)
+
+**📁 詳細內容請參閱：[1.從AI到LLM基礎/README.md](./1.從AI到LLM基礎/README.md)** - 包含完整的學習路徑、實作項目建議和最新技術更新
+
+### 🎯 學習目標
+
+本章節涵蓋從傳統機器學習到深度學習的完整知識體系：
+
+- ✅ **數學基礎**：線性代數、微積分、機率統計、優化理論
+- ✅ **Python 與資料科學**：NumPy、Pandas、Matplotlib、Scikit-learn
+- ✅ **機器學習**：傳統 ML 演算法、特徵工程、模型評估
+- ✅ **深度學習**：TensorFlow、PyTorch、Keras 三大框架
+- ✅ **電腦視覺**：CNN、物件檢測、圖像分割
+- ✅ **自然語言處理**：Transformer、BERT、GPT 系列
+- ✅ **MLOps 基礎**：模型部署、版本控制、實驗追蹤
+
+### 📚 目錄結構
+
+```
+1.從AI到LLM基礎/
+├── 1.Math_4_ML/              # 機器學習數學基礎
+├── 2.AI_Intro/               # AI 簡介與發展歷史
+├── 3.ML_&_Data_Analysis/     # 機器學習與資料分析
+└── 4.DL/                     # 深度學習(包含CV和NLP)
+```
+
+### 🚀 快速開始指南
+
+- **完全新手**：數學基礎 → Python 基礎 → 機器學習入門（預計 8-13 週）
+- **有程式基礎**：數學複習 → ML 演算法 → 深度學習（預計 10-14 週）
+- **準備學 LLM**：Transformer 架構 → NLP 基礎 → Hugging Face（預計 4-5 週）
+
+---
 
 之後再新增[ChatGPT for Data Analytics : Full Course](https://youtu.be/uhyMqbZI6rM?si=ebSO8H07ELUZn57z)的學習紀錄跟內容。
 
@@ -289,9 +321,75 @@ NLP 是人工智慧的一個令人著迷的分支，它彌合了人類語言和�
 
 📚 Resources:
 - [RealPython - NLP with spaCy in Python](https://realpython.com/natural-language-processing-spacy-python/): 有關 Python 中用於 NLP 任務的 spaCy 函式庫的詳細指南。
-- [Kaggle - NLP Guide](https://www.kaggle.com/learn-guide/natural-language-processing):一些 notebooks 和資源，用於 Python 中 NLP 的實踐解釋。 
+- [Kaggle - NLP Guide](https://www.kaggle.com/learn-guide/natural-language-processing):一些 notebooks 和資源，用於 Python 中 NLP 的實踐解釋。
 
 </details>
+
+---
+
+### 💡 實作項目建議
+
+#### 初級項目（適合剛入門者）
+1. **鳶尾花分類**：使用 Scikit-learn 實作經典分類問題
+2. **房價預測**：線性回歸與特徵工程實戰
+3. **手寫數字辨識**：使用 CNN 實作 MNIST
+
+#### 中級項目（有一定基礎）
+1. **Kaggle 競賽參與**：選擇入門競賽（如 Titanic）完整實作
+2. **圖像分類器**：使用遷移學習（ResNet、VGG）建立應用
+3. **情感分析系統**：使用 LSTM 或 Transformer 分析文本情感
+
+#### 進階項目（準備進入 LLM 領域）
+1. **物件檢測系統**：使用 YOLOv8 建立實時檢測應用
+2. **圖像分割應用**：使用 SAM2 進行精確分割
+3. **文本生成系統**：使用 GPT-2 或小型 LLM 進行微調
+
+**更多實作建議請參閱**：[1.從AI到LLM基礎/README.md#實作項目建議](./1.從AI到LLM基礎/README.md#-實作項目建議)
+
+---
+
+### 📅 2024-2025 最新技術補充（針對基礎學習）
+
+#### 深度學習框架最新發展
+- **PyTorch 2.x**：引入 `torch.compile()` 大幅提升推論效能，成為學術界和工業界首選
+- **Keras 3**：多後端支援（TensorFlow、PyTorch、JAX），提供統一 API
+- **TensorFlow 2.16+**：改進的分散式訓練支援，更好的 TPU 整合
+
+#### 電腦視覺最新里程碑
+- **Segment Anything Model 2 (SAM2)**：Meta 開源的通用影像與視訊分割模型
+- **YOLOv10**：最新的實時物件檢測模型，效能與準確度大幅提升
+- **Vision Transformer (ViT) 變體**：DeiT、Swin Transformer 等，將 Transformer 成功應用於視覺任務
+
+#### NLP 到 LLM 的橋樑
+- **Transformer 架構持續演進**：為理解現代 LLM 打下堅實基礎
+- **多模態模型**：CLIP、BLIP 等視覺-語言模型，融合 CV 和 NLP
+- **高效微調技術**：LoRA、QLoRA 等參數高效方法，降低微調成本
+
+#### 實用工具與平台
+- **Hugging Face Transformers**：已成為 NLP 和多模態模型的標準工具庫
+- **Kaggle 與 Colab**：免費 GPU 資源，適合學習和實驗
+- **MLflow**：實驗追蹤與模型管理，學習 MLOps 的最佳起點
+
+---
+
+### ⚡ 學習建議與注意事項
+
+1. **循序漸進很重要**：不要跳過數學基礎，它們是理解演算法的關鍵
+2. **實作比理論更重要**：每學一個概念都要自己寫程式碼驗證
+3. **選擇一個框架深入**：PyTorch、TensorFlow 或 Keras 選一個先精通
+4. **參與社群與競賽**：Kaggle 是最好的實戰平台，可以從他人方案中學習
+5. **建立自己的作品集**：將學習成果整理成 GitHub 專案，對求職很有幫助
+6. **關注最新發展但不盲從**：基礎扎實比追逐新技術更重要
+
+---
+
+### 🔗 相關章節連結
+
+完成本章節的學習後，建議接續學習：
+
+- **[2.深入LLM模型工程與LLM運維](#深入llm模型工程與llm運維)**：深入學習 LLM 的架構、訓練與部署
+- **[3.LLM應用工程](#llm應用工程)**：使用 LLM 開發實際應用（RAG、Agent 等）
+- **[5.DeepLearningAI短課程學習紀錄](#deeplearningai短課程學習紀錄)**：系統化的深度學習課程筆記
 
 <br>
 
