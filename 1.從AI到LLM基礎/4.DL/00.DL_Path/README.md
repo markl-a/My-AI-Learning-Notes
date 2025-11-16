@@ -1,6 +1,31 @@
-## DL/Dive into Deep learing 個人複習筆記
+## DL/Dive into Deep Learning 個人複習筆記
 
-以下章節程式碼的部分會以 pytorch 為主
+> 🔄 **最後更新：** 2025-01
+
+以下章節程式碼的部分會以 **PyTorch** 為主
+
+---
+
+## ⚠️ 重要提示
+
+**關於 MXNet/Gluon：**
+
+部分舊版筆記（特別是 `D2L_Jupyter_Notebooks` 目錄）包含使用 **Apache MXNet** 和 **Gluon API** 的程式碼。
+
+**請注意：**
+- ❌ Apache MXNet 已於 2023 年停止積極開發
+- ❌ MXNet 不再接收主要更新和安全修補
+- ✅ **建議使用 PyTorch 版本的程式碼**
+- ✅ 所有主要章節都有 PyTorch 實作版本
+
+這些 MXNet 筆記僅作為歷史參考保留。如果您是新學習者，請直接使用 PyTorch 版本的程式碼。
+
+**推薦學習路徑：**
+1. 使用本目錄中的 PyTorch 版本筆記
+2. 參考官方 [動手學深度學習 - PyTorch 版](https://zh.d2l.ai/)
+3. 結合官方線上教材獲得最佳學習體驗
+
+---
 
 ### 1_引言
 
