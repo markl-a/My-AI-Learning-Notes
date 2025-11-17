@@ -1,37 +1,146 @@
-# 我的 AI學習相關筆記
-## 相關的框架以及算法學習
-0. [使用 Python 進行 ETL的流程](https://github.com/markl-a/My-AI-Learning-Notes/blob/main/1.%E5%BE%9EAI%E5%88%B0LLM%E5%9F%BA%E7%A4%8E/3.ML_%26_Data_Analysis/5_Best_Practices_and_MLOps_Basics/%E4%BD%BF%E7%94%A8_Python_%E9%80%B2%E8%A1%8C%E7%AE%A1%E9%81%93_ETL.ipynb)
-1. [python快速入門](https://github.com/markl-a/My-AI-Learning-Notes/blob/main/1.%E5%BE%9EAI%E5%88%B0LLM%E5%9F%BA%E7%A4%8E/2.AI_Intro/1.%E5%BF%AB%E9%80%9F%E5%85%A5%E9%96%80python.ipynb)
-2. [numpy,pandas學習紀錄](https://github.com/markl-a/My-AI-Learning-Notes/blob/main/1.%E5%BE%9EAI%E5%88%B0LLM%E5%9F%BA%E7%A4%8E/3.ML_%26_Data_Analysis/1_Data_Acquisition_and_Analysis/2.Python%E7%9A%84%EF%BC%AD%EF%BC%AC%E7%9B%B8%E9%97%9C%E6%A8%A1%E5%A1%8A%E5%A5%97%E4%BB%B6%E4%BD%BF%E7%94%A8.ipynb)
-3. [tensorflow 學習紀錄](https://github.com/markl-a/My-AI-Learning-Notes/tree/main/1.%E5%BE%9EAI%E5%88%B0LLM%E5%9F%BA%E7%A4%8E/4.DL/01.Tensorflow2)
-4. [keras 學習紀錄](https://github.com/markl-a/My-AI-Learning-Notes/tree/main/1.%E5%BE%9EAI%E5%88%B0LLM%E5%9F%BA%E7%A4%8E/4.DL/02.Keras3)
-5. [pytorch 學習紀錄](https://github.com/markl-a/My-AI-Learning-Notes/tree/main/1.%E5%BE%9EAI%E5%88%B0LLM%E5%9F%BA%E7%A4%8E/4.DL/03.Pytorch)
-6. [yolo 使用](https://github.com/markl-a/My-AI-Learning-Notes/tree/main/1.%E5%BE%9EAI%E5%88%B0LLM%E5%9F%BA%E7%A4%8E/4.DL/04.Ultralytics)
-7. [galore的嘗試以及medical chat](https://github.com/markl-a/My-AI-Learning-Notes/tree/main/2.%E6%B7%B1%E5%85%A5LLM%E6%A8%A1%E5%9E%8B%E5%B7%A5%E7%A8%8B%E8%88%87LLM%E9%81%8B%E7%B6%AD/GaLore_Demo)
-8. [langchain 相關的學習紀錄](https://github.com/markl-a/My-AI-Learning-Notes/tree/main/3.LLM%E6%87%89%E7%94%A8%E5%B7%A5%E7%A8%8B/1.LangchainDemos)
-9. [MLflow 入門介紹](https://github.com/markl-a/My-AI-Learning-Notes/blob/main/1.%E5%BE%9EAI%E5%88%B0LLM%E5%9F%BA%E7%A4%8E/4.DL/MLFLOW%E5%85%A5%E9%96%80%E4%BB%8B%E7%B4%B9%EF%BC%9A%E9%80%9A%E9%81%8ECOLAB%2C%20NGROK%2C%20PYCARET.ipynb)
-10. [視訊品質評估相關論文閱讀與復現](https://github.com/markl-a/My-AI-Learning-Notes/tree/main/1.%E5%BE%9EAI%E5%88%B0LLM%E5%9F%BA%E7%A4%8E/4.DL/06.Paper_with_code/Exploring%20Video%20Quality%20Assessment%20on%20User%20Generated%20Contents%20from%20Aesthetic%20and%20Technical%20Perspectives)
-11. [Segment Anything 2 論文解讀與範例使用](https://github.com/markl-a/My-AI-Learning-Notes/tree/main/1.%E5%BE%9EAI%E5%88%B0LLM%E5%9F%BA%E7%A4%8E/4.DL/03.Pytorch/3.Segment%20Anything%202)
-12. [langchain 多模態 RAG 的範例修改](https://github.com/markl-a/LLM-agent-Demo/tree/main/2.Multi_modal_RAG)
+# 我的 AI 學習相關筆記
+
+> **台灣地區繁體中文版本** | 完整的 AI 工程師學習路徑指南
+> 從基礎數學到 LLM 應用開發的系統化學習筆記
+
+[![GitHub stars](https://img.shields.io/github/stars/markl-a/My-AI-Learning-Notes?style=social)](https://github.com/markl-a/My-AI-Learning-Notes)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Last Update](https://img.shields.io/badge/last%20update-2025--01-green.svg)](https://github.com/markl-a/My-AI-Learning-Notes)
+
+## 📋 相關的框架以及演算法學習
+
+本專案涵蓋從基礎到進階的 AI 技術學習筆記，包含完整的實作範例與專案演練。
+### 核心學習模組
+
+0. **[使用 Python 進行 ETL 的流程](https://github.com/markl-a/My-AI-Learning-Notes/blob/main/1.%E5%BE%9EAI%E5%88%B0LLM%E5%9F%BA%E7%A4%8E/3.ML_%26_Data_Analysis/5_Best_Practices_and_MLOps_Basics/%E4%BD%BF%E7%94%A8_Python_%E9%80%B2%E8%A1%8C%E7%AE%A1%E9%81%93_ETL.ipynb)**
+   - 資料抽取（Extract）、轉換（Transform）、載入（Load）完整流程
+   - 實作範例：使用 Pandas 處理 CSV、JSON、SQL 資料源
+   - 進階技巧：資料清洗、異常值處理、資料驗證
+
+1. **[Python 快速入門](https://github.com/markl-a/My-AI-Learning-Notes/blob/main/1.%E5%BE%9EAI%E5%88%B0LLM%E5%9F%BA%E7%A4%8E/2.AI_Intro/1.%E5%BF%AB%E9%80%9F%E5%85%A5%E9%96%80python.ipynb)**
+   - Python 基礎語法：變數、資料型別、控制流程
+   - 物件導向程式設計：類別、繼承、多型
+   - 實用套件：collections、itertools、functools
+
+2. **[NumPy、Pandas 學習記錄](https://github.com/markl-a/My-AI-Learning-Notes/blob/main/1.%E5%BE%9EAI%E5%88%B0LLM%E5%9F%BA%E7%A4%8E/3.ML_%26_Data_Analysis/1_Data_Acquisition_and_Analysis/2.Python%E7%9A%84%EF%BC%AD%EF%BC%AC%E7%9B%B8%E9%97%9C%E6%A8%A1%E5%A1%8A%E5%A5%97%E4%BB%B6%E4%BD%BF%E7%94%A8.ipynb)**
+   - NumPy 陣列操作：索引、切片、廣播機制
+   - Pandas DataFrame 進階技巧：merge、groupby、pivot_table
+   - 效能優化：向量化運算、記憶體管理
+
+3. **[TensorFlow 學習記錄](https://github.com/markl-a/My-AI-Learning-Notes/tree/main/1.%E5%BE%9EAI%E5%88%B0LLM%E5%9F%BA%E7%A4%8E/4.DL/01.Tensorflow2)**
+   - TensorFlow 2.x 完整教學：Eager Execution、tf.function
+   - Keras API 整合：Sequential、Functional、Subclassing 模型
+   - 模型部署：TensorFlow Serving、TensorFlow Lite
+
+4. **[Keras 學習記錄](https://github.com/markl-a/My-AI-Learning-Notes/tree/main/1.%E5%BE%9EAI%E5%88%B0LLM%E5%9F%BA%E7%A4%8E/4.DL/02.Keras3)**
+   - Keras 3.0 多後端支援：TensorFlow、PyTorch、JAX
+   - 自訂層（Custom Layers）與模型
+   - Callback 機制：EarlyStopping、ModelCheckpoint、TensorBoard
+
+5. **[PyTorch 學習記錄](https://github.com/markl-a/My-AI-Learning-Notes/tree/main/1.%E5%BE%9EAI%E5%88%B0LLM%E5%9F%BA%E7%A4%8E/4.DL/03.Pytorch)**
+   - PyTorch 基礎：Tensor 操作、自動微分
+   - Dataset 與 DataLoader 設計模式
+   - torch.compile() 加速推論（PyTorch 2.x）
+   - 分散式訓練：DDP、FSDP
+
+6. **[YOLO 使用](https://github.com/markl-a/My-AI-Learning-Notes/tree/main/1.%E5%BE%9EAI%E5%88%B0LLM%E5%9F%BA%E7%A4%8E/4.DL/04.Ultralytics)**
+   - YOLOv8、YOLOv9、YOLOv10 完整比較
+   - 物件偵測、實例分割、姿態估計
+   - 自訂資料集訓練：標註工具使用（Roboflow、CVAT）
+
+7. **[GaLore 的嘗試以及 Medical Chat](https://github.com/markl-a/My-AI-Learning-Notes/tree/main/2.%E6%B7%B1%E5%85%A5LLM%E6%A8%A1%E5%9E%8B%E5%B7%A5%E7%A8%8B%E8%88%87LLM%E9%81%8B%E7%B6%AD/GaLore_Demo)**
+   - GaLore 記憶體高效訓練技術
+   - 醫療對話系統實作
+   - 與 LoRA、QLoRA 的比較分析
+
+8. **[LangChain 相關的學習記錄](https://github.com/markl-a/My-AI-Learning-Notes/tree/main/3.LLM%E6%87%89%E7%94%A8%E5%B7%A5%E7%A8%8B/1.LangchainDemos)**
+   - LangChain 核心概念：Chains、Agents、Memory
+   - LangGraph 工作流程編排
+   - LangSmith 可觀測性與除錯
+
+9. **[MLflow 入門介紹](https://github.com/markl-a/My-AI-Learning-Notes/blob/main/1.%E5%BE%9EAI%E5%88%B0LLM%E5%9F%BA%E7%A4%8E/4.DL/MLFLOW%E5%85%A5%E9%96%80%E4%BB%8B%E7%B4%B9%EF%BC%9A%E9%80%9A%E9%81%8ECOLAB%2C%20NGROK%2C%20PYCARET.ipynb)**
+   - 實驗追蹤、模型註冊、模型部署
+   - MLflow Projects 可重現性
+   - MLflow Models 多框架支援
+
+10. **[視訊品質評估相關論文閱讀與復現](https://github.com/markl-a/My-AI-Learning-Notes/tree/main/1.%E5%BE%9EAI%E5%88%B0LLM%E5%9F%BA%E7%A4%8E/4.DL/06.Paper_with_code/Exploring%20Video%20Quality%20Assessment%20on%20User%20Generated%20Contents%20from%20Aesthetic%20and%20Technical%20Perspectives)**
+    - DOVER、FAST-VQA 等論文實作
+    - 視訊品質評估指標與方法
+
+11. **[Segment Anything 2 論文解讀與範例使用](https://github.com/markl-a/My-AI-Learning-Notes/tree/main/1.%E5%BE%9EAI%E5%88%B0LLM%E5%9F%BA%E7%A4%8E/4.DL/03.Pytorch/3.Segment%20Anything%202)**
+    - SAM2 架構分析：記憶體注意力機制
+    - 影片物件追蹤實作
+    - 醫學影像分割應用
+
+12. **[LangChain 多模態 RAG 的範例修改](https://github.com/markl-a/LLM-agent-Demo/tree/main/2.Multi_modal_RAG)**
+    - 圖文混合檢索增強生成
+    - CLIP、BLIP 視覺編碼器整合
+    - PDF、圖片、表格混合處理
 
 
-# 目錄
+# 📑 目錄
 
 - [簡介](#簡介)
+- [學習路徑建議](#學習路徑建議)
+- [2024-2025 最新技術追蹤](#2024-2025-最新技術追蹤)
 - [算法與資料結構](#算法與資料結構)
 - [從AI到LLM基礎](#從ai到llm基礎)
 - [深入LLM模型工程與LLM運維](#深入llm模型工程與llm運維)
 - [LLM應用工程](#llm應用工程)
+- [實作專案集錦](#實作專案集錦)
 - [相關的更新Blog](#相關的更新blog)
 - [DeepLearningAI短課程學習紀錄](#deeplearningai短課程學習紀錄)
+- [常見問題與解答](#常見問題與解答)
+- [學習資源彙整](#學習資源彙整)
 
 ![cover](./img/aie_cover.png)
 
 ## 簡介
 
-這個 Notes 主要是我自己對於AI工程師相關的知識以及技能的了解與整理，主要的目錄是根據[llm-course](https://github.com/mlabonne/llm-course)進行延伸以及擴展，並加上一些AI, ML, DL以及一些資料分析相關的必備知識與技能整理。
+這個 Notes 主要是我自己對於 AI 工程師相關的知識以及技能的了解與整理，主要的目錄是根據 [llm-course](https://github.com/mlabonne/llm-course) 進行延伸以及擴展，並加上一些 AI、ML、DL 以及一些資料分析相關的必備知識與技能整理。
 
-不過目前會是以LLM為主，除了我之前就弄過的相關內容之外，其他的內容會是必須的才會被添加。
+不過目前會是以 LLM 為主，除了我之前就弄過的相關內容之外，其他的內容會是必須的才會被添加。
+
+### 💡 本專案特色
+
+- ✅ **台灣地區繁體中文**：使用台灣慣用的專業術語與表達方式
+- ✅ **完整實作範例**：每個章節都包含可執行的 Jupyter Notebook 和程式碼
+- ✅ **專案導向學習**：從實際專案中學習技術應用，而非單純理論
+- ✅ **持續更新**：追蹤 2024-2025 最新技術發展與產業趨勢
+- ✅ **開源社群**：歡迎提供建議、回報錯誤、貢獻內容
+
+### 🎯 適合對象
+
+| 身分 | 學習重點 | 預期成果 |
+|------|---------|----------|
+| 📚 **AI 初學者** | 從數學基礎開始系統化學習 | 8-12 個月掌握 AI/ML 基礎 |
+| 💻 **軟體工程師** | 快速掌握 LLM 應用開發 | 2-3 個月可開發 RAG 系統 |
+| 🔬 **資料科學家** | 深入學習深度學習與 LLM | 4-6 個月精通模型訓練與優化 |
+| 🏢 **企業開發者** | 學習將 AI 整合到產品中 | 3-4 個月可部署生產級應用 |
+| 🎓 **研究人員** | 深入模型架構與前沿技術 | 持續學習最新論文與實作 |
+
+### 📊 學習成果展示
+
+完成本課程後，您將能夠：
+
+1. **建立完整的 ML/DL Pipeline**
+   - 資料收集 → 預處理 → 模型訓練 → 評估 → 部署
+   - 實作專案：手寫數字辨識、情感分析系統
+
+2. **開發 LLM 應用**
+   - RAG 系統：結合外部知識庫的問答機器人
+   - Agent 系統：多步驟推理的自主 AI
+   - 實作專案：台灣繁中客服機器人、文件分析助手
+
+3. **微調與部署模型**
+   - 使用 LoRA/QLoRA 微調開源 LLM
+   - 量化與優化：GGUF、GPTQ、AWQ
+   - 部署：vLLM、Ollama、TensorRT-LLM
+
+4. **掌握 MLOps 流程**
+   - 實驗追蹤：MLflow、Weights & Biases
+   - 模型監控：LangSmith、Arize Phoenix
+   - CI/CD：GitHub Actions、Docker
 
 ## 2024-2025 最新技術追蹤
 
@@ -69,11 +178,198 @@
 
 ## 算法與資料結構
 
-這邊主要會是我算法提練習的紀錄以及閱讀的心得，因為我不是大學教授或專家等級的，所以目前難免會有點錯誤。
+這邊主要會是我算法練習的記錄以及閱讀的心得。雖然我不是大學教授或專家等級的，所以目前難免會有些錯誤，歡迎大家指正。
 
-之後補上專業的相關內容以及實作心得。
+**我的算法題練習倉庫**：[LeetcodePractice](https://github.com/markl-a/LeetcodePractice)
 
-我算法題練習的倉庫:[LeetcodePractice](https://github.com/markl-a/LeetcodePractice)
+### 🎯 為什麼 AI 工程師需要學演算法？
+
+在深度學習時代，許多人質疑是否還需要學習傳統演算法。答案是：**絕對需要！**
+
+1. **優化模型效能**：理解時間/空間複雜度，選擇合適的資料結構
+   - 範例：選擇 HashTable 而非 List 進行查找，從 O(n) 優化到 O(1)
+
+2. **設計高效 Pipeline**：資料處理、特徵工程需要高效演算法
+   - 範例：使用堆積（Heap）處理 Top-K 問題，比排序更高效
+
+3. **理解深度學習**：許多 DL 演算法本質是圖論、動態規劃的應用
+   - 範例：Transformer 的自注意力機制本質是圖的全連接
+   - 範例：Beam Search 是基於優先佇列的貪心演算法
+
+4. **技術面試必備**：FAANG 等大廠 AI 職位仍重視演算法能力
+   - Google Brain、Meta AI、OpenAI 等團隊的面試都包含演算法題
+
+### 📚 學習重點
+
+#### 必備資料結構
+
+以下是 AI 工程師最常用的資料結構及其在 AI 中的應用：
+
+| 資料結構 | AI 應用場景 | 複雜度優勢 |
+|---------|------------|----------|
+| **陣列與字串** | 資料預處理、Tokenization | O(1) 存取 |
+| **雜湊表** | 詞彙表（Vocabulary）、去重 | O(1) 查找 |
+| **樹與圖** | Transformer 注意力、知識圖譜 | 結構化資料表達 |
+| **堆疊與佇列** | BFS/DFS、任務排程 | O(1) 插入刪除 |
+| **優先佇列（Heap）** | Top-K 問題、Beam Search | O(log n) 插入 |
+| **前綴樹（Trie）** | 自動補全、分詞 | O(m) 查找（m=字串長度） |
+
+#### 核心演算法
+
+**1. 排序與搜尋**
+- **快速排序、合併排序**：O(n log n) 時間複雜度
+  - 應用：模型評估時的排序、超參數網格搜尋
+- **二分搜尋**：O(log n) 查找
+  - 應用：模型超參數調整、閾值選擇
+
+**2. 動態規劃**
+- **背包問題**：資源分配（記憶體、GPU）
+  - 應用：模型壓縮、神經架構搜尋（NAS）
+- **最長公共子序列（LCS）**：文字相似度
+  - 應用：文字差異比對、序列對齊
+
+**3. 圖論**
+- **BFS/DFS**：知識圖譜遍歷
+  - 應用：多跳推理、社群偵測
+- **最短路徑（Dijkstra）**：推薦系統
+  - 應用：社群網路分析、路徑規劃
+- **拓樸排序**：任務依賴管理
+  - 應用：計算圖優化、DAG 調度
+
+**4. 貪心演算法**
+- **Huffman 編碼**：資料壓縮
+  - 應用：模型量化、資料傳輸
+- **區間排程**：GPU 任務排程
+  - 應用：多任務訓練、批次處理優化
+
+### 💻 實戰練習
+
+#### LeetCode 推薦題單（AI 工程師特化版）
+
+**基礎題（30 題）** - 建立扎實基礎
+
+```
+陣列：
+- LeetCode 1: Two Sum（雜湊表基礎）
+- LeetCode 26: Remove Duplicates from Sorted Array
+- LeetCode 283: Move Zeroes
+- LeetCode 88: Merge Sorted Array
+
+字串：
+- LeetCode 125: Valid Palindrome
+- LeetCode 344: Reverse String
+- LeetCode 242: Valid Anagram
+- LeetCode 49: Group Anagrams（適合 Tokenization）
+
+雜湊表：
+- LeetCode 1: Two Sum
+- LeetCode 217: Contains Duplicate
+- LeetCode 383: Ransom Note
+- LeetCode 454: 4Sum II
+
+鏈結串列：
+- LeetCode 21: Merge Two Sorted Lists
+- LeetCode 141: Linked List Cycle
+- LeetCode 206: Reverse Linked List
+```
+
+**中階題（50 題）** - 深入理解
+
+```
+樹：
+- LeetCode 94: Binary Tree Inorder Traversal
+- LeetCode 102: Binary Tree Level Order Traversal（BFS 基礎）
+- LeetCode 226: Invert Binary Tree
+- LeetCode 543: Diameter of Binary Tree
+
+圖論：
+- LeetCode 133: Clone Graph
+- LeetCode 200: Number of Islands（DFS/BFS）
+- LeetCode 207: Course Schedule（拓樸排序）
+- LeetCode 785: Is Graph Bipartite?
+
+動態規劃：
+- LeetCode 70: Climbing Stairs
+- LeetCode 121: Best Time to Buy and Sell Stock
+- LeetCode 300: Longest Increasing Subsequence
+- LeetCode 1143: Longest Common Subsequence（文字相似度）
+
+回溯：
+- LeetCode 46: Permutations
+- LeetCode 78: Subsets
+- LeetCode 39: Combination Sum
+```
+
+**進階題（20 題，AI 相關）** - 模擬實際場景
+
+```
+Beam Search 相關：
+- LeetCode 218: The Skyline Problem
+- LeetCode 239: Sliding Window Maximum
+- LeetCode 347: Top K Frequent Elements
+
+圖論（知識圖譜）：
+- LeetCode 787: Cheapest Flights Within K Stops（多跳推理）
+- LeetCode 1514: Path with Maximum Probability
+- LeetCode 399: Evaluate Division（圖中的關係推理）
+
+動態規劃（序列問題）：
+- LeetCode 72: Edit Distance（文字相似度核心）
+- LeetCode 1143: Longest Common Subsequence
+- LeetCode 10: Regular Expression Matching
+
+貪心（資源分配）：
+- LeetCode 435: Non-overlapping Intervals（GPU 排程模擬）
+- LeetCode 621: Task Scheduler
+```
+
+### 📖 推薦學習資源
+
+#### 書籍
+
+1. **[《算法圖解》](https://www.tenlong.com.tw/products/9789864342211)**（Grokking Algorithms）
+   - 適合對象：初學者
+   - 特色：視覺化圖解，淺顯易懂
+   - 台灣購買：天瓏書局有繁中版
+
+2. **[《劍指 Offer》](https://www.books.com.tw/products/CN11419506)**
+   - 適合對象：準備技術面試
+   - 特色：涵蓋台灣工程師常見面試題
+
+3. **[《Elements of Programming Interviews》](https://elementsofprogramminginterviews.com/)**
+   - 適合對象：進階面試準備
+   - 特色：FAANG 級別的面試題
+
+#### 線上資源
+
+1. **[NeetCode](https://neetcode.io/)**：分類刷題路線，有影片解說
+2. **[代碼隨想錄](https://programmercarl.com/)**：詳細的中文解析（簡中）
+3. **[VisuAlgo](https://visualgo.net/)**：演算法視覺化動畫
+
+### 🏆 學習計畫建議
+
+**第 1-2 週：基礎資料結構**
+- 每天 2 題 LeetCode Easy
+- 實作基本資料結構（不使用內建庫）
+
+**第 3-4 週：常用演算法**
+- 每天 1-2 題 Medium
+- 每週總結一種演算法類型
+
+**第 5-6 週：AI 相關應用**
+- 實作 Beam Search、Viterbi 等 AI 演算法
+- 閱讀 Transformer 原始碼
+
+**第 7-8 週：系統設計與優化**
+- 分析開源專案的演算法實作
+- 優化自己的專案程式碼
+
+---
+
+**記住**：演算法不是為了刷題而刷題，而是培養解決問題的思維方式。每道題都要思考：
+1. 這個問題的本質是什麼？
+2. 有沒有更高效的解法？
+3. 這個技巧能否應用在我的 AI 專案中？
 
 ## 從AI到LLM基礎
 
