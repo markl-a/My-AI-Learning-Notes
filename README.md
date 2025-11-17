@@ -405,13 +405,202 @@ Beam Search 相關：
 
 ### 🚀 快速開始指南
 
-- **完全新手**：數學基礎 → Python 基礎 → 機器學習入門（預計 8-13 週）
-- **有程式基礎**：數學複習 → ML 演算法 → 深度學習（預計 10-14 週）
-- **準備學 LLM**：Transformer 架構 → NLP 基礎 → Hugging Face（預計 4-5 週）
+根據您的背景和目標，選擇適合的學習路徑：
+
+#### 路徑 1：完全新手（0 → AI 工程師）
+**預計時間**：8-13 週
+**學習順序**：
+1. **Week 1-2**：數學基礎複習（線性代數、微積分、機率統計）
+2. **Week 3-4**：Python 程式設計基礎 + NumPy/Pandas
+3. **Week 5-7**：機器學習演算法（Scikit-learn）
+4. **Week 8-10**：深度學習入門（PyTorch 或 TensorFlow 擇一）
+5. **Week 11-13**：實作專案（選擇 CV 或 NLP 方向）
+
+**推薦起手式**：
+```python
+# 第一個 ML 專案：鳶尾花分類
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+
+# 載入資料
+iris = load_iris()
+X_train, X_test, y_train, y_test = train_test_split(
+    iris.data, iris.target, test_size=0.2, random_state=42
+)
+
+# 訓練模型
+clf = RandomForestClassifier(n_estimators=100)
+clf.fit(X_train, y_train)
+
+# 評估
+y_pred = clf.predict(X_test)
+print(f"準確率：{accuracy_score(y_test, y_pred):.2%}")
+# 輸出：準確率：100.00%
+```
+
+#### 路徑 2：有程式基礎（開發者 → AI 開發者）
+**預計時間**：10-14 週
+**學習順序**：
+1. **Week 1-2**：快速複習數學（重點：矩陣運算、梯度下降）
+2. **Week 3-5**：ML 演算法理論與實作
+3. **Week 6-9**：深度學習框架精通（建議 PyTorch）
+4. **Week 10-12**：專案實戰（Kaggle 競賽）
+5. **Week 13-14**：MLOps 入門（MLflow、Docker）
+
+**關鍵差異點**：
+- ✅ 可跳過基礎 Python 教學
+- ✅ 直接從 NumPy 進階操作開始
+- ✅ 重點放在演算法原理與優化
+- ✅ 提早接觸生產環境部署
+
+**實戰範例**：建立一個完整的 ML Pipeline
+```python
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+from sklearn.svm import SVC
+
+# 建立完整的 Pipeline
+pipeline = Pipeline([
+    ('scaler', StandardScaler()),        # 標準化
+    ('pca', PCA(n_components=2)),        # 降維
+    ('classifier', SVC(kernel='rbf'))     # 分類器
+])
+
+# 一行搞定訓練
+pipeline.fit(X_train, y_train)
+
+# 一行搞定預測
+y_pred = pipeline.predict(X_test)
+
+# Pipeline 的優點：自動處理資料轉換流程
+```
+
+#### 路徑 3：準備學 LLM（快速上手 LLM 應用）
+**預計時間**：4-5 週
+**學習順序**：
+1. **Week 1**：Transformer 架構深入理解
+2. **Week 2**：Hugging Face Transformers 套件實戰
+3. **Week 3**：模型微調技術（LoRA、QLoRA）
+4. **Week 4**：RAG 系統開發
+5. **Week 5**：Agent 與 LangChain
+
+**必學技能清單**：
+- ✅ Transformer 注意力機制原理
+- ✅ Tokenization 與 Embedding
+- ✅ Prompt Engineering 技巧
+- ✅ 向量資料庫（FAISS、Chroma）
+- ✅ LangChain/LlamaIndex 框架
+
+**第一個 LLM 應用**：
+```python
+from transformers import pipeline
+
+# 使用 Hugging Face Pipeline（超簡單！）
+classifier = pipeline("sentiment-analysis")
+
+# 分析情感
+result = classifier("這家餐廳的牛肉麵真的超好吃！")
+print(result)
+# [{'label': 'POSITIVE', 'score': 0.9998}]
+
+# 文本生成
+generator = pipeline("text-generation", model="gpt2")
+output = generator("台灣最美的地方是", max_length=50)
+print(output[0]['generated_text'])
+```
+
+### 💰 台灣學習資源與社群
+
+#### 🎓 實體課程與訓練營
+1. **台大資工 ML 課程**（免費旁聽）
+   - [台大李宏毅教授機器學習課程](https://speech.ee.ntu.edu.tw/~hylee/ml/2023-spring.php)
+   - 特色：全中文授課、理論與實作並重
+   - 適合：有基礎數學背景的學習者
+
+2. **資策會 AI 人才培訓**（付費，政府補助）
+   - 針對轉職需求設計
+   - 提供就業媒合服務
+
+3. **各大學推廣教育**
+   - 政大、台大、成大等開設 AI 學分班
+   - 適合在職進修
+
+#### 👥 台灣 AI 社群
+1. **ML/DL 讀書會**
+   - [台北機器學習讀書會](https://www.meetup.com/Taipei-Machine-Learning/)
+   - [PyData Taipei](https://www.meetup.com/PyData-Taipei/)
+
+2. **線上社群**
+   - [PTT AI_ML 板](https://www.ptt.cc/bbs/AI_ML/index.html)
+   - Facebook 社團：「台灣人工智慧學校校友會」
+   - Discord：「台灣 AI 工程師交流」
+
+3. **競賽平台**
+   - [AIdea 競賽平台](https://aidea-web.tw/)：台灣企業出題
+   - [T-Brain](https://tbrain.trendmicro.com.tw/)：趨勢科技主辦
+
+#### 📚 台灣繁體中文教材
+1. **書籍**
+   - 《深度學習入門教室》（碁峰出版）
+   - 《Python 機器學習實作》（旗標出版）
+   - 《TensorFlow 2.0 深度學習快速入門》（博碩出版）
+
+2. **YouTube 頻道**
+   - [李宏毅教授頻道](https://www.youtube.com/@HungyiLeeNTU)
+   - [彭彭的課程](https://www.youtube.com/@mukiwang)
+   - [六角學院 - AI 課程](https://www.youtube.com/@hexschool)
+
+3. **部落格與技術文章**
+   - [iThome AI](https://www.ithome.com.tw/tags/ai)
+   - [Medium 台灣 AI 社群](https://medium.com/tag/人工智慧)
 
 ---
 
-之後再新增[ChatGPT for Data Analytics : Full Course](https://youtu.be/uhyMqbZI6rM?si=ebSO8H07ELUZn57z)的學習紀錄跟內容。
+### 🛠️ 實用工具與環境設定
+
+#### 本地開發環境
+```bash
+# 1. 安裝 Anaconda（推薦新手）
+# 下載：https://www.anaconda.com/download
+
+# 2. 建立專用環境
+conda create -n ai-env python=3.10
+conda activate ai-env
+
+# 3. 安裝常用套件
+conda install numpy pandas matplotlib scikit-learn jupyter
+pip install torch torchvision torchaudio  # PyTorch
+pip install transformers datasets          # Hugging Face
+
+# 4. 驗證安裝
+python -c "import torch; print(torch.__version__)"
+```
+
+#### 雲端開發環境（免費 GPU）
+1. **Google Colab**（最推薦新手）
+   - 免費 GPU（T4）
+   - 無需設定環境
+   - 直接開始：https://colab.research.google.com
+
+2. **Kaggle Notebooks**
+   - 免費 GPU（P100 或 T4）
+   - 每週 30 小時 GPU 時數
+   - 內建資料集
+
+3. **Paperspace Gradient**
+   - 免費層級提供基本 GPU
+   - 適合長時間訓練
+
+#### 台灣 GPU 雲端服務
+- **台智雲（TWCC）**：台灣本地機房，低延遲
+- **中華電信 HiCloud**：企業級服務
+
+---
+
+之後再新增 [ChatGPT for Data Analytics : Full Course](https://youtu.be/uhyMqbZI6rM?si=ebSO8H07ELUZn57z) 的學習紀錄跟內容。
 
 <details>
 <summary>點擊以打開詳細內容</summary>
@@ -500,24 +689,467 @@ Beam Search 相關：
 
         可以從上面的內容發現，隨著時間的演變，這些基礎學科的內容著重的部分其實也有很多改變，所以要學的話大概也就學自己需要的就可以了。
 
-### 3. 機器學習與Python
+### 3. 機器學習與 Python
 
 Python 是一種強大而靈活的程式語言，由於其可讀性、一致性和強大的資料科學庫生態系統，特別適合機器學習。
 
+#### 3.1 Python 基礎
 
-- **Python基礎**: Python程式設計需要很好地理解基本語法、資料類型、錯誤處理和物件導向程式設計。
-    -  推薦閱讀,應用-[Python自學從哪開始？線上免費資源一次告訴你！](https://blog.luckertw.com/python-learning/)
-    - 其實去 freecode camp 練下大概就可以了，程式語言只要會C ,C++的話，除了彙編語言或verilog這類的語言之外其他的語言就不會相差太多。
-    - 在弄清楚基本的原理後，實作的項目可參考: [Project-based-learning](https://github.com/practical-tutorials/project-based-learning?tab=readme-ov-file#python)
-- **資料科學函式庫**: 包括熟悉用於數值運算的 NumPy、用於資料操作和分析的 Pandas、用於資料視覺化的 Matplotlib 和 Seaborn。
-    -  推薦閱讀,應用-[Data Analysis with Python - Full Course for Beginners (Numpy, Pandas, Matplotlib, Seaborn)](https://youtu.be/r-uOLxNrNk8?si=vHI8UVb-CvwmPgzY)
-- **資料預處理**: 這涉及特徵縮放和標準化、處理缺失資料、異常值檢測、分類資料編碼以及將資料拆分為訓練集、驗證集和測試集。
-    -  推薦閱讀,應用- 概覽[[資料分析&機器學習] 第2.4講：資料前處理(Missing data, One-hot encoding, Feature Scaling)](https://medium.com/jameslearningnote/%E8%B3%87%E6%96%99%E5%88%86%E6%9E%90-%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92-%E7%AC%AC2-4%E8%AC%9B-%E8%B3%87%E6%96%99%E5%89%8D%E8%99%95%E7%90%86-missing-data-one-hot-encoding-feature-scaling-3b70a7839b4a)
-    -  推薦閱讀,應用-[[機器學習筆記]數據預處理](https://doremi31618.medium.com/%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98-%E6%95%B8%E6%93%9A%E9%A0%90%E8%99%95%E7%90%8601-ae90853978da)
-- **機器學習課程**:[Machine Learning in 2024 – Beginner's Course](https://youtu.be/bmmQA8A-yUA?si=_2Ga-3WKdar_80fj)
-- **機器學習函式庫**: 熟練使用 Scikit-learn（一個提供多種監督和非監督學習演算法的函式庫）至關重要。了解如何實現線性迴歸、邏輯迴歸、決策樹、隨機森林、k 最近鄰 (K-NN) 和 K 均值聚類等演算法非常重要。PCA 和 t-SNE 等降維技術也有助於視覺化高維度資料。
-    -  推薦閱讀,應用(裡面有ipynb)-[Scikit-learn Crash Course - Machine Learning Library for Python](https://www.youtube.com/watch?v=0B5eIE_1vpU&t=240s)
-    -  推薦閱讀,應用(裡面有ipynb)-[Python for Data Science Course – Hands-on Projects with EDA, AB Testing & Business Intelligence](https://youtu.be/FTpmwX94_Yo?si=6ctmP5mvrXas88y4)
+**核心概念**：
+- **基本語法**：變數、資料型別、控制流程（if/else、for/while）
+- **資料結構**：List、Tuple、Dictionary、Set
+- **函數與模組**：自訂函數、Lambda 函數、模組匯入
+- **物件導向**：類別、繼承、多型、封裝
+
+**推薦資源**：
+- [Python 自學從哪開始？線上免費資源一次告訴你！](https://blog.luckertw.com/python-learning/)
+- [freeCodeCamp Python 課程](https://www.freecodecamp.org/learn/scientific-computing-with-python/)
+- [Project-based-learning](https://github.com/practical-tutorials/project-based-learning?tab=readme-ov-file#python)：實作導向學習
+
+**實用技巧**：
+```python
+# 1. List Comprehension（列表推導式）- 超實用！
+squares = [x**2 for x in range(10)]
+even_squares = [x**2 for x in range(10) if x % 2 == 0]
+
+# 2. Dictionary Comprehension
+word_lengths = {word: len(word) for word in ['apple', 'banana', 'cherry']}
+
+# 3. Lambda 函數與 map/filter
+numbers = [1, 2, 3, 4, 5]
+squared = list(map(lambda x: x**2, numbers))
+evens = list(filter(lambda x: x % 2 == 0, numbers))
+
+# 4. *args 和 **kwargs（可變參數）
+def flexible_function(*args, **kwargs):
+    print(f"位置參數: {args}")
+    print(f"關鍵字參數: {kwargs}")
+
+flexible_function(1, 2, 3, name="Alice", age=30)
+```
+
+#### 3.2 資料科學函式庫
+
+**NumPy** - 數值運算基礎
+```python
+import numpy as np
+
+# 陣列建立
+arr = np.array([1, 2, 3, 4, 5])
+matrix = np.array([[1, 2], [3, 4]])
+
+# 廣播機制（Broadcasting）- NumPy 的殺手級特性
+a = np.array([1, 2, 3])
+b = np.array([[1], [2], [3]])
+result = a + b  # (3,) + (3,1) → (3,3)
+
+# 向量化運算（比迴圈快 100 倍！）
+# 錯誤寫法（慢）
+result = []
+for i in range(len(arr)):
+    result.append(arr[i] ** 2)
+
+# 正確寫法（快）
+result = arr ** 2
+
+# 實用函數
+np.mean(arr)      # 平均值
+np.std(arr)       # 標準差
+np.dot(a, b)      # 矩陣乘法
+np.linalg.inv(A)  # 矩陣反矩陣
+```
+
+**Pandas** - 資料處理神器
+```python
+import pandas as pd
+
+# 讀取資料（支援多種格式）
+df = pd.read_csv('data.csv')
+df = pd.read_excel('data.xlsx')
+df = pd.read_json('data.json')
+
+# 資料探索
+df.head()          # 前 5 筆
+df.info()          # 資料概況
+df.describe()      # 統計摘要
+df.isnull().sum()  # 缺失值統計
+
+# 資料清洗
+df = df.dropna()                    # 刪除缺失值
+df['age'].fillna(df['age'].mean())  # 填補缺失值
+
+# 資料篩選
+df[df['age'] > 30]                  # 條件篩選
+df.query('age > 30 and city == "Taipei"')  # SQL 風格查詢
+
+# 分組聚合
+df.groupby('city')['price'].mean()  # 各城市平均價格
+df.pivot_table(values='sales', index='month', columns='product')
+
+# 資料合併
+pd.merge(df1, df2, on='id', how='left')  # SQL JOIN
+pd.concat([df1, df2], axis=0)            # 垂直合併
+```
+
+**Matplotlib & Seaborn** - 資料視覺化
+```python
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Matplotlib 基礎
+plt.figure(figsize=(10, 6))
+plt.plot(x, y, label='線圖')
+plt.scatter(x, y, label='散點圖')
+plt.xlabel('X 軸')
+plt.ylabel('Y 軸')
+plt.title('標題')
+plt.legend()
+plt.show()
+
+# Seaborn 進階（更美觀）
+sns.set_style("whitegrid")
+sns.scatterplot(data=df, x='age', y='salary', hue='gender')
+sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm')
+```
+
+**推薦課程**：
+- [Data Analysis with Python - Full Course](https://youtu.be/r-uOLxNrNk8?si=vHI8UVb-CvwmPgzY)
+
+#### 3.3 資料預處理
+
+資料預處理占據機器學習專案 70-80% 的時間，是最重要的環節！
+
+**處理缺失值**：
+```python
+from sklearn.impute import SimpleImputer
+
+# 策略 1：刪除
+df_cleaned = df.dropna()  # 刪除有缺失值的列
+
+# 策略 2：填補
+# 數值型：用平均值、中位數、眾數
+imputer = SimpleImputer(strategy='mean')
+df['age'] = imputer.fit_transform(df[['age']])
+
+# 類別型：用眾數或特殊標記
+df['city'].fillna('Unknown', inplace=True)
+
+# 策略 3：預測填補（進階）
+from sklearn.ensemble import RandomForestRegressor
+# 用其他特徵預測缺失值
+```
+
+**處理異常值**：
+```python
+# 方法 1：IQR（四分位距）法
+Q1 = df['price'].quantile(0.25)
+Q3 = df['price'].quantile(0.75)
+IQR = Q3 - Q1
+lower_bound = Q1 - 1.5 * IQR
+upper_bound = Q3 + 1.5 * IQR
+
+# 移除異常值
+df = df[(df['price'] >= lower_bound) & (df['price'] <= upper_bound)]
+
+# 方法 2：Z-Score 法
+from scipy import stats
+z_scores = np.abs(stats.zscore(df['price']))
+df = df[z_scores < 3]  # 保留 Z-score < 3 的資料
+```
+
+**特徵編碼**：
+```python
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+
+# 標籤編碼（有序類別）
+le = LabelEncoder()
+df['education'] = le.fit_transform(df['education'])
+# 'High School' → 0, 'Bachelor' → 1, 'Master' → 2
+
+# One-Hot 編碼（無序類別）
+df_encoded = pd.get_dummies(df, columns=['city'], drop_first=True)
+# city: Taipei, Kaohsiung, Taichung
+# → city_Kaohsiung, city_Taichung（兩個二進位欄位）
+
+# 使用 Scikit-learn（更靈活）
+from sklearn.preprocessing import OneHotEncoder
+encoder = OneHotEncoder(sparse=False, drop='first')
+encoded_features = encoder.fit_transform(df[['city']])
+```
+
+**特徵縮放**：
+```python
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
+
+# 標準化（Z-score normalization）- 常用於 SVM、神經網路
+scaler = StandardScaler()
+df_scaled = scaler.fit_transform(df[['age', 'salary']])
+# 結果：mean=0, std=1
+
+# 正規化（Min-Max scaling）- 常用於距離相關演算法
+scaler = MinMaxScaler()
+df_normalized = scaler.fit_transform(df[['age', 'salary']])
+# 結果：範圍 [0, 1]
+```
+
+**資料分割**：
+```python
+from sklearn.model_selection import train_test_split
+
+# 基本分割
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y,
+    test_size=0.2,    # 20% 測試集
+    random_state=42,  # 固定隨機種子（可重現結果）
+    stratify=y        # 保持類別比例（分類問題）
+)
+
+# 三分割（訓練/驗證/測試）
+X_temp, X_test, y_temp, y_test = train_test_split(X, y, test_size=0.2)
+X_train, X_val, y_train, y_val = train_test_split(X_temp, y_temp, test_size=0.25)
+# 最終比例：60% 訓練、20% 驗證、20% 測試
+```
+
+**推薦資源**：
+- [[資料分析&機器學習] 第 2.4 講：資料前處理](https://medium.com/jameslearningnote/%E8%B3%87%E6%96%99%E5%88%86%E6%9E%90-%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92-%E7%AC%AC2-4%E8%AC%9B-%E8%B3%87%E6%96%99%E5%89%8D%E8%99%95%E7%90%86-missing-data-one-hot-encoding-feature-scaling-3b70a7839b4a)
+- [[機器學習筆記] 資料預處理](https://doremi31618.medium.com/%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98-%E6%95%B8%E6%93%9A%E9%A0%90%E8%99%95%E7%90%8601-ae90853978da)
+
+#### 3.4 機器學習演算法實戰
+
+**推薦課程**：
+- [Machine Learning in 2024 – Beginner's Course](https://youtu.be/bmmQA8A-yUA?si=_2Ga-3WKdar_80fj)
+
+##### 監督式學習（Supervised Learning）
+
+**1. 線性迴歸（Linear Regression）**
+```python
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+
+# 訓練
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# 預測
+y_pred = model.predict(X_test)
+
+# 評估
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+print(f"MSE: {mse:.2f}, R²: {r2:.2f}")
+
+# 查看係數
+print(f"係數: {model.coef_}")
+print(f"截距: {model.intercept_}")
+```
+
+**2. 邏輯迴歸（Logistic Regression）**
+```python
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+
+model = LogisticRegression(max_iter=1000)
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+# 評估
+print(f"準確率: {accuracy_score(y_test, y_pred):.2%}")
+print("分類報告:\n", classification_report(y_test, y_pred))
+print("混淆矩陣:\n", confusion_matrix(y_test, y_pred))
+
+# 機率預測
+y_proba = model.predict_proba(X_test)[:, 1]  # 正類別機率
+```
+
+**3. 決策樹（Decision Tree）**
+```python
+from sklearn.tree import DecisionTreeClassifier, plot_tree
+
+model = DecisionTreeClassifier(
+    max_depth=5,           # 限制深度防止過擬合
+    min_samples_split=20,  # 分裂所需最小樣本數
+    min_samples_leaf=10    # 葉節點最小樣本數
+)
+model.fit(X_train, y_train)
+
+# 視覺化決策樹
+plt.figure(figsize=(20, 10))
+plot_tree(model, feature_names=feature_names, filled=True)
+plt.show()
+
+# 特徵重要性
+importances = pd.DataFrame({
+    'feature': feature_names,
+    'importance': model.feature_importances_
+}).sort_values('importance', ascending=False)
+```
+
+**4. 隨機森林（Random Forest）**
+```python
+from sklearn.ensemble import RandomForestClassifier
+
+model = RandomForestClassifier(
+    n_estimators=100,    # 樹的數量
+    max_depth=10,
+    random_state=42,
+    n_jobs=-1            # 使用所有 CPU 核心
+)
+model.fit(X_train, y_train)
+
+# 特徵重要性（更穩定）
+importances = model.feature_importances_
+```
+
+**5. 支援向量機（SVM）**
+```python
+from sklearn.svm import SVC
+
+model = SVC(
+    kernel='rbf',     # 徑向基函數核
+    C=1.0,            # 正則化參數
+    gamma='scale'
+)
+model.fit(X_train, y_train)
+```
+
+**6. K 近鄰（K-NN）**
+```python
+from sklearn.neighbors import KNeighborsClassifier
+
+model = KNeighborsClassifier(n_neighbors=5)
+model.fit(X_train, y_train)
+
+# 找最佳 K 值
+for k in range(1, 21):
+    knn = KNeighborsClassifier(n_neighbors=k)
+    knn.fit(X_train, y_train)
+    print(f"K={k}, Accuracy={knn.score(X_test, y_test):.2%}")
+```
+
+##### 非監督式學習（Unsupervised Learning）
+
+**1. K-Means 聚類**
+```python
+from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_score
+
+# 找最佳 K（Elbow Method）
+inertias = []
+for k in range(2, 11):
+    kmeans = KMeans(n_clusters=k, random_state=42)
+    kmeans.fit(X)
+    inertias.append(kmeans.inertia_)
+
+# 視覺化 Elbow
+plt.plot(range(2, 11), inertias, marker='o')
+plt.xlabel('Number of clusters')
+plt.ylabel('Inertia')
+plt.show()
+
+# 訓練最終模型
+kmeans = KMeans(n_clusters=3, random_state=42)
+clusters = kmeans.fit_predict(X)
+
+# 評估（Silhouette Score：-1 到 1，越高越好）
+score = silhouette_score(X, clusters)
+print(f"Silhouette Score: {score:.2f}")
+```
+
+**2. 主成分分析（PCA）**
+```python
+from sklearn.decomposition import PCA
+
+# 降維
+pca = PCA(n_components=2)  # 降至 2 維
+X_reduced = pca.fit_transform(X)
+
+# 解釋變異量
+print(f"解釋變異量: {pca.explained_variance_ratio_}")
+# 例如：[0.45, 0.35] 表示前兩個主成分解釋 80% 變異
+
+# 視覺化
+plt.scatter(X_reduced[:, 0], X_reduced[:, 1], c=y)
+plt.xlabel('PC1')
+plt.ylabel('PC2')
+plt.show()
+```
+
+**推薦資源**：
+- [Scikit-learn Crash Course](https://www.youtube.com/watch?v=0B5eIE_1vpU&t=240s)（有 ipynb）
+- [Python for Data Science Course](https://youtu.be/FTpmwX94_Yo?si=6ctmP5mvrXas88y4)（有 ipynb）
+
+#### 3.5 模型評估與優化
+
+**交叉驗證（Cross-Validation）**：
+```python
+from sklearn.model_selection import cross_val_score, KFold
+
+# K-Fold 交叉驗證
+kfold = KFold(n_splits=5, shuffle=True, random_state=42)
+scores = cross_val_score(model, X, y, cv=kfold, scoring='accuracy')
+print(f"平均準確率: {scores.mean():.2%} (+/- {scores.std():.2%})")
+
+# 分層交叉驗證（保持類別比例）
+from sklearn.model_selection import StratifiedKFold
+skfold = StratifiedKFold(n_splits=5)
+scores = cross_val_score(model, X, y, cv=skfold)
+```
+
+**超參數調整**：
+```python
+from sklearn.model_selection import GridSearchCV
+
+# 網格搜尋
+param_grid = {
+    'n_estimators': [50, 100, 200],
+    'max_depth': [5, 10, 15],
+    'min_samples_split': [2, 5, 10]
+}
+
+grid_search = GridSearchCV(
+    RandomForestClassifier(),
+    param_grid,
+    cv=5,
+    scoring='accuracy',
+    n_jobs=-1,
+    verbose=1
+)
+
+grid_search.fit(X_train, y_train)
+print(f"最佳參數: {grid_search.best_params_}")
+print(f"最佳分數: {grid_search.best_score_:.2%}")
+
+# 隨機搜尋（更快）
+from sklearn.model_selection import RandomizedSearchCV
+random_search = RandomizedSearchCV(
+    model, param_distributions=param_grid, n_iter=20, cv=5
+)
+```
+
+**常見陷阱與解決方案**：
+1. **過擬合（Overfitting）**
+   - 症狀：訓練準確率 95%，測試準確率 70%
+   - 解法：增加資料、正則化、減少模型複雜度、資料增強
+
+2. **欠擬合（Underfitting）**
+   - 症狀：訓練和測試準確率都很低
+   - 解法：增加模型複雜度、增加特徵、減少正則化
+
+3. **資料洩漏（Data Leakage）**
+   - 錯誤：在分割資料前做標準化
+   - 正確：
+     ```python
+     # ❌ 錯誤
+     X = scaler.fit_transform(X)  # 全部資料一起標準化
+     X_train, X_test = train_test_split(X, y)
+
+     # ✅ 正確
+     X_train, X_test = train_test_split(X, y)
+     scaler.fit(X_train)  # 只用訓練集 fit
+     X_train = scaler.transform(X_train)
+     X_test = scaler.transform(X_test)
+     ```
 
 
 📚 資源：
