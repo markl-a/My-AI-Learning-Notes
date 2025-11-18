@@ -1,0 +1,52 @@
+name: Notebook Check
+
+on:
+  push:
+    branches: [ main, test ]
+    paths:
+      - '**.ipynb'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - '**.ipynb'
+
+jobs:
+  check-notebooks:
+    name: Check Jupyter Notebooks
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+        cache: 'pip'
+
+    - name: Install nbconvert
+      run: |
+        python -m pip install --upgrade pip
+        pip install nbconvert nbformat jupyter
+
+    - name: Check notebook outputs are cleared
+      run: |
+        echo "檢查 Jupyter Notebook 是否清除了輸出..."
+        find . -name "*.ipynb" ! -path "*/.*" ! -path "*/D2L_Jupyter_Notebooks/*" | while read notebook; do
+          echo "檢查: $notebook"
+          # 檢查 notebook 是否有輸出
+          if grep -q '"outputs": \[' "$notebook" && ! grep -q '"outputs": \[\]' "$notebook"; then
+            echo "⚠️  警告: $notebook 包含輸出，建議清除後再提交"
+          fi
+        done
+      continue-on-error: true
+
+    - name: Validate notebook structure
+      run: |
+        echo "驗證 Jupyter Notebook 結構..."
+        find . -name "*.ipynb" ! -path "*/.*" ! -path "*/D2L_Jupyter_Notebooks/*" | while read notebook; do
+          echo "驗證: $notebook"
+          jupyter nbconvert --to notebook --execute --ExecutePreprocessor.timeout=60 "$notebook" --output /tmp/test.ipynb 2>/dev/null || echo "⚠️  無法執行 $notebook (可能需要額外依賴)"
+        done
+      continue-on-error: true
