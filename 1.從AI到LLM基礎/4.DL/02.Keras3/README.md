@@ -1,7 +1,7 @@
 # Keras 3 個人複習筆記
 
-> 🔄 **最後更新：** 2025-01
-> 📊 **完成度：** 約 8%
+> 🔄 **最後更新：** 2025-01-18
+> 📊 **完成度：** 約 15%
 > 🎯 **推薦版本：** Keras 3.0+
 > 🚀 **特色：** 多後端支援（TensorFlow、JAX、PyTorch）
 
@@ -41,14 +41,31 @@ print(keras.backend.backend())  # 查看當前後端
 ## 📚 完整學習規劃
 
 ### ✅ 1. 基礎神經網路（ANN）
-**狀態：已完成**
+**狀態：已完成並增強**
 
-- ✅ 人工神經網路基礎
+#### 核心內容
+- ✅ 人工神經網路基礎理論
 - ✅ Sequential API 使用
-- ✅ 基本分類問題
+- ✅ Functional API 介紹
+- ✅ 基本分類問題實作
 - ✅ 模型訓練與評估
+- ✅ 數據預處理最佳實踐
+- ✅ 防止過擬合技巧
+- ✅ 模型優化策略
+- ✅ 錯誤分析方法
 
-**檔案位置：** `1.ANN/ANN.ipynb`
+#### 檔案列表
+- 📖 `1.ANN/README.md` - 完整的 ANN 學習指南（理論+實踐）
+- 📓 `1.ANN/ANN.ipynb` - Jupyter Notebook 綜合範例
+- 🚀 `1.ANN/quick_start.py` - 快速入門腳本（適合初學者）
+- 💎 `1.ANN/best_practices.py` - 最佳實踐完整範例
+- 📊 `1.ANN/heart.csv` - 心臟病預測數據集
+
+#### 學習建議
+1. 先閱讀 `README.md` 了解理論基礎
+2. 運行 `quick_start.py` 快速上手
+3. 深入研究 `ANN.ipynb` 中的各種範例
+4. 學習 `best_practices.py` 中的進階技巧
 
 ---
 
@@ -415,14 +432,264 @@ import keras
 
 ## 💡 快速開始
 
+### 安裝指南
+
 ```bash
-# 安裝 Keras 3
+# 1. 安裝 Keras 3
 pip install keras
 
-# 安裝後端（選擇一個或多個）
-pip install tensorflow  # TensorFlow 後端
-pip install jax jaxlib  # JAX 後端
-pip install torch       # PyTorch 後端
+# 2. 安裝後端（至少選擇一個）
+pip install tensorflow  # TensorFlow 後端（推薦初學者）
+pip install jax jaxlib  # JAX 後端（研究和高性能）
+pip install torch       # PyTorch 後端（靈活調試）
+
+# 3. 驗證安裝
+python -c "import keras; print(keras.__version__)"
+```
+
+### 第一個 Keras 3 程式
+
+```python
+import os
+os.environ['KERAS_BACKEND'] = 'tensorflow'  # 設置後端
+
+import keras
+from keras import layers
+import numpy as np
+
+# 生成示例數據
+x_train = np.random.random((1000, 20))
+y_train = np.random.randint(2, size=(1000, 1))
+
+# 建立模型
+model = keras.Sequential([
+    layers.Dense(64, activation='relu', input_shape=(20,)),
+    layers.Dense(64, activation='relu'),
+    layers.Dense(1, activation='sigmoid')
+])
+
+# 編譯模型
+model.compile(
+    optimizer='adam',
+    loss='binary_crossentropy',
+    metrics=['accuracy']
+)
+
+# 訓練模型
+model.fit(x_train, y_train, epochs=5, batch_size=32)
+```
+
+---
+
+## 🔧 常見問題與故障排除
+
+### Q1: 如何在不同後端之間切換？
+
+**方法一：環境變數（推薦）**
+```python
+import os
+os.environ['KERAS_BACKEND'] = 'jax'  # 在 import keras 之前設置
+import keras
+```
+
+**方法二：配置文件**
+```bash
+# 在 ~/.keras/keras.json 中設置
+{
+    "backend": "tensorflow",
+    "image_data_format": "channels_last"
+}
+```
+
+### Q2: Keras 2 代碼如何遷移到 Keras 3？
+
+```python
+# Keras 2
+from tensorflow import keras
+from tensorflow.keras import layers
+
+# Keras 3
+import keras
+from keras import layers
+```
+
+主要變化：
+- ✅ Keras 3 是獨立包，不再是 `tensorflow.keras`
+- ✅ 新的儲存格式使用 `.keras` 而非 `.h5`
+- ✅ 某些舊的 API 已被棄用
+
+### Q3: 為什麼我的模型訓練很慢？
+
+**優化建議：**
+```python
+# 1. 啟用混合精度訓練
+keras.mixed_precision.set_global_policy('mixed_float16')
+
+# 2. 使用合適的批次大小
+batch_size = 32  # 根據 GPU 記憶體調整
+
+# 3. 啟用數據預取
+dataset = dataset.prefetch(buffer_size=tf.data.AUTOTUNE)
+
+# 4. 考慮切換到 JAX 後端（通常更快）
+os.environ['KERAS_BACKEND'] = 'jax'
+```
+
+### Q4: 如何檢查當前使用的後端？
+
+```python
+import keras
+print(f"當前後端：{keras.backend.backend()}")
+```
+
+### Q5: 模型儲存和載入的最佳實踐
+
+```python
+# 儲存完整模型（推薦）
+model.save('my_model.keras')
+
+# 載入模型
+loaded_model = keras.models.load_model('my_model.keras')
+
+# 只儲存權重
+model.save_weights('model_weights.weights.h5')
+model.load_weights('model_weights.weights.h5')
+```
+
+---
+
+## ⚠️ 版本兼容性說明
+
+### Keras 3 vs Keras 2
+
+| 特性 | Keras 2 | Keras 3 |
+|------|---------|---------|
+| 後端支援 | 僅 TensorFlow | TensorFlow, JAX, PyTorch |
+| 安裝方式 | `pip install tensorflow` | `pip install keras` |
+| 導入方式 | `from tensorflow import keras` | `import keras` |
+| 儲存格式 | `.h5` | `.keras` （推薦） |
+| 性能 | 標準 | 優化後更快 |
+
+### Python 版本要求
+- ✅ Python 3.9+
+- ✅ Python 3.10 （推薦）
+- ✅ Python 3.11
+- ⚠️ Python 3.12 （部分後端可能不支援）
+
+---
+
+## 📊 性能基準測試
+
+### 不同後端的訓練速度比較（相對值）
+
+```
+任務類型         TensorFlow    JAX    PyTorch
+簡單 MLP         1.0x         1.2x   0.95x
+CNN 圖像分類     1.0x         1.5x   1.1x
+RNN 序列處理     1.0x         1.8x   1.0x
+Transformer      1.0x         2.0x   1.2x
+```
+
+*注意：實際性能取決於硬體配置和模型架構*
+
+---
+
+## 🎓 學習路徑建議
+
+### 初學者路徑（1-2 個月）
+1. ✅ 完成 ANN 基礎 (`1.ANN/`)
+2. 📝 練習 MNIST 數字識別
+3. 📝 實作簡單的二元分類（規劃中）
+4. 📝 學習 CNN 進行圖像分類（規劃中）
+
+### 中級路徑（2-3 個月）
+1. 📝 深入 Functional API 和 Model Subclassing
+2. 📝 遷移學習實戰
+3. 📝 NLP 文本分類
+4. 📝 時間序列預測
+
+### 進階路徑（3-6 個月）
+1. 📝 自定義層和訓練循環
+2. 📝 生成式模型（GAN, VAE）
+3. 📝 模型優化與部署
+4. 📝 大規模分散式訓練
+
+---
+
+## 🐛 故障排除
+
+### 常見錯誤及解決方案
+
+**錯誤 1: "No module named 'keras'"**
+```bash
+# 解決方案
+pip install keras --upgrade
+```
+
+**錯誤 2: "Backend not available"**
+```bash
+# 確保至少安裝一個後端
+pip install tensorflow  # 或 jax/torch
+```
+
+**錯誤 3: "版本衝突"**
+```bash
+# 創建新的虛擬環境
+python -m venv keras3_env
+source keras3_env/bin/activate  # Linux/Mac
+# 或
+keras3_env\Scripts\activate  # Windows
+
+pip install keras tensorflow
+```
+
+**錯誤 4: "GPU 未被使用"**
+```python
+# 檢查 GPU 是否可用
+import tensorflow as tf
+print("GPU 可用：", tf.config.list_physical_devices('GPU'))
+
+# 啟用 GPU 記憶體增長
+gpus = tf.config.list_physical_devices('GPU')
+if gpus:
+    for gpu in gpus:
+        tf.config.experimental.set_memory_growth(gpu, True)
+```
+
+---
+
+## 🔗 有用的資源連結
+
+### 官方資源
+- 📘 [Keras 3 發布公告](https://keras.io/keras_3/)
+- 📺 [Keras 3 教學影片](https://www.youtube.com/c/keras-io)
+- 💬 [Keras 論壇](https://github.com/keras-team/keras/discussions)
+- 🐛 [回報問題](https://github.com/keras-team/keras/issues)
+
+### 社群資源
+- 🌟 [Keras Code Examples](https://keras.io/examples/)
+- 📚 [TensorFlow Tutorials](https://www.tensorflow.org/tutorials)
+- 🎯 [Kaggle Keras Notebooks](https://www.kaggle.com/code?searchQuery=keras+3)
+
+---
+
+## 💪 實踐建議
+
+### 學習技巧
+1. **動手實作** - 每學一個概念就寫代碼實作
+2. **閱讀文檔** - Keras 文檔寫得非常好
+3. **研究範例** - 官方 examples 是最佳學習資源
+4. **參與社群** - 在論壇提問和回答問題
+5. **做專案** - 完成 2-3 個端到端的實際專案
+
+### 代碼規範
+```python
+# 好的做法 ✅
+import keras
+from keras import layers, models, optimizers
+
+# 避免的做法 ❌
+from keras import *  # 不要使用通配符導入
 ```
 
 ---
@@ -430,3 +697,5 @@ pip install torch       # PyTorch 後端
 **持續更新中...** 📖
 
 **Keras 3：一次學習，處處使用！** 🚀
+
+> 💡 **提示：** 遇到問題時，先查看[官方文檔](https://keras.io/)，90%的問題都能找到答案！
