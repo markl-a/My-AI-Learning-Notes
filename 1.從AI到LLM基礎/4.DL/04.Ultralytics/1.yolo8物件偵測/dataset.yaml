@@ -1,0 +1,31 @@
+# YOLOv8 Dataset Configuration File
+# 資料集配置檔案範例
+
+# Dataset path (資料集路徑)
+# 可使用絕對路徑或相對路徑
+path: ./0.dataset  # 資料集根目錄
+
+# Train/Val/Test splits (訓練/驗證/測試集劃分)
+train: images/train  # 訓練集圖像路徑（相對於 path）
+val: images/val      # 驗證集圖像路徑（相對於 path）
+test: images/test    # 測試集圖像路徑（可選）
+
+# Classes (類別定義)
+nc: 2                # 類別數量
+names:               # 類別名稱列表
+  0: cat             # class_id: class_name
+  1: dog
+
+# Optional: Download script (可選：下載腳本)
+# download: |
+#   import os
+#   from pathlib import Path
+#   # 下載資料集的腳本
+
+# Optional: Dataset info (可選：資料集資訊)
+# info:
+#   description: "Custom YOLOv8 dataset for object detection"
+#   url: "https://example.com/dataset"
+#   version: "1.0"
+#   year: 2025
+#   contributor: "Your Name"

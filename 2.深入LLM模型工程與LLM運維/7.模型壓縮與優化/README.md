@@ -1,6 +1,8 @@
 # 模型壓縮與優化
 
 ## 目錄
+
+### 📚 主要章節
 1. [前言](#1-前言)
 2. [量化技術 (Quantization)](#2-量化技術-quantization)
    - 2.1 [量化基礎原理](#21-量化基礎原理)
@@ -13,6 +15,18 @@
 6. [Python 實作範例](#6-python-實作範例)
 7. [性能評估與基準測試](#7-性能評估與基準測試)
 8. [延伸閱讀](#8-延伸閱讀)
+
+### 🚀 進階專題
+- [低秩分解 (Low-Rank Factorization)](./advanced/low_rank_factorization.md) - LoRA 詳解與應用
+- [混合精度策略 (Mixed-Precision)](./advanced/mixed_precision.md) - 混合精度訓練與推理
+- [實際部署案例](./advanced/deployment_cases.md) - 5 個真實部署案例分析
+
+### 📖 實用指南
+- [速查表 (Quick Reference)](./QUICK_REFERENCE.md) - 常用命令與配置速查
+- [練習題 (Exercises)](./EXERCISES.md) - 從基礎到進階的實作練習
+- [故障排除 (Troubleshooting)](./guides/troubleshooting.md) - 常見問題解決方案
+- [硬體選擇指南](./guides/hardware_guide.md) - GPU/CPU 選擇建議
+- [最佳實踐](./guides/best_practices.md) - 生產環境部署最佳實踐
 
 ---
 
@@ -34,9 +48,9 @@
 1. **量化 (Quantization)**：降低數值精度
 2. **剪枝 (Pruning)**：移除不重要的參數/連接
 3. **知識蒸餾 (Distillation)**：訓練小模型模仿大模型
-4. **低秩分解**：參數矩陣分解
+4. **低秩分解 (Low-Rank Factorization)**：參數矩陣分解（詳見 [LoRA 專題](./advanced/low_rank_factorization.md)）
 
-本章聚焦於**量化**技術，這是目前最廣泛應用於 LLM 的壓縮方法。
+本章主要介紹**量化、剪枝和知識蒸餾**技術。**低秩分解**（包括 LoRA、QLoRA 等）請參見 [進階專題](./advanced/low_rank_factorization.md)。
 
 ---
 
@@ -1230,6 +1244,12 @@ def evaluate_perplexity(model, tokenizer, dataset_name="wikitext", subset="wikit
    - 量化感知預訓練
 
 **起點建議**：
-- 研究/實驗：QLoRA (4-bit) + LoRA 微調
-- 生產推理（GPU）：GPTQ/AWQ (4-bit) + vLLM
-- 本地部署：llama.cpp Q4_K_M/Q5_K_M
+- 研究/實驗：QLoRA (4-bit) + LoRA 微調（詳見 [LoRA 專題](./advanced/low_rank_factorization.md)）
+- 生產推理（GPU）：GPTQ/AWQ (4-bit) + vLLM（參考 [部署案例](./advanced/deployment_cases.md)）
+- 本地部署：llama.cpp Q4_K_M/Q5_K_M（參考 [硬體指南](./guides/hardware_guide.md)）
+
+**更多資源**：
+- 📋 [速查表](./QUICK_REFERENCE.md)：常用命令和配置
+- 🎯 [練習題](./EXERCISES.md)：動手實踐
+- 🔧 [故障排除](./guides/troubleshooting.md)：解決常見問題
+- ⚡ [最佳實踐](./guides/best_practices.md)：生產環境建議
