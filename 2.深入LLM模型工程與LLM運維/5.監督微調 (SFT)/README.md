@@ -1,11 +1,19 @@
 # 監督微調 (Supervised Fine-Tuning, SFT)
 
 ## 目錄
+
+### 基礎內容
 1. [SFT 概念：由 Next-token 預測到特定任務微調](#51-sft-概念)
 2. [全參數微調 vs. PEFT 方法](#52-全參數微調-vs-peft-方法)
 3. [微調實務](#53-微調實務)
 4. [不同模板格式對微調結果的影響](#54-不同模板格式對微調結果的影響)
 5. [實作範例](#55-實作範例)
+
+### 實用工具與資源
+- 📦 [**數據準備工具集**](./data_preparation_tools/) - AI 輔助數據生成、質量檢查、格式轉換
+- 🎓 [**從入門到熟練學習路徑**](./LEARNING_PATH.md) - 完整的學習路線圖、故障排除、最佳實踐
+- 🚀 [**端到端實戰項目**](./hands_on_project/) - 電商客服機器人完整項目
+- 🧠 [**進階主題**](./advanced_topics/) - 多任務學習、持續學習、災難性遺忘
 
 ---
 
@@ -632,10 +640,71 @@ trainer = Trainer(
 
 ---
 
+## 快速開始指南
+
+### 新手入門
+
+如果你是 SFT 的新手，建議按以下步驟開始：
+
+1. **學習基礎概念** (1-2 天)
+   - 閱讀上面的基礎內容章節
+   - 理解 SFT 的基本原理
+
+2. **動手實踐** (3-5 天)
+   - 跟隨 [端到端實戰項目](./hands_on_project/) 的快速開始指南
+   - 使用示例數據訓練第一個模型
+
+3. **系統學習** (2-4 週)
+   - 跟隨 [完整學習路徑](./LEARNING_PATH.md)
+   - 完成每個階段的練習和項目
+
+### 工具使用
+
+我們提供了完整的工具集來加速你的 SFT 工作流程：
+
+```bash
+# 1. 使用 AI 生成訓練數據
+cd data_preparation_tools
+python ai_assisted_data_generator.py
+
+# 2. 檢查數據質量
+python data_quality_checker.py your_data.json
+
+# 3. 訓練模型
+cd ../hands_on_project
+python scripts/3_train_model.py \
+    --model_name gpt2 \
+    --train_data data/train.json \
+    --use_qlora
+```
+
+### 學習路徑建議
+
+- **完全新手** → [學習路徑階段一](./LEARNING_PATH.md#階段一基礎入門)
+- **有基礎知識** → [學習路徑階段二](./LEARNING_PATH.md#階段二實踐應用)
+- **需要進階技術** → [進階主題](./advanced_topics/)
+- **準備生產部署** → [學習路徑階段四](./LEARNING_PATH.md#階段四生產部署)
+
+---
+
 ## 參考資源
+
+### 論文
 
 - [LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685)
 - [QLoRA: Efficient Finetuning of Quantized LLMs](https://arxiv.org/abs/2305.14314)
+- [InstructGPT: Training language models to follow instructions](https://arxiv.org/abs/2203.02155)
+- [FLAN: Finetuned Language Models are Zero-Shot Learners](https://arxiv.org/abs/2109.01652)
+
+### 工具和庫
+
 - [Hugging Face PEFT Library](https://github.com/huggingface/peft)
+- [Hugging Face TRL Library](https://github.com/huggingface/trl)
 - [Alpaca: A Strong, Replicable Instruction-Following Model](https://crfm.stanford.edu/2023/03/13/alpaca.html)
 - [Efficient Training Techniques](https://huggingface.co/docs/transformers/perf_train_gpu_one)
+
+### 社區和討論
+
+- [Hugging Face Forums](https://discuss.huggingface.co/)
+- [r/LocalLLaMA](https://www.reddit.com/r/LocalLLaMA/)
+- [LLM Discord Communities](https://discord.gg/hugging-face)
