@@ -1,0 +1,66 @@
+# Core LLM APIs
+openai>=1.12.0
+anthropic>=0.18.0
+google-generativeai>=0.3.0
+cohere>=4.40
+
+# Web Frameworks
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+streamlit>=1.31.0
+gradio>=4.16.0
+flask>=3.0.0
+flask-cors>=4.0.0
+
+# Async & Performance
+aiohttp>=3.9.0
+httpx>=0.26.0
+asyncio>=3.4.3
+
+# Data & Utilities
+pydantic>=2.5.0
+python-dotenv>=1.0.0
+pyyaml>=6.0
+
+# Rate Limiting & Retry
+tenacity>=8.2.3
+ratelimit>=2.2.1
+backoff>=2.2.1
+
+# Caching
+redis>=5.0.1
+diskcache>=5.6.3
+
+# Monitoring & Logging
+prometheus-client>=0.19.0
+loguru>=0.7.2
+
+# Database
+sqlalchemy>=2.0.25
+psycopg2-binary>=2.9.9
+
+# Testing
+pytest>=7.4.4
+pytest-asyncio>=0.23.3
+pytest-cov>=4.1.0
+httpx>=0.26.0
+
+# AI Enhancement Tools
+langchain>=0.1.0
+langchain-openai>=0.0.2
+langchain-community>=0.0.10
+chromadb>=0.4.22
+
+# Security
+cryptography>=42.0.0
+python-jose[cryptography]>=3.3.0
+
+# Deployment
+gunicorn>=21.2.0
+docker>=7.0.0
+
+# Development
+black>=24.1.0
+flake8>=7.0.0
+mypy>=1.8.0
+pre-commit>=3.6.0
