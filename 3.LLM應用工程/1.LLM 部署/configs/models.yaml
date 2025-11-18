@@ -1,0 +1,246 @@
+# LLM 模型配置檔案
+# 定義各種部署場景下的模型配置
+
+# === API 服務模型 ===
+api_models:
+  # OpenAI 模型
+  openai:
+    gpt-4o:
+      provider: openai
+      model_id: gpt-4o
+      context_length: 128000
+      cost_per_1m_input: 2.50
+      cost_per_1m_output: 10.00
+      supports_streaming: true
+      supports_function_calling: true
+
+    gpt-4o-mini:
+      provider: openai
+      model_id: gpt-4o-mini
+      context_length: 128000
+      cost_per_1m_input: 0.15
+      cost_per_1m_output: 0.60
+      supports_streaming: true
+      supports_function_calling: true
+
+  # Anthropic 模型
+  anthropic:
+    claude-3-5-sonnet:
+      provider: anthropic
+      model_id: claude-3-5-sonnet-20241022
+      context_length: 200000
+      cost_per_1m_input: 3.00
+      cost_per_1m_output: 15.00
+      supports_streaming: true
+      supports_vision: true
+
+    claude-3-haiku:
+      provider: anthropic
+      model_id: claude-3-haiku-20240307
+      context_length: 200000
+      cost_per_1m_input: 0.25
+      cost_per_1m_output: 1.25
+      supports_streaming: true
+
+# === 本地部署模型 ===
+local_models:
+  # Llama 系列
+  llama:
+    llama-3.1-8b-instruct:
+      model_id: meta-llama/Meta-Llama-3.1-8B-Instruct
+      size_gb: 16
+      min_vram_gb: 12
+      recommended_vram_gb: 24
+      quantization_options:
+        - 4bit
+        - 8bit
+        - fp16
+      use_cases:
+        - general_chat
+        - code_generation
+        - summarization
+
+    llama-3.1-70b-instruct:
+      model_id: meta-llama/Meta-Llama-3.1-70B-Instruct
+      size_gb: 140
+      min_vram_gb: 40
+      recommended_vram_gb: 80
+      quantization_options:
+        - 4bit
+        - 8bit
+      use_cases:
+        - complex_reasoning
+        - professional_writing
+        - advanced_coding
+
+  # Mistral 系列
+  mistral:
+    mistral-7b-instruct:
+      model_id: mistralai/Mistral-7B-Instruct-v0.3
+      size_gb: 14
+      min_vram_gb: 10
+      recommended_vram_gb: 16
+      quantization_options:
+        - 4bit
+        - 8bit
+        - fp16
+      use_cases:
+        - general_purpose
+        - fast_inference
+
+    mixtral-8x7b-instruct:
+      model_id: mistralai/Mixtral-8x7B-Instruct-v0.1
+      size_gb: 90
+      min_vram_gb: 30
+      recommended_vram_gb: 48
+      quantization_options:
+        - 4bit
+        - 8bit
+      use_cases:
+        - high_performance
+        - multilingual
+
+  # Qwen 系列 (中文優化)
+  qwen:
+    qwen2.5-7b-instruct:
+      model_id: Qwen/Qwen2.5-7B-Instruct
+      size_gb: 14
+      min_vram_gb: 10
+      recommended_vram_gb: 16
+      language_support:
+        - zh
+        - en
+      use_cases:
+        - chinese_chat
+        - chinese_writing
+
+    qwen2.5-coder-7b:
+      model_id: Qwen/Qwen2.5-Coder-7B-Instruct
+      size_gb: 14
+      min_vram_gb: 10
+      recommended_vram_gb: 16
+      use_cases:
+        - code_generation
+        - code_explanation
+        - debugging
+
+# === Ollama 模型 ===
+ollama_models:
+  recommended:
+    - name: llama3.1:8b
+      size: 4.7GB
+      parameters: 8B
+      use_case: 通用對話、程式碼生成
+
+    - name: mistral:7b
+      size: 4.1GB
+      parameters: 7B
+      use_case: 快速推理、多語言
+
+    - name: qwen2.5:7b
+      size: 4.7GB
+      parameters: 7B
+      use_case: 中文對話、中文創作
+
+    - name: codellama:7b
+      size: 3.8GB
+      parameters: 7B
+      use_case: 程式碼生成、程式碼審查
+
+    - name: phi3:3.8b
+      size: 2.3GB
+      parameters: 3.8B
+      use_case: 輕量級部署、邊緣裝置
+
+# === 量化配置 ===
+quantization_configs:
+  4bit:
+    method: bitsandbytes
+    config:
+      load_in_4bit: true
+      bnb_4bit_compute_dtype: bfloat16
+      bnb_4bit_quant_type: nf4
+      bnb_4bit_use_double_quant: true
+    memory_reduction: 75%
+    quality_retention: 95%
+
+  8bit:
+    method: bitsandbytes
+    config:
+      load_in_8bit: true
+    memory_reduction: 50%
+    quality_retention: 98%
+
+  gptq:
+    method: optimum
+    config:
+      bits: 4
+      group_size: 128
+      desc_act: false
+    memory_reduction: 75%
+    quality_retention: 96%
+
+  awq:
+    method: autoawq
+    config:
+      bits: 4
+      group_size: 128
+    memory_reduction: 75%
+    quality_retention: 97%
+
+# === 部署配置模板 ===
+deployment_templates:
+  development:
+    model: llama3.1:8b
+    quantization: 4bit
+    batch_size: 1
+    max_concurrent: 2
+    gpu_memory_fraction: 0.8
+
+  production_small:
+    model: mistral:7b
+    quantization: 8bit
+    batch_size: 4
+    max_concurrent: 10
+    gpu_memory_fraction: 0.9
+
+  production_large:
+    model: llama-3.1-70b-instruct
+    quantization: 4bit
+    batch_size: 8
+    max_concurrent: 20
+    gpu_memory_fraction: 0.95
+    tensor_parallel_size: 2
+
+# === 硬體需求對應表 ===
+hardware_requirements:
+  consumer_grade:
+    gpu: RTX 3060 12GB / RTX 4060 Ti 16GB
+    ram: 16GB
+    recommended_models:
+      - llama3.1:8b (4bit)
+      - mistral:7b (4bit)
+      - phi3:3.8b
+
+  enthusiast_grade:
+    gpu: RTX 4090 24GB / RTX 4080 16GB
+    ram: 32GB
+    recommended_models:
+      - llama-3.1-8b-instruct (fp16)
+      - mistral-7b-instruct (8bit)
+      - mixtral-8x7b (4bit)
+
+  professional_grade:
+    gpu: A100 40GB / A6000 48GB
+    ram: 128GB
+    recommended_models:
+      - llama-3.1-70b-instruct (8bit)
+      - mixtral-8x7b (8bit)
+      - qwen2.5-72b (4bit)
+
+  enterprise_grade:
+    gpu: 4x A100 80GB
+    ram: 512GB
+    recommended_models:
+      - llama-3.1-405b (4bit)
+      - any model (fp16)
