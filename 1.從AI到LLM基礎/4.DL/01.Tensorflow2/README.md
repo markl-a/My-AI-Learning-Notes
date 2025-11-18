@@ -1,10 +1,11 @@
 # TensorFlow 2 個人複習筆記
 
-> 🔄 **最後更新：** 2025-01-18
+> 🔄 **最後更新：** 2025-11-18
 > 📊 **完成度：** 約 25% → 持續更新中
-> 🎯 **推薦版本：** TensorFlow 2.15+ (Python 3.9-3.11)
-> 💻 **測試環境：** TensorFlow 2.15.0, CUDA 12.2, cuDNN 8.9
+> 🎯 **推薦版本：** TensorFlow 2.18+ (最新穩定版: 2.20.0) - Python 3.9-3.12
+> 💻 **測試環境：** TensorFlow 2.20.0, CUDA 12.6, cuDNN 9.x
 > 📚 **教程數量：** 6 個完整教程（基礎到進階）
+> ⚡ **重要更新：** 支援 NumPy 2.0、改進的 CUDA 支援、Keras 3.x 整合
 
 ---
 
@@ -20,11 +21,19 @@
 - ✅ **5. tf.data 最佳實踐** (`5.TF_Data_Best_Practices.ipynb`) - 高效數據載入、預處理和性能優化技巧
 - ✅ **6. 模型保存與部署** (`6.Model_Saving_and_Deployment.ipynb`) - 完整的模型保存、載入、轉換和部署指南
 
-**最近更新（2025-01-18）：**
-- 🆕 新增 **tf.data API 最佳實踐**教程 - 涵蓋 prefetch、cache、並行處理等優化技術
-- 🆕 新增 **模型保存與部署**完整指南 - 包含 TFLite、ONNX、TF Serving 等多種部署方式
-- 🆕 大幅增強 README - 添加 FAQ、最佳實踐、常見陷阱、性能優化等實用章節
-- 🆕 添加快速開始指南和推薦學習路徑
+**最近更新（2025-11-18）：**
+- 🆕 **版本更新至 TensorFlow 2.20+** - 支援最新的 TensorFlow 2.20.0 穩定版
+- 🆕 **NumPy 2.0 兼容性** - 完整支援 NumPy 2.0 API 和性能改進
+- 🆕 **Keras 3.x 整合** - 多後端支援（TensorFlow、JAX、PyTorch）
+- 🆕 **LiteRT 遷移提醒** - tf.lite 將逐步遷移至獨立的 LiteRT 項目
+- 🆕 **改進的 CUDA 支援** - Hermetic CUDA 實現更好的構建可重現性
+- 🔄 更新所有代碼示例以確保與最新版本兼容
+
+**歷史更新（2025-01-18）：**
+- 新增 **tf.data API 最佳實踐**教程 - 涵蓋 prefetch、cache、並行處理等優化技術
+- 新增 **模型保存與部署**完整指南 - 包含 TFLite、ONNX、TF Serving 等多種部署方式
+- 大幅增強 README - 添加 FAQ、最佳實踐、常見陷阱、性能優化等實用章節
+- 添加快速開始指南和推薦學習路徑
 
 其餘內容正在逐步補充中。歡迎先學習已完成的部分，或參考官方 [TensorFlow 教程](https://www.tensorflow.org/tutorials)。
 
@@ -286,6 +295,56 @@
 
 ---
 
+## 🆕 TensorFlow 2.18-2.20 新特性亮點（2024-2025）
+
+### TensorFlow 2.20 (2025年8月)
+- **LiteRT 獨立化：** `tf.lite` 模組將遷移至獨立的 LiteRT 專案，專注於設備端推理
+- **Keras 3.x 完全整合：** 多後端架構支援（TensorFlow、JAX、PyTorch）
+- **性能優化：** 改進的記憶體管理和執行效率
+- **API 清理：** 棄用舊版 API，簡化開發體驗
+
+### TensorFlow 2.19 (2025年3月)
+- **LiteRT C++ API 改進：** 更好的設備端部署支援
+- **bfloat16 支援增強：** TFLite 型別轉換支援 bfloat16
+- **效能提升：** 編譯時優化和運行時性能改進
+
+### TensorFlow 2.18 (2024年10月) - 重要里程碑
+- **✅ NumPy 2.0 支援：** 預設編譯支援 NumPy 2.0，帶來顯著性能提升
+- **🔧 Hermetic CUDA：** 更好的構建可重現性，避免本地 CUDA 版本衝突
+- **📦 Keras 增強：**
+  ```python
+  # 新增 Pipeline 層，用於構建預處理管道
+  from tensorflow import keras
+
+  preprocessing_pipeline = keras.layers.Pipeline([
+      keras.layers.Rescaling(1./255),
+      keras.layers.RandomFlip("horizontal"),
+      keras.layers.RandomRotation(0.2)
+  ])
+  ```
+- **🚀 TFLite 改進：** SignatureRunner 支援無簽名的模型
+- **⚠️ 重大變更：** 為了代碼健康，CUDA 構建中禁用了 TensorRT 支援
+
+### 升級建議
+
+```python
+# 檢查當前版本
+import tensorflow as tf
+print(f"TensorFlow: {tf.__version__}")
+print(f"Keras: {tf.keras.__version__}")
+
+# 升級到最新版本
+# pip install --upgrade tensorflow>=2.18.0
+
+# 檢查新特性兼容性
+if hasattr(tf.keras.layers, 'Pipeline'):
+    print("✅ 支援 Keras Pipeline 層")
+else:
+    print("⚠️ 請升級到 TensorFlow 2.18+")
+```
+
+---
+
 ## 🛠️ 現代 TensorFlow 2 最佳實踐（2024-2025）
 
 ### 推薦工作流程
@@ -384,15 +443,38 @@ model.fit(dataset, epochs=epochs, callbacks=callbacks)
 ### 環境安裝
 
 ```bash
-# 使用 pip 安裝 TensorFlow
-pip install tensorflow>=2.15.0
+# 使用 pip 安裝最新版 TensorFlow (推薦)
+pip install tensorflow>=2.18.0
+
+# 或安裝最新穩定版
+pip install tensorflow==2.20.0
 
 # 驗證安裝
-python -c "import tensorflow as tf; print(tf.__version__); print('GPU Available:', tf.config.list_physical_devices('GPU'))"
+python -c "import tensorflow as tf; print('TensorFlow version:', tf.__version__); print('Keras version:', tf.keras.__version__); print('GPU Available:', len(tf.config.list_physical_devices('GPU')))"
+
+# 檢查 NumPy 版本（建議 NumPy 2.0+）
+python -c "import numpy as np; print('NumPy version:', np.__version__)"
 
 # 可選：安裝額外套件
 pip install tensorflow-datasets tensorflow-hub keras-tuner
+
+# 如果需要 GPU 支援，確保安裝匹配的 CUDA 版本
+# TensorFlow 2.18+ 需要 CUDA 12.3+ 和 cuDNN 8.9+
 ```
+
+### 重要版本兼容性說明（2025）
+
+| TensorFlow 版本 | Python 版本 | CUDA 版本 | cuDNN 版本 | NumPy 版本 |
+|----------------|------------|----------|-----------|-----------|
+| 2.20.0 | 3.9-3.12 | 12.3+ | 9.x | 1.26+ / 2.0+ |
+| 2.19.0 | 3.9-3.12 | 12.3+ | 8.9+ | 1.26+ / 2.0+ |
+| 2.18.0 | 3.9-3.12 | 12.3+ | 8.9+ | 1.26+ / 2.0+ |
+| 2.15.0 | 3.9-3.11 | 12.2+ | 8.9+ | 1.23-1.26 |
+
+**注意事項：**
+- TensorFlow 2.18+ 預設編譯支援 NumPy 2.0，獲得更好的性能
+- 使用 Hermetic CUDA 可以避免本地 CUDA 版本衝突
+- Keras 3.x 提供多後端支援，但預設使用 TensorFlow 後端
 
 ### 第一個 TensorFlow 程式
 
