@@ -1,0 +1,57 @@
+# 推論優化 - 完整依賴清單
+
+# 基礎深度學習框架
+torch>=2.0.0
+transformers>=4.35.0
+accelerate>=0.25.0
+datasets>=2.14.0
+
+# 量化工具
+bitsandbytes>=0.41.0  # INT8/INT4 量化
+optimum>=1.14.0  # Hugging Face 優化工具
+auto-gptq>=0.5.0  # GPTQ 量化
+autoawq>=0.1.6  # AWQ 量化
+
+# 推論引擎
+# vllm>=0.2.0  # 取消註釋以安裝 vLLM（需要 CUDA）
+
+# Flash Attention（可選，需要 CUDA）
+# flash-attn>=2.3.0  # 取消註釋以安裝
+
+# 效能測試和分析
+psutil>=5.9.0  # 系統資源監控
+py3nvml>=0.2.7  # GPU 監控
+numpy>=1.24.0
+pandas>=2.0.0
+
+# 視覺化
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# AI API（可選）
+openai>=1.0.0  # OpenAI API
+anthropic>=0.7.0  # Anthropic Claude API
+
+# 工具
+tqdm>=4.65.0  # 進度條
+pydantic>=2.0.0  # 資料驗證
+python-dotenv>=1.0.0  # 環境變量管理
+requests>=2.31.0  # HTTP 請求
+jsonschema>=4.17.0  # JSON 驗證
+
+# 安裝說明：
+#
+# 1. 基礎安裝（CPU）：
+#    pip install torch transformers accelerate
+#
+# 2. 完整安裝（GPU）：
+#    pip install -r requirements.txt
+#
+# 3. 量化工具（按需安裝）：
+#    pip install auto-gptq autoawq
+#
+# 4. vLLM（推薦，需要 CUDA）：
+#    pip install vllm
+#
+# 5. Flash Attention（可選，需要 CUDA 11.6+）：
+#    pip install flash-attn --no-build-isolation
