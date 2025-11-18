@@ -1,17 +1,27 @@
-# YOLOv8 模型訓練指南
+# YOLO 模型訓練指南（YOLO11/v10/v9/v8）
 
 > 🎓 **訓練方式：** 手動訓練、AutoDistill 自動訓練
-> 🔧 **框架：** Ultralytics YOLOv8
+> 🔧 **框架：** Ultralytics YOLO（支援所有版本）
 > ⚡ **特色：** 完整的訓練、驗證、推理流程
+> 🔄 **最後更新：** 2025-01
 
 ---
 
 ## 📖 簡介
 
-本目錄包含 YOLOv8 模型訓練的完整教學和範例代碼。我們提供兩種訓練方式：
+本目錄包含 **YOLO 系列模型**（YOLO11、YOLOv10、YOLOv9、YOLOv8）訓練的完整教學和範例代碼。我們提供兩種訓練方式：
 
-1. **手動訓練** - 完全掌控訓練過程
+1. **手動訓練** - 完全掌控訓練過程，支援所有 YOLO 版本
 2. **AutoDistill 自動訓練** - 使用大模型自動標註並訓練
+
+### 版本選擇建議
+
+| 版本 | 訓練速度 | 準確率潛力 | 推薦場景 |
+|------|----------|------------|----------|
+| **YOLO11** | 快 | 最高 | 新項目首選 |
+| **YOLOv10** | 最快 | 高 | 需要快速迭代 |
+| **YOLOv9** | 中 | 最高 | 追求極致準確率 |
+| **YOLOv8** | 快 | 高 | 穩定生產環境 |
 
 ---
 
@@ -75,8 +85,14 @@ names: ['class1', 'class2']
 ```python
 from ultralytics import YOLO
 
-# 載入預訓練模型
-model = YOLO('yolov8n.pt')  # n, s, m, l, x
+# 載入預訓練模型（選擇您需要的版本）
+# YOLO11（推薦）- 最新、最快、最準確
+model = YOLO('yolo11n.pt')  # n, s, m, l, x
+
+# 也可以使用其他版本
+# model = YOLO('yolov10n.pt')  # 超低延遲
+# model = YOLO('yolov9c.pt')   # 最高準確率
+# model = YOLO('yolov8n.pt')   # 穩定可靠
 
 # 訓練模型
 results = model.train(
@@ -93,8 +109,60 @@ results = model.train(
 metrics = model.val()
 
 # 查看結果
-print(f"mAP50: {metrics.box.map50}")
-print(f"mAP50-95: {metrics.box.map}")
+print(f"mAP50: {metrics.box.map50:.4f}")
+print(f"mAP50-95: {metrics.box.map:.4f}")
+print(f"Precision: {metrics.box.mp:.4f}")
+print(f"Recall: {metrics.box.mr:.4f}")
+```
+
+**不同版本的特定優化：**
+
+```python
+# YOLO11 - 平衡型配置
+model = YOLO('yolo11s.pt')
+results = model.train(
+    data='dataset.yaml',
+    epochs=100,
+    imgsz=640,
+    batch=16,
+    optimizer='AdamW',  # YOLO11 推薦
+    lr0=0.01,
+    patience=50
+)
+
+# YOLOv10 - 速度優化配置
+model = YOLO('yolov10s.pt')
+results = model.train(
+    data='dataset.yaml',
+    epochs=100,
+    imgsz=640,
+    batch=32,  # 可以用更大的 batch
+    amp=True,  # 自動混合精度
+    cache=True  # 快取數據
+)
+
+# YOLOv9 - 準確率優化配置
+model = YOLO('yolov9c.pt')
+results = model.train(
+    data='dataset.yaml',
+    epochs=200,  # 更多訓練輪數
+    imgsz=640,
+    batch=16,
+    patience=100,  # 更長的耐心值
+    mosaic=1.0,
+    mixup=0.15  # 使用 MixUp
+)
+
+# YOLOv8 - 生產環境配置
+model = YOLO('yolov8s.pt')
+results = model.train(
+    data='dataset.yaml',
+    epochs=100,
+    imgsz=640,
+    batch=16,
+    save_period=10,
+    plots=True
+)
 ```
 
 #### 命令列

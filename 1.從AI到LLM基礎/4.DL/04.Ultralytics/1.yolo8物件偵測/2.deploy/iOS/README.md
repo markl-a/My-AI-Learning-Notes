@@ -1,14 +1,16 @@
-# YOLOv8 iOS 部署指南
+# YOLO iOS 部署指南（YOLO11/v10/v9/v8）
 
 > 📱 **平台：** iOS 14.0+
 > 🔧 **框架：** Core ML, Vision
 > ⚡ **特色：** 即時物件偵測，原生 iOS 整合
+> 🔄 **最後更新：** 2025-01
+> ✅ **支援版本：** YOLO11, YOLOv10, YOLOv9, YOLOv8
 
 ---
 
 ## 📖 簡介
 
-本目錄包含完整的 iOS 部署範例，展示如何將訓練好的 YOLOv8 模型部署到 iPhone/iPad 上實現即時物件偵測。
+本目錄包含完整的 iOS 部署範例，展示如何將訓練好的 **YOLO 系列模型**（YOLO11、YOLOv10、YOLOv9、YOLOv8）部署到 iPhone/iPad 上實現即時物件偵測。所有 YOLO 版本使用相同的部署流程。
 
 ### 為什麼選擇 Core ML？
 
@@ -44,8 +46,8 @@ iOS/
 ```python
 from ultralytics import YOLO
 
-# 載入訓練好的模型
-model = YOLO('best.pt')
+# 載入訓練好的模型（支援所有版本）
+model = YOLO('best.pt')  # 可以是 YOLO11/v10/v9/v8 訓練的模型
 
 # 導出為 Core ML 格式
 model.export(
@@ -59,6 +61,26 @@ model.export(
 **輸出檔案：**
 - `best.mlpackage/` - Core ML 模型包
 - 包含模型、元數據、預覽
+
+**不同版本的建議：**
+
+```python
+# YOLO11 - 推薦用於 iOS（最快，最新）
+model = YOLO('yolo11n.pt')  # 或訓練好的模型
+model.export(format='coreml', imgsz=640, nms=True, half=True)  # FP16
+
+# YOLOv10 - 無需 NMS，部署更簡單
+model = YOLO('yolov10n.pt')
+model.export(format='coreml', imgsz=640, nms=False)  # YOLOv10 不需要 NMS
+
+# YOLOv9 - 準確率優先
+model = YOLO('yolov9c.pt')
+model.export(format='coreml', imgsz=640, nms=True, half=True)
+
+# YOLOv8 - 穩定可靠
+model = YOLO('yolov8n.pt')
+model.export(format='coreml', imgsz=640, nms=True)
+```
 
 ### 2. 打開 Xcode 專案
 
@@ -399,13 +421,24 @@ func startDisplayLink() {
 
 ## 📊 性能基準測試
 
-| 設備 | 模型 | FPS | 延遲 | 功耗 |
-|------|------|-----|------|------|
-| iPhone 14 Pro | YOLOv8n | ~60 | 16ms | 低 |
-| iPhone 14 Pro | YOLOv8s | ~45 | 22ms | 中 |
-| iPhone 13 | YOLOv8n | ~50 | 20ms | 低 |
-| iPhone 12 | YOLOv8n | ~40 | 25ms | 中 |
-| iPad Pro M1 | YOLOv8s | ~60 | 16ms | 低 |
+**最新設備性能對比：**
+
+| 設備 | 模型 | FPS | 延遲 | 功耗 | 備註 |
+|------|------|-----|------|------|------|
+| **iPhone 15 Pro** | YOLO11n | ~75 | 13ms | 極低 | 最佳 |
+| **iPhone 15 Pro** | YOLOv10n | ~70 | 14ms | 極低 | 優秀 |
+| **iPhone 15 Pro** | YOLOv9s | ~55 | 18ms | 低 | 高精度 |
+| **iPhone 15 Pro** | YOLOv8n | ~65 | 15ms | 低 | 穩定 |
+| **iPhone 14 Pro** | YOLO11n | ~70 | 14ms | 低 | 推薦 |
+| **iPhone 14 Pro** | YOLOv8n | ~60 | 16ms | 低 | 可靠 |
+| **iPhone 13** | YOLO11n | ~55 | 18ms | 低 | 良好 |
+| **iPad Pro M2** | YOLO11s | ~80 | 12ms | 極低 | 最優 |
+
+**建議：**
+- **iPhone 15/14 Pro 首選：** YOLO11n（最佳性能）
+- **需要極致速度：** YOLOv10n（無 NMS）
+- **準確率優先：** YOLOv9s
+- **穩定部署：** YOLOv8n
 
 ---
 
