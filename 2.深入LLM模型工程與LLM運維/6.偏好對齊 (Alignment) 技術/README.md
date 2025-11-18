@@ -2767,3 +2767,830 @@ training_cost = {
 - [Training language models to follow instructions with human feedback (Ouyang et al., 2022)](https://arxiv.org/abs/2203.02155)
 
 ---
+
+## 6.5 最佳實踐與常見問題
+
+### 對齊訓練最佳實踐
+
+#### 1. 選擇合適的對齊方法
+
+```python
+def choose_alignment_method(constraints):
+    """根據約束條件選擇對齊方法"""
+
+    # 1. 資源非常有限（單 GPU）
+    if constraints["gpu_count"] == 1 and constraints["gpu_memory"] <= 24:
+        return "DPO + QLoRA"
+
+    # 2. 中等資源（2-4 GPU）
+    elif constraints["gpu_count"] <= 4:
+        if constraints["need_fast_iteration"]:
+            return "ORPO"  # 單階段，更快
+        else:
+            return "DPO"  # 更穩定
+
+    # 3. 充足資源（8+ GPU）
+    elif constraints["gpu_count"] >= 8:
+        if constraints["need_best_performance"]:
+            return "RLHF (PPO)"  # 最佳性能
+        else:
+            return "DPO (Full Fine-tuning)"  # 性價比高
+
+    # 4. 特殊需求
+    if constraints["lack_paired_data"]:
+        return "KTO"  # 只需二元反饋
+
+    if constraints["lack_human_labels"]:
+        return "RLAIF"  # 使用 AI 評判
+
+    # 默認推薦
+    return "DPO + LoRA"
+```
+
+#### 2. 數據準備最佳實踐
+
+**數據質量 > 數據數量**
+
+```python
+# 推薦的數據規模
+
+data_requirements = {
+    "SFT": {
+        "minimum": 1000,      # 最少
+        "recommended": 10000, # 推薦
+        "optimal": 50000      # 最佳
+    },
+    "Preference Data (DPO/RLHF)": {
+        "minimum": 5000,
+        "recommended": 50000,
+        "optimal": 100000
+    }
+}
+
+# 數據質量檢查清單
+quality_checklist = [
+    "✓ 偏好對有明顯區分（chosen 明顯優於 rejected）",
+    "✓ 數據多樣化（涵蓋多種場景和主題）",
+    "✓ 無重複數據",
+    "✓ 無有害內容",
+    "✓ 標註一致性 > 70%",
+    "✓ 平衡不同類型的任務"
+]
+```
+
+**混合數據策略：**
+
+```python
+def create_hybrid_dataset(budget):
+    """創建混合偏好數據集"""
+
+    # 核心高質量數據（20%）- 人類標註
+    core_size = int(budget * 0.4 / 0.5)  # 40% 預算用於核心數據
+    core_data = human_annotate(prompts[:core_size])
+
+    # 擴充數據（70%）- 合成或 AI 輔助
+    synthetic_size = core_size * 3
+    synthetic_data = generate_synthetic_preferences(prompts, model)
+
+    # 驗證數據（10%）- 人類驗證
+    validation_size = int(budget * 0.1 / 0.1)
+    validation_data = validate_samples(synthetic_data, sample_rate=0.1)
+
+    return combine(core_data, synthetic_data, validation_data)
+```
+
+#### 3. 訓練流程最佳實踐
+
+**端到端流程：**
+
+```python
+def alignment_training_pipeline(model_name, dataset):
+    """完整的對齊訓練流程"""
+
+    # 階段 0：數據準備和驗證
+    print("階段 0: 數據準備")
+    dataset = validate_and_clean_dataset(dataset)
+    train_data, val_data, test_data = split_dataset(dataset)
+
+    # 階段 1：監督微調（SFT）
+    print("階段 1: SFT 訓練")
+    sft_model = train_sft(
+        model_name,
+        train_data,
+        epochs=1-3,
+        use_lora=True  # 推薦使用 LoRA
+    )
+
+    # 中間評估
+    sft_metrics = evaluate_model(sft_model, val_data)
+    if sft_metrics["quality"] < 0.7:
+        print("⚠️ SFT 質量不佳，建議改進數據或增加訓練")
+
+    # 階段 2：偏好對齊（DPO）
+    print("階段 2: DPO 對齊")
+    dpo_model = train_dpo(
+        sft_model,
+        preference_data,
+        beta=0.1,
+        epochs=1-3
+    )
+
+    # 最終評估
+    final_metrics = comprehensive_evaluation(
+        dpo_model,
+        test_data,
+        metrics=["quality", "safety", "helpfulness", "honesty"]
+    )
+
+    # 安全性檢查
+    safety_score = safety_evaluation(dpo_model, adversarial_prompts)
+    if safety_score < 0.9:
+        print("⚠️ 安全性評分較低，建議額外的安全性對齊")
+
+    return dpo_model, final_metrics
+```
+
+#### 4. 超參數調優建議
+
+**SFT 超參數：**
+
+```python
+sft_hyperparameters = {
+    # 學習率（最重要）
+    "learning_rate": {
+        "7B 模型": 2e-5,
+        "13B 模型": 1e-5,
+        "70B+ 模型": 5e-6
+    },
+
+    # Epoch 數量
+    "num_epochs": {
+        "小數據集 (<10K)": 3-5,
+        "中等數據集 (10K-100K)": 1-3,
+        "大數據集 (>100K)": 1
+    },
+
+    # 批次大小
+    "batch_size": {
+        "建議": "盡可能大（受內存限制）",
+        "最小": 4,
+        "典型": 16-32
+    },
+
+    # 其他
+    "warmup_ratio": 0.1,  # 10% 步數用於 warmup
+    "weight_decay": 0.01,
+    "max_grad_norm": 1.0  # 梯度裁剪
+}
+```
+
+**DPO 超參數：**
+
+```python
+dpo_hyperparameters = {
+    # Beta（KL 散度懲罰）- 最關鍵參數
+    "beta": {
+        "起點": 0.1,
+        "需要大幅改變": 0.05,
+        "保守調整": 0.2-0.5
+    },
+
+    # 學習率（比 SFT 小）
+    "learning_rate": {
+        "7B 模型": 5e-7,
+        "13B 模型": 3e-7,
+        "70B+ 模型": 1e-7
+    },
+
+    # Epoch 數量
+    "num_epochs": 1-3,  # 通常不需要太多
+
+    # 批次大小
+    "batch_size": 4-16  # 可以比 SFT 小
+}
+```
+
+**調優策略：**
+
+```python
+def hyperparameter_search(model, data, param_grid):
+    """超參數搜索"""
+
+    results = []
+
+    for beta in param_grid["beta"]:
+        for lr in param_grid["learning_rate"]:
+            # 訓練模型
+            config = DPOConfig(beta=beta, learning_rate=lr, num_epochs=1)
+            trained_model = train_dpo(model, data, config)
+
+            # 評估
+            metrics = evaluate(trained_model, validation_data)
+
+            results.append({
+                "beta": beta,
+                "lr": lr,
+                "metrics": metrics
+            })
+
+    # 找到最佳配置
+    best_config = max(results, key=lambda x: x["metrics"]["overall_score"])
+
+    return best_config
+```
+
+#### 5. 訓練監控最佳實踐
+
+**關鍵指標：**
+
+```python
+# SFT 訓練監控
+sft_metrics = {
+    "loss": "應該穩定下降",
+    "perplexity": "應該下降到 < 10",
+    "learning_rate": "檢查學習率調度是否正確",
+    "gradient_norm": "不應該過大（> 10）或過小（< 0.01）"
+}
+
+# DPO 訓練監控
+dpo_metrics = {
+    "loss": "應該下降",
+    "accuracy": "偏好預測準確率，應該 > 60%",
+    "rewards/chosen": "應該上升",
+    "rewards/rejected": "應該下降或持平",
+    "rewards/margin": "chosen 和 rejected 的差距，應該擴大",
+    "kl_divergence": "與參考模型的 KL 散度，不應太大（< 10）"
+}
+
+# PPO 訓練監控（如使用 RLHF）
+ppo_metrics = {
+    "ppo/mean_scores": "平均獎勵，應該上升",
+    "ppo/policy/approxkl": "近似 KL，應該穩定且不太大",
+    "ppo/policy/clipfrac": "被裁剪的比例，0.1-0.3 為佳",
+    "ppo/loss/value": "價值函數損失"
+}
+```
+
+**異常檢測：**
+
+```python
+def detect_training_issues(metrics_history):
+    """檢測訓練問題"""
+
+    issues = []
+
+    # 1. 損失不下降
+    if not is_decreasing(metrics_history["loss"]):
+        issues.append("Loss not decreasing - check learning rate")
+
+    # 2. 損失爆炸
+    if metrics_history["loss"][-1] > metrics_history["loss"][0] * 2:
+        issues.append("Loss exploding - reduce learning rate")
+
+    # 3. KL 散度過大
+    if "kl_divergence" in metrics_history:
+        if metrics_history["kl_divergence"][-1] > 10:
+            issues.append("KL divergence too large - increase beta")
+
+    # 4. 梯度消失/爆炸
+    if "gradient_norm" in metrics_history:
+        if metrics_history["gradient_norm"][-1] < 0.01:
+            issues.append("Vanishing gradients")
+        elif metrics_history["gradient_norm"][-1] > 10:
+            issues.append("Exploding gradients - enable gradient clipping")
+
+    # 5. 獎勵黑客
+    if "rewards/chosen" in metrics_history:
+        if metrics_history["rewards/chosen"][-1] > 10:  # 異常高
+            issues.append("Possible reward hacking")
+
+    return issues
+```
+
+### 常見問題與解答
+
+#### Q1: DPO 和 RLHF 該選哪個？
+
+**A:**
+
+```python
+recommendation = """
+對於大多數情況，推薦 DPO：
+
+優先選擇 DPO 如果：
+✓ 資源有限（<= 4 GPU）
+✓ 需要快速迭代
+✓ 團隊經驗有限
+✓ 有配對偏好數據
+
+優先選擇 RLHF 如果：
+✓ 資源充足（8+ GPU）
+✓ 需要最佳性能
+✓ 有複雜的獎勵函數（難以用配對表達）
+✓ 團隊有 RL 經驗
+
+2025 年趨勢：DPO 正在成為主流方法
+"""
+```
+
+#### Q2: 為什麼我的模型在對齊後變差了？
+
+**常見原因和解決方案：**
+
+```python
+def diagnose_alignment_failure(before_model, after_model, test_data):
+    """診斷對齊失敗"""
+
+    # 1. 檢查是否過度對齊（忘記原有能力）
+    capability_retention = evaluate_capability(
+        after_model,
+        general_tasks
+    )
+
+    if capability_retention < 0.9:
+        print("問題：過度對齊，模型忘記了原有能力")
+        print("解決方案：")
+        print("  - 降低學習率")
+        print("  - 減少訓練輪數")
+        print("  - 增加 KL 懲罰（DPO 的 beta）")
+        print("  - 混合通用數據和對齊數據訓練")
+
+    # 2. 檢查數據質量
+    data_quality = analyze_preference_data(preference_dataset)
+
+    if data_quality["bias_score"] > 0.5:
+        print("問題：偏好數據質量不佳或有偏見")
+        print("解決方案：")
+        print("  - 清洗和平衡數據")
+        print("  - 增加數據多樣性")
+        print("  - 改進標註指南")
+
+    # 3. 檢查是否獎勵黑客
+    hacking_score = detect_reward_hacking(
+        after_model,
+        reward_model
+    )
+
+    if hacking_score > 0.7:
+        print("問題：獎勵黑客")
+        print("解決方案：")
+        print("  - 改進獎勵模型")
+        print("  - 增加 KL 懲罰")
+        print("  - 使用多個獎勵信號")
+
+    # 4. 檢查訓練過程
+    if training_unstable:
+        print("問題：訓練不穩定")
+        print("解決方案：")
+        print("  - 降低學習率")
+        print("  - 使用梯度裁剪")
+        print("  - 檢查數據質量")
+```
+
+#### Q3: 如何評估對齊效果？
+
+**多維度評估框架：**
+
+```python
+def comprehensive_alignment_evaluation(model):
+    """全面評估對齊效果"""
+
+    results = {}
+
+    # 1. 有幫助性（Helpfulness）
+    results["helpfulness"] = evaluate_helpfulness(
+        model,
+        helpfulness_prompts
+    )
+
+    # 2. 誠實性（Honesty）
+    results["honesty"] = evaluate_honesty(
+        model,
+        fact_checking_dataset
+    )
+
+    # 3. 無害性（Harmlessness）
+    results["harmlessness"] = evaluate_safety(
+        model,
+        adversarial_prompts
+    )
+
+    # 4. 指令跟隨（Instruction Following）
+    results["instruction_following"] = evaluate_instruction_following(
+        model,
+        instruction_dataset
+    )
+
+    # 5. 與人類偏好的一致性
+    results["human_alignment"] = measure_human_preference_agreement(
+        model,
+        human_evaluation_set
+    )
+
+    # 6. 能力保持
+    results["capability_retention"] = evaluate_general_capability(
+        model,
+        benchmark_tasks
+    )
+
+    # 生成報告
+    generate_alignment_report(results)
+
+    return results
+```
+
+**實用評估工具：**
+
+```python
+# 使用現有基準測試
+evaluation_benchmarks = {
+    "通用能力": ["MMLU", "HellaSwag", "TruthfulQA"],
+    "指令跟隨": ["Alpaca Eval", "MT-Bench"],
+    "安全性": ["ToxiGen", "AdvBench"],
+    "誠實性": ["TruthfulQA"],
+    "代碼能力": ["HumanEval", "MBPP"]
+}
+
+# 簡化評估腳本
+from lm_eval import evaluator
+
+results = evaluator.simple_evaluate(
+    model=model,
+    tasks=["mmlu", "truthfulqa", "hellaswag"],
+    num_fewshot=5
+)
+```
+
+#### Q4: 內存不夠怎麼辦？
+
+**優化策略（優先級排序）：**
+
+```python
+memory_optimization_strategies = [
+    # 1. 使用量化（最有效）
+    {
+        "method": "4-bit 量化 (QLoRA)",
+        "memory_reduction": "70-75%",
+        "performance_loss": "< 1%",
+        "difficulty": "簡單"
+    },
+
+    # 2. 使用 LoRA
+    {
+        "method": "LoRA",
+        "memory_reduction": "50-60%",
+        "performance_loss": "5-10%",
+        "difficulty": "簡單"
+    },
+
+    # 3. 梯度檢查點
+    {
+        "method": "Gradient Checkpointing",
+        "memory_reduction": "40-50%",
+        "performance_loss": "0%（但訓練慢 20-30%）",
+        "difficulty": "簡單"
+    },
+
+    # 4. 降低批次大小 + 梯度累積
+    {
+        "method": "Small Batch + Gradient Accumulation",
+        "memory_reduction": "自定義",
+        "performance_loss": "0%（但訓練慢）",
+        "difficulty": "簡單"
+    },
+
+    # 5. DeepSpeed ZeRO
+    {
+        "method": "DeepSpeed ZeRO-3",
+        "memory_reduction": "60-80%（多 GPU）",
+        "performance_loss": "0%",
+        "difficulty": "中等"
+    },
+
+    # 6. Flash Attention
+    {
+        "method": "Flash Attention 2",
+        "memory_reduction": "20-30%",
+        "performance_loss": "0%",
+        "difficulty": "簡單"
+    }
+]
+
+# 組合使用示例
+def maximum_memory_optimization(model):
+    """最大化內存優化"""
+
+    # 1. 4-bit 量化
+    model = load_in_4bit(model)
+
+    # 2. LoRA
+    model = apply_lora(model, r=8)
+
+    # 3. 梯度檢查點
+    model.gradient_checkpointing_enable()
+
+    # 4. Flash Attention
+    model = replace_with_flash_attention(model)
+
+    # 5. 小批次 + 梯度累積
+    training_args = TrainingArguments(
+        per_device_train_batch_size=1,
+        gradient_accumulation_steps=32
+    )
+
+    return model, training_args
+```
+
+#### Q5: 訓練需要多長時間和多少成本？
+
+**成本估算工具：**
+
+```python
+def estimate_training_cost(model_size, dataset_size, method="DPO"):
+    """估算訓練成本"""
+
+    # GPU 價格（每小時）
+    gpu_prices = {
+        "A100-40GB": 1.5,
+        "A100-80GB": 3.0,
+        "H100": 5.0,
+        "RTX 4090": 0.5
+    }
+
+    # 訓練時間估算（小時）
+    if method == "SFT":
+        if model_size <= 7:
+            time_hours = dataset_size / 5000  # 1 epoch
+            gpu_type = "A100-40GB"
+            gpu_count = 1
+        elif model_size <= 13:
+            time_hours = dataset_size / 3000
+            gpu_type = "A100-80GB"
+            gpu_count = 2
+        else:
+            time_hours = dataset_size / 1000
+            gpu_type = "A100-80GB"
+            gpu_count = 4
+
+    elif method == "DPO":
+        time_hours = (dataset_size / 10000) * 2  # 2 epochs
+        gpu_type = "A100-40GB"
+        gpu_count = 1 if model_size <= 7 else 2
+
+    elif method == "RLHF":
+        time_hours = (dataset_size / 5000) * 10  # PPO 需要更長時間
+        gpu_type = "A100-80GB"
+        gpu_count = 4 if model_size <= 7 else 8
+
+    # 計算成本
+    total_cost = time_hours * gpu_count * gpu_prices[gpu_type]
+
+    return {
+        "time_hours": time_hours,
+        "gpu_type": gpu_type,
+        "gpu_count": gpu_count,
+        "estimated_cost_usd": total_cost,
+        "cost_breakdown": {
+            "GPU 租金": total_cost,
+            "數據標註": dataset_size * 0.1 if method != "SFT" else 0,
+            "其他": 100  # 存儲等
+        }
+    }
+
+# 示例
+cost = estimate_training_cost(
+    model_size=7,  # 7B
+    dataset_size=50000,
+    method="DPO"
+)
+
+print(f"預估訓練時間：{cost['time_hours']:.1f} 小時")
+print(f"預估成本：${cost['estimated_cost_usd']:.2f} USD")
+```
+
+#### Q6: 如何避免過擬合？
+
+**防止過擬合的策略：**
+
+```python
+overfitting_prevention = {
+    # 1. 早停（最簡單有效）
+    "early_stopping": {
+        "strategy": "監控驗證集性能",
+        "code": """
+        training_args = TrainingArguments(
+            evaluation_strategy="steps",
+            eval_steps=500,
+            load_best_model_at_end=True,
+            metric_for_best_model="eval_loss",
+            greater_is_better=False
+        )
+        """
+    },
+
+    # 2. 正則化
+    "regularization": {
+        "weight_decay": 0.01,  # L2 正則化
+        "dropout": 0.1,  # Dropout（if applicable）
+        "label_smoothing": 0.1  # 標籤平滑
+    },
+
+    # 3. 數據增強
+    "data_augmentation": {
+        "description": "增加數據多樣性",
+        "methods": [
+            "回譯（Back-translation）",
+            "同義詞替換",
+            "合成數據生成"
+        ]
+    },
+
+    # 4. KL 散度約束
+    "kl_constraint": {
+        "description": "限制模型偏離參考模型",
+        "dpo_beta": 0.1,  # DPO
+        "ppo_kl_coef": 0.2  # PPO
+    },
+
+    # 5. 較少的訓練輪數
+    "fewer_epochs": {
+        "SFT": "1-3 epochs",
+        "DPO": "1-2 epochs",
+        "note": "LLM 通常很容易過擬合"
+    }
+}
+```
+
+### 學習資源
+
+#### 必讀論文
+
+```python
+essential_papers = {
+    "RLHF 基礎": [
+        {
+            "title": "Learning to summarize from human feedback",
+            "authors": "Stiennon et al., 2020",
+            "url": "https://arxiv.org/abs/2009.01325",
+            "importance": "⭐⭐⭐⭐⭐",
+            "notes": "RLHF 的開創性工作"
+        },
+        {
+            "title": "Training language models to follow instructions with human feedback",
+            "authors": "Ouyang et al., 2022 (OpenAI)",
+            "url": "https://arxiv.org/abs/2203.02155",
+            "importance": "⭐⭐⭐⭐⭐",
+            "notes": "InstructGPT，ChatGPT 的基礎"
+        }
+    ],
+
+    "DPO 和替代方法": [
+        {
+            "title": "Direct Preference Optimization",
+            "authors": "Rafailov et al., 2023",
+            "url": "https://arxiv.org/abs/2305.18290",
+            "importance": "⭐⭐⭐⭐⭐",
+            "notes": "DPO 原論文，必讀"
+        },
+        {
+            "title": "ORPO: Monolithic Preference Optimization",
+            "authors": "Hong et al., 2024",
+            "url": "https://arxiv.org/abs/2403.07691",
+            "importance": "⭐⭐⭐⭐",
+            "notes": "單階段對齊"
+        }
+    ],
+
+    "Constitutional AI": [
+        {
+            "title": "Constitutional AI: Harmlessness from AI Feedback",
+            "authors": "Bai et al., 2022 (Anthropic)",
+            "url": "https://arxiv.org/abs/2212.08073",
+            "importance": "⭐⭐⭐⭐",
+            "notes": "Anthropic 的對齊方法"
+        }
+    ]
+}
+```
+
+#### 推薦課程和教程
+
+```python
+learning_resources = {
+    "官方教程": [
+        "Hugging Face TRL 文檔: https://huggingface.co/docs/trl",
+        "StackLLaMA 教程: https://huggingface.co/blog/stackllama",
+        "DPO 訓練指南: https://huggingface.co/blog/dpo-trl"
+    ],
+
+    "視頻課程": [
+        "DeepLearning.AI: Finetuning Large Language Models",
+        "Stanford CS324: Large Language Models",
+        "Hugging Face Course: https://huggingface.co/learn"
+    ],
+
+    "實踐項目": [
+        "StackLLaMA: 完整的 RLHF 範例",
+        "Alpaca: Stanford 的指令微調項目",
+        "OpenAssistant: 開源對話助手"
+    ]
+}
+```
+
+#### 有用的庫和工具
+
+```python
+recommended_libraries = {
+    "訓練框架": {
+        "TRL": "https://github.com/huggingface/trl",
+        "Axolotl": "https://github.com/OpenAccess-AI-Collective/axolotl",
+        "Unsloth": "https://github.com/unslothai/unsloth"
+    },
+
+    "模型和數據集": {
+        "Hugging Face Hub": "https://huggingface.co",
+        "OpenAssistant": "https://huggingface.co/OpenAssistant",
+        "UltraFeedback": "https://huggingface.co/datasets/openbmb/UltraFeedback"
+    },
+
+    "評估工具": {
+        "lm-evaluation-harness": "https://github.com/EleutherAI/lm-evaluation-harness",
+        "AlpacaEval": "https://github.com/tatsu-lab/alpaca_eval",
+        "MT-Bench": "https://github.com/lm-sys/FastChat"
+    },
+
+    "優化工具": {
+        "DeepSpeed": "https://github.com/microsoft/DeepSpeed",
+        "FlashAttention": "https://github.com/Dao-AILab/flash-attention",
+        "bitsandbytes": "https://github.com/TimDettmers/bitsandbytes"
+    }
+}
+```
+
+### 總結
+
+偏好對齊技術是讓 LLM 真正有用和安全的關鍵步驟。本文檔涵蓋了從基礎概念到實踐應用的完整知識體系：
+
+**關鍵要點回顧：**
+
+1. **選擇方法**：2025 年推薦 DPO 作為首選，RLHF 用於追求極致性能
+2. **數據為王**：高質量的偏好數據比大量低質量數據更重要
+3. **循序漸進**：SFT → DPO/RLHF → 評估 → 迭代
+4. **資源優化**：使用 QLoRA 可以在有限資源下訓練大模型
+5. **持續監控**：訓練過程中密切關注關鍵指標，及時調整
+
+**下一步行動：**
+
+```python
+next_steps = [
+    "1. 選擇合適的基礎模型（如 Llama 3.1, Mistral）",
+    "2. 準備或獲取 SFT 數據（1萬條起）",
+    "3. 訓練 SFT 模型並評估",
+    "4. 收集或生成偏好數據（5萬對起）",
+    "5. 使用 DPO 進行對齊訓練",
+    "6. 全面評估對齊效果",
+    "7. 根據評估結果迭代改進"
+]
+```
+
+記住：對齊是一個持續的過程，需要不斷收集反饋、改進數據和模型。祝訓練順利！
+
+---
+
+## 參考文獻
+
+### 核心論文
+
+1. Stiennon, N., et al. (2020). "Learning to summarize from human feedback." *NeurIPS 2020*. https://arxiv.org/abs/2009.01325
+
+2. Ouyang, L., et al. (2022). "Training language models to follow instructions with human feedback." *NeurIPS 2022*. https://arxiv.org/abs/2203.02155
+
+3. Rafailov, R., et al. (2023). "Direct Preference Optimization: Your Language Model is Secretly a Reward Model." *NeurIPS 2023*. https://arxiv.org/abs/2305.18290
+
+4. Bai, Y., et al. (2022). "Constitutional AI: Harmlessness from AI Feedback." *arXiv preprint*. https://arxiv.org/abs/2212.08073
+
+5. Schulman, J., et al. (2017). "Proximal Policy Optimization Algorithms." *arXiv preprint*. https://arxiv.org/abs/1707.06347
+
+### 方法論
+
+6. Hong, J., et al. (2024). "ORPO: Monolithic Preference Optimization without Reference Model." *arXiv preprint*. https://arxiv.org/abs/2403.07691
+
+7. Ethayarajh, K., et al. (2024). "KTO: Model Alignment as Prospect Theoretic Optimization." *arXiv preprint*. https://arxiv.org/abs/2402.01306
+
+8. Hu, E. J., et al. (2021). "LoRA: Low-Rank Adaptation of Large Language Models." *ICLR 2022*. https://arxiv.org/abs/2106.09685
+
+9. Dettmers, T., et al. (2023). "QLoRA: Efficient Finetuning of Quantized LLMs." *NeurIPS 2023*. https://arxiv.org/abs/2305.14314
+
+### 實踐指南
+
+10. Raschka, S. (2024). "Practical Tips for Finetuning LLMs Using LoRA." https://magazine.sebastianraschka.com/p/practical-tips-for-finetuning-llms
+
+11. Schmid, P. (2025). "How to align open LLMs in 2025 with DPO." https://www.philschmid.de/rl-with-llms-in-2025-dpo
+
+12. Tunstall, L., et al. (2023). "StackLLaMA: A hands-on guide to train LLaMA with RLHF." https://huggingface.co/blog/stackllama
+
+---
+
+**文檔版本：** 2025.01
+**最後更新：** 2025 年 1 月
+**作者：** Claude Code Enhanced
