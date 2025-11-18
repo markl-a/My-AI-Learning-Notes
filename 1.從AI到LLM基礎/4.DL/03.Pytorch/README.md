@@ -1,7 +1,7 @@
 # PyTorch 個人複習筆記
 
 > 🔄 **最後更新：** 2025-01
-> 📊 **完成度：** 約 30%
+> 📊 **完成度：** 約 50% (大幅更新!)
 > 🎯 **推薦版本：** PyTorch 2.0+
 > 🔥 **特色：** 動態計算圖、研究友好、生產就緒
 
@@ -9,9 +9,21 @@
 
 ## ⚠️ 內容狀態說明
 
-PyTorch 是目前深度學習研究和生產的主流框架之一，以其靈活性和易用性著稱。
+PyTorch 是目前深度學習研究和生產的主流框架之一,以其靈活性和易用性著稱。
+
+**✨ 最新更新 (2025-01):**
+- ✅ **0. PyTorch 基礎教程** - 全新添加! 🎉
+  - Tensor 基礎操作
+  - 自動微分 (Autograd)
+  - 神經網路基礎
+  - 資料處理完整教程
+  - 訓練循環示例
+- ✅ **DataLoader 和 Dataset 實戰教程** - 深度解析! 📊
+- ✅ **常用層和損失函數詳解** - 完整參考! 🔧
+- ✅ **訓練技巧和最佳實踐** - 實用技能! ⚡
 
 **已完成的內容：**
+- ✅ 0. PyTorch 基礎教程 (完整) ⭐⭐⭐
 - ✅ 1. ResNet 實作
 - ✅ 2. Transformer 程式碼詳解
 - ✅ 3. Segment Anything 2 (SAM2) - **2024 最新技術** ⭐
@@ -39,63 +51,97 @@ PyTorch 是目前深度學習研究和生產的主流框架之一，以其靈活
 
 ## 📚 完整學習規劃
 
-### 🎓 1. PyTorch 簡介與安裝
-**狀態：規劃中**
+### 🎓 0. PyTorch 基礎教程 ⭐ 全新內容!
+**狀態：✅ 已完成**
+
+**檔案位置：** `0.PyTorch基礎教程/`
+
+#### 0.1 PyTorch 基礎 (PyTorch_Basics.ipynb)
+- ✅ Tensor 創建與初始化
+- ✅ Tensor 運算（加減乘除、矩陣運算）
+- ✅ Tensor 形狀操作（reshape, view, transpose、squeeze、unsqueeze）
+- ✅ 索引與切片
+- ✅ GPU 加速
+- ✅ `torch.autograd` 自動微分機制
+- ✅ 梯度計算與反向傳播
+- ✅ `torch.no_grad()` 和 `requires_grad`
+- ✅ 神經網路基礎 (nn.Module)
+- ✅ 完整訓練循環示例
+
+#### 0.2 DataLoader 和 Dataset 實戰 (DataLoader_Dataset_Tutorial.ipynb)
+- ✅ 自定義 Dataset
+- ✅ TensorDataset 快速創建
+- ✅ 自定義圖像 Dataset
+- ✅ DataLoader 詳解（batch_size、shuffle、num_workers等）
+- ✅ 自定義 collate_fn
+- ✅ 資料增強 (torchvision.transforms)
+- ✅ 自定義變換
+- ✅ MNIST 完整實戰示例
+- ✅ WeightedRandomSampler - 處理不平衡數據
+- ✅ 效能優化技巧
+
+#### 0.3 常用層和損失函數詳解 (Common_Layers_and_Loss_Functions.ipynb)
+- ✅ Linear 層
+- ✅ 卷積層（Conv2d、Conv1d、ConvTranspose2d）
+- ✅ 池化層（MaxPool、AvgPool、AdaptiveAvgPool）
+- ✅ 正規化層（BatchNorm、LayerNorm、GroupNorm）
+- ✅ Dropout 層
+- ✅ 激活函數大全（ReLU、GELU、SiLU等）
+- ✅ 循環層（LSTM、GRU）
+- ✅ 注意力機制（MultiheadAttention、Transformer）
+- ✅ 分類損失（CrossEntropyLoss、BCELoss等）
+- ✅ 回歸損失（MSELoss、L1Loss等）
+- ✅ 進階損失（FocalLoss、TripletLoss等）
+- ✅ 損失函數選擇指南
+
+#### 0.4 訓練技巧和最佳實踐 (Training_Tips_and_Best_Practices.ipynb)
+- ✅ 標準訓練循環
+- ✅ 學習率調度（StepLR、CosineAnnealingLR、ReduceLROnPlateau等）
+- ✅ 優化器選擇（SGD、Adam、AdamW）
+- ✅ 模型初始化（Xavier、Kaiming）
+- ✅ 梯度裁剪
+- ✅ 混合精度訓練 (AMP)
+- ✅ 模型保存和加載最佳實踐
+- ✅ 早停機制 (EarlyStopping)
+- ✅ 常見問題調試技巧
+- ✅ 效能優化完整指南
+
+---
+
+### 🔥 1. PyTorch 簡介與安裝
+**狀態：部分完成**
 
 #### 1.1 環境設置
-- ⏳ PyTorch 安裝（CPU/GPU）
-- ⏳ CUDA 配置
+- ✅ PyTorch 安裝（已包含在基礎教程中）
+- ✅ CUDA 配置（已包含在基礎教程中）
 - ⏳ 虛擬環境管理
 - ⏳ IDE 配置（VS Code, PyCharm, Jupyter）
 
 #### 1.2 快速入門
-- ⏳ Tensor 基礎操作
-- ⏳ 自動微分（Autograd）
-- ⏳ 第一個神經網路
+- ✅ Tensor 基礎操作（已完成 - 見基礎教程）
+- ✅ 自動微分（Autograd）（已完成 - 見基礎教程）
+- ✅ 第一個神經網路（已完成 - 見基礎教程）
 
 ---
 
-### 🔥 2. PyTorch 核心概念
-**狀態：規劃中**
+### 📊 2. 資料處理模組
+**狀態：✅ 已完成**
 
-#### 2.1 Tensor 操作
-- ⏳ Tensor 創建與初始化
-- ⏳ Tensor 運算（加減乘除、矩陣運算）
-- ⏳ Tensor 形狀操作（reshape, view, transpose）
-- ⏳ 索引與切片
-- ⏳ GPU 加速
+#### 2.1 Dataset 與 DataLoader
+- ✅ `torch.utils.data.Dataset` 自定義
+- ✅ `DataLoader` 批次處理
+- ✅ 資料增強（Transforms）
+- ✅ 多進程資料載入
 
-#### 2.2 自動微分
-- ⏳ `torch.autograd` 機制
-- ⏳ 梯度計算
-- ⏳ 反向傳播
-- ⏳ `torch.no_grad()` 和 `requires_grad`
-
-#### 2.3 神經網路模組（nn.Module）
-- ⏳ 層定義
-- ⏳ 前向傳播
-- ⏳ 參數管理
-- ⏳ 模型組合
-
----
-
-### 📊 3. 資料處理模組
-**狀態：規劃中**
-
-#### 3.1 Dataset 與 DataLoader
-- ⏳ `torch.utils.data.Dataset` 自定義
-- ⏳ `DataLoader` 批次處理
-- ⏳ 資料增強（Transforms）
-- ⏳ 多進程資料載入
-
-#### 3.2 常用資料集
-- ⏳ MNIST/FashionMNIST
+#### 2.2 常用資料集
+- ✅ MNIST/FashionMNIST
 - ⏳ CIFAR-10/100
 - ⏳ ImageNet
-- ⏳ 自定義資料集
+- ✅ 自定義資料集
 
-#### 3.3 資料增強
-- ⏳ `torchvision.transforms`
+#### 2.3 資料增強
+- ✅ `torchvision.transforms`
+- ✅ 自定義變換
 - ⏳ `albumentations` 整合
 - ⏳ 進階增強技術
 
