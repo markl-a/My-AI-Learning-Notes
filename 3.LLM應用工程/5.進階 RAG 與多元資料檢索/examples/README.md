@@ -90,33 +90,95 @@ python test_query_rewriting.py
 
 ### 2. SQL Database Integration (SQL 資料庫整合)
 
-**檔案**: `2_sql_integration.py` *(即將完成)*
+**檔案**: `2_sql_integration.py`
 
 **包含技術**:
-- SQL 查詢生成
-- 結構化數據檢索
-- SQL + 向量檢索混合
-- 自然語言轉 SQL
+- ✅ 智能查詢路由（自動判斷 SQL/向量/混合）
+- ✅ 自然語言轉 SQL (NL2SQL)
+- ✅ 安全 SQL 執行（防注入）
+- ✅ 結果融合（結構化 + 非結構化數據）
+- ✅ 示例資料庫自動生成
+
+**核心類別**:
+- `SQLRAGIntegration`: SQL + RAG 主系統
+
+**使用範例**:
+```python
+from sql_integration import SQLRAGIntegration
+
+system = SQLRAGIntegration(db_path="company.db")
+system.create_sample_database()
+system.ingest_documents(documents)
+
+result = system.hybrid_query("業務部員工的薪資和福利政策")
+print(result.final_answer)
+```
+
+**測試**: `python test_sql_integration.py`
 
 ### 3. Graph RAG (知識圖譜檢索)
 
-**檔案**: `3_graph_rag.py` *(即將完成)*
+**檔案**: `3_graph_rag.py`
 
 **包含技術**:
-- 知識圖譜構建
-- 圖遍歷檢索
-- 實體關係抽取
-- 多跳推理
+- ✅ 自動知識圖譜構建
+- ✅ 實體和關係抽取
+- ✅ 多跳推理查詢
+- ✅ 路徑查找和解釋
+- ✅ 圖譜可視化（NetworkX + Matplotlib）
+- ✅ 圖譜保存和載入
 
-### 4. Agent Collaboration (Agent 協作)
+**核心類別**:
+- `KnowledgeGraphBuilder`: 圖譜構建器
+- `GraphRAGSystem`: Graph RAG 主系統
 
-**檔案**: `4_agent_collaboration.py` *(即將完成)*
+**使用範例**:
+```python
+from graph_rag import GraphRAGSystem
+
+graph_rag = GraphRAGSystem()
+graph_rag.build_knowledge_graph(documents)
+graph_rag.kg_builder.visualize("graph.png")
+
+result = graph_rag.multi_hop_query(
+    "OpenAI 和 Transformer 有什麼關係？",
+    max_hops=3
+)
+print(result.answer)
+```
+
+**測試**: `python test_graph_rag.py`
+
+### 4. Agent Collaboration (LLM + RAG + Agent 協作)
+
+**檔案**: `4_agent_collaboration.py`
 
 **包含技術**:
-- LLM Agent 設計
-- RAG + Agent 整合
-- 工具使用
-- 多 Agent 協作
+- ✅ ReAct Agent 架構（Reasoning + Acting）
+- ✅ 工具整合（RAG、計算器、推理、分析）
+- ✅ 自動工具選擇
+- ✅ 任務分類和路由
+- ✅ 多 Agent 協作系統
+
+**核心類別**:
+- `RAGAgent`: 整合 RAG 的智能 Agent
+- `MultiAgentSystem`: 多 Agent 協作
+- `RAGTool`, `CalculatorTool`, `ReasoningTool`: 工具集
+
+**使用範例**:
+```python
+from agent_collaboration import RAGAgent
+
+agent = RAGAgent()
+agent.ingest_documents(documents)
+agent.setup_tools()
+agent.create_agent()
+
+result = agent.query("Python 是誰創建的？")
+print(result['answer'])
+```
+
+**測試**: `python test_agent_collaboration.py`
 
 ## 🧪 測試
 
