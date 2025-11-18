@@ -1,0 +1,223 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'Dockerfile'
+      - 'k8s/**'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to deploy'
+        required: true
+        default: 'latest'
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}/llm-service
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pytest pytest-cov
+
+      - name: Run tests
+        run: |
+          pytest tests/ --cov=src --cov-report=xml
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage.xml
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      image-tag: ${{ steps.meta.outputs.tags }}
+      image-digest: ${{ steps.build.outputs.digest }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha,prefix={{branch}}-
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Build and push Docker image
+        id: build
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            BUILD_DATE=${{ github.event.head_commit.timestamp }}
+            VCS_REF=${{ github.sha }}
+
+      - name: Scan image for vulnerabilities
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: Upload Trivy results
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+  deploy-staging:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+      url: https://staging.api.yourcompany.com
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure kubectl
+        uses: azure/k8s-set-context@v3
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBE_CONFIG_STAGING }}
+
+      - name: Update image in deployment
+        run: |
+          kubectl set image deployment/llm-service \
+            llm-service=${{ needs.build.outputs.image-tag }} \
+            -n llm-staging
+
+      - name: Wait for rollout
+        run: |
+          kubectl rollout status deployment/llm-service -n llm-staging --timeout=5m
+
+      - name: Run smoke tests
+        run: |
+          ./scripts/smoke-test.sh https://staging.api.yourcompany.com
+
+  deploy-production:
+    needs: [build, deploy-staging]
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://api.yourcompany.com
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure kubectl
+        uses: azure/k8s-set-context@v3
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBE_CONFIG_PRODUCTION }}
+
+      - name: Update image (Canary - 10%)
+        run: |
+          # 部署金絲雀版本
+          kubectl apply -f k8s/canary/deployment-canary.yaml
+          kubectl set image deployment/llm-service-canary \
+            llm-service=${{ needs.build.outputs.image-tag }} \
+            -n llm-production
+
+      - name: Wait and monitor canary
+        run: |
+          sleep 300  # 等待 5 分鐘
+          ./scripts/check-metrics.sh
+
+      - name: Full rollout
+        run: |
+          # 更新主部署
+          kubectl set image deployment/llm-service \
+            llm-service=${{ needs.build.outputs.image-tag }} \
+            -n llm-production
+
+          # 等待滾動更新完成
+          kubectl rollout status deployment/llm-service -n llm-production --timeout=10m
+
+      - name: Cleanup canary
+        if: success()
+        run: |
+          kubectl delete deployment llm-service-canary -n llm-production
+
+      - name: Rollback on failure
+        if: failure()
+        run: |
+          kubectl rollout undo deployment/llm-service -n llm-production
+          kubectl delete deployment llm-service-canary -n llm-production
+
+      - name: Verify deployment
+        run: |
+          ./scripts/health-check.sh https://api.yourcompany.com
+
+      - name: Notify Slack
+        if: always()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          text: |
+            Deployment to production ${{ job.status }}
+            Version: ${{ needs.build.outputs.image-tag }}
+            Commit: ${{ github.sha }}
+          webhook_url: ${{ secrets.SLACK_WEBHOOK }}
+
+      - name: Create GitHub Release
+        if: success()
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.run_number }}
+          release_name: Release v${{ github.run_number }}
+          body: |
+            ## Changes
+            ${{ github.event.head_commit.message }}
+
+            ## Docker Image
+            ```
+            ${{ needs.build.outputs.image-tag }}
+            ```
+
+            ## Deployment Time
+            ${{ github.event.head_commit.timestamp }}

@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: llm-config
+  namespace: llm-production
+data:
+  # Redis 配置
+  redis-host: "redis-master.redis.svc.cluster.local"
+  redis-port: "6379"
+
+  # 數據庫配置
+  db-host: "postgres.database.svc.cluster.local"
+  db-port: "5432"
+  db-name: "llm_db"
+
+  # 向量數據庫配置
+  chroma-host: "chromadb.database.svc.cluster.local"
+  chroma-port: "8000"
+
+  # 應用配置
+  log-level: "INFO"
+  workers: "4"
+  max-connections: "100"
+
+  # LLM 配置
+  llm-model: "gpt-4"
+  llm-temperature: "0.7"
+  llm-max-tokens: "2000"
+
+  # 緩存配置
+  cache-ttl: "3600"
+  cache-max-size: "1000"
+
+  # 監控配置
+  enable-metrics: "true"
+  metrics-port: "9090"

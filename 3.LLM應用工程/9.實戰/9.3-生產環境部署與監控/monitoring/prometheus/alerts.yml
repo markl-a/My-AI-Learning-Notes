@@ -1,0 +1,175 @@
+# Prometheus 告警規則
+groups:
+  - name: llm-service-alerts
+    interval: 30s
+    rules:
+      # 服務可用性告警
+      - alert: ServiceDown
+        expr: up{job="llm-service"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: "LLM Service is down"
+          description: "{{ $labels.instance }} has been down for more than 1 minute."
+
+      # 高錯誤率告警
+      - alert: HighErrorRate
+        expr: |
+          (
+            sum(rate(http_requests_total{job="llm-service",status=~"5.."}[5m]))
+            /
+            sum(rate(http_requests_total{job="llm-service"}[5m]))
+          ) > 0.05
+        for: 5m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: "High error rate on LLM Service"
+          description: "Error rate is {{ $value | humanizePercentage }} (threshold: 5%)"
+
+      # 高延遲告警
+      - alert: HighLatency
+        expr: |
+          histogram_quantile(0.95,
+            sum(rate(http_request_duration_seconds_bucket{job="llm-service"}[5m])) by (le)
+          ) > 2
+        for: 10m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "High latency detected"
+          description: "P95 latency is {{ $value }}s (threshold: 2s)"
+
+      # 極高延遲告警
+      - alert: CriticalLatency
+        expr: |
+          histogram_quantile(0.99,
+            sum(rate(http_request_duration_seconds_bucket{job="llm-service"}[5m])) by (le)
+          ) > 5
+        for: 5m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: "Critical latency detected"
+          description: "P99 latency is {{ $value }}s (threshold: 5s)"
+
+      # Pod 重啟頻繁
+      - alert: PodRestartingFrequently
+        expr: |
+          rate(kube_pod_container_status_restarts_total{namespace="llm-production"}[1h]) > 5
+        for: 5m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "Pod restarting frequently"
+          description: "Pod {{ $labels.pod }} has restarted {{ $value }} times in the last hour."
+
+      # CPU 使用率過高
+      - alert: HighCPUUsage
+        expr: |
+          (
+            sum(rate(container_cpu_usage_seconds_total{namespace="llm-production",pod=~"llm-service-.*"}[5m])) by (pod)
+            /
+            sum(container_spec_cpu_quota{namespace="llm-production",pod=~"llm-service-.*"} / container_spec_cpu_period{namespace="llm-production",pod=~"llm-service-.*"}) by (pod)
+          ) > 0.9
+        for: 15m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "High CPU usage"
+          description: "Pod {{ $labels.pod }} CPU usage is {{ $value | humanizePercentage }}"
+
+      # 內存使用率過高
+      - alert: HighMemoryUsage
+        expr: |
+          (
+            sum(container_memory_working_set_bytes{namespace="llm-production",pod=~"llm-service-.*"}) by (pod)
+            /
+            sum(container_spec_memory_limit_bytes{namespace="llm-production",pod=~"llm-service-.*"}) by (pod)
+          ) > 0.9
+        for: 15m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "High memory usage"
+          description: "Pod {{ $labels.pod }} memory usage is {{ $value | humanizePercentage }}"
+
+      # Pod 數量異常
+      - alert: PodCountAnomaly
+        expr: |
+          abs(
+            count(kube_pod_info{namespace="llm-production",pod=~"llm-service-.*"})
+            -
+            kube_deployment_spec_replicas{namespace="llm-production",deployment="llm-service"}
+          ) > 0
+        for: 10m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "Pod count does not match desired replicas"
+          description: "Expected replicas: {{ $labels.replicas }}, Current: {{ $value }}"
+
+      # API Token 使用量告警
+      - alert: HighAPITokenUsage
+        expr: |
+          sum(rate(llm_api_tokens_total{job="llm-service"}[1h])) > 1000000
+        for: 5m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "High API token usage"
+          description: "API token usage is {{ $value }} tokens/hour (threshold: 1M/hour)"
+
+      # 緩存命中率低
+      - alert: LowCacheHitRate
+        expr: |
+          (
+            sum(rate(cache_hits_total{job="llm-service"}[10m]))
+            /
+            sum(rate(cache_requests_total{job="llm-service"}[10m]))
+          ) < 0.5
+        for: 15m
+        labels:
+          severity: info
+          team: platform
+        annotations:
+          summary: "Low cache hit rate"
+          description: "Cache hit rate is {{ $value | humanizePercentage }} (threshold: 50%)"
+
+      # 磁盤使用率高
+      - alert: HighDiskUsage
+        expr: |
+          (
+            node_filesystem_avail_bytes{mountpoint="/"}
+            /
+            node_filesystem_size_bytes{mountpoint="/"}
+          ) < 0.1
+        for: 5m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "High disk usage"
+          description: "Disk usage on {{ $labels.instance }} is above 90%"
+
+      # Pending Pods
+      - alert: PodsPending
+        expr: |
+          kube_pod_status_phase{namespace="llm-production",phase="Pending"} > 0
+        for: 10m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: "Pods stuck in Pending state"
+          description: "{{ $value }} pod(s) in namespace {{ $labels.namespace }} are Pending for more than 10 minutes"
