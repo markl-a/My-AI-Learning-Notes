@@ -1,5 +1,163 @@
 # LLM 部署與運行基礎
 
+完整的 LLM 部署學習資源，包含理論知識、實作範例、完整項目和實用工具。
+
+## 📁 項目結構
+
+```
+1.LLM 部署/
+├── README.md                 # 本文件 - 理論知識和概念
+├── requirements.txt          # Python 依賴
+├── .env.example             # 環境變數模板
+├── configs/                 # 配置文件
+│   └── models.yaml          # 模型配置
+├── examples/                # 📚 基礎示例（6個）
+│   ├── 01_ollama_basic.py           # Ollama 本地部署
+│   ├── 02_openai_api.py             # OpenAI API 使用
+│   ├── 03_huggingface_local.py      # Hugging Face 本地模型
+│   ├── 04_streaming_response.py     # 流式響應
+│   ├── 05_batch_inference.py        # 批量推理
+│   └── 06_model_comparison.py       # 模型比較工具
+├── projects/                # 🚀 完整項目
+│   └── fastapi-llm-api/            # FastAPI REST API 服務
+│       ├── app/
+│       │   └── main.py             # 主應用（含 AI 輔助功能）
+│       ├── run.py                  # 啟動腳本
+│       └── README.md               # 項目文檔
+├── tools/                   # 🛠️ 實用工具
+│   ├── health_check.py             # 環境健康檢查
+│   ├── benchmark.py                # 性能基準測試
+│   └── README.md                   # 工具說明
+├── Dockerfile               # Docker 鏡像
+└── docker-compose.yml       # Docker Compose 配置
+```
+
+## 🚀 快速開始
+
+### 方式一：運行示例代碼
+
+```bash
+# 1. 安裝依賴
+pip install -r requirements.txt
+
+# 2. 配置環境變數
+cp .env.example .env
+# 編輯 .env 文件，填入你的 API keys
+
+# 3. 運行示例
+python examples/01_ollama_basic.py
+python examples/02_openai_api.py
+```
+
+### 方式二：啟動 FastAPI 服務
+
+```bash
+# 1. 進入項目目錄
+cd projects/fastapi-llm-api
+
+# 2. 安裝依賴
+pip install -r ../../requirements.txt
+
+# 3. 啟動服務
+python run.py
+
+# 4. 訪問 API 文檔
+# 打開瀏覽器: http://localhost:8000/docs
+```
+
+### 方式三：使用 Docker
+
+```bash
+# 1. 構建並啟動所有服務
+docker-compose up -d
+
+# 2. 查看日誌
+docker-compose logs -f
+
+# 3. 停止服務
+docker-compose down
+```
+
+## 🎯 學習路徑
+
+### 初學者路徑
+1. ✅ 閱讀本 README 了解基礎概念
+2. ✅ 運行 `tools/health_check.py` 檢查環境
+3. ✅ 嘗試 `examples/01_ollama_basic.py` 或 `02_openai_api.py`
+4. ✅ 探索其他示例，理解不同部署方式
+
+### 進階路徑
+1. ✅ 研究 `examples/` 中的所有示例
+2. ✅ 使用 `tools/benchmark.py` 比較模型性能
+3. ✅ 部署 FastAPI 項目，理解生產級部署
+4. ✅ 學習 AI 輔助功能的實現
+
+### 專業路徑
+1. ✅ 深入研究 FastAPI 項目代碼
+2. ✅ 使用 Docker 容器化部署
+3. ✅ 實現自定義 AI 輔助功能
+4. ✅ 優化性能和成本
+
+## 📚 內容概覽
+
+### 示例代碼 (`examples/`)
+
+六個完整的可運行示例，每個都有詳細註釋：
+
+1. **Ollama 本地部署** - 最簡單的本地運行方式
+2. **OpenAI API** - 雲端 API 的完整用法
+3. **Hugging Face 本地模型** - 使用 Transformers 和量化
+4. **流式響應** - 實時輸出實現
+5. **批量推理** - 高效處理大量請求
+6. **模型比較** - 性能和成本對比工具
+
+### 完整項目 (`projects/`)
+
+#### FastAPI LLM REST API
+一個生產級的 LLM REST API 服務，特點：
+
+- 🔌 **多提供商**: OpenAI, Anthropic, Ollama
+- 💬 **流式輸出**: SSE 實時響應
+- 🤖 **AI 輔助**: 自動提示詞優化、模型推薦
+- 📊 **監控**: 使用統計和成本追蹤
+- 🔐 **安全**: API 認證和速率限制
+
+### 實用工具 (`tools/`)
+
+1. **健康檢查** (`health_check.py`)
+   - GPU 檢測
+   - API keys 驗證
+   - 依賴檢查
+   - 系統資源監控
+
+2. **性能測試** (`benchmark.py`)
+   - 延遲測試
+   - 吞吐量分析
+   - 模型對比
+   - 成本估算
+
+## 💡 核心特性
+
+### AI 輔助功能
+本項目的獨特之處在於集成了多個 AI 輔助功能：
+
+1. **提示詞優化** - 自動改進用戶提示詞
+2. **模型推薦** - 根據任務智能推薦模型
+3. **響應評估** - AI 評分和改進建議
+4. **性能分析** - 實時性能監控和優化建議
+
+### 生產就緒
+- ✅ 完整的錯誤處理
+- ✅ 日誌和監控
+- ✅ Docker 容器化
+- ✅ 健康檢查端點
+- ✅ 性能優化
+
+## 📖 詳細文檔
+
+### 理論知識
+以下章節提供深入的理論知識和概念解釋：
+
 ## 目錄
 1. [LLM 部署模式概述](#11-llm-部署模式概述)
 2. [開源模型 vs 專有模型](#12-開源模型-vs-專有模型)
