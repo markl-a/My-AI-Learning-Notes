@@ -1,0 +1,32 @@
+# 基礎依賴
+torch>=2.0.0
+transformers>=4.35.0
+accelerate>=0.25.0
+datasets>=2.14.0
+
+# 量化工具
+bitsandbytes>=0.41.0
+optimum>=1.14.0
+
+# GPTQ 量化
+auto-gptq>=0.5.0
+
+# AWQ 量化
+autoawq>=0.1.6
+
+# 效能測試和分析
+psutil>=5.9.0
+numpy>=1.24.0
+pandas>=2.0.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# 進度條
+tqdm>=4.65.0
+
+# 記憶體分析
+py3nvml>=0.2.7
+
+# AI 輔助
+openai>=1.0.0
+anthropic>=0.7.0
