@@ -1,0 +1,25 @@
+# Prometheus 配置文件
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    monitor: 'llm-api-monitor'
+
+# 警報規則
+rule_files:
+  # - 'alert.rules'
+
+# 抓取配置
+scrape_configs:
+  # LLM API 服務
+  - job_name: 'llm-api'
+    static_configs:
+      - targets: ['api:8000']
+    metrics_path: '/metrics'
+    scrape_interval: 15s
+
+  # Prometheus 自身
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
