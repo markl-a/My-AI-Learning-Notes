@@ -1,7 +1,7 @@
 # Keras 3 個人複習筆記
 
 > 🔄 **最後更新：** 2025-01-18
-> 📊 **完成度：** 約 15%
+> 📊 **完成度：** 約 35%
 > 🎯 **推薦版本：** Keras 3.0+
 > 🚀 **特色：** 多後端支援（TensorFlow、JAX、PyTorch）
 
@@ -13,6 +13,7 @@ Keras 3 是 Keras 的重大升級，支援多個深度學習後端（TensorFlow�
 
 **已完成的內容：**
 - ✅ 1. ANN 基礎實作
+- ✅ 2. CNN 卷積神經網路 (全新增強版)
 
 **規劃中的內容正在逐步補充。**
 
@@ -68,35 +69,51 @@ print(keras.backend.backend())  # 查看當前後端
 4. 學習 `best_practices.py` 中的進階技巧
 
 ---
+---
 
-### 🎨 2. 計算機視覺（CV）
-**狀態：規劃中**
+### 🎨 2. 卷積神經網路（CNN）
+**狀態：已完成並增強** ✅
 
-#### 2.1 圖像分類
-- ⏳ 使用 CNN 進行圖像分類
-- ⏳ 資料增強技術
-- ⏳ 遷移學習（VGG, ResNet, EfficientNet）
-- ⏳ 模型微調策略
+#### 核心內容
+- ✅ CNN 基礎理論與原理
+- ✅ 卷積層、池化層、批次正規化
+- ✅ CNN 架構設計模式
+- ✅ CIFAR-10 圖像分類實戰
+- ✅ 數據增強技術詳解
+- ✅ 遷移學習完整教程
+- ✅ 預訓練模型使用指南
+- ✅ 模型可視化與解釋
 
-#### 2.2 目標檢測
-- ⏳ YOLO 整合
-- ⏳ RetinaNet 實作
-- ⏳ 邊界框處理
+#### 檔案列表
+- 📖 `2.CNN/README.md` - 完整的 CNN 學習指南（超過 800 行）
+- 🚀 `2.CNN/cnn_image_classification.py` - CNN 圖像分類完整範例
+- 🔄 `2.CNN/transfer_learning.py` - 遷移學習實戰教程
 
-#### 2.3 圖像分割
-- ⏳ U-Net 架構
-- ⏳ Mask R-CNN
-- ⏳ 語義分割應用
+#### 學習路徑
+1. 閱讀 `README.md` 理解 CNN 原理
+2. 運行 `cnn_image_classification.py` 進行 CIFAR-10 分類
+3. 學習 `transfer_learning.py` 掌握遷移學習
+4. 實作自己的圖像分類項目
 
-#### 2.4 現代視覺架構
-- ⏳ Vision Transformer (ViT)
-- ⏳ ConvNeXt
-- ⏳ EfficientNetV2
+#### 涵蓋主題
+- **基礎**: 卷積運算、特徵圖、感受野
+- **架構**: VGG、ResNet、EfficientNet 風格
+- **技術**: 數據增強、Dropout、BatchNorm
+- **應用**: 圖像分類、特徵提取、微調
+- **可視化**: 特徵圖、Grad-CAM、混淆矩陣
 
-**推薦專案：**
-- 貓狗分類器
-- 醫療影像分割
-- 人臉識別系統
+#### 進階主題（規劃中）
+- ⏳ 目標檢測 (YOLO, RetinaNet)
+- ⏳ 圖像分割 (U-Net, Mask R-CNN)
+- ⏳ Vision Transformer
+- ⏳ 實時應用部署
+
+**推薦練習：**
+- CIFAR-10 挑戰（目標：85%+ 準確率）
+- Fashion MNIST 分類
+- 貓狗分類器（使用遷移學習）
+- 自定義數據集應用
+
 
 ---
 
