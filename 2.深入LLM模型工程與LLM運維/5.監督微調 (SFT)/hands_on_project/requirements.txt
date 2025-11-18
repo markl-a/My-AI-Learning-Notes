@@ -1,0 +1,36 @@
+# 核心依賴
+torch>=2.0.0
+transformers>=4.35.0
+peft>=0.7.0
+trl>=0.7.0
+datasets>=2.14.0
+accelerate>=0.24.0
+
+# 量化和優化
+bitsandbytes>=0.41.0
+scipy>=1.11.0
+
+# 數據處理
+pandas>=2.0.0
+numpy>=1.24.0
+
+# API 和部署
+fastapi>=0.104.0
+uvicorn>=0.24.0
+gradio>=4.0.0
+pydantic>=2.0.0
+
+# AI 輔助
+anthropic>=0.18.0
+openai>=1.0.0
+
+# 評估和監控
+wandb>=0.16.0
+tensorboard>=2.14.0
+evaluate>=0.4.0
+
+# 其他工具
+pyyaml>=6.0
+tqdm>=4.66.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
