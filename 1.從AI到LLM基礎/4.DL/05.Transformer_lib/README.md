@@ -2,6 +2,10 @@
 
 Hugging Face 提供了多個開源庫，專注於深度學習、自然語言處理（NLP）以及生成式 AI。這份文檔涵蓋了 Hugging Face 的主要庫及其用途，幫助開發者快速了解和使用這些工具。
 
+> **📅 最後更新：2025 年 1 月**
+> **📦 Transformers 版本：4.50+**
+> **🚀 包含最新模型：LLaMA 3.3, Qwen 2.5, Gemma 2, Mistral 3, DeepSeek 等**
+
 ## 目錄
 - [核心庫介紹](#核心庫介紹)
 - [生態系統架構](#生態系統架構)
@@ -29,13 +33,16 @@ Hugging Face 提供了多個開源庫，專注於深度學習、自然語言處�
   - Multimodal：視覺問答、圖像標註
 
 #### 常用模型類型
-| 任務類型 | 推薦模型 | 用途 |
-|---------|---------|------|
-| 文本生成 | GPT-2/3, LLaMA, Mistral | 對話、創作、程式碼生成 |
-| 文本理解 | BERT, RoBERTa, DeBERTa | 分類、情感分析、NER |
-| 翻譯 | T5, BART, MarianMT | 機器翻譯、摘要 |
-| 圖像處理 | ViT, CLIP, DETR | 分類、檢測、分割 |
-| 語音處理 | Wav2Vec2, Whisper | 語音識別、轉錄 |
+| 任務類型 | 推薦模型（2025 最新） | 用途 | 參數規模 |
+|---------|---------|------|---------|
+| 文本生成 | **LLaMA 3.3**, **Qwen 2.5**, **Mistral 3**, Gemma 2, GPT-2 | 對話、創作、程式碼生成、推理 | 1B-405B |
+| 文本理解 | DeBERTa v3, RoBERTa-large, **XLM-RoBERTa-XL** | 分類、情感分析、NER | 125M-10B |
+| 程式碼生成 | **DeepSeek-Coder V2**, **CodeLLaMA**, StarCoder 2 | 代碼補全、調試、解釋 | 1B-236B |
+| 翻譯/摘要 | **NLLB-200**, mBART-50, T5-XXL, **Seamless M4T v2** | 多語言翻譯、文本摘要 | 600M-11B |
+| 圖像處理 | **ViT-G**, **DINOv2**, CLIP, **Florence-2** | 圖像分類、檢測、分割、多模態 | 300M-3B |
+| 語音處理 | **Whisper V3**, **MMS**, Wav2Vec2-BERT | 語音識別、翻譯、合成 | 244M-1.5B |
+| 多模態 | **LLaVA 1.6**, **Qwen-VL**, **CogVLM**, BLIP-2 | 視覺問答、圖像理解 | 7B-34B |
+| 數學推理 | **DeepSeek-Math**, **InternLM2-Math** | 數學問題求解、推理 | 7B-70B |
 
 ---
 
@@ -143,15 +150,21 @@ dataset = load_dataset("common_voice", "zh-TW")
 [PEFT](https://github.com/huggingface/peft) 支援參數高效微調，適合資源有限的環境。
 
 #### 核心功能
-- **多種方法**：
-  - LoRA (Low-Rank Adaptation)
-  - Prefix Tuning
-  - P-Tuning
-  - Prompt Tuning
-  - AdaLoRA
-- **資源節省**：僅訓練 0.1%-10% 的參數
+- **多種方法**（2025 最新）：
+  - **LoRA** (Low-Rank Adaptation) - 最流行的方法
+  - **QLoRA** - 量化 + LoRA，4-bit 訓練
+  - **DoRA** (Weight-Decomposed LoRA) - 2024 新方法
+  - **LoRA+** - 改進的學習率設定
+  - **AdaLoRA** - 自適應秩分配
+  - **Prefix Tuning** - 前綴調優
+  - **P-Tuning v2** - 提示調優
+  - **Prompt Tuning** - 軟提示學習
+  - **IA³** (Infused Adapter by Inhibiting and Amplifying)
+  - **LLaMA-Adapter** - 針對 LLaMA 優化
+- **資源節省**：僅訓練 0.1%-10% 的參數，減少 99% 記憶體使用
 - **快速切換**：同一基礎模型可載入不同的 PEFT 適配器
-- **性能保持**：接近全參數微調的效果
+- **性能保持**：接近全參數微調的效果，某些任務甚至更好
+- **量化支援**：與 bitsandbytes 整合，支援 4-bit/8-bit 訓練
 
 ---
 
@@ -172,28 +185,116 @@ dataset = load_dataset("common_voice", "zh-TW")
 
 ---
 
+### 10. TRL (Transformer Reinforcement Learning)
+
+#### 簡介
+[TRL](https://github.com/huggingface/trl) 專注於使用強化學習訓練 Transformer 模型，特別是大語言模型的對齊（Alignment）。
+
+#### 核心功能
+- **RLHF (Reinforcement Learning from Human Feedback)**：
+  - PPO (Proximal Policy Optimization) 訓練
+  - Reward Modeling
+  - 價值函數訓練
+- **DPO (Direct Preference Optimization)**：無需獎勵模型的對齊方法
+- **ORPO (Odds Ratio Preference Optimization)**：2024 新方法
+- **KTO (Kahneman-Tversky Optimization)**：基於前景理論的優化
+- **SFT (Supervised Fine-Tuning)**：監督微調工具
+- **RewardTrainer**：訓練獎勵模型
+- **Online DPO**：在線偏好優化
+
+#### 使用場景
+- 訓練 ChatGPT 風格的對話模型
+- 模型對齊和安全性調優
+- 基於人類反饋改進模型輸出
+- 減少模型幻覺和有害內容
+
+---
+
+### 11. AutoTrain
+
+#### 簡介
+[AutoTrain](https://github.com/huggingface/autotrain-advanced) 是一個無代碼/低代碼的自動化訓練工具。
+
+#### 核心功能
+- **自動化流程**：數據處理、模型選擇、超參數調優
+- **多任務支援**：
+  - 文本分類、NER、問答、摘要
+  - 圖像分類、目標檢測
+  - 表格數據分類/回歸
+  - LLM 微調
+- **簡單界面**：Web UI 或 CLI
+- **雲端整合**：支援各種雲平台部署
+
+---
+
+### 12. Inference Endpoints 與 Text Generation Inference (TGI)
+
+#### Text Generation Inference
+[TGI](https://github.com/huggingface/text-generation-inference) 是一個用於部署大語言模型的高性能推理服務器。
+
+#### 核心功能
+- **極致性能**：
+  - Tensor Parallelism（張量並行）
+  - Flash Attention 2
+  - Paged Attention（vLLM 風格）
+  - Continuous Batching
+  - 投機解碼（Speculative Decoding）
+- **廣泛支援**：LLaMA, Mistral, Qwen, Falcon, StarCoder 等
+- **生產就緒**：
+  - gRPC 和 REST API
+  - OpenAI 兼容接口
+  - 內建監控和日誌
+  - 自動擴展支援
+- **量化支援**：bitsandbytes, GPTQ, AWQ, EETQ
+
+---
+
+### 13. Safetensors
+
+#### 簡介
+[Safetensors](https://github.com/huggingface/safetensors) 是一個安全、快速的模型序列化格式。
+
+#### 核心功能
+- **安全性**：避免 pickle 的任意代碼執行風險
+- **速度**：比 PyTorch 原生格式快 10-100 倍
+- **跨框架**：支援 PyTorch、TensorFlow、JAX、Flax
+- **懶加載**：無需載入整個模型即可查看結構
+- **零拷貝**：記憶體映射支援
+
+---
+
 ## 生態系統架構
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│                   Hugging Face Hub                      │
-│          (模型、數據集、應用中心化倉庫)                   │
-└─────────────────────────────────────────────────────────┘
-                          ↑ ↓
-┌─────────────────────────────────────────────────────────┐
-│                  Transformers (核心)                     │
-│         預訓練模型 + Pipeline API + Trainer              │
-└─────────────────────────────────────────────────────────┘
-         ↑              ↑              ↑              ↑
-    ┌────┴────┐    ┌───┴───┐    ┌────┴────┐    ┌───┴───┐
-    │Datasets │    │Tokeniz│    │Accelera │    │ PEFT  │
-    │         │    │  ers  │    │   te    │    │       │
-    └─────────┘    └───────┘    └─────────┘    └───────┘
-         ↑              ↑              ↑              ↑
-    ┌────┴────────────────────────────┴──────────────┴───┐
-    │              底層框架支援                            │
-    │      PyTorch | TensorFlow | JAX | ONNX             │
-    └─────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────┐
+│                      Hugging Face Hub                            │
+│     (模型、數據集、應用中心化倉庫 - 500K+ 模型)                    │
+│         Safetensors 格式 | Git LFS | 模型卡 | Spaces              │
+└──────────────────────────────────────────────────────────────────┘
+                                  ↑ ↓
+┌──────────────────────────────────────────────────────────────────┐
+│                    Transformers (核心)                            │
+│       預訓練模型 + Pipeline API + Trainer + AutoModel             │
+│    BERT, GPT, T5, LLaMA, Mistral, Qwen, Gemma, Whisper...       │
+└──────────────────────────────────────────────────────────────────┘
+         ↑          ↑          ↑          ↑          ↑          ↑
+    ┌────┴───┐ ┌───┴───┐ ┌───┴────┐ ┌───┴───┐ ┌───┴───┐ ┌───┴───┐
+    │Datasets│ │Tokeniz│ │Accelera│ │ PEFT  │ │  TRL  │ │Diffuse│
+    │        │ │  ers  │ │   te   │ │LoRA   │ │DPO/PPO│ │  rs   │
+    │50K+ DS │ │Rust   │ │Multi   │ │QLoRA  │ │RLHF   │ │SD/DALL│
+    └────────┘ └───────┘ └────────┘ └───────┘ └───────┘ └───────┘
+         ↑          ↑          ↑          ↑          ↑          ↑
+    ┌────┴───┐ ┌───┴───┐ ┌───┴────┐ ┌───┴───┐ ┌───┴───┐ ┌───┴───┐
+    │Evaluate│ │Optimum│ │AutoTrai│ │  TGI  │ │Safeten│ │Gradio │
+    │Metrics │ │ONNX   │ │No-Code │ │Fast   │ │sors   │ │Demo   │
+    │BLEU/F1 │ │Quant  │ │AutoML  │ │Serve  │ │Format │ │UI     │
+    └────────┘ └───────┘ └────────┘ └───────┘ └───────┘ └───────┘
+         ↑          ↑          ↑          ↑          ↑          ↑
+    ┌────┴──────────┴──────────┴──────────┴──────────┴──────────┴───┐
+    │                     底層框架與硬體支援                           │
+    │    PyTorch | TensorFlow | JAX | ONNX | TensorRT               │
+    │    CUDA | ROCm | Metal | CPU | TPU | Neuron | Gaudi           │
+    └─────────────────────────────────────────────────────────────────┘
 ```
 
 ### 組件互動關係
@@ -248,26 +349,124 @@ trainer = Trainer(model=model, args=training_args, train_dataset=dataset["train"
 trainer.train()
 ```
 
-### 3. 高效微調大型模型
-使用 PEFT 在有限資源下微調：
+### 3. 高效微調大型模型（2025 最新方法）
+
+#### 方法一：使用 QLoRA 在消費級 GPU 上微調 70B 模型
 ```python
-from peft import LoraConfig, get_peft_model
-from transformers import AutoModelForCausalLM
+from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
+from transformers import (
+    AutoModelForCausalLM,
+    AutoTokenizer,
+    BitsAndBytesConfig
+)
+import torch
 
-# 載入基礎模型
-model = AutoModelForCausalLM.from_pretrained("meta-llama/Llama-2-7b-hf")
+# 4-bit 量化配置
+bnb_config = BitsAndBytesConfig(
+    load_in_4bit=True,
+    bnb_4bit_quant_type="nf4",
+    bnb_4bit_compute_dtype=torch.bfloat16,
+    bnb_4bit_use_double_quant=True,  # 雙重量化節省更多記憶體
+)
 
-# 配置 LoRA
+# 載入量化模型（例如 LLaMA 3.3 70B 只需 40GB VRAM）
+model = AutoModelForCausalLM.from_pretrained(
+    "meta-llama/Llama-3.3-70B-Instruct",
+    quantization_config=bnb_config,
+    device_map="auto",
+    trust_remote_code=True,
+)
+tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-3.3-70B-Instruct")
+
+# 準備模型以進行 k-bit 訓練
+model = prepare_model_for_kbit_training(model)
+
+# 配置 LoRA（針對 LLaMA 3 優化）
 lora_config = LoraConfig(
-    r=16,  # rank
-    lora_alpha=32,
-    target_modules=["q_proj", "v_proj"],
+    r=64,  # 更高的秩以保持性能
+    lora_alpha=128,
+    target_modules=[
+        "q_proj", "k_proj", "v_proj", "o_proj",
+        "gate_proj", "up_proj", "down_proj",
+    ],
     lora_dropout=0.05,
+    bias="none",
+    task_type="CAUSAL_LM",
 )
 
 # 應用 PEFT
 model = get_peft_model(model, lora_config)
-model.print_trainable_parameters()  # 查看可訓練參數比例
+model.print_trainable_parameters()
+# 輸出: trainable params: 335M || all params: 70B || trainable%: 0.47%
+```
+
+#### 方法二：使用 DoRA（2024 新方法）
+```python
+from peft import LoraConfig, get_peft_model
+
+# DoRA 配置（Weight-Decomposed LoRA）
+dora_config = LoraConfig(
+    r=32,
+    lora_alpha=64,
+    target_modules=["q_proj", "v_proj", "k_proj", "o_proj"],
+    lora_dropout=0.05,
+    use_dora=True,  # 啟用 DoRA
+    task_type="CAUSAL_LM",
+)
+
+model = get_peft_model(model, dora_config)
+# DoRA 在某些任務上比 LoRA 提升 1-2%
+```
+
+#### 方法三：使用 LoRA+ 改進學習率
+```python
+from transformers import TrainingArguments
+from trl import SFTTrainer
+
+# LoRA+ 使用不同的學習率給 A 和 B 矩陣
+training_args = TrainingArguments(
+    output_dir="./llama3-lora-plus",
+    learning_rate=2e-4,  # B 矩陣的學習率
+    per_device_train_batch_size=4,
+    gradient_accumulation_steps=4,
+    num_train_epochs=3,
+    fp16=True,
+    optim="paged_adamw_8bit",
+    logging_steps=10,
+)
+
+# 在 PEFT 中設定 LoRA+ 的學習率比例
+# A 矩陣學習率 = learning_rate / loraplus_lr_ratio
+trainer = SFTTrainer(
+    model=model,
+    train_dataset=dataset,
+    args=training_args,
+    peft_config=lora_config,
+)
+trainer.train()
+```
+
+#### 方法四：多 LoRA 適配器管理
+```python
+from peft import PeftModel
+
+# 載入基礎模型
+base_model = AutoModelForCausalLM.from_pretrained("meta-llama/Llama-3-8B")
+
+# 載入不同任務的適配器
+model = PeftModel.from_pretrained(base_model, "path/to/adapter1", adapter_name="math")
+model.load_adapter("path/to/adapter2", adapter_name="code")
+model.load_adapter("path/to/adapter3", adapter_name="chat")
+
+# 動態切換適配器
+model.set_adapter("math")  # 用於數學推理
+output = model.generate(...)
+
+model.set_adapter("code")  # 用於程式碼生成
+output = model.generate(...)
+
+# 合併多個適配器
+model.set_adapter(["math", "code"])  # 同時使用兩個適配器
 ```
 
 ### 4. 多 GPU 分布式訓練
@@ -290,24 +489,161 @@ for batch in train_dataloader:
     optimizer.step()
 ```
 
-### 5. 模型部署優化
-使用 Optimum 優化推理性能：
+### 5. 模型部署優化（2025 最新技術）
+
+#### 方法一：使用 Flash Attention 2 加速推理
 ```python
-from optimum.onnxruntime import ORTModelForSequenceClassification
+from transformers import AutoModelForCausalLM
+import torch
+
+# 使用 Flash Attention 2（速度提升 2-8 倍，記憶體減少 50%）
+model = AutoModelForCausalLM.from_pretrained(
+    "meta-llama/Llama-3-8B",
+    torch_dtype=torch.bfloat16,
+    attn_implementation="flash_attention_2",  # 啟用 Flash Attention 2
+    device_map="auto",
+)
+
+# 注意：需要安裝 flash-attn
+# pip install flash-attn --no-build-isolation
+```
+
+#### 方法二：使用 ONNX Runtime 優化
+```python
+from optimum.onnxruntime import ORTModelForSequenceClassification, ORTOptimizer
+from optimum.onnxruntime.configuration import OptimizationConfig
 from transformers import AutoTokenizer
 
-# 將模型轉換為 ONNX 格式
+# 導出並優化為 ONNX 格式
 model = ORTModelForSequenceClassification.from_pretrained(
     "bert-base-chinese",
     export=True,
 )
 
+# 應用圖優化
+optimizer = ORTOptimizer.from_pretrained(model)
+optimization_config = OptimizationConfig(optimization_level=99)
+optimizer.optimize(save_dir="optimized_model", optimization_config=optimization_config)
+
+# 載入優化後的模型
+model = ORTModelForSequenceClassification.from_pretrained("optimized_model")
 tokenizer = AutoTokenizer.from_pretrained("bert-base-chinese")
 
-# 推理速度提升 2-3 倍
+# 推理速度提升 2-4 倍
 inputs = tokenizer("測試文本", return_tensors="pt")
 outputs = model(**inputs)
 ```
+
+#### 方法三：使用 vLLM 進行高吞吐量推理
+```python
+from vllm import LLM, SamplingParams
+
+# 初始化 vLLM（支援 PagedAttention 和 Continuous Batching）
+llm = LLM(
+    model="meta-llama/Llama-3-8B",
+    tensor_parallel_size=2,  # 使用 2 張 GPU
+    max_model_len=8192,
+    gpu_memory_utilization=0.9,
+)
+
+# 批次推理（吞吐量提升 10-20 倍）
+prompts = [
+    "Explain quantum computing in simple terms:",
+    "Write a Python function to calculate fibonacci:",
+    "What is the capital of France?",
+]
+
+sampling_params = SamplingParams(
+    temperature=0.7,
+    top_p=0.9,
+    max_tokens=512,
+)
+
+outputs = llm.generate(prompts, sampling_params)
+for output in outputs:
+    print(output.outputs[0].text)
+```
+
+#### 方法四：使用 TensorRT-LLM 極致優化
+```python
+# TensorRT-LLM 提供最佳的 NVIDIA GPU 推理性能
+# 需要先將模型轉換為 TensorRT 格式
+
+# 1. 轉換模型（命令行）
+# python convert_checkpoint.py --model_dir ./llama-3-8b \
+#     --output_dir ./trt_ckpt --dtype float16
+
+# 2. 構建 TensorRT 引擎
+# trtllm-build --checkpoint_dir ./trt_ckpt \
+#     --output_dir ./trt_engine --gemm_plugin float16
+
+# 3. 運行推理（速度提升 3-6 倍）
+from tensorrt_llm import LLM
+
+llm = LLM(model="./trt_engine")
+output = llm.generate("Explain AI in simple terms:")
+print(output)
+```
+
+#### 方法五：使用 Text Generation Inference (TGI) 部署
+```bash
+# 使用 Docker 部署高性能推理服務
+docker run --gpus all --shm-size 1g -p 8080:80 \
+    -v $PWD/models:/data \
+    ghcr.io/huggingface/text-generation-inference:latest \
+    --model-id meta-llama/Llama-3-8B \
+    --max-input-length 4096 \
+    --max-total-tokens 8192 \
+    --max-batch-prefill-tokens 4096 \
+    --quantize bitsandbytes-nf4
+```
+
+```python
+# Python 客戶端調用
+from huggingface_hub import InferenceClient
+
+client = InferenceClient(model="http://localhost:8080")
+
+# 流式生成
+for token in client.text_generation("Explain quantum physics:", max_new_tokens=200, stream=True):
+    print(token, end="", flush=True)
+```
+
+#### 方法六：靜態量化（INT8/INT4）
+```python
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from auto_gptq import AutoGPTQForCausalLM, BaseQuantizeConfig
+
+# GPTQ 4-bit 量化（速度提升 2-4 倍，記憶體減少 75%）
+model_id = "meta-llama/Llama-3-8B"
+quantize_config = BaseQuantizeConfig(
+    bits=4,
+    group_size=128,
+    desc_act=False,
+)
+
+# 量化模型
+model = AutoGPTQForCausalLM.from_pretrained(model_id, quantize_config)
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+
+# 保存量化模型
+model.save_quantized("./llama3-8b-gptq")
+
+# 載入並使用
+model = AutoGPTQForCausalLM.from_quantized("./llama3-8b-gptq", device="cuda:0")
+```
+
+#### 推理優化技術對比（2025）
+
+| 方法 | 速度提升 | 記憶體節省 | 準確度損失 | 適用場景 |
+|------|---------|-----------|-----------|---------|
+| Flash Attention 2 | 2-8x | 50% | 無 | 訓練與推理 |
+| ONNX Runtime | 2-4x | 20% | 極小 | CPU/GPU 部署 |
+| vLLM | 10-20x | 50% | 無 | 批次推理服務 |
+| TensorRT-LLM | 3-6x | 40% | 極小 | NVIDIA GPU 生產環境 |
+| TGI | 5-15x | 40% | 無 | 生產部署 |
+| GPTQ (4-bit) | 2-4x | 75% | < 1% | 資源受限環境 |
+| AWQ (4-bit) | 2-4x | 75% | < 0.5% | 高準確度需求 |
 
 ---
 
