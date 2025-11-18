@@ -1,0 +1,61 @@
+# AI Agent 實戰範例依賴套件
+
+# 核心框架
+langchain>=0.1.0
+langchain-openai>=0.0.5
+langchain-community>=0.0.20
+langgraph>=0.0.20
+crewai>=0.1.0
+pyautogen>=0.2.0
+
+# OpenAI 和其他 LLM
+openai>=1.10.0
+anthropic>=0.8.0
+
+# 工具和實用程式
+python-dotenv>=1.0.0
+pydantic>=2.0.0
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+
+# 數據處理
+pandas>=2.0.0
+numpy>=1.24.0
+
+# 向量資料庫
+chromadb>=0.4.0
+faiss-cpu>=1.7.4
+
+# 搜尋工具
+google-search-results>=2.4.2
+arxiv>=1.4.8
+wikipedia>=1.4.0
+
+# Web 工具
+playwright>=1.40.0
+selenium>=4.15.0
+
+# 代碼執行
+ipython>=8.18.0
+
+# 監控和追蹤
+langsmith>=0.0.70
+tenacity>=8.2.0
+
+# 測試
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+
+# 類型檢查和格式化
+mypy>=1.7.0
+black>=23.11.0
+flake8>=6.1.0
+
+# 可選：MCP (Model Context Protocol)
+# mcp[cli]>=0.1.0
+
+# 注意：
+# 1. 某些套件可能需要 API 金鑰（OpenAI、Anthropic、Google Search）
+# 2. 建議使用虛擬環境安裝
+# 3. 根據實際需求選擇性安裝某些套件
