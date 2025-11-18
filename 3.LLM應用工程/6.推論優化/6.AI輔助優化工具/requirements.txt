@@ -1,0 +1,25 @@
+# 基礎依賴
+torch>=2.0.0
+transformers>=4.35.0
+
+# AI API
+openai>=1.0.0
+anthropic>=0.7.0
+
+# 效能測試
+psutil>=5.9.0
+py3nvml>=0.2.7
+
+# 數據處理
+numpy>=1.24.0
+pandas>=2.0.0
+
+# 配置管理
+pydantic>=2.0.0
+python-dotenv>=1.0.0
+
+# HTTP 請求
+requests>=2.31.0
+
+# JSON 處理
+jsonschema>=4.17.0
