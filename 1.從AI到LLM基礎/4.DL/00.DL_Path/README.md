@@ -1,9 +1,10 @@
 # 動手學深度學習 (Dive into Deep Learning) - 個人學習筆記
 
-> 🔄 **最後更新：** 2025-01-18
+> 🔄 **最後更新：** 2025-11-18
 > 📚 **筆記總數：** 136+ Jupyter Notebooks
-> 💻 **實作框架：** PyTorch
-> ⭐ **完成度：** 95%
+> 💻 **實作框架：** PyTorch 2.5+
+> ⭐ **完成度：** 98%
+> 🔥 **2025 更新：** 已整合最新深度學習技術與工具
 
 基於李沐老師《動手學深度學習》的完整學習筆記，涵蓋從基礎到高級的深度學習核心概念，包含理論講解與 PyTorch 實作。
 
@@ -35,6 +36,47 @@
 1. 使用本目錄中標準的 PyTorch 版本筆記（各章節根目錄下的 notebooks）
 2. 參考官方 [動手學深度學習 - PyTorch 版](https://zh.d2l.ai/)
 3. 結合官方線上教材和影片課程獲得最佳學習體驗
+
+---
+
+## 🚀 2024-2025 深度學習新發展
+
+### 架構創新
+- **Mamba & State Space Models (SSMs)**: 高效的序列建模新範式，在某些任務上超越 Transformer
+- **Vision Transformer (ViT) 的成熟**: 在計算機視覺領域已成為主流選擇
+- **Mixture of Experts (MoE)**: 大規模模型的高效訓練架構 (如 Mixtral)
+- **Flash Attention 2/3**: 顯著加速 Attention 計算，降低記憶體使用
+
+### 訓練技術
+- **Parameter-Efficient Fine-Tuning (PEFT)**:
+  - LoRA (Low-Rank Adaptation): 高效微調大模型
+  - QLoRA: 量化 LoRA，進一步降低資源需求
+  - Adapter Tuning, Prefix Tuning 等方法
+- **Mixed Precision Training**: BF16 成為新標準
+- **Gradient Checkpointing**: 訓練更大模型的必備技術
+
+### 優化器演進
+- **AdamW**: 現已成為事實標準 (取代傳統 Adam)
+- **Lion Optimizer**: Google 提出的新優化器
+- **Schedule-Free Optimizers**: 無需學習率調度的新方法
+
+### 新興應用領域
+- **Diffusion Models**: 圖像生成的主流方法 (Stable Diffusion, DALL-E 3)
+- **Multimodal Learning**: 視覺-語言聯合訓練 (CLIP, GPT-4V, Gemini)
+- **Retrieval-Augmented Generation (RAG)**: 結合檢索與生成
+- **Constitutional AI & RLHF**: 人類偏好對齊訓練
+
+### 工具生態系統
+- **Weights & Biases (W&B)**: 實驗追蹤與視覺化
+- **Hydra**: 配置管理框架
+- **Lightning AI**: 簡化 PyTorch 訓練流程
+- **Hugging Face Ecosystem**: Transformers, PEFT, Accelerate, Datasets
+- **vLLM & TensorRT-LLM**: 高效推理引擎
+
+**學習建議：**
+- 📚 本筆記提供深度學習的堅實基礎
+- 🚀 掌握基礎後，建議探索上述現代技術
+- 💡 實踐中結合傳統方法與新技術
 
 ---
 
@@ -383,9 +425,11 @@
 - 學會使用學習率調度
 
 **常用優化器選擇：**
-- **入門推薦：** Adam (自適應、穩定、不需要太多調參)
-- **追求極致性能：** SGD + Momentum (需要仔細調參)
-- **大規模訓練：** AdamW (Adam 的改進版)
+- **2025 標準推薦：** AdamW (現代深度學習的事實標準，解決了 Adam 的權重衰減問題)
+- **入門推薦：** Adam (自適應、穩定、不需要太多調參) - 仍然廣泛使用
+- **追求極致性能：** SGD + Momentum (需要仔細調參，在特定任務上可能更優)
+- **大規模訓練：** AdamW + 8-bit Optimizers (如 bitsandbytes 提供的量化優化器)
+- **新興選擇：** Lion, Sophia (Google 等提出的新優化器，某些場景下表現更好)
 
 **預計學習時間：** 1-2 週
 
@@ -535,12 +579,32 @@
 - 🔥 [PyTorch 官方文檔](https://pytorch.org/docs/stable/index.html)
 - 📚 [PyTorch 教程](https://pytorch.org/tutorials/)
 - 🎓 [PyTorch 中文教程](https://pytorch.apachecn.org/)
+- ⚡ [PyTorch Lightning 文檔](https://lightning.ai/docs/pytorch/stable/)
+
+### 現代深度學習資源 (2024-2025)
+
+- 🤗 [Hugging Face](https://huggingface.co/) - 模型、資料集、課程的寶庫
+- 📝 [Hugging Face NLP Course](https://huggingface.co/learn/nlp-course/) - 現代 NLP 教程
+- 🎨 [Stable Diffusion](https://github.com/Stability-AI/stablediffusion) - 擴散模型資源
+- 🧠 [LLM Course by Maxime Labonne](https://github.com/mlabonne/llm-course) - LLM 學習路線
+- 📖 [The Illustrated Transformer](http://jalammar.github.io/illustrated-transformer/) - Transformer 視覺化解說
+- 🔬 [Distill.pub](https://distill.pub/) - 機器學習視覺化文章
 
 ### 社群與論壇
 
 - 💬 [D2L 討論區](https://discuss.d2l.ai/)
 - 🤝 [PyTorch 論壇](https://discuss.pytorch.org/)
 - 📊 [Papers with Code](https://paperswithcode.com/) - 論文與程式碼
+- 🎯 [Hugging Face 論壇](https://discuss.huggingface.co/)
+- 📱 [r/MachineLearning](https://www.reddit.com/r/MachineLearning/) - Reddit 社群
+
+### 實用工具與平台
+
+- 📊 [Weights & Biases](https://wandb.ai/) - 實驗追蹤與協作
+- 🎯 [TensorBoard](https://www.tensorflow.org/tensorboard) - 訓練視覺化
+- 🔧 [Hydra](https://hydra.cc/) - 配置管理
+- 🚀 [Gradio](https://gradio.app/) - 快速建立 ML Demo
+- 📦 [Modal](https://modal.com/) - 雲端運算平台
 
 ---
 
@@ -566,19 +630,37 @@
 
 **基礎環境：**
 ```bash
-# Python 3.8+
-# PyTorch 2.0+
-# CUDA 11.8+ (如果使用 GPU)
+# Python 3.10+ (建議 3.11 或 3.12)
+# PyTorch 2.5+ (2024 年最新穩定版)
+# CUDA 12.1+ (如果使用 GPU)
 
-pip install torch torchvision torchaudio
-pip install d2l jupyter matplotlib pandas
+# 安裝 PyTorch (請根據您的 CUDA 版本調整)
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+
+# 基礎套件
+pip install d2l jupyter matplotlib pandas numpy scipy
+
+# 現代深度學習工具 (可選但推薦)
+pip install transformers datasets accelerate  # Hugging Face 生態系
+pip install lightning wandb tensorboard        # 訓練工具
+pip install timm torchmetrics                  # 模型庫與評估
 ```
 
-**推薦硬體：**
-- **CPU：** 任何現代 CPU
-- **記憶體：** 至少 8GB RAM（建議 16GB）
-- **GPU：** 可選，但強烈建議（至少 6GB 顯存）
-- **儲存：** 至少 20GB 可用空間
+**推薦硬體 (2025 年標準)：**
+- **CPU：** 多核心處理器 (Intel i5/i7/i9 或 AMD Ryzen 5/7/9)
+- **記憶體：** 至少 16GB RAM（建議 32GB 用於大型模型）
+- **GPU：**
+  - **入門：** NVIDIA RTX 3060 (12GB) 或以上
+  - **進階：** RTX 4070/4080 (12-16GB)
+  - **專業：** RTX 4090 (24GB) 或 A100/H100
+  - **最低要求：** 至少 8GB 顯存
+- **儲存：** 至少 50GB SSD 可用空間（建議 100GB+）
+
+**雲端平台選擇：**
+- **Google Colab**: 免費 GPU/TPU (適合學習)
+- **Kaggle Notebooks**: 免費 GPU (每週 30 小時)
+- **Lambda Labs**: 性價比高的雲端 GPU
+- **AWS/GCP/Azure**: 企業級解決方案
 
 ---
 
@@ -647,6 +729,18 @@ pip install d2l jupyter matplotlib pandas
 
 ## 📅 更新日誌
 
+- **2025-11-18**:
+  - ✨ 新增 2024-2025 深度學習新發展章節
+  - 🚀 更新所有技術推薦至 2025 年標準
+  - 📦 更新環境配置：PyTorch 2.5+, Python 3.10+, CUDA 12.1+
+  - 🔧 新增現代工具生態系統介紹 (W&B, Lightning, Hugging Face 等)
+  - 💻 更新硬體推薦：包含 RTX 40 系列和最新 GPU
+  - 🌐 新增雲端平台選擇指南
+  - 📚 擴充學習資源：新增 Hugging Face, LLM Course 等現代資源
+  - 🎯 更新優化器推薦：AdamW 成為新標準
+  - 📝 新增 PEFT, LoRA, Diffusion Models 等新技術
+  - 🔄 全面驗證並更新所有內容的時效性
+
 - **2025-01-18**:
   - 大幅增強 README 結構
   - 新增詳細的學習路徑建議
@@ -681,6 +775,6 @@ pip install d2l jupyter matplotlib pandas
 
 ---
 
-**版本：** v2.0
+**版本：** v3.0
 **作者：** markl-a
-**最後更新：** 2025-01-18
+**最後更新：** 2025-11-18
