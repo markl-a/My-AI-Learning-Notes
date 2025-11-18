@@ -1,0 +1,17 @@
+# LLM 安全與防禦實作示例依賴
+
+# 基礎依賴
+python>=3.8
+
+# 如果要使用真實的 LLM（可選）
+# openai>=1.0.0
+# anthropic>=0.7.0
+
+# 如果要使用真實的向量數據庫（可選）
+# chromadb>=0.4.0
+# pinecone-client>=2.2.0
+# sentence-transformers>=2.2.0
+
+# 工具庫（可選）
+# flask>=2.3.0  # 用於 Web 應用示例
+# pytest>=7.4.0  # 用於測試
