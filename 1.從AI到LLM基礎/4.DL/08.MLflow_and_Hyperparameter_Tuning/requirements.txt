@@ -1,0 +1,41 @@
+# MLflow 和超參數調整所需的套件
+
+# 核心套件
+mlflow>=2.9.0
+optuna>=3.4.0
+scikit-learn>=1.3.0
+pandas>=2.0.0
+numpy>=1.24.0
+
+# 深度學習框架（根據需要安裝）
+torch>=2.0.0
+tensorflow>=2.13.0
+keras-tuner>=1.4.0
+
+# 可視化
+matplotlib>=3.7.0
+seaborn>=0.12.0
+plotly>=5.17.0
+kaleido>=0.2.1  # 用於保存 Plotly 圖表
+
+# 超參數調整工具
+ray[tune]>=2.7.0
+scikit-optimize>=0.9.0
+hyperopt>=0.2.7
+
+# 數據處理
+scipy>=1.11.0
+
+# 其他工具
+pyyaml>=6.0
+joblib>=1.3.0
+tqdm>=4.66.0
+
+# 資料庫支援（可選）
+# psycopg2-binary>=2.9.0  # PostgreSQL
+# pymysql>=1.1.0  # MySQL
+
+# 雲端存儲支援（可選）
+# boto3>=1.28.0  # AWS S3
+# azure-storage-blob>=12.18.0  # Azure Blob Storage
+# google-cloud-storage>=2.10.0  # Google Cloud Storage
