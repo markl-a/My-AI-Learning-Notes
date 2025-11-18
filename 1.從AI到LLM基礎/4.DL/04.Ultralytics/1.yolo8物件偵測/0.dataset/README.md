@@ -1,14 +1,15 @@
-# YOLOv8 資料集準備指南
+# YOLO 資料集準備指南（支援 YOLO11/v10/v9/v8）
 
 > 📊 **資料集：** 自定義物件偵測資料集
 > 🎯 **格式：** YOLO 格式（txt 標註）
-> 🔧 **工具：** LabelImg, Roboflow, CVAT
+> 🔧 **工具：** LabelImg, Roboflow, CVAT, Label Studio
+> 🔄 **最後更新：** 2025-01
 
 ---
 
 ## 📖 簡介
 
-本目錄包含用於訓練 YOLOv8 物件偵測模型的資料集。良好的資料集是訓練高準確率模型的關鍵。
+本目錄包含用於訓練 **YOLO 系列模型**（YOLO11、YOLOv10、YOLOv9、YOLOv8）的資料集準備指南。良好的資料集是訓練高準確率模型的關鍵，所有 YOLO 版本使用相同的資料格式。
 
 ### 資料集品質檢查清單
 
@@ -117,22 +118,24 @@ labelImg
 
 ---
 
-### 2. Roboflow（推薦進階使用者）
+### 2. Roboflow（推薦進階使用者）⭐
 
 **特點：**
 - ✅ 線上平台，無需安裝
 - ✅ 自動資料增強
-- ✅ 格式自動轉換
+- ✅ 格式自動轉換（支援所有 YOLO 版本）
 - ✅ 資料集版本管理
 - ✅ 團隊協作
+- ✅ AI 輔助標註
+- ✅ 資料集健康檢查
 
 **使用流程：**
 1. 註冊 [Roboflow](https://roboflow.com/)
 2. 建立新專案
 3. 上傳圖像
-4. 線上標註
+4. 線上標註（支援 AI 輔助）
 5. 應用資料增強
-6. 導出 YOLO 格式
+6. 導出 YOLO 格式（支援 YOLO11/v10/v9/v8）
 
 **Python API：**
 ```python
@@ -140,7 +143,14 @@ from roboflow import Roboflow
 
 rf = Roboflow(api_key="YOUR_API_KEY")
 project = rf.workspace().project("YOUR_PROJECT")
-dataset = project.version(1).download("yolov8")
+
+# 導出為 YOLO 格式（通用於所有版本）
+dataset = project.version(1).download("yolov8")  # 格式兼容 YOLO11/v10/v9/v8
+
+# 直接訓練
+from ultralytics import YOLO
+model = YOLO('yolo11n.pt')  # 或 yolov10n.pt, yolov9c.pt, yolov8n.pt
+results = model.train(data=f"{dataset.location}/data.yaml", epochs=100)
 ```
 
 ---

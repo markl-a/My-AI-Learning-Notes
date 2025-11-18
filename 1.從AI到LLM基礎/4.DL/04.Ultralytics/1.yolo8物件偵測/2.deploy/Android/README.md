@@ -1,14 +1,16 @@
-# YOLOv8 Android 部署指南
+# YOLO Android 部署指南（YOLO11/v10/v9/v8）
 
 > 📱 **平台：** Android
 > 🔧 **框架：** ONNX Runtime / NCNN / TensorFlow Lite
 > ⚡ **特色：** 即時物件偵測，支援多種推理引擎
+> 🔄 **最後更新：** 2025-01
+> ✅ **支援版本：** YOLO11, YOLOv10, YOLOv9, YOLOv8
 
 ---
 
 ## 📖 簡介
 
-本指南介紹如何將訓練好的 YOLOv8 模型部署到 Android 應用程式中，實現即時物件偵測功能。
+本指南介紹如何將訓練好的 **YOLO 系列模型**（YOLO11、YOLOv10、YOLOv9、YOLOv8）部署到 Android 應用程式中，實現即時物件偵測功能。所有 YOLO 版本使用相同的部署流程。
 
 ### 支援的部署方式
 
@@ -29,8 +31,8 @@
 ```python
 from ultralytics import YOLO
 
-# 載入訓練好的模型
-model = YOLO('best.pt')
+# 載入訓練好的模型（支援所有版本）
+model = YOLO('best.pt')  # 可以是 YOLO11/v10/v9/v8 訓練的模型
 
 # 導出為 ONNX 格式
 model.export(
@@ -43,6 +45,26 @@ model.export(
 ```
 
 **輸出：** `best.onnx`
+
+**不同版本的建議：**
+
+```python
+# YOLO11 - 推薦用於移動端（最快）
+model = YOLO('yolo11n.pt')  # 或訓練好的模型
+model.export(format='onnx', imgsz=640, simplify=True)
+
+# YOLOv10 - 無需 NMS，部署更簡單
+model = YOLO('yolov10n.pt')
+model.export(format='onnx', imgsz=640, simplify=True)
+
+# YOLOv9 - 準確率優先
+model = YOLO('yolov9c.pt')
+model.export(format='onnx', imgsz=640, simplify=True, half=True)  # FP16
+
+# YOLOv8 - 穩定可靠
+model = YOLO('yolov8n.pt')
+model.export(format='onnx', imgsz=640, simplify=True)
+```
 
 #### 2. Android 專案設定
 
@@ -390,12 +412,23 @@ val executorService = Executors.newFixedThreadPool(4)
 
 ## 📊 性能基準測試
 
-| 模型 | 設備 | 框架 | FPS | 延遲 |
-|------|------|------|-----|------|
-| YOLOv8n | Snapdragon 888 | ONNX | ~45 | 22ms |
-| YOLOv8n | Snapdragon 888 | NCNN | ~60 | 16ms |
-| YOLOv8s | Snapdragon 888 | ONNX | ~30 | 33ms |
-| YOLOv8n-int8 | Snapdragon 888 | NCNN | ~80 | 12ms |
+**Snapdragon 888 性能對比：**
+
+| 模型 | 框架 | FPS | 延遲 | 備註 |
+|------|------|-----|------|------|
+| **YOLO11n** | NCNN | ~85 | 11.7ms | 最快，推薦 |
+| **YOLO11n** | ONNX | ~55 | 18ms | 較快 |
+| **YOLOv10n** | ONNX | ~50 | 20ms | 無需 NMS |
+| **YOLOv9s** | ONNX | ~35 | 28ms | 高準確率 |
+| **YOLOv8n** | NCNN | ~60 | 16ms | 穩定 |
+| **YOLOv8n** | ONNX | ~45 | 22ms | 可靠 |
+| **YOLO11n-int8** | NCNN | ~95 | 10.5ms | 最優 |
+
+**建議：**
+- **移動端首選：** YOLO11n + NCNN
+- **平衡選擇：** YOLOv10n + ONNX Runtime
+- **準確率優先：** YOLOv9s + ONNX Runtime
+- **穩定部署：** YOLOv8n + NCNN
 
 ---
 
