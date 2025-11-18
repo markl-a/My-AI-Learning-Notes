@@ -5,20 +5,43 @@ Keras 3 ANN 快速入門範例
 這個腳本展示了使用 Keras 3 建立和訓練一個簡單神經網路的完整流程。
 適合初學者快速上手。
 
+🎯 學習目標:
+  - 掌握 Keras 3 的基本工作流程
+  - 了解數據預處理方法
+  - 學習模型建立、訓練和評估
+  - 掌握模型保存和載入
+
+📦 Keras 3 新特性:
+  - 多後端支持 (TensorFlow/JAX/PyTorch)
+  - 統一的 API
+  - 更快的訓練速度
+  - 新的 .keras 保存格式
+
 作者: AI Learning Notes
 日期: 2025-01
+最後更新: 2025-01-18
+Keras 版本: 3.0+
 """
 
 import os
-# 設置後端（在 import keras 之前）
+# ============================================================================
+# Keras 3 後端選擇 (必須在 import keras 之前設置)
+# ============================================================================
+# 可選: 'tensorflow', 'jax', 'torch'
+# 建議初學者使用 'tensorflow'
 os.environ['KERAS_BACKEND'] = 'tensorflow'
 
 import keras
-from keras import layers
+from keras import layers, ops
 from keras.datasets import mnist
 from keras.utils import to_categorical
 import numpy as np
 import matplotlib.pyplot as plt
+
+# 打印 Keras 版本和後端資訊
+print(f"Keras 版本: {keras.__version__}")
+print(f"使用後端: {keras.backend.backend()}")
+print("-" * 70)
 
 # =============================================================================
 # 1. 載入和預處理數據
