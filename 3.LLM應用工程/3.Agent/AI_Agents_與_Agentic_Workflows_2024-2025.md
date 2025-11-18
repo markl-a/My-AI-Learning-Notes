@@ -1323,3 +1323,1180 @@ uv run mcp install server.py    # 安裝到 Claude Desktop 或其他客戶端
 3. **與 LangGraph / CrewAI 結合**：可以將 MCP 工具包裝成 LangChain `Tool`，並在 Agent workflow 中統一管理。
 4. **版本管理**：使用 `pyproject.toml` 或 `uv` 管理 MCP 伺服器依賴，並以 CI 驗證工具行為。
 5. **安全測試**：將 MCP 伺服器納入紅隊測試與 Prompt Injection 防護範圍，避免被惡意利用。
+
+---
+
+## 5. 框架比較與選擇指南
+
+### 5.1 框架全面比較
+
+| 維度 | LangGraph | CrewAI | AutoGPT | AutoGen |
+|------|-----------|--------|---------|---------|
+| **學習曲線** | 中-高 | 低-中 | 中 | 中 |
+| **控制精度** | 極高 | 中 | 低 | 高 |
+| **多 Agent** | 支援（需手動編排） | 原生支援 | 不支援 | 原生支援 |
+| **狀態管理** | 極佳（StateGraph） | 基礎 | 中等 | 中等 |
+| **工具整合** | 靈活 | 簡單 | 中等 | 靈活 |
+| **人機協作** | 極佳（Checkpointing） | 一般 | 一般 | 極佳 |
+| **可視化** | 支援（LangSmith） | 基礎 | 無 | 基礎 |
+| **生產就緒** | 高 | 高 | 中 | 高 |
+| **社群活躍度** | 極高 | 高 | 中 | 高 |
+| **文檔質量** | 優秀 | 良好 | 一般 | 優秀 |
+| **成本控制** | 精確 | 中等 | 低（容易失控） | 良好 |
+| **適合規模** | 小-大型 | 小-中型 | 小型 | 小-中型 |
+
+### 5.2 選擇決策樹
+
+```
+需要多 Agent 協作？
+├─ 是
+│  ├─ 需要精確控制流程？
+│  │  ├─ 是 → LangGraph
+│  │  └─ 否 → CrewAI 或 AutoGen
+│  └─ 需要人機協作對話？
+│     └─ 是 → AutoGen
+│
+└─ 否（單 Agent）
+   ├─ 需要複雜狀態管理？
+   │  └─ 是 → LangGraph
+   └─ 需要完全自主執行？
+      └─ 是 → AutoGPT（慎用）
+```
+
+### 5.3 典型應用場景匹配
+
+#### 5.3.1 內容創作流程
+**推薦**：CrewAI
+
+**理由**：
+- 天然的角色分工（研究員、作家、編輯）
+- 順序式流程符合創作邏輯
+- 簡單易用，快速上手
+
+**範例**：
+```python
+# 研究員 → 作家 → 編輯 → 最終文章
+crew = Crew(
+    agents=[researcher, writer, editor],
+    process=Process.sequential
+)
+```
+
+#### 5.3.2 複雜業務流程自動化
+**推薦**：LangGraph
+
+**理由**：
+- 需要精確控制每個步驟
+- 複雜的條件分支
+- 需要人機協作審批
+
+**範例**：
+```python
+# 發票處理流程：OCR → 驗證 → 人工審核 → 入帳
+workflow = StateGraph(InvoiceState)
+workflow.add_conditional_edges("validate", should_human_review)
+```
+
+#### 5.3.3 研究助手
+**推薦**：AutoGen
+
+**理由**：
+- 需要執行代碼分析數據
+- 人機對話式交互
+- 靈活的工具調用
+
+**範例**：
+```python
+# 用戶提問 ↔ Assistant 分析 ↔ 執行代碼 ↔ 展示結果
+assistant.initiate_chat(user_proxy, message=query)
+```
+
+#### 5.3.4 客服機器人
+**推薦**：LangGraph
+
+**理由**：
+- 需要精確的對話流程控制
+- 狀態管理（用戶資訊、訂單狀態）
+- 支援中斷和恢復
+
+### 5.4 混合使用策略
+
+很多實際應用會結合多個框架：
+
+```python
+# 範例：使用 LangGraph 編排，CrewAI 執行子任務
+
+from langgraph.graph import StateGraph
+from crewai import Crew
+
+class HybridAgentState(TypedDict):
+    task: str
+    research_result: str
+    final_output: str
+
+def research_node(state):
+    """使用 CrewAI 執行研究任務"""
+    crew = Crew(agents=[researcher], tasks=[research_task])
+    result = crew.kickoff()
+    return {"research_result": result}
+
+def analysis_node(state):
+    """使用 LangGraph 控制分析流程"""
+    # 複雜的條件邏輯
+    ...
+
+workflow = StateGraph(HybridAgentState)
+workflow.add_node("research", research_node)
+workflow.add_node("analysis", analysis_node)
+```
+
+---
+
+## 6. 實戰案例：多 Agent 協作系統
+
+### 6.1 案例一：AI 技術研究助手
+
+#### 6.1.1 需求分析
+
+**目標**：構建一個能自動研究 AI 技術主題並生成報告的系統。
+
+**功能要求**：
+1. 搜尋最新論文和文章
+2. 總結關鍵發現
+3. 生成結構化報告
+4. 包含代碼示例
+
+**Agent 設計**：
+- **研究員 Agent**：搜尋和收集資料
+- **分析師 Agent**：分析和總結
+- **工程師 Agent**：撰寫代碼示例
+- **編輯 Agent**：整合和優化報告
+
+#### 6.1.2 使用 CrewAI 實作
+
+```python
+from crewai import Agent, Task, Crew, Process
+from langchain_openai import ChatOpenAI
+from crewai_tools import SerperDevTool, WebsiteSearchTool
+
+# 初始化工具
+search_tool = SerperDevTool()  # Google Search API
+web_tool = WebsiteSearchTool()
+
+llm = ChatOpenAI(model="gpt-4", temperature=0.7)
+
+# Agent 1: 研究員
+researcher = Agent(
+    role='AI 技術研究員',
+    goal='深入研究指定的 AI 技術主題，找出最新發展和關鍵論文',
+    backstory="""你是一位經驗豐富的 AI 研究員，擅長快速掌握新技術。
+    你知道如何搜尋高質量的技術資源，包括 Arxiv、GitHub、技術博客等。""",
+    tools=[search_tool, web_tool],
+    verbose=True,
+    llm=llm
+)
+
+# Agent 2: 分析師
+analyst = Agent(
+    role='技術分析師',
+    goal='分析研究結果，提取核心概念和技術要點',
+    backstory="""你是一位技術分析專家，能夠從大量資訊中提取關鍵洞察。
+    你擅長識別技術趨勢、比較不同方法的優劣。""",
+    verbose=True,
+    llm=llm
+)
+
+# Agent 3: 工程師
+engineer = Agent(
+    role='軟體工程師',
+    goal='撰寫清晰的代碼示例，展示技術實作',
+    backstory="""你是一位經驗豐富的軟體工程師，擅長將技術概念轉化為可運行的代碼。
+    你的代碼清晰、有註釋、遵循最佳實踐。""",
+    verbose=True,
+    llm=llm
+)
+
+# Agent 4: 編輯
+editor = Agent(
+    role='技術編輯',
+    goal='整合所有內容，生成高質量的技術報告',
+    backstory="""你是一位專業的技術編輯，能夠將複雜的技術內容組織成
+    易讀的報告。你注重邏輯性、完整性和可讀性。""",
+    verbose=True,
+    allow_delegation=True,
+    llm=llm
+)
+
+# 定義任務
+def create_research_tasks(topic: str):
+    task1 = Task(
+        description=f"""研究主題：{topic}
+
+        請完成以下任務：
+        1. 搜尋最新的論文和文章（過去 12 個月）
+        2. 找出 3-5 個關鍵資源
+        3. 識別主要的技術突破和趨勢
+        4. 記錄重要的數據和統計
+
+        輸出格式：
+        - 資源列表（標題、來源、連結）
+        - 關鍵發現（每個 2-3 句話）""",
+        expected_output="結構化的研究報告，包含資源清單和關鍵發現",
+        agent=researcher
+    )
+
+    task2 = Task(
+        description=f"""基於研究員提供的資料，進行深入分析：
+
+        1. 總結技術的核心概念
+        2. 比較不同的實作方法
+        3. 分析優勢和限制
+        4. 識別最佳實踐
+        5. 提出實際應用場景
+
+        輸出應該清晰、結構化，適合技術讀者。""",
+        expected_output="技術分析報告，包含核心概念、方法比較、最佳實踐",
+        agent=analyst,
+        context=[task1]
+    )
+
+    task3 = Task(
+        description=f"""基於分析結果，撰寫代碼示例：
+
+        1. 選擇 2-3 個關鍵概念
+        2. 為每個概念撰寫完整的代碼示例
+        3. 添加註釋和說明
+        4. 確保代碼可以運行
+        5. 包含 requirements（依賴套件）
+
+        代碼應該：
+        - 簡潔清晰
+        - 遵循 PEP 8 風格
+        - 包含錯誤處理
+        - 有完整的文檔字符串""",
+        expected_output="完整的代碼示例，包含註釋和使用說明",
+        agent=engineer,
+        context=[task2]
+    )
+
+    task4 = Task(
+        description=f"""整合所有內容，生成最終報告：
+
+        報告結構：
+        1. 執行摘要（200 字）
+        2. 技術背景和動機
+        3. 核心概念解析
+        4. 實作方法比較
+        5. 代碼示例和說明
+        6. 最佳實踐建議
+        7. 延伸閱讀
+
+        要求：
+        - 邏輯清晰，結構完整
+        - 技術準確
+        - 適合中高級技術讀者
+        - Markdown 格式""",
+        expected_output="完整的技術報告（Markdown 格式）",
+        agent=editor,
+        context=[task1, task2, task3]
+    )
+
+    return [task1, task2, task3, task4]
+
+# 創建並執行 Crew
+def research_topic(topic: str):
+    tasks = create_research_tasks(topic)
+
+    crew = Crew(
+        agents=[researcher, analyst, engineer, editor],
+        tasks=tasks,
+        process=Process.sequential,
+        verbose=2
+    )
+
+    result = crew.kickoff()
+    return result
+
+# 使用範例
+if __name__ == "__main__":
+    topic = "LangGraph for Multi-Agent Systems"
+    report = research_topic(topic)
+
+    # 保存報告
+    with open(f"report_{topic.replace(' ', '_')}.md", "w", encoding="utf-8") as f:
+        f.write(report)
+
+    print(f"\n✓ 報告已生成：report_{topic.replace(' ', '_')}.md")
+```
+
+### 6.2 案例二：客戶服務自動化系統
+
+#### 6.2.1 需求分析
+
+**場景**：電商客服系統，處理訂單查詢、退換貨、投訴等。
+
+**要求**：
+- 理解客戶意圖
+- 查詢訂單資料庫
+- 執行業務操作（退款、換貨）
+- 需要人工審核（高金額）
+- 生成服務記錄
+
+#### 6.2.2 使用 LangGraph 實作
+
+```python
+from langgraph.graph import StateGraph, END
+from langgraph.checkpoint.memory import MemorySaver
+from langchain_openai import ChatOpenAI
+from langchain.tools import tool
+from typing import TypedDict, Literal, Annotated
+import operator
+
+# 定義狀態
+class CustomerServiceState(TypedDict):
+    customer_id: str
+    query: str
+    intent: str  # query, refund, exchange, complaint
+    order_info: dict
+    action_required: str
+    needs_human: bool
+    response: str
+    messages: Annotated[list, operator.add]
+
+# 定義工具
+@tool
+def query_order(order_id: str) -> dict:
+    """查詢訂單資訊"""
+    # 模擬資料庫查詢
+    mock_db = {
+        "ORD001": {
+            "order_id": "ORD001",
+            "customer_id": "CUST123",
+            "items": ["商品A", "商品B"],
+            "total": 1500,
+            "status": "已配送",
+            "date": "2024-01-15"
+        },
+        "ORD002": {
+            "order_id": "ORD002",
+            "customer_id": "CUST123",
+            "items": ["商品C"],
+            "total": 3500,
+            "status": "處理中",
+            "date": "2024-01-20"
+        }
+    }
+    return mock_db.get(order_id, {"error": "訂單不存在"})
+
+@tool
+def process_refund(order_id: str, amount: float, reason: str) -> dict:
+    """處理退款"""
+    # 模擬退款處理
+    if amount > 3000:
+        return {
+            "status": "pending_approval",
+            "message": "高額退款需要人工審核",
+            "amount": amount
+        }
+    return {
+        "status": "success",
+        "message": f"退款 ${amount} 已處理，預計 3-5 個工作天到帳",
+        "amount": amount
+    }
+
+tools = [query_order, process_refund]
+
+# 定義節點
+def classify_intent(state: CustomerServiceState):
+    """分類客戶意圖"""
+    llm = ChatOpenAI(model="gpt-4", temperature=0)
+
+    prompt = f"""分類以下客戶查詢的意圖：
+
+客戶查詢：{state['query']}
+
+可能的意圖：
+- order_query: 查詢訂單狀態
+- refund: 申請退款
+- exchange: 申請換貨
+- complaint: 投訴
+
+只回答意圖類別（一個詞）。"""
+
+    response = llm.invoke(prompt)
+    intent = response.content.strip().lower()
+
+    return {"intent": intent}
+
+def handle_query(state: CustomerServiceState):
+    """處理查詢"""
+    llm = ChatOpenAI(model="gpt-4", temperature=0)
+    llm_with_tools = llm.bind_tools(tools)
+
+    messages = state.get("messages", [])
+    messages.append({
+        "role": "user",
+        "content": state["query"]
+    })
+
+    response = llm_with_tools.invoke(messages)
+
+    # 如果有工具調用
+    if response.tool_calls:
+        tool_call = response.tool_calls[0]
+        if tool_call["name"] == "query_order":
+            order_info = query_order.invoke(tool_call["args"])
+            return {
+                "order_info": order_info,
+                "messages": [{"role": "assistant", "content": str(order_info)}]
+            }
+
+    return {"messages": [{"role": "assistant", "content": response.content}]}
+
+def handle_refund(state: CustomerServiceState):
+    """處理退款"""
+    order_info = state.get("order_info", {})
+
+    if not order_info or "error" in order_info:
+        return {
+            "response": "請先提供有效的訂單編號",
+            "needs_human": False
+        }
+
+    # 執行退款
+    result = process_refund.invoke({
+        "order_id": order_info["order_id"],
+        "amount": order_info["total"],
+        "reason": "客戶申請"
+    })
+
+    needs_human = result["status"] == "pending_approval"
+
+    return {
+        "response": result["message"],
+        "needs_human": needs_human
+    }
+
+def human_review(state: CustomerServiceState):
+    """人工審核"""
+    print("\n" + "="*50)
+    print("需要人工審核")
+    print("="*50)
+    print(f"客戶 ID: {state['customer_id']}")
+    print(f"訂單資訊: {state['order_info']}")
+    print(f"請求: {state['query']}")
+    print("="*50)
+
+    # 在實際應用中，這裡會暫停並等待人工輸入
+    approval = input("批准？(y/n): ")
+
+    if approval.lower() == 'y':
+        return {"response": "您的退款申請已批准，預計 3-5 個工作天到帳"}
+    else:
+        return {"response": "抱歉，您的退款申請未通過審核"}
+
+def generate_response(state: CustomerServiceState):
+    """生成最終回應"""
+    llm = ChatOpenAI(model="gpt-4", temperature=0.7)
+
+    context = f"""
+    客戶意圖: {state['intent']}
+    訂單資訊: {state.get('order_info', '無')}
+    處理結果: {state.get('response', '處理中')}
+
+    請生成一個友善、專業的客服回應。
+    """
+
+    response = llm.invoke(context)
+    return {"response": response.content}
+
+# 決策函數
+def should_handle_refund(state: CustomerServiceState) -> Literal["refund", "query", "other"]:
+    """決定下一步"""
+    intent = state.get("intent", "")
+    if "refund" in intent:
+        return "refund"
+    elif "query" in intent or "order" in intent:
+        return "query"
+    else:
+        return "other"
+
+def needs_approval(state: CustomerServiceState) -> Literal["human", "respond"]:
+    """是否需要人工審核"""
+    return "human" if state.get("needs_human", False) else "respond"
+
+# 構建圖
+workflow = StateGraph(CustomerServiceState)
+
+# 添加節點
+workflow.add_node("classify", classify_intent)
+workflow.add_node("handle_query", handle_query)
+workflow.add_node("handle_refund", handle_refund)
+workflow.add_node("human_review", human_review)
+workflow.add_node("respond", generate_response)
+
+# 設置流程
+workflow.set_entry_point("classify")
+
+workflow.add_conditional_edges(
+    "classify",
+    should_handle_refund,
+    {
+        "query": "handle_query",
+        "refund": "handle_refund",
+        "other": "respond"
+    }
+)
+
+workflow.add_edge("handle_query", "respond")
+
+workflow.add_conditional_edges(
+    "handle_refund",
+    needs_approval,
+    {
+        "human": "human_review",
+        "respond": "respond"
+    }
+)
+
+workflow.add_edge("human_review", "respond")
+workflow.add_edge("respond", END)
+
+# 編譯
+memory = MemorySaver()
+app = workflow.compile(checkpointer=memory)
+
+# 使用範例
+if __name__ == "__main__":
+    # 測試案例 1: 查詢訂單
+    config = {"configurable": {"thread_id": "customer-123"}}
+
+    result = app.invoke({
+        "customer_id": "CUST123",
+        "query": "我想查詢訂單 ORD001 的狀態",
+        "messages": []
+    }, config=config)
+
+    print("\n客服回應：")
+    print(result["response"])
+
+    # 測試案例 2: 申請退款（低金額）
+    result = app.invoke({
+        "customer_id": "CUST123",
+        "query": "我要退款訂單 ORD001",
+        "messages": []
+    }, config=config)
+
+    print("\n客服回應：")
+    print(result["response"])
+
+    # 測試案例 3: 申請退款（高金額，需審核）
+    result = app.invoke({
+        "customer_id": "CUST123",
+        "query": "我要退款訂單 ORD002",
+        "messages": []
+    }, config=config)
+
+    print("\n客服回應：")
+    print(result["response"])
+```
+
+---
+
+## 8. 評估與監控
+
+### 8.1 Agent 性能評估指標
+
+#### 8.1.1 任務成功率
+
+```python
+class AgentEvaluator:
+    """Agent 評估器"""
+
+    def __init__(self):
+        self.total_tasks = 0
+        self.successful_tasks = 0
+        self.failed_tasks = 0
+        self.task_logs = []
+
+    def evaluate_task(self, task_description: str,
+                     expected_output: str,
+                     actual_output: str) -> dict:
+        """評估單個任務"""
+        self.total_tasks += 1
+
+        # 使用 LLM 評估輸出質量
+        llm = ChatOpenAI(model="gpt-4", temperature=0)
+
+        eval_prompt = f"""評估 AI Agent 的輸出質量：
+
+任務描述：{task_description}
+期望輸出：{expected_output}
+實際輸出：{actual_output}
+
+請評估以下維度（0-10 分）：
+1. 準確性：輸出是否正確
+2. 完整性：是否包含所有必要資訊
+3. 相關性：是否切題
+4. 質量：語言和格式是否良好
+
+以 JSON 格式輸出：
+{{
+    "accuracy": 分數,
+    "completeness": 分數,
+    "relevance": 分數,
+    "quality": 分數,
+    "overall": 平均分,
+    "feedback": "改進建議"
+}}"""
+
+        result = llm.invoke(eval_prompt)
+
+        # 解析結果
+        import json
+        try:
+            scores = json.loads(result.content)
+            success = scores["overall"] >= 7.0
+
+            if success:
+                self.successful_tasks += 1
+            else:
+                self.failed_tasks += 1
+
+            log_entry = {
+                "task": task_description,
+                "scores": scores,
+                "success": success,
+                "timestamp": datetime.now().isoformat()
+            }
+            self.task_logs.append(log_entry)
+
+            return scores
+        except:
+            return {"error": "評估失敗"}
+
+    def get_success_rate(self) -> float:
+        """獲取成功率"""
+        if self.total_tasks == 0:
+            return 0.0
+        return self.successful_tasks / self.total_tasks
+
+    def generate_report(self) -> str:
+        """生成評估報告"""
+        report = f"""
+# Agent 評估報告
+
+## 總體統計
+- 總任務數：{self.total_tasks}
+- 成功任務：{self.successful_tasks}
+- 失敗任務：{self.failed_tasks}
+- 成功率：{self.get_success_rate():.2%}
+
+## 平均分數
+"""
+        if self.task_logs:
+            avg_accuracy = sum(log["scores"].get("accuracy", 0) for log in self.task_logs) / len(self.task_logs)
+            avg_completeness = sum(log["scores"].get("completeness", 0) for log in self.task_logs) / len(self.task_logs)
+            avg_relevance = sum(log["scores"].get("relevance", 0) for log in self.task_logs) / len(self.task_logs)
+            avg_quality = sum(log["scores"].get("quality", 0) for log in self.task_logs) / len(self.task_logs)
+
+            report += f"""
+- 準確性：{avg_accuracy:.2f}/10
+- 完整性：{avg_completeness:.2f}/10
+- 相關性：{avg_relevance:.2f}/10
+- 質量：{avg_quality:.2f}/10
+"""
+
+        return report
+```
+
+#### 8.1.2 成本監控
+
+```python
+class CostTracker:
+    """成本追蹤器"""
+
+    # 2024 價格（美元）
+    PRICING = {
+        "gpt-4": {"input": 0.03 / 1000, "output": 0.06 / 1000},
+        "gpt-4-turbo": {"input": 0.01 / 1000, "output": 0.03 / 1000},
+        "gpt-3.5-turbo": {"input": 0.0005 / 1000, "output": 0.0015 / 1000},
+        "claude-3-opus": {"input": 0.015 / 1000, "output": 0.075 / 1000},
+        "claude-3-sonnet": {"input": 0.003 / 1000, "output": 0.015 / 1000},
+    }
+
+    def __init__(self):
+        self.usage_log = []
+        self.total_cost = 0.0
+
+    def log_usage(self, model: str, input_tokens: int, output_tokens: int):
+        """記錄使用量"""
+        pricing = self.PRICING.get(model, {"input": 0, "output": 0})
+
+        input_cost = input_tokens * pricing["input"]
+        output_cost = output_tokens * pricing["output"]
+        total_cost = input_cost + output_cost
+
+        self.total_cost += total_cost
+
+        self.usage_log.append({
+            "timestamp": datetime.now().isoformat(),
+            "model": model,
+            "input_tokens": input_tokens,
+            "output_tokens": output_tokens,
+            "cost": total_cost
+        })
+
+    def get_report(self) -> dict:
+        """獲取成本報告"""
+        return {
+            "total_cost": self.total_cost,
+            "total_calls": len(self.usage_log),
+            "avg_cost_per_call": self.total_cost / len(self.usage_log) if self.usage_log else 0,
+            "by_model": self._group_by_model()
+        }
+
+    def _group_by_model(self) -> dict:
+        """按模型分組統計"""
+        grouped = {}
+        for log in self.usage_log:
+            model = log["model"]
+            if model not in grouped:
+                grouped[model] = {
+                    "calls": 0,
+                    "total_cost": 0.0,
+                    "total_tokens": 0
+                }
+            grouped[model]["calls"] += 1
+            grouped[model]["total_cost"] += log["cost"]
+            grouped[model]["total_tokens"] += log["input_tokens"] + log["output_tokens"]
+
+        return grouped
+```
+
+### 8.2 LangSmith 整合
+
+```python
+import os
+from langsmith import Client
+from langchain.callbacks import LangChainTracer
+
+# 設置 LangSmith
+os.environ["LANGCHAIN_TRACING_V2"] = "true"
+os.environ["LANGCHAIN_API_KEY"] = "your-api-key"
+os.environ["LANGCHAIN_PROJECT"] = "agent-evaluation"
+
+# 創建追蹤器
+tracer = LangChainTracer(project_name="agent-evaluation")
+
+# 在 Agent 中使用
+agent = initialize_agent(
+    tools=tools,
+    llm=llm,
+    agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+    callbacks=[tracer],  # 添加追蹤
+    verbose=True
+)
+
+# 執行會自動記錄到 LangSmith
+result = agent.run("查詢台北天氣")
+```
+
+---
+
+## 9. 最佳實踐與設計模式
+
+### 9.1 Agent 設計原則
+
+#### 9.1.1 單一職責原則
+
+每個 Agent 應該有清晰的單一職責：
+
+```python
+# ❌ 不好：一個 Agent 做太多事
+universal_agent = Agent(
+    role="萬能助手",
+    goal="處理所有任務"
+)
+
+# ✅ 好：職責明確的 Agent
+search_agent = Agent(
+    role="搜尋專家",
+    goal="搜尋和收集資訊"
+)
+
+analysis_agent = Agent(
+    role="分析師",
+    goal="分析數據並提取洞察"
+)
+```
+
+#### 9.1.2 明確的輸入輸出
+
+```python
+from pydantic import BaseModel, Field
+
+class AgentInput(BaseModel):
+    """明確的輸入格式"""
+    query: str = Field(description="用戶查詢")
+    context: dict = Field(default={}, description="上下文資訊")
+    max_iterations: int = Field(default=5, description="最大迭代次數")
+
+class AgentOutput(BaseModel):
+    """明確的輸出格式"""
+    result: str = Field(description="最終結果")
+    confidence: float = Field(description="信心分數 0-1")
+    sources: list[str] = Field(description="資訊來源")
+    intermediate_steps: list[dict] = Field(description="中間步驟")
+```
+
+#### 9.1.3 錯誤處理和重試
+
+```python
+from tenacity import retry, stop_after_attempt, wait_exponential
+
+class RobustAgent:
+    """具備錯誤處理的 Agent"""
+
+    @retry(
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=2, max=10)
+    )
+    def execute_with_retry(self, task: str) -> str:
+        """帶重試的執行"""
+        try:
+            result = self.agent.run(task)
+            return result
+        except Exception as e:
+            print(f"錯誤：{e}，重試中...")
+            raise
+
+    def execute_safe(self, task: str, fallback: str = "處理失敗") -> str:
+        """安全執行，失敗時返回備用結果"""
+        try:
+            return self.execute_with_retry(task)
+        except Exception as e:
+            print(f"最終失敗：{e}")
+            return fallback
+```
+
+### 9.2 提示工程最佳實踐
+
+#### 9.2.1 結構化提示
+
+```python
+AGENT_SYSTEM_PROMPT = """你是一個{role}，你的目標是{goal}。
+
+## 你的背景
+{backstory}
+
+## 可用工具
+{tools_description}
+
+## 工作流程
+1. 仔細閱讀用戶請求
+2. 思考需要哪些步驟
+3. 選擇合適的工具
+4. 執行並檢查結果
+5. 如果需要，重複步驟 3-4
+6. 總結並回應用戶
+
+## 輸出格式
+請使用以下格式：
+
+思考：[你的推理過程]
+行動：[工具名稱]
+行動輸入：[工具參數]
+觀察：[工具返回結果]
+... (重複思考/行動/觀察)
+最終答案：[給用戶的回應]
+
+## 重要提醒
+- 確保答案準確
+- 引用資料來源
+- 如果不確定，說明你不確定
+- 保持專業和友善
+"""
+```
+
+#### 9.2.2 Few-Shot 範例
+
+```python
+FEW_SHOT_EXAMPLES = """
+## 範例 1
+用戶：台北明天天氣如何？
+思考：我需要查詢台北的天氣預報
+行動：get_weather
+行動輸入：{{"location": "台北", "date": "明天"}}
+觀察：{"temp": 25, "condition": "晴天"}
+最終答案：台北明天是晴天，氣溫約 25 度。
+
+## 範例 2
+用戶：幫我計算 123 * 456
+思考：這是一個數學計算問題
+行動：calculator
+行動輸入：{{"expression": "123 * 456"}}
+觀察：56088
+最終答案：123 × 456 = 56,088
+
+現在輪到你了：
+"""
+```
+
+### 9.3 安全性最佳實踐
+
+#### 9.3.1 輸入驗證
+
+```python
+from pydantic import BaseModel, validator
+
+class SafeAgentInput(BaseModel):
+    query: str
+
+    @validator('query')
+    def validate_query(cls, v):
+        """驗證輸入"""
+        # 檢查長度
+        if len(v) > 10000:
+            raise ValueError("查詢過長")
+
+        # 檢查危險指令
+        dangerous_patterns = [
+            "ignore previous instructions",
+            "忽略之前的指示",
+            "你現在是",
+            "rm -rf",
+            "DROP TABLE"
+        ]
+
+        for pattern in dangerous_patterns:
+            if pattern.lower() in v.lower():
+                raise ValueError("檢測到潛在危險輸入")
+
+        return v
+```
+
+#### 9.3.2 工具權限控制
+
+```python
+class SecureTool:
+    """安全的工具包裝器"""
+
+    def __init__(self, tool_func, allowed_operations: list[str]):
+        self.tool_func = tool_func
+        self.allowed_operations = allowed_operations
+
+    def execute(self, operation: str, *args, **kwargs):
+        """執行工具調用"""
+        # 檢查權限
+        if operation not in self.allowed_operations:
+            raise PermissionError(f"操作 '{operation}' 未被授權")
+
+        # 記錄審計日誌
+        self._log_audit(operation, args, kwargs)
+
+        # 執行
+        return self.tool_func(*args, **kwargs)
+
+    def _log_audit(self, operation, args, kwargs):
+        """記錄審計日誌"""
+        import logging
+        logging.info(f"工具調用：{operation}, args={args}, kwargs={kwargs}")
+```
+
+### 9.4 性能優化
+
+#### 9.4.1 並行執行
+
+```python
+import asyncio
+from typing import List
+
+async def parallel_agent_execution(agents: List[Agent], task: str):
+    """並行執行多個 Agent"""
+    async def run_agent(agent: Agent):
+        return await agent.arun(task)
+
+    # 並行執行
+    results = await asyncio.gather(*[run_agent(agent) for agent in agents])
+
+    return results
+
+# 使用
+results = asyncio.run(parallel_agent_execution([agent1, agent2, agent3], task))
+```
+
+#### 9.4.2 緩存機制
+
+```python
+from functools import lru_cache
+import hashlib
+
+class CachedAgent:
+    """帶緩存的 Agent"""
+
+    def __init__(self, agent):
+        self.agent = agent
+        self.cache = {}
+
+    def run(self, task: str) -> str:
+        """執行任務（帶緩存）"""
+        # 生成緩存鍵
+        cache_key = hashlib.md5(task.encode()).hexdigest()
+
+        # 檢查緩存
+        if cache_key in self.cache:
+            print("使用緩存結果")
+            return self.cache[cache_key]
+
+        # 執行
+        result = self.agent.run(task)
+
+        # 保存緩存
+        self.cache[cache_key] = result
+
+        return result
+```
+
+---
+
+## 10. 未來趨勢與展望
+
+### 10.1 技術發展方向
+
+#### 10.1.1 多模態 Agent
+
+未來的 Agent 將整合：
+- **視覺**：圖像理解和生成
+- **聽覺**：語音交互
+- **行動**：機器人控制
+
+```python
+# 未來的多模態 Agent 概念
+class MultimodalAgent:
+    def process(self, inputs: dict):
+        """
+        inputs = {
+            "text": "找出這張圖片中的問題",
+            "image": image_data,
+            "audio": audio_data
+        }
+        """
+        # 整合多種模態
+        vision_result = self.vision_model(inputs["image"])
+        audio_result = self.audio_model(inputs["audio"])
+
+        # 融合推理
+        result = self.reasoning_model(
+            text=inputs["text"],
+            vision=vision_result,
+            audio=audio_result
+        )
+
+        return result
+```
+
+#### 10.1.2 自主學習 Agent
+
+Agent 將具備：
+- **持續學習**：從交互中學習
+- **知識積累**：構建個人知識庫
+- **技能擴展**：自主學習新工具
+
+#### 10.1.3 Agent 作業系統
+
+類似 OS 的 Agent 平台：
+- **資源管理**：管理計算和 API 配額
+- **進程調度**：協調多個 Agent
+- **權限控制**：安全和隱私保護
+
+### 10.2 應用場景擴展
+
+#### 10.2.1 科學研究
+
+- 自動文獻綜述
+- 實驗設計和執行
+- 數據分析和可視化
+
+#### 10.2.2 軟體開發
+
+- 全自動代碼生成
+- 智能測試和調試
+- 架構設計和重構
+
+#### 10.2.3 個人助理
+
+- 日程管理和規劃
+- 學習輔導
+- 健康監測和建議
+
+### 10.3 挑戰與機遇
+
+#### 挑戰
+
+1. **可靠性**：如何確保 Agent 穩定運行
+2. **可解釋性**：如何理解 Agent 的決策
+3. **安全性**：如何防止濫用和攻擊
+4. **成本**：如何降低運行成本
+5. **標準化**：如何建立統一標準
+
+#### 機遇
+
+1. **生產力革命**：大幅提升工作效率
+2. **新職業**：Agent 訓練師、監督者
+3. **行業轉型**：傳統行業自動化升級
+
+---
+
+## 11. 延伸閱讀
+
+### 11.1 論文
+
+- **ReAct**: Yao et al., "ReAct: Synergizing Reasoning and Acting in Language Models" (2023)
+- **Chain of Thought**: Wei et al., "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models" (2022)
+- **Toolformer**: Schick et al., "Toolformer: Language Models Can Teach Themselves to Use Tools" (2023)
+- **AutoGPT**: "Auto-GPT: An Autonomous GPT-4 Experiment" (2023)
+
+### 11.2 官方文檔
+
+- [LangChain Documentation](https://python.langchain.com/docs/)
+- [LangGraph Documentation](https://langchain-ai.github.io/langgraph/)
+- [CrewAI Documentation](https://docs.crewai.com/)
+- [AutoGen Documentation](https://microsoft.github.io/autogen/)
+
+### 11.3 開源項目
+
+- [LangChain](https://github.com/langchain-ai/langchain)
+- [LangGraph](https://github.com/langchain-ai/langgraph)
+- [CrewAI](https://github.com/joaomdmoura/crewAI)
+- [AutoGen](https://github.com/microsoft/autogen)
+- [AutoGPT](https://github.com/Significant-Gravitas/AutoGPT)
+
+### 11.4 學習資源
+
+- [DeepLearning.AI: Building Applications with Vector Databases](https://www.deeplearning.ai/)
+- [LangChain Academy](https://academy.langchain.com/)
+- [Anthropic Cookbook](https://github.com/anthropics/anthropic-cookbook)
+
+---
+
+## 總結
+
+AI Agents 正在重塑我們與 AI 的交互方式。從簡單的 ReAct 模式到複雜的多 Agent 系統，我們看到了巨大的發展潛力。
+
+**關鍵要點**：
+
+1. **選擇合適的框架**：根據需求選擇 LangGraph、CrewAI、AutoGen 等
+2. **設計清晰的 Agent**：單一職責、明確輸入輸出
+3. **注重安全性**：輸入驗證、權限控制、審計日誌
+4. **持續評估**：監控性能、成本、成功率
+5. **迭代改進**：從實踐中學習，不斷優化
+
+**下一步行動**：
+
+- 選擇一個框架開始實踐
+- 構建簡單的 Agent 原型
+- 逐步增加複雜性
+- 分享你的經驗和學習
+
+祝你在 AI Agent 的旅程中取得成功！🚀
