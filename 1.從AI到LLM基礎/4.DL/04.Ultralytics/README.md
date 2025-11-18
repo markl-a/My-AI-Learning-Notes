@@ -1,27 +1,55 @@
-# Ultralytics YOLOv8 物件偵測實戰
+# Ultralytics YOLO 物件偵測實戰指南
 
 > 🔄 **最後更新：** 2025-01
-> 📊 **完成度：** 良好
-> 🎯 **YOLO 版本：** YOLOv8（最新版）
-> ⭐ **特色：** 端到端實戰項目，從資料準備到模型部署
+> 📊 **完成度：** 優秀
+> 🎯 **YOLO 版本：** YOLO11 / YOLOv10 / YOLOv9 / YOLOv8（全系列支援）
+> ⭐ **特色：** 最新 YOLO 技術完整教學，從資料準備到模型部署
 
 ---
 
 ## 📖 簡介
 
-本目錄包含使用 **Ultralytics YOLOv8** 進行物件偵測的完整實戰教學，從自製資料集準備、模型訓練、到實際部署的完整流程。
+本目錄包含使用 **Ultralytics YOLO 系列**（YOLO11、YOLOv10、YOLOv9、YOLOv8）進行物件偵測的完整實戰教學，從自製資料集準備、模型訓練、到實際部署的完整流程。
 
 ### 什麼是 YOLO？
 
-**YOLO (You Only Look Once)** 是一種即時物件偵測演算法，以其速度快、準確率高而聞名。YOLOv8 是 Ultralytics 公司推出的最新版本。
+**YOLO (You Only Look Once)** 是一種即時物件偵測演算法，以其速度快、準確率高而聞名。Ultralytics 持續推出最新版本，包括 YOLO11（2024 最新）、YOLOv10、YOLOv9 和 YOLOv8。
 
-### 為什麼選擇 YOLOv8？
+### YOLO 版本選擇指南
 
-- ✅ **速度極快：** 即時物件偵測（>30 FPS）
-- ✅ **準確率高：** COCO 資料集上表現優異
+#### 🚀 **YOLO11（2024 最新，推薦）**
+- ✅ **最高性能：** 最佳的速度與準確率平衡
+- ✅ **創新架構：** C3k2 和 C2PSA 模塊，增強特徵提取
+- ✅ **參數更少：** 比 YOLOv8 更輕量，推理速度更快
+- ✅ **多任務支援：** 檢測、分割、姿態估計、OBB
+- ✅ **最佳選擇：** 新項目首選，全面超越前代
+
+#### ⚡ **YOLOv10（2024，低延遲優化）**
+- ✅ **無需 NMS：** 端到端架構，消除非極大值抑制
+- ✅ **超低延遲：** 比 RT-DETR 快 1.8 倍
+- ✅ **輕量設計：** 比 YOLOv9 少 25% 參數
+- ✅ **適用場景：** 需要極致速度的邊緣設備
+
+#### 🎯 **YOLOv9（2024，高準確率）**
+- ✅ **最高 mAP：** 檢測準確率達 0.935
+- ✅ **創新技術：** PGI 和 GELAN 架構
+- ✅ **精確檢測：** 在複雜場景中表現最佳
+- ✅ **適用場景：** 準確率優先的應用
+
+#### 🔧 **YOLOv8（2023，穩定可靠）**
+- ✅ **成熟穩定：** 大量實戰驗證
+- ✅ **豐富生態：** 最多社群支援和範例
 - ✅ **易於使用：** 簡潔的 Python API
-- ✅ **全面支援：** 檢測、分割、分類、姿態估計
-- ✅ **部署便利：** 支援多種平台（iOS、Android、Web）
+- ✅ **適用場景：** 生產環境穩定性要求高的項目
+
+### 為什麼選擇 Ultralytics YOLO？
+
+- ✅ **速度極快：** 即時物件偵測（>60 FPS）
+- ✅ **準確率高：** COCO 資料集上持續突破
+- ✅ **易於使用：** 統一的 Python API
+- ✅ **全面支援：** 檢測、分割、分類、姿態估計、OBB
+- ✅ **部署便利：** 支援多種平台（iOS、Android、Web、邊緣設備）
+- ✅ **持續更新：** Ultralytics 積極維護和改進
 
 ---
 
@@ -64,7 +92,13 @@ python -c "from ultralytics import YOLO; print('Success!')"
 from ultralytics import YOLO
 
 # 1. 載入預訓練模型
-model = YOLO('yolov8n.pt')  # n (nano), s (small), m (medium), l (large), x (xlarge)
+# YOLO11（推薦）
+model = YOLO('yolo11n.pt')  # n (nano), s (small), m (medium), l (large), x (xlarge)
+
+# 也可以使用其他版本
+# model = YOLO('yolov10n.pt')  # YOLOv10
+# model = YOLO('yolov9c.pt')   # YOLOv9
+# model = YOLO('yolov8n.pt')   # YOLOv8
 
 # 2. 訓練模型
 results = model.train(
@@ -150,21 +184,32 @@ names: ['cat', 'dog']   # 類別名稱
 
 #### 選擇模型大小
 
-| 模型 | 參數量 | 速度 | 準確率 | 適用場景 |
-|------|--------|------|--------|----------|
-| YOLOv8n | 3.2M | 最快 | 中等 | 邊緣裝置、即時應用 |
-| YOLOv8s | 11.2M | 快 | 良好 | 平衡性能與速度 |
-| YOLOv8m | 25.9M | 中等 | 高 | 準確率優先 |
-| YOLOv8l | 43.7M | 慢 | 很高 | 高準確率需求 |
-| YOLOv8x | 68.2M | 最慢 | 最高 | 競賽、研究 |
+**YOLO11 系列（推薦）**
+
+| 模型 | 參數量 | mAP50-95 | 速度 (ms) | 適用場景 |
+|------|--------|----------|-----------|----------|
+| YOLO11n | 2.6M | 39.5 | 2.4 | 邊緣裝置、移動端 |
+| YOLO11s | 9.4M | 47.0 | 3.1 | 即時應用、平衡型 |
+| YOLO11m | 20.1M | 51.5 | 5.3 | GPU 伺服器 |
+| YOLO11l | 25.3M | 53.4 | 6.8 | 高準確率需求 |
+| YOLO11x | 56.9M | 54.7 | 11.3 | 競賽、研究 |
+
+**其他版本對比**
+
+| 系列 | 特點 | 推薦場景 |
+|------|------|----------|
+| **YOLO11** | 最新架構，速度快、準確率高 | 新項目首選 |
+| **YOLOv10** | 無需 NMS，延遲極低 | 邊緣設備、實時性要求高 |
+| **YOLOv9** | mAP 最高（0.935），精確檢測 | 準確率優先 |
+| **YOLOv8** | 成熟穩定，生態豐富 | 生產環境 |
 
 #### 訓練範例
 
 ```python
 from ultralytics import YOLO
 
-# 載入預訓練模型
-model = YOLO('yolov8n.pt')
+# 載入預訓練模型（推薦使用 YOLO11）
+model = YOLO('yolo11n.pt')  # 或 yolov10n.pt, yolov9c.pt, yolov8n.pt
 
 # 訓練
 results = model.train(
@@ -196,6 +241,26 @@ results = model.train(
     save=True,                # 儲存檢查點
     save_period=10,           # 每 N 輪儲存一次
 )
+```
+
+**不同版本的訓練建議：**
+
+```python
+# YOLO11 - 最新推薦
+model = YOLO('yolo11s.pt')
+results = model.train(data='dataset.yaml', epochs=100, imgsz=640)
+
+# YOLOv10 - 追求速度
+model = YOLO('yolov10s.pt')
+results = model.train(data='dataset.yaml', epochs=100, imgsz=640, amp=True)
+
+# YOLOv9 - 追求準確率
+model = YOLO('yolov9c.pt')
+results = model.train(data='dataset.yaml', epochs=200, imgsz=640, patience=50)
+
+# YOLOv8 - 穩定生產
+model = YOLO('yolov8s.pt')
+results = model.train(data='dataset.yaml', epochs=100, imgsz=640)
 ```
 
 #### 使用命令列訓練
@@ -346,6 +411,97 @@ model.export(format='openvino')      # OpenVINO
 
 ---
 
+## 🆕 YOLO11 最新特性詳解
+
+### 架構創新
+
+#### 1. **C3k2 模塊**
+- 取代 YOLOv8 的 C2f 模塊
+- 更快的特徵聚合過程
+- Cross Stage Partial with kernel size 2
+- 減少計算量同時提升性能
+
+#### 2. **C2PSA 模塊（空間注意力）**
+- Convolutional block with Parallel Spatial Attention
+- 增強空間注意力機制
+- 專注於圖像關鍵區域
+- 提升小物件和遮擋物件的檢測能力
+
+#### 3. **SPPF 保留**
+- 保留 Spatial Pyramid Pooling - Fast
+- 多尺度特徵提取
+- 與前代版本保持一致性
+
+### 性能優勢
+
+**速度對比（Snapdragon 888）：**
+- YOLO11n: 2.4ms（最快）
+- YOLOv10n: 5.5ms
+- YOLOv8n: 4.1ms
+- YOLOv9-s: 11.5ms
+
+**準確率對比（COCO mAP50-95）：**
+- YOLO11x: 54.7
+- YOLOv9-e: 55.6（最高，但速度慢）
+- YOLOv10x: 54.4
+- YOLOv8x: 53.9
+
+**綜合評價：**
+- YOLO11 提供最佳的速度與準確率平衡
+- 比 YOLOv8 參數更少，速度更快
+- 在檢測卡車等大型車輛方面優於 YOLOv10
+- 對小型、遠距離物件的檢測有明顯改進
+
+### 支援任務
+
+YOLO11 支援多種計算機視覺任務：
+
+1. **物件檢測（Object Detection）**
+   ```python
+   model = YOLO('yolo11n.pt')
+   results = model('image.jpg')
+   ```
+
+2. **實例分割（Instance Segmentation）**
+   ```python
+   model = YOLO('yolo11n-seg.pt')
+   results = model('image.jpg')
+   ```
+
+3. **姿態估計（Pose Estimation）**
+   ```python
+   model = YOLO('yolo11n-pose.pt')
+   results = model('image.jpg')
+   ```
+
+4. **定向邊界框（Oriented Bounding Box）**
+   ```python
+   model = YOLO('yolo11n-obb.pt')
+   results = model('image.jpg')
+   ```
+
+5. **分類（Classification）**
+   ```python
+   model = YOLO('yolo11n-cls.pt')
+   results = model('image.jpg')
+   ```
+
+### 使用建議
+
+**何時選擇 YOLO11：**
+- ✅ 新項目開發
+- ✅ 需要最佳性能平衡
+- ✅ 邊緣設備部署
+- ✅ 實時檢測應用
+- ✅ 多任務需求（檢測+分割+姿態）
+
+**何時考慮其他版本：**
+- YOLOv10：需要絕對最低延遲
+- YOLOv9：準確率是首要考量
+- YOLOv8：需要穩定的生產環境
+
+---
+
 ## 🎯 實戰技巧
 
 ### 提升模型準確率
@@ -457,18 +613,39 @@ model.export(format='openvino')      # OpenVINO
 ## 📚 學習資源
 
 ### 官方資源
-- [Ultralytics 文檔](https://docs.ultralytics.com/)
-- [YOLOv8 GitHub](https://github.com/ultralytics/ultralytics)
+- [Ultralytics 文檔](https://docs.ultralytics.com/)（最新最全面）
+- [YOLO11 官方介紹](https://www.ultralytics.com/yolo)
+- [Ultralytics GitHub](https://github.com/ultralytics/ultralytics)
 - [Ultralytics Hub](https://hub.ultralytics.com/)（線上訓練平台）
+- [Model Comparison Tool](https://docs.ultralytics.com/compare/)（版本對比）
 
 ### 社群資源
 - [Ultralytics Discord](https://discord.gg/ultralytics)
 - [Roboflow Universe](https://universe.roboflow.com/)（公開資料集）
 - [Papers with Code - Object Detection](https://paperswithcode.com/task/object-detection)
 
-### 相關論文
-- YOLOv8: [Ultralytics YOLOv8](https://github.com/ultralytics/ultralytics)
-- YOLOv7: [YOLOv7: Trainable bag-of-freebies](https://arxiv.org/abs/2207.02696)
+### 相關論文與文章
+- **YOLO11 (2024)**
+  - [YOLOv11: An Overview of the Key Architectural Enhancements](https://arxiv.org/abs/2410.17725)
+  - [Ultralytics YOLO Evolution Overview](https://arxiv.org/abs/2510.09653)
+  - [YOLO11 vs YOLOv10 Comparison](https://docs.ultralytics.com/compare/yolo11-vs-yolov10/)
+
+- **YOLOv10 (2024)**
+  - [YOLOv10: Real-Time End-to-End Object Detection](https://arxiv.org/abs/2405.14458)
+  - [Official YOLOv10 Docs](https://docs.ultralytics.com/models/yolov10/)
+
+- **YOLOv9 (2024)**
+  - [YOLOv9: Learning What You Want to Learn](https://arxiv.org/abs/2402.13616)
+  - [Official YOLOv9 Docs](https://docs.ultralytics.com/models/yolov9/)
+
+- **YOLOv8 (2023)**
+  - [Ultralytics YOLOv8](https://github.com/ultralytics/ultralytics)
+  - [YOLOv8 Documentation](https://docs.ultralytics.com/models/yolov8/)
+
+### 教學文章
+- [YOLO11 Redefining Real-Time Object Detection](https://learnopencv.com/yolo11/)
+- [YOLO Model Comparison Guide](https://www.ultralytics.com/blog/comparing-ultralytics-yolo11-vs-previous-yolo-models)
+- [YOLO Evolution 2015-2024](https://viso.ai/computer-vision/yolo-explained/)
 
 ---
 
@@ -496,8 +673,21 @@ model.export(format='openvino')      # OpenVINO
 
 ---
 
-**本專案展示了從資料準備到模型部署的完整物件偵測工作流程，是學習實戰技能的絕佳範例！** 🎯
+**本專案展示了從資料準備到模型部署的完整物件偵測工作流程，涵蓋最新的 YOLO11 技術及完整的版本對比，是學習實戰技能的絕佳範例！** 🎯
 
 ---
 
-**快樂檢測！** 🚀
+## 🔮 未來展望
+
+### YOLO26（即將推出）
+Ultralytics 正在開發下一代 YOLO26 模型：
+- 針對邊緣部署優化
+- 端到端無需 NMS 推理
+- 更好、更快、更小
+- 為實際部署而設計
+
+**保持關注 Ultralytics 官方更新！**
+
+---
+
+**快樂檢測！探索最新的 YOLO 技術！** 🚀
