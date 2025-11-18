@@ -1945,3 +1945,825 @@ def validate_preference_dataset(dataset):
 ```
 
 ---
+
+## 6.4 StackLLaMA 實踐範例
+
+StackLLaMA 是 Hugging Face 提供的完整 RLHF 訓練範例，展示如何從零開始訓練一個對齊的語言模型。本節提供端到端的實踐指南。
+
+### 什麼是 StackLLaMA？
+
+**StackLLaMA** 是一個基於 Llama 模型的 RLHF 訓練項目：
+- 使用 Stack Exchange 數據進行訓練
+- 完整實現 RLHF 三階段流程
+- Hugging Face TRL 庫的官方範例
+- 可複現的訓練流程
+
+**目標：** 訓練一個能夠回答編程問題的助手
+
+### 完整訓練流程
+
+```
+【階段 0】準備工作
+  ↓
+【階段 1】監督微調 (SFT)
+  ↓
+【階段 2】獎勵模型訓練
+  ↓
+【階段 3】PPO 強化學習
+  ↓
+【階段 4】評估和部署
+```
+
+### 階段 0：環境準備
+
+#### 安裝依賴
+
+```bash
+# 創建虛擬環境
+conda create -n stackllama python=3.10
+conda activate stackllama
+
+# 安裝核心庫
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+
+# 安裝 transformers 和 TRL
+pip install transformers datasets accelerate
+pip install trl peft bitsandbytes
+
+# 安裝評估工具
+pip install wandb tensorboard
+```
+
+#### 硬件需求
+
+```python
+# 推薦配置
+hardware_requirements = {
+    "7B 模型": {
+        "SFT": "1x A100 40GB 或 1x RTX 4090",
+        "Reward Model": "1x A100 40GB",
+        "PPO": "4x A100 80GB（完整訓練）或 1x A100 40GB（LoRA）"
+    },
+    "13B 模型": {
+        "SFT": "2x A100 40GB",
+        "Reward Model": "2x A100 40GB",
+        "PPO": "8x A100 80GB"
+    }
+}
+```
+
+### 階段 1：監督微調 (SFT)
+
+#### 1.1 數據準備
+
+```python
+from datasets import load_dataset
+
+# 載入 Stack Exchange 數據
+dataset = load_dataset("lvwerra/stack-exchange-paired")
+
+# 數據格式
+print(dataset["train"][0])
+# {
+#   'question': '如何在 Python 中讀取文件？',
+#   'response_j': '你可以使用 open() 函數...',  # 高分回答
+#   'response_k': '用 file.read()',              # 低分回答
+# }
+
+# 準備 SFT 數據（使用高質量回答）
+def create_sft_dataset(examples):
+    """創建 SFT 訓練數據"""
+    prompts = []
+    responses = []
+
+    for question, answer in zip(examples["question"], examples["response_j"]):
+        # 格式化為對話格式
+        formatted_prompt = f"### Question:\n{question}\n\n### Answer:\n"
+        prompts.append(formatted_prompt)
+        responses.append(answer)
+
+    return {
+        "prompt": prompts,
+        "response": responses
+    }
+
+# 處理數據集
+sft_dataset = dataset.map(
+    create_sft_dataset,
+    batched=True,
+    remove_columns=dataset["train"].column_names
+)
+
+# 保存處理後的數據
+sft_dataset.save_to_disk("./data/sft_dataset")
+```
+
+#### 1.2 SFT 訓練
+
+**使用完整微調：**
+
+```python
+from transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments
+from trl import SFTTrainer
+
+# 載入基礎模型
+model_name = "meta-llama/Llama-2-7b-hf"
+model = AutoModelForCausalLM.from_pretrained(
+    model_name,
+    torch_dtype=torch.bfloat16,
+    device_map="auto"
+)
+
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+tokenizer.pad_token = tokenizer.eos_token
+
+# SFT 訓練配置
+training_args = TrainingArguments(
+    output_dir="./sft_model",
+    num_train_epochs=1,
+    per_device_train_batch_size=4,
+    gradient_accumulation_steps=4,
+    learning_rate=2e-5,
+    bf16=True,
+    logging_steps=10,
+    save_strategy="steps",
+    save_steps=500,
+    eval_strategy="steps",
+    eval_steps=500,
+    warmup_steps=100,
+    lr_scheduler_type="cosine"
+)
+
+# SFT 訓練器
+sft_trainer = SFTTrainer(
+    model=model,
+    args=training_args,
+    train_dataset=sft_dataset["train"],
+    eval_dataset=sft_dataset["test"],
+    tokenizer=tokenizer,
+    max_seq_length=2048,
+    dataset_text_field="text"  # 合併 prompt + response
+)
+
+# 開始訓練
+sft_trainer.train()
+
+# 保存模型
+sft_trainer.save_model("./sft_model/final")
+```
+
+**使用 QLoRA（節省內存）：**
+
+```python
+from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
+from transformers import BitsAndBytesConfig
+
+# 4-bit 量化配置
+bnb_config = BitsAndBytesConfig(
+    load_in_4bit=True,
+    bnb_4bit_use_double_quant=True,
+    bnb_4bit_quant_type="nf4",
+    bnb_4bit_compute_dtype=torch.bfloat16
+)
+
+# 載入量化模型
+model = AutoModelForCausalLM.from_pretrained(
+    model_name,
+    quantization_config=bnb_config,
+    device_map="auto"
+)
+
+# 準備 LoRA 訓練
+model = prepare_model_for_kbit_training(model)
+
+# LoRA 配置
+lora_config = LoraConfig(
+    r=16,
+    lora_alpha=32,
+    target_modules=["q_proj", "k_proj", "v_proj", "o_proj"],
+    lora_dropout=0.05,
+    bias="none",
+    task_type="CAUSAL_LM"
+)
+
+# 應用 LoRA
+model = get_peft_model(model, lora_config)
+
+# 訓練（使用相同的 SFTTrainer）
+sft_trainer = SFTTrainer(...)
+sft_trainer.train()
+```
+
+#### 1.3 SFT 模型評估
+
+```python
+def evaluate_sft_model(model, tokenizer, test_questions):
+    """評估 SFT 模型質量"""
+
+    model.eval()
+    results = []
+
+    for question in test_questions:
+        # 構建提示
+        prompt = f"### Question:\n{question}\n\n### Answer:\n"
+
+        # 生成回答
+        inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+        outputs = model.generate(
+            **inputs,
+            max_new_tokens=256,
+            temperature=0.7,
+            do_sample=True,
+            top_p=0.9
+        )
+
+        # 解碼
+        response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+        response = response.split("### Answer:\n")[1]
+
+        results.append({
+            "question": question,
+            "response": response
+        })
+
+        print(f"Q: {question}")
+        print(f"A: {response}\n")
+
+    return results
+
+# 測試
+test_questions = [
+    "如何在 Python 中處理異常？",
+    "什麼是 Git 的分支？",
+    "解釋 REST API 的概念"
+]
+
+evaluation_results = evaluate_sft_model(model, tokenizer, test_questions)
+```
+
+### 階段 2：獎勵模型訓練
+
+#### 2.1 準備偏好數據
+
+```python
+def create_reward_dataset(examples):
+    """創建獎勵模型訓練數據"""
+
+    prompts = []
+    chosen = []
+    rejected = []
+
+    for question, good_answer, bad_answer in zip(
+        examples["question"],
+        examples["response_j"],  # 高分回答
+        examples["response_k"]   # 低分回答
+    ):
+        prompt = f"### Question:\n{question}\n\n### Answer:\n"
+
+        prompts.append(prompt)
+        chosen.append(good_answer)
+        rejected.append(bad_answer)
+
+    return {
+        "prompt": prompts,
+        "chosen": chosen,
+        "rejected": rejected
+    }
+
+# 處理數據
+reward_dataset = dataset.map(
+    create_reward_dataset,
+    batched=True,
+    remove_columns=dataset["train"].column_names
+)
+
+reward_dataset.save_to_disk("./data/reward_dataset")
+```
+
+#### 2.2 訓練獎勵模型
+
+```python
+from transformers import AutoModelForSequenceClassification
+from trl import RewardTrainer, RewardConfig
+
+# 載入 SFT 模型作為基礎
+reward_model = AutoModelForSequenceClassification.from_pretrained(
+    "./sft_model/final",
+    num_labels=1,  # 輸出單一獎勵分數
+    torch_dtype=torch.bfloat16,
+    device_map="auto"
+)
+
+# 獎勵模型訓練配置
+reward_config = RewardConfig(
+    output_dir="./reward_model",
+    num_train_epochs=1,
+    per_device_train_batch_size=4,
+    gradient_accumulation_steps=4,
+    learning_rate=1e-5,
+    bf16=True,
+    logging_steps=10,
+    save_strategy="steps",
+    save_steps=500,
+    eval_strategy="steps",
+    eval_steps=500,
+    max_length=2048
+)
+
+# 獎勵模型訓練器
+reward_trainer = RewardTrainer(
+    model=reward_model,
+    args=reward_config,
+    train_dataset=reward_dataset["train"],
+    eval_dataset=reward_dataset["test"],
+    tokenizer=tokenizer
+)
+
+# 開始訓練
+reward_trainer.train()
+
+# 保存獎勵模型
+reward_trainer.save_model("./reward_model/final")
+```
+
+#### 2.3 評估獎勵模型
+
+```python
+def evaluate_reward_model(reward_model, tokenizer, test_data):
+    """評估獎勵模型的準確性"""
+
+    reward_model.eval()
+    correct = 0
+    total = 0
+
+    for example in test_data:
+        # 對 chosen 和 rejected 計算獎勵
+        chosen_inputs = tokenizer(
+            example["prompt"] + example["chosen"],
+            return_tensors="pt",
+            truncation=True,
+            max_length=2048
+        ).to(reward_model.device)
+
+        rejected_inputs = tokenizer(
+            example["prompt"] + example["rejected"],
+            return_tensors="pt",
+            truncation=True,
+            max_length=2048
+        ).to(reward_model.device)
+
+        with torch.no_grad():
+            chosen_reward = reward_model(**chosen_inputs).logits[0].item()
+            rejected_reward = reward_model(**rejected_inputs).logits[0].item()
+
+        # 檢查是否 chosen > rejected
+        if chosen_reward > rejected_reward:
+            correct += 1
+
+        total += 1
+
+        print(f"Prompt: {example['prompt'][:50]}...")
+        print(f"Chosen reward: {chosen_reward:.4f}")
+        print(f"Rejected reward: {rejected_reward:.4f}")
+        print(f"Correct: {chosen_reward > rejected_reward}\n")
+
+    accuracy = correct / total
+    print(f"獎勵模型準確率: {accuracy:.2%}")
+
+    return accuracy
+
+# 評估
+test_data = reward_dataset["test"].select(range(100))
+accuracy = evaluate_reward_model(reward_model, tokenizer, test_data)
+```
+
+### 階段 3：PPO 強化學習
+
+#### 3.1 準備 PPO 訓練
+
+```python
+from trl import PPOTrainer, PPOConfig, AutoModelForCausalLMWithValueHead
+
+# 載入 SFT 模型（策略模型）
+ppo_model = AutoModelForCausalLMWithValueHead.from_pretrained(
+    "./sft_model/final",
+    torch_dtype=torch.bfloat16,
+    device_map="auto"
+)
+
+# 載入參考模型（凍結的 SFT 模型）
+ref_model = AutoModelForCausalLMWithValueHead.from_pretrained(
+    "./sft_model/final",
+    torch_dtype=torch.bfloat16,
+    device_map="auto"
+)
+
+# 載入獎勵模型
+reward_model = AutoModelForSequenceClassification.from_pretrained(
+    "./reward_model/final",
+    num_labels=1,
+    torch_dtype=torch.bfloat16,
+    device_map="auto"
+)
+
+# 準備提示數據（僅問題，不包含回答）
+def create_ppo_dataset(examples):
+    """創建 PPO 訓練數據（僅提示）"""
+    prompts = []
+
+    for question in examples["question"]:
+        prompt = f"### Question:\n{question}\n\n### Answer:\n"
+        prompts.append(prompt)
+
+    return {"query": prompts}
+
+ppo_dataset = dataset["train"].map(
+    create_ppo_dataset,
+    batched=True,
+    remove_columns=dataset["train"].column_names
+)
+```
+
+#### 3.2 PPO 訓練循環
+
+```python
+# PPO 配置
+ppo_config = PPOConfig(
+    model_name="./sft_model/final",
+    learning_rate=1.41e-5,
+    batch_size=64,
+    mini_batch_size=8,
+    ppo_epochs=4,
+    init_kl_coef=0.2,
+    target_kl=6.0,
+    adap_kl_ctrl=True,
+    cliprange=0.2,
+    vf_coef=0.1,
+    log_with="tensorboard"
+)
+
+# PPO 訓練器
+ppo_trainer = PPOTrainer(
+    config=ppo_config,
+    model=ppo_model,
+    ref_model=ref_model,
+    tokenizer=tokenizer,
+    dataset=ppo_dataset,
+    data_collator=None
+)
+
+# PPO 訓練循環
+generation_kwargs = {
+    "max_new_tokens": 256,
+    "temperature": 0.7,
+    "top_p": 0.9,
+    "do_sample": True
+}
+
+for epoch in range(3):
+    for batch in tqdm(ppo_trainer.dataloader):
+        query_tensors = batch["input_ids"]
+
+        # 生成回答
+        response_tensors = ppo_trainer.generate(
+            query_tensors,
+            return_prompt=False,
+            **generation_kwargs
+        )
+
+        # 合併 query 和 response
+        batch["response"] = tokenizer.batch_decode(
+            response_tensors,
+            skip_special_tokens=True
+        )
+
+        # 計算獎勵
+        texts = [q + r for q, r in zip(batch["query"], batch["response"])]
+        inputs = tokenizer(
+            texts,
+            padding=True,
+            truncation=True,
+            max_length=2048,
+            return_tensors="pt"
+        ).to(ppo_model.device)
+
+        with torch.no_grad():
+            rewards = reward_model(**inputs).logits.squeeze(-1)
+
+        # PPO 更新
+        stats = ppo_trainer.step(query_tensors, response_tensors, rewards)
+
+        # 記錄訓練指標
+        ppo_trainer.log_stats(stats, batch, rewards)
+
+        # 定期保存
+        if ppo_trainer.current_step % 500 == 0:
+            ppo_trainer.save_pretrained(f"./ppo_model/checkpoint-{ppo_trainer.current_step}")
+
+# 保存最終模型
+ppo_trainer.save_pretrained("./ppo_model/final")
+```
+
+#### 3.3 監控訓練進度
+
+```python
+# 關鍵指標
+metrics_to_monitor = {
+    "ppo/mean_scores": "平均獎勵分數（應該上升）",
+    "ppo/mean_non_score_reward": "KL 散度懲罰後的獎勵",
+    "ppo/loss/policy": "策略損失",
+    "ppo/loss/value": "價值函數損失",
+    "ppo/policy/approxkl": "近似 KL 散度（不應太大）",
+    "ppo/policy/clipfrac": "被裁剪的比例",
+    "ppo/returns/mean": "平均回報"
+}
+
+# 使用 TensorBoard 查看
+# tensorboard --logdir ./ppo_model/runs
+```
+
+### 階段 4：評估和部署
+
+#### 4.1 對比評估
+
+```python
+def compare_models(sft_model, ppo_model, reward_model, tokenizer, questions):
+    """對比 SFT 和 PPO 模型"""
+
+    sft_model.eval()
+    ppo_model.eval()
+    reward_model.eval()
+
+    results = []
+
+    for question in questions:
+        prompt = f"### Question:\n{question}\n\n### Answer:\n"
+
+        # SFT 模型生成
+        inputs = tokenizer(prompt, return_tensors="pt").to(sft_model.device)
+        sft_output = sft_model.generate(**inputs, max_new_tokens=256)
+        sft_response = tokenizer.decode(sft_output[0], skip_special_tokens=True)
+        sft_response = sft_response.split("### Answer:\n")[1]
+
+        # PPO 模型生成
+        ppo_output = ppo_model.generate(**inputs, max_new_tokens=256)
+        ppo_response = tokenizer.decode(ppo_output[0], skip_special_tokens=True)
+        ppo_response = ppo_response.split("### Answer:\n")[1]
+
+        # 計算獎勵
+        with torch.no_grad():
+            sft_reward = reward_model(
+                **tokenizer(prompt + sft_response, return_tensors="pt").to(reward_model.device)
+            ).logits.item()
+
+            ppo_reward = reward_model(
+                **tokenizer(prompt + ppo_response, return_tensors="pt").to(reward_model.device)
+            ).logits.item()
+
+        results.append({
+            "question": question,
+            "sft_response": sft_response,
+            "sft_reward": sft_reward,
+            "ppo_response": ppo_response,
+            "ppo_reward": ppo_reward,
+            "improvement": ppo_reward - sft_reward
+        })
+
+        print(f"Question: {question}\n")
+        print(f"SFT Response (reward: {sft_reward:.4f}):")
+        print(f"{sft_response}\n")
+        print(f"PPO Response (reward: {ppo_reward:.4f}):")
+        print(f"{ppo_response}\n")
+        print(f"Improvement: {ppo_reward - sft_reward:.4f}\n")
+        print("-" * 80 + "\n")
+
+    return results
+
+# 評估
+test_questions = [
+    "如何在 Python 中實現單例模式？",
+    "解釋 Docker 容器和虛擬機的區別",
+    "什麼是時間複雜度和空間複雜度？"
+]
+
+comparison_results = compare_models(
+    sft_model, ppo_model, reward_model, tokenizer, test_questions
+)
+```
+
+#### 4.2 部署模型
+
+```python
+# 合併 LoRA 權重（如果使用了 LoRA）
+from peft import PeftModel
+
+# 載入基礎模型
+base_model = AutoModelForCausalLM.from_pretrained(
+    "meta-llama/Llama-2-7b-hf",
+    torch_dtype=torch.bfloat16,
+    device_map="auto"
+)
+
+# 載入 LoRA 適配器
+ppo_lora_model = PeftModel.from_pretrained(
+    base_model,
+    "./ppo_model/final"
+)
+
+# 合併權重
+merged_model = ppo_lora_model.merge_and_unload()
+
+# 保存完整模型
+merged_model.save_pretrained("./final_model")
+tokenizer.save_pretrained("./final_model")
+
+# 量化部署（可選）
+from transformers import BitsAndBytesConfig
+
+quantization_config = BitsAndBytesConfig(
+    load_in_4bit=True,
+    bnb_4bit_compute_dtype=torch.bfloat16
+)
+
+quantized_model = AutoModelForCausalLM.from_pretrained(
+    "./final_model",
+    quantization_config=quantization_config,
+    device_map="auto"
+)
+```
+
+### 常見問題和調試
+
+#### 問題 1：PPO 訓練不穩定
+
+**症狀：** 獎勵波動大，模型性能下降
+
+**解決方案：**
+
+```python
+# 1. 降低學習率
+ppo_config.learning_rate = 5e-6  # 更保守
+
+# 2. 增加 KL 懲罰
+ppo_config.init_kl_coef = 0.5  # 更強的約束
+
+# 3. 使用更小的批次大小
+ppo_config.batch_size = 32
+ppo_config.mini_batch_size = 4
+
+# 4. 減少 PPO epochs
+ppo_config.ppo_epochs = 2  # 減少過擬合風險
+```
+
+#### 問題 2：獎勵黑客（Reward Hacking）
+
+**症狀：** 模型獲得高獎勵但生成低質量內容
+
+**檢測：**
+
+```python
+def detect_reward_hacking(ppo_model, reward_model, tokenizer):
+    """檢測獎勵黑客"""
+
+    prompts = [...]  # 測試提示
+
+    for prompt in prompts:
+        response = generate(ppo_model, prompt)
+        reward = get_reward(reward_model, prompt + response)
+
+        # 檢查異常模式
+        if reward > 5.0:  # 異常高的獎勵
+            print(f"⚠️ 可能的獎勵黑客:")
+            print(f"Prompt: {prompt}")
+            print(f"Response: {response}")
+            print(f"Reward: {reward}\n")
+
+            # 人工審核
+            manual_review(prompt, response, reward)
+```
+
+**解決方案：**
+
+```python
+# 1. 增加獎勵模型的多樣性
+train_reward_model_on_diverse_data()
+
+# 2. 使用多個獎勵信號
+final_reward = (
+    0.5 * quality_reward +
+    0.3 * safety_reward +
+    0.2 * diversity_reward
+)
+
+# 3. 定期更新獎勵模型
+if step % 1000 == 0:
+    retrain_reward_model()
+```
+
+#### 問題 3：內存不足
+
+**解決方案：**
+
+```python
+# 1. 使用梯度檢查點
+model.gradient_checkpointing_enable()
+
+# 2. 使用 DeepSpeed ZeRO
+from transformers import TrainingArguments
+
+training_args = TrainingArguments(
+    ...,
+    deepspeed="ds_config_zero3.json"
+)
+
+# 3. 降低批次大小
+ppo_config.batch_size = 16  # 從 64 降低
+ppo_config.mini_batch_size = 2  # 從 8 降低
+
+# 4. 使用梯度累積
+ppo_config.gradient_accumulation_steps = 8
+```
+
+### 完整訓練腳本
+
+```bash
+#!/bin/bash
+
+# StackLLaMA 完整訓練流程
+
+echo "階段 1: 監督微調 (SFT)"
+python train_sft.py \
+    --model_name meta-llama/Llama-2-7b-hf \
+    --dataset_name lvwerra/stack-exchange-paired \
+    --output_dir ./sft_model \
+    --num_train_epochs 1 \
+    --per_device_train_batch_size 4 \
+    --learning_rate 2e-5
+
+echo "階段 2: 訓練獎勵模型"
+python train_reward.py \
+    --model_name ./sft_model/final \
+    --dataset_name lvwerra/stack-exchange-paired \
+    --output_dir ./reward_model \
+    --num_train_epochs 1 \
+    --per_device_train_batch_size 4 \
+    --learning_rate 1e-5
+
+echo "階段 3: PPO 強化學習"
+python train_ppo.py \
+    --model_name ./sft_model/final \
+    --reward_model_name ./reward_model/final \
+    --dataset_name lvwerra/stack-exchange-paired \
+    --output_dir ./ppo_model \
+    --num_train_epochs 3 \
+    --batch_size 64 \
+    --learning_rate 1.41e-5
+
+echo "階段 4: 評估模型"
+python evaluate.py \
+    --sft_model ./sft_model/final \
+    --ppo_model ./ppo_model/final \
+    --reward_model ./reward_model/final
+
+echo "訓練完成！"
+```
+
+### 訓練成本和時間估算
+
+```python
+# 使用 Llama 2 7B 模型的估算
+
+training_cost = {
+    "SFT": {
+        "時間": "4-8 小時（單 A100）",
+        "成本": "$40-80（雲端 GPU）"
+    },
+    "Reward Model": {
+        "時間": "2-4 小時（單 A100）",
+        "成本": "$20-40"
+    },
+    "PPO": {
+        "時間": "1-3 天（4x A100）",
+        "成本": "$200-600"
+    },
+    "總計": {
+        "時間": "約 2-4 天",
+        "成本": "$260-720"
+    }
+}
+
+# 使用 QLoRA 可以減少 60-70% 的成本
+```
+
+### 學習資源
+
+**官方資源：**
+- [StackLLaMA 官方教程](https://huggingface.co/blog/stackllama)
+- [TRL 文檔](https://huggingface.co/docs/trl)
+- [Stack Exchange 數據集](https://huggingface.co/datasets/lvwerra/stack-exchange-paired)
+
+**相關論文：**
+- [Learning to summarize from human feedback (Stiennon et al., 2020)](https://arxiv.org/abs/2009.01325)
+- [Training language models to follow instructions with human feedback (Ouyang et al., 2022)](https://arxiv.org/abs/2203.02155)
+
+---
