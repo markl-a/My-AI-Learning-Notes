@@ -1,0 +1,89 @@
+# RAG + Agent 系統配置
+
+# LLM 配置
+llm:
+  provider: "openai"  # openai, anthropic, local
+  model: "gpt-4"
+  temperature: 0.7
+  max_tokens: 2000
+  api_base: null  # 自定義 API 端點（可選）
+
+# Embedding 配置
+embedding:
+  provider: "openai"
+  model: "text-embedding-3-small"
+  dimensions: 1536
+
+# 向量數據庫配置
+vector_store:
+  type: "chroma"  # chroma, faiss, pinecone
+  persist_directory: "./data/chroma_db"
+  collection_name: "documents"
+
+# RAG 檢索配置
+rag:
+  chunk_size: 1000
+  chunk_overlap: 200
+  top_k: 5
+  similarity_threshold: 0.7
+  use_hybrid_search: true  # 結合向量和關鍵詞檢索
+  rerank: true  # 使用重排序
+
+# Agent 配置
+agent:
+  max_iterations: 5
+  enable_tools:
+    - "rag_search"
+    - "calculator"
+    - "web_search"
+    - "code_interpreter"
+  verbose: true
+
+# API 服務配置
+api:
+  host: "0.0.0.0"
+  port: 8000
+  reload: false
+  workers: 4
+  cors_origins:
+    - "http://localhost:3000"
+    - "http://localhost:8080"
+
+# 緩存配置
+cache:
+  enabled: true
+  type: "memory"  # memory, redis
+  ttl: 3600  # 秒
+  max_size: 1000
+
+# 日誌配置
+logging:
+  level: "INFO"
+  format: "json"  # json, text
+  file: "./logs/app.log"
+  rotation: "100 MB"
+  retention: "10 days"
+
+# 監控配置
+monitoring:
+  enable_metrics: true
+  metrics_port: 9090
+
+# 安全配置
+security:
+  rate_limit:
+    enabled: true
+    max_requests: 100
+    window_seconds: 60
+  api_key_required: false
+
+# 文檔處理配置
+document_processing:
+  supported_formats:
+    - "pdf"
+    - "txt"
+    - "md"
+    - "docx"
+    - "pptx"
+  max_file_size_mb: 50
+  batch_size: 10
