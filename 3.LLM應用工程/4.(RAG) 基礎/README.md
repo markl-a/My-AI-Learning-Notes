@@ -565,6 +565,172 @@ print(result)
 
 ---
 
+## 4.5 實戰範例程式
+
+本資料夾包含多個可運行的 RAG 實作範例：
+
+### 基礎範例
+
+#### 1. 基礎嵌入向量 (`1_basic_embeddings.py`)
+
+展示如何使用 Sentence Transformers 生成文本嵌入向量並計算相似度。
+
+**功能**：
+- 載入預訓練嵌入模型
+- 生成文本嵌入向量
+- 計算餘弦相似度
+- 語義搜索演示
+- 多語言嵌入向量
+
+**運行**：
+```bash
+python 1_basic_embeddings.py
+```
+
+#### 2. 文檔處理與拆分 (`2_document_processing.py`)
+
+展示如何載入和拆分不同格式的文檔。
+
+**功能**：
+- 文本拆分器（固定長度、遞歸拆分）
+- 多格式文檔載入（TXT, JSON, Markdown）
+- 元數據保留
+- 智能斷句
+
+**運行**：
+```bash
+python 2_document_processing.py
+```
+
+#### 3. 向量資料庫 (`3_vector_databases.py`)
+
+展示如何使用不同的向量資料庫進行存儲和檢索。
+
+**功能**：
+- 簡單向量資料庫實現
+- FAISS 向量資料庫
+- 相似度搜索
+- 持久化存儲
+- 性能比較
+
+**運行**：
+```bash
+python 3_vector_databases.py
+```
+
+### 進階範例
+
+#### 4. 完整 RAG 系統 (`4_complete_rag_system.py`)
+
+完整的端到端 RAG 問答系統實現。
+
+**功能**：
+- 文檔自動拆分和向量化
+- 向量存儲和檢索
+- 基於上下文的答案生成
+- 來源引用和元數據
+- 自定義知識庫構建
+
+**運行**：
+```bash
+python 4_complete_rag_system.py
+```
+
+#### 5. 進階 RAG 技術 (`5_advanced_rag_techniques.py`)
+
+展示進階的 RAG 優化技術。
+
+**功能**：
+- BM25 稀疏檢索
+- 混合檢索（向量 + BM25）
+- 重排序（Reranking）
+- 查詢擴展
+- 完整的進階 RAG 管道
+
+**運行**：
+```bash
+python 5_advanced_rag_techniques.py
+```
+
+#### 6. 實戰問答系統 (`6_practical_qa_system.py`)
+
+生產級別的多文檔問答系統。
+
+**功能**：
+- 多格式文檔載入（TXT, JSON, MD）
+- 目錄批量載入
+- 對話記憶功能
+- 元數據過濾
+- 置信度評分
+- 統計信息
+
+**運行**：
+```bash
+python 6_practical_qa_system.py
+```
+
+### 快速開始
+
+1. **安裝依賴**：
+```bash
+pip install -r requirements.txt
+```
+
+2. **運行所有範例**：
+```bash
+chmod +x run_all_examples.sh
+./run_all_examples.sh
+```
+
+3. **單獨運行某個範例**：
+```bash
+python <範例文件名>.py
+```
+
+### 範例特點
+
+✅ **完全可運行**：所有範例都經過測試，可以直接運行
+✅ **詳細註釋**：代碼包含詳細的中文註釋
+✅ **逐步演示**：從基礎到進階，循序漸進
+✅ **實用性強**：可以作為實際項目的起點
+✅ **AI 輔助**：集成 AI 模型進行智能問答
+
+### 進階擴展建議
+
+基於這些範例，你可以進一步擴展：
+
+1. **集成真實 LLM API**：
+   - OpenAI GPT-4
+   - Anthropic Claude
+   - Google Gemini
+   - 本地 Ollama 模型
+
+2. **添加更多文件格式支持**：
+   - PDF（使用 PyPDF2, pdfplumber）
+   - Word（使用 python-docx）
+   - Excel（使用 pandas）
+   - HTML（使用 BeautifulSoup）
+
+3. **實現更多進階功能**：
+   - 多輪對話支持
+   - 上下文壓縮
+   - 自動摘要
+   - 多模態檢索（文本 + 圖像）
+
+4. **優化性能**：
+   - 批量處理
+   - 異步檢索
+   - 緩存機制
+   - 分布式部署
+
+5. **添加用戶界面**：
+   - Gradio Web UI
+   - Streamlit 應用
+   - FastAPI 後端
+   - React 前端
+
+---
+
 ## 參考資源
 
 - [LangChain Documentation](https://python.langchain.com/docs/get_started/introduction)
@@ -572,3 +738,5 @@ print(result)
 - [Sentence Transformers](https://www.sbert.net/)
 - [RAG 論文: Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401)
 - [向量資料庫比較](https://github.com/erikbern/ann-benchmarks)
+- [FAISS Documentation](https://faiss.ai/)
+- [Hugging Face Models](https://huggingface.co/models)
