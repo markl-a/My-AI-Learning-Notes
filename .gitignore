@@ -57,3 +57,7 @@ logs/
 # *.csv
 # *.json
 # *.txt
+
+# Log files
+*.log
+security_audit.log
