@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  # RAG ChatBot API
+  rag-api:
+    build: .
+    container_name: rag-chatbot-api
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./chroma_db:/app/chroma_db
+      - ./logs:/app/logs
+    restart: unless-stopped
+    networks:
+      - rag-network
+
+  # Nginx (可選 - 用於生產環境)
+  nginx:
+    image: nginx:alpine
+    container_name: rag-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./frontend:/usr/share/nginx/html:ro
+    depends_on:
+      - rag-api
+    restart: unless-stopped
+    networks:
+      - rag-network
+
+networks:
+  rag-network:
+    driver: bridge
+
+volumes:
+  chroma_db:
+    driver: local
+  logs:
+    driver: local
