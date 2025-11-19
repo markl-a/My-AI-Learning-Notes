@@ -1,0 +1,192 @@
+{
+  "dashboard": {
+    "title": "AI Learning Project - 系統監控",
+    "tags": ["ai", "llm", "monitoring"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "API 請求速率",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(http_requests_total[5m])",
+            "legendFormat": "{{method}} {{path}}"
+          }
+        ],
+        "gridPos": {
+          "x": 0,
+          "y": 0,
+          "w": 12,
+          "h": 8
+        }
+      },
+      {
+        "id": 2,
+        "title": "響應延遲 (P95)",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))",
+            "legendFormat": "{{handler}}"
+          }
+        ],
+        "gridPos": {
+          "x": 12,
+          "y": 0,
+          "w": 12,
+          "h": 8
+        }
+      },
+      {
+        "id": 3,
+        "title": "LLM Token 使用量",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "sum(rate(llm_tokens_total[5m])) by (model)",
+            "legendFormat": "{{model}}"
+          }
+        ],
+        "gridPos": {
+          "x": 0,
+          "y": 8,
+          "w": 12,
+          "h": 8
+        }
+      },
+      {
+        "id": 4,
+        "title": "錯誤率",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "sum(rate(http_requests_total{status=~\"5..\"}[5m])) / sum(rate(http_requests_total[5m]))",
+            "legendFormat": "Error Rate"
+          }
+        ],
+        "gridPos": {
+          "x": 12,
+          "y": 8,
+          "w": 12,
+          "h": 8
+        }
+      },
+      {
+        "id": 5,
+        "title": "系統資源使用",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "process_cpu_seconds_total",
+            "legendFormat": "CPU"
+          },
+          {
+            "expr": "process_resident_memory_bytes",
+            "legendFormat": "Memory"
+          }
+        ],
+        "gridPos": {
+          "x": 0,
+          "y": 16,
+          "w": 12,
+          "h": 8
+        }
+      },
+      {
+        "id": 6,
+        "title": "RAG 檢索性能",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(rag_retrieval_duration_seconds_bucket[5m]))",
+            "legendFormat": "P95 Retrieval Time"
+          }
+        ],
+        "gridPos": {
+          "x": 12,
+          "y": 16,
+          "w": 12,
+          "h": 8
+        }
+      },
+      {
+        "id": 7,
+        "title": "文檔處理統計",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "sum(documents_processed_total)",
+            "legendFormat": "Total Documents"
+          },
+          {
+            "expr": "sum(rate(documents_processed_total[1h]))",
+            "legendFormat": "Docs/Hour"
+          }
+        ],
+        "gridPos": {
+          "x": 0,
+          "y": 24,
+          "w": 6,
+          "h": 4
+        }
+      },
+      {
+        "id": 8,
+        "title": "Agent 任務完成率",
+        "type": "gauge",
+        "targets": [
+          {
+            "expr": "sum(agent_tasks_completed_total) / sum(agent_tasks_total)",
+            "legendFormat": "Success Rate"
+          }
+        ],
+        "gridPos": {
+          "x": 6,
+          "y": 24,
+          "w": 6,
+          "h": 4
+        }
+      },
+      {
+        "id": 9,
+        "title": "向量數據庫大小",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "vector_db_documents_total",
+            "legendFormat": "Total Vectors"
+          }
+        ],
+        "gridPos": {
+          "x": 12,
+          "y": 24,
+          "w": 6,
+          "h": 4
+        }
+      },
+      {
+        "id": 10,
+        "title": "活躍對話數",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "active_conversations_total",
+            "legendFormat": "Active Conversations"
+          }
+        ],
+        "gridPos": {
+          "x": 18,
+          "y": 24,
+          "w": 6,
+          "h": 4
+        }
+      }
+    ],
+    "refresh": "30s",
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    }
+  }
+}
