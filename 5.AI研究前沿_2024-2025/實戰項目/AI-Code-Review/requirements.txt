@@ -1,0 +1,35 @@
+# AI Code Review 依賴
+
+# Web 框架
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+
+# AI 和 NLP
+openai==1.3.5
+
+# 代碼分析
+ast-comments==1.1.2
+pylint==3.0.2
+flake8==6.1.0
+black==23.11.0
+mypy==1.7.0
+radon==6.0.1  # 複雜度分析
+bandit==1.7.5  # 安全檢查
+
+# Git 操作
+GitPython==3.1.40
+
+# 工具庫
+python-dotenv==1.0.0
+pydantic==2.5.0
+aiofiles==23.2.1
+
+# 日誌
+structlog==23.2.0
+
+# 測試
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-cov==4.1.0
+httpx==0.25.2

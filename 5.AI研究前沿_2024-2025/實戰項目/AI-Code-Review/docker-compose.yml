@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  # AI 代碼審查服務
+  code-review:
+    build: .
+    container_name: ai-code-review
+    ports:
+      - "8002:8002"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_MODEL=gpt-4
+      - LOG_LEVEL=INFO
+    volumes:
+      # 持久化審查結果
+      - ./reviews:/app/reviews
+      # 日誌
+      - ./logs:/app/logs
+    restart: unless-stopped
+    networks:
+      - code-review-network
+
+  # Nginx 反向代理（可選）
+  nginx:
+    image: nginx:alpine
+    container_name: code-review-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - code-review
+    networks:
+      - code-review-network
+    restart: unless-stopped
+
+networks:
+  code-review-network:
+    driver: bridge
