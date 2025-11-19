@@ -1,0 +1,86 @@
+# ============================================================
+# My AI Learning Notes - 深度學習依賴
+# ============================================================
+#
+# 包含深度學習框架和相關工具
+# 安裝：pip install -r requirements.txt -r requirements-dl.txt
+#
+# 注意：PyTorch 和 TensorFlow 都包含在內
+# 如果只需要其中一個，可以選擇性安裝
+# ============================================================
+
+# ==================== PyTorch 生態系統 ====================
+# PyTorch (根據系統選擇合適版本)
+torch>=2.5.0
+torchvision>=0.20.0
+torchaudio>=2.5.0
+# GPU 版本請訪問: https://pytorch.org/get-started/locally/
+
+# PyTorch 相關工具
+pytorch-lightning>=2.1.0
+torchmetrics>=1.2.0
+timm>=0.9.0  # PyTorch Image Models
+einops>=0.7.0  # 張量操作
+torchinfo>=1.8.0  # 模型摘要
+
+# ==================== TensorFlow 生態系統 ====================
+tensorflow>=2.20.0
+# 或使用輕量版: tensorflow-cpu>=2.20.0
+keras>=3.0.0
+tensorflow-datasets>=4.9.0
+tensorboard>=2.15.0
+
+# ==================== Hugging Face 生態系統 ====================
+transformers>=4.45.0
+datasets>=2.14.0
+tokenizers>=0.15.0
+accelerate>=1.0.0
+evaluate>=0.4.0
+peft>=0.7.0  # 參數高效微調
+bitsandbytes>=0.41.0  # 量化支援
+optimum>=1.16.0  # 推論優化
+
+# ==================== 計算機視覺 ====================
+opencv-python>=4.8.0
+pillow>=10.0.0
+albumentations>=1.3.0  # 圖像增強
+# ultralytics>=8.0.0  # YOLO
+# segment-anything>=1.0  # SAM
+
+# ==================== 自然語言處理 ====================
+nltk>=3.8.0
+spacy>=3.7.0
+sentencepiece>=0.1.99
+sacremoses>=0.1.0
+
+# ==================== 向量嵌入 ====================
+sentence-transformers>=2.2.0
+faiss-cpu>=1.7.4
+# faiss-gpu>=1.7.4  # GPU 版本
+
+# ==================== 模型訓練工具 ====================
+wandb>=0.16.0
+tensorboard>=2.15.0
+mlflow>=2.8.0
+
+# ==================== 推論優化 ====================
+onnx>=1.15.0
+onnxruntime>=1.16.0
+# onnxruntime-gpu>=1.16.0  # GPU 版本
+openvino>=2023.2.0
+
+# ==================== 分散式訓練 ====================
+# deepspeed>=0.12.0  # 需要特定環境
+# horovod>=0.28.0  # 需要 MPI
+
+# ==================== 音頻處理 ====================
+librosa>=0.10.0
+soundfile>=0.12.0
+
+# ==================== 數據增強 ====================
+imgaug>=0.4.0
+audiomentations>=0.33.0
+
+# ==================== 其他深度學習工具 ====================
+onnx>=1.15.0
+safetensors>=0.4.0
