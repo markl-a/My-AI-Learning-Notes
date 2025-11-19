@@ -1,0 +1,197 @@
+# Prometheus 告警規則
+groups:
+  - name: api_alerts
+    interval: 30s
+    rules:
+      # 高錯誤率告警
+      - alert: HighErrorRate
+        expr: |
+          sum(rate(http_requests_total{status=~"5.."}[5m]))
+          /
+          sum(rate(http_requests_total[5m])) > 0.05
+        for: 5m
+        labels:
+          severity: warning
+          component: api
+        annotations:
+          summary: "API 錯誤率過高"
+          description: "錯誤率 {{ $value | humanizePercentage }} 超過 5%"
+
+      # 響應延遲過高
+      - alert: HighLatency
+        expr: |
+          histogram_quantile(0.95,
+            rate(http_request_duration_seconds_bucket[5m])
+          ) > 2.0
+        for: 10m
+        labels:
+          severity: warning
+          component: api
+        annotations:
+          summary: "API 響應延遲過高"
+          description: "P95 延遲 {{ $value }}s 超過 2秒"
+
+      # API 無響應
+      - alert: APIDown
+        expr: up{job="api"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          component: api
+        annotations:
+          summary: "API 服務不可用"
+          description: "API 服務已停止響應"
+
+  - name: llm_alerts
+    interval: 30s
+    rules:
+      # LLM Token 使用量過高
+      - alert: HighTokenUsage
+        expr: |
+          sum(rate(llm_tokens_total[1h])) > 1000000
+        for: 15m
+        labels:
+          severity: warning
+          component: llm
+        annotations:
+          summary: "LLM Token 使用量過高"
+          description: "每小時使用 {{ $value }} tokens"
+
+      # LLM 調用失敗率過高
+      - alert: HighLLMFailureRate
+        expr: |
+          sum(rate(llm_requests_failed_total[5m]))
+          /
+          sum(rate(llm_requests_total[5m])) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+          component: llm
+        annotations:
+          summary: "LLM 調用失敗率過高"
+          description: "失敗率 {{ $value | humanizePercentage }}"
+
+  - name: resource_alerts
+    interval: 30s
+    rules:
+      # CPU 使用率過高
+      - alert: HighCPUUsage
+        expr: |
+          rate(process_cpu_seconds_total[5m]) * 100 > 80
+        for: 10m
+        labels:
+          severity: warning
+          component: system
+        annotations:
+          summary: "CPU 使用率過高"
+          description: "CPU 使用率 {{ $value }}%"
+
+      # 內存使用率過高
+      - alert: HighMemoryUsage
+        expr: |
+          process_resident_memory_bytes / 1024 / 1024 / 1024 > 4
+        for: 10m
+        labels:
+          severity: warning
+          component: system
+        annotations:
+          summary: "內存使用率過高"
+          description: "內存使用 {{ $value }}GB"
+
+      # 磁盤空間不足
+      - alert: LowDiskSpace
+        expr: |
+          (node_filesystem_avail_bytes / node_filesystem_size_bytes) < 0.1
+        for: 5m
+        labels:
+          severity: critical
+          component: system
+        annotations:
+          summary: "磁盤空間不足"
+          description: "可用空間低於 10%"
+
+  - name: rag_alerts
+    interval: 30s
+    rules:
+      # RAG 檢索延遲過高
+      - alert: HighRetrievalLatency
+        expr: |
+          histogram_quantile(0.95,
+            rate(rag_retrieval_duration_seconds_bucket[5m])
+          ) > 1.0
+        for: 10m
+        labels:
+          severity: warning
+          component: rag
+        annotations:
+          summary: "RAG 檢索延遲過高"
+          description: "P95 檢索延遲 {{ $value }}s"
+
+      # 向量數據庫連接失敗
+      - alert: VectorDBDown
+        expr: up{job="chromadb"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          component: rag
+        annotations:
+          summary: "向量數據庫不可用"
+          description: "ChromaDB 連接失敗"
+
+  - name: agent_alerts
+    interval: 30s
+    rules:
+      # Agent 任務失敗率過高
+      - alert: HighAgentFailureRate
+        expr: |
+          sum(rate(agent_tasks_failed_total[5m]))
+          /
+          sum(rate(agent_tasks_total[5m])) > 0.2
+        for: 10m
+        labels:
+          severity: warning
+          component: agent
+        annotations:
+          summary: "Agent 任務失敗率過高"
+          description: "失敗率 {{ $value | humanizePercentage }}"
+
+      # Agent 任務執行時間過長
+      - alert: LongRunningAgentTask
+        expr: |
+          histogram_quantile(0.95,
+            rate(agent_task_duration_seconds_bucket[5m])
+          ) > 300
+        for: 5m
+        labels:
+          severity: warning
+          component: agent
+        annotations:
+          summary: "Agent 任務執行時間過長"
+          description: "P95 執行時間 {{ $value }}s (>5分鐘)"
+
+  - name: business_alerts
+    interval: 60s
+    rules:
+      # 文檔處理積壓
+      - alert: DocumentProcessingBacklog
+        expr: |
+          documents_pending_total > 100
+        for: 30m
+        labels:
+          severity: warning
+          component: business
+        annotations:
+          summary: "文檔處理積壓"
+          description: "{{ $value }} 個文檔待處理"
+
+      # 用戶會話異常
+      - alert: AbnormalSessionCount
+        expr: |
+          abs(delta(active_conversations_total[1h])) > 1000
+        for: 10m
+        labels:
+          severity: warning
+          component: business
+        annotations:
+          summary: "用戶會話數異常變化"
+          description: "1小時內變化 {{ $value }} 個會話"

@@ -1,1 +1,42 @@
-pytest
+# ============================================================
+# My AI Learning Notes - 核心依賴
+# ============================================================
+#
+# 這是項目的核心依賴，包含最基礎的 Python 包
+# 對於特定模塊，請參考對應的 requirements 文件：
+# - requirements-ml.txt: 機器學習相關
+# - requirements-dl.txt: 深度學習相關
+# - requirements-llm.txt: LLM 應用相關
+# - requirements-dev.txt: 開發工具
+# - requirements-full.txt: 所有依賴
+#
+# 安裝方式：
+#   基礎：pip install -r requirements.txt
+#   完整：pip install -r requirements-full.txt
+#   開發：pip install -r requirements-dev.txt
+# ============================================================
+
+# ==================== 核心數據處理 ====================
+numpy>=1.24.0
+pandas>=2.0.0
+scipy>=1.10.0
+
+# ==================== 可視化 ====================
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# ==================== 工具庫 ====================
+tqdm>=4.66.0
+python-dotenv>=1.0.0
+pyyaml>=6.0
+requests>=2.31.0
+
+# ==================== 測試 ====================
+pytest>=7.4.0
+pytest-cov>=4.1.0
+
+# ==================== Jupyter 支援 ====================
+jupyter>=1.0.0
+ipython>=8.10.0
+ipywidgets>=8.0.0
+notebook>=7.0.0

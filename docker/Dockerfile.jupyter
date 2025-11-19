@@ -1,0 +1,68 @@
+# ============================================================
+# Jupyter Lab Dockerfile
+# ============================================================
+#
+# 包含完整的 AI/ML/LLM 開發環境
+#
+# 構建：docker build -f docker/Dockerfile.jupyter -t ai-learning-jupyter .
+# 運行：docker run -p 8888:8888 -v $(pwd):/workspace ai-learning-jupyter
+#
+# ============================================================
+
+FROM python:3.11-slim
+
+LABEL maintainer="your-email@example.com"
+LABEL description="AI Learning Jupyter Lab Environment"
+
+# 設置工作目錄
+WORKDIR /workspace
+
+# 安裝系統依賴
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    git \
+    curl \
+    wget \
+    vim \
+    && rm -rf /var/lib/apt/lists/*
+
+# 更新 pip
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel
+
+# 複製依賴文件
+COPY requirements.txt requirements-ml.txt requirements-dl.txt requirements-llm.txt ./
+
+# 安裝 Python 依賴（分批安裝以優化緩存）
+RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements-ml.txt
+RUN pip install --no-cache-dir -r requirements-dl.txt
+RUN pip install --no-cache-dir -r requirements-llm.txt
+
+# 安裝額外的 Jupyter 擴展
+RUN pip install --no-cache-dir \
+    jupyterlab \
+    jupyterlab-git \
+    jupyterlab-lsp \
+    python-lsp-server[all] \
+    ipywidgets \
+    jupyter-bokeh \
+    jupyter_contrib_nbextensions
+
+# 配置 Jupyter
+RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager
+
+# 創建 Jupyter 配置
+RUN mkdir -p /root/.jupyter && \
+    echo "c.NotebookApp.ip = '0.0.0.0'" >> /root/.jupyter/jupyter_notebook_config.py && \
+    echo "c.NotebookApp.allow_root = True" >> /root/.jupyter/jupyter_notebook_config.py && \
+    echo "c.NotebookApp.open_browser = False" >> /root/.jupyter/jupyter_notebook_config.py
+
+# 暴露端口
+EXPOSE 8888
+
+# 設置環境變量
+ENV PYTHONUNBUFFERED=1
+ENV JUPYTER_ENABLE_LAB=yes
+
+# 啟動命令
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--NotebookApp.token='your-token'"]

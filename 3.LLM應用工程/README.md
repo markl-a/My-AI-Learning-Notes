@@ -15,7 +15,8 @@
 7. [LLM 應用部署](#7-llm-應用部署)
 8. [LLM 安全與防禦](#8-llm-安全與防禦)
 9. [綜合案例與工作流程示範](#9-綜合案例與工作流程示範)
-10. [2024-2025 最新發展](#10-2024-2025-最新發展)
+10. [多模態生成 (Multimodal Generation)](#10-多模態生成-multimodal-generation)
+11. [2024-2025 最新發展](#11-2024-2025-最新發展)
 
 ---
 
@@ -200,7 +201,189 @@ if __name__ == "__main__":
 
 ---
 
-## 10. 2024-2025 最新發展
+## 10. 多模態生成 (Multimodal Generation)
+
+### 📚 [多模態生成完整指南](./10.多模態生成/README.md)
+深入探討AI圖片、視頻和音樂生成技術：
+- Stable Diffusion、ControlNet、LoRA 訓練
+- Stable Video Diffusion、AnimateDiff 視頻生成
+- MusicGen、AudioLDM、Bark 音頻生成
+- 完整的端到端實戰項目
+
+### 10.1 圖片生成
+- [**Stable Diffusion 基礎與進階**](./10.多模態生成/1.圖片生成/README.md)
+  - Diffusion 模型原理與架構
+  - 提示詞工程 (Prompt Engineering)
+  - ControlNet 精確控制技術
+  - LoRA 訓練與應用
+  - 圖片修復、放大、批量生成
+
+### 10.2 影片生成
+- [**Stable Video Diffusion 與 AnimateDiff**](./10.多模態生成/2.影片生成/README.md)
+  - 圖片到視頻生成 (SVD)
+  - 文本到視頻生成 (AnimateDiff)
+  - 運動控制與參數調節
+  - 視頻編輯與後處理
+  - 長視頻生成技術
+
+### 10.3 音樂與音效生成
+- [**MusicGen、AudioLDM、Bark**](./10.多模態生成/3.音樂生成/README.md)
+  - 音樂生成與風格控制 (MusicGen)
+  - 音效與音景生成 (AudioLDM)
+  - 多語言語音合成 (Bark)
+  - 音頻處理與混合
+  - 播客與背景音樂生成
+
+### 10.4 實戰項目
+- [**端到端多模態應用**](./10.多模態生成/4.實戰項目/README.md)
+  - **項目1**: AI內容創作平台 (FastAPI + React)
+    - 圖片、視頻、音樂生成 API
+    - 任務隊列與狀態管理
+    - 用戶認證與配額控制
+  - **項目2**: 自動短視頻生成器
+    - 從腳本到成品的全自動流程
+    - 整合圖片、視頻、旁白、音樂
+  - **項目3**: 產品營銷素材生成系統
+    - 批量產品圖生成
+    - 多平台尺寸適配
+    - 自動水印與品牌元素
+
+### 學習路徑建議
+
+#### 初學者路徑 (4-6週)
+1. **Week 1-2**: 圖片生成基礎
+   - Stable Diffusion 基本使用
+   - 提示詞工程技巧
+   - 簡單的批量生成腳本
+2. **Week 3-4**: 視頻生成入門
+   - SVD 圖片轉視頻
+   - 基本參數調節
+   - 短視頻拼接
+3. **Week 5-6**: 音頻生成基礎
+   - MusicGen 音樂生成
+   - Bark 語音合成
+   - 簡單的音頻處理
+
+#### 進階開發者路徑 (8-12週)
+1. **Week 1-3**: 進階圖片生成
+   - ControlNet 多種控制
+   - LoRA 訓練流程
+   - 圖片修復與編輯
+2. **Week 4-6**: 進階視頻生成
+   - AnimateDiff 動畫
+   - 多段視頻製作
+   - 視頻穩定與插幀
+3. **Week 7-9**: 進階音頻生成
+   - 長音樂生成與拼接
+   - 多音軌混合
+   - 播客自動化生成
+4. **Week 10-12**: 實戰項目
+   - 構建完整的生成平台
+   - API 設計與部署
+   - 性能優化與擴展
+
+#### 企業應用路徑 (持續學習)
+1. **基礎設施**
+   - GPU 資源管理與調度
+   - 模型部署與版本控制
+   - 任務隊列與負載均衡
+2. **業務整合**
+   - 與現有系統整合
+   - 用戶管理與計費
+   - 內容審核與合規
+3. **優化與運維**
+   - 生成質量監控
+   - 成本優化
+   - A/B 測試與迭代
+
+### 實作示例總覽
+
+```python
+# 快速開始：生成圖片、視頻、音樂
+from diffusers import StableDiffusionPipeline, StableVideoDiffusionPipeline
+from audiocraft.models import MusicGen
+import torch
+
+# 1. 生成圖片
+image_pipe = StableDiffusionPipeline.from_pretrained(
+    "runwayml/stable-diffusion-v1-5",
+    torch_dtype=torch.float16
+).to("cuda")
+
+image = image_pipe("a beautiful sunset over mountains").images[0]
+image.save("sunset.png")
+
+# 2. 圖片轉視頻
+video_pipe = StableVideoDiffusionPipeline.from_pretrained(
+    "stabilityai/stable-video-diffusion-img2vid-xt",
+    torch_dtype=torch.float16
+).to("cuda")
+
+from diffusers.utils import load_image, export_to_video
+frames = video_pipe(image=image, num_frames=25).frames[0]
+export_to_video(frames, "sunset_video.mp4", fps=7)
+
+# 3. 生成背景音樂
+music_model = MusicGen.get_pretrained('facebook/musicgen-small')
+music_model.set_generation_params(duration=10)
+wav = music_model.generate(["peaceful ambient music"])
+
+from audiocraft.data.audio import audio_write
+audio_write("bg_music", wav[0].cpu(), music_model.sample_rate)
+
+print("✅ Generated image, video, and music!")
+```
+
+### 技術要求
+
+#### 硬體需求
+- **最低**: NVIDIA GPU 8GB VRAM (GTX 1080 / RTX 3060)
+- **推薦**: NVIDIA GPU 16GB+ VRAM (RTX 3090 / 4090 / A5000)
+- **企業級**: 多卡配置 (A100 / H100)
+
+#### 軟體依賴
+```bash
+# 核心依賴
+pip install diffusers transformers accelerate torch torchvision
+pip install audiocraft bark scipy soundfile librosa
+pip install opencv-python pillow imageio moviepy
+
+# 可選加速
+pip install xformers  # 記憶體優化
+pip install triton    # GPU 加速
+```
+
+### 常見問題與解決方案
+
+**Q: CUDA Out of Memory 錯誤？**
+```python
+# 啟用記憶體優化
+pipe.enable_attention_slicing()
+pipe.enable_vae_slicing()
+pipe.enable_model_cpu_offload()
+```
+
+**Q: 生成速度太慢？**
+- 使用較小的模型 (small/medium)
+- 減少推理步數 (20-30步通常足夠)
+- 安裝 xformers 加速
+- 使用 FP16 精度
+
+**Q: 生成質量不理想？**
+- 優化提示詞，添加質量標籤
+- 使用 negative prompt 排除不需要的元素
+- 調整 guidance_scale (通常 7-12)
+- 嘗試不同的隨機種子
+
+### 相關資源
+- [Hugging Face Diffusers 文檔](https://huggingface.co/docs/diffusers)
+- [Stable Diffusion Art](https://stable-diffusion-art.com/)
+- [AudioCraft GitHub](https://github.com/facebookresearch/audiocraft)
+- [Bark GitHub](https://github.com/suno-ai/bark)
+
+---
+
+## 11. 2024-2025 最新發展
 
 ### 🔥 2024-2025 核心技術快照
 

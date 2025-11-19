@@ -1,0 +1,37 @@
+{
+  "name": "ai-assistant-web-ui",
+  "version": "1.0.0",
+  "description": "Web UI for AI Assistant Projects",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "next": "14.0.3",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "axios": "1.6.2",
+    "tailwindcss": "3.3.5",
+    "autoprefixer": "10.4.16",
+    "postcss": "8.4.31",
+    "react-markdown": "9.0.1",
+    "react-syntax-highlighter": "15.5.0",
+    "lucide-react": "0.294.0",
+    "@heroicons/react": "2.0.18",
+    "clsx": "2.0.0",
+    "date-fns": "2.30.0"
+  },
+  "devDependencies": {
+    "@types/node": "20.9.4",
+    "@types/react": "18.2.38",
+    "@types/react-dom": "18.2.17",
+    "@types/react-syntax-highlighter": "15.5.10",
+    "typescript": "5.2.2",
+    "eslint": "8.54.0",
+    "eslint-config-next": "14.0.3"
+  }
+}

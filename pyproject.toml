@@ -1,0 +1,260 @@
+# ============================================================
+# My AI Learning Notes - 項目配置
+# ============================================================
+
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "my-ai-learning-notes"
+version = "1.0.0"
+description = "完整的 AI 學習筆記：從數學基礎到 LLM 應用實戰"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+    {name = "Your Name", email = "your.email@example.com"}
+]
+keywords = [
+    "artificial-intelligence",
+    "machine-learning",
+    "deep-learning",
+    "llm",
+    "rag",
+    "agent",
+    "pytorch",
+    "tensorflow",
+    "langchain"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Education",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Education",
+]
+
+# 核心依賴
+dependencies = [
+    "numpy>=1.24.0",
+    "pandas>=2.0.0",
+    "scipy>=1.10.0",
+    "matplotlib>=3.7.0",
+    "seaborn>=0.12.0",
+    "tqdm>=4.66.0",
+    "python-dotenv>=1.0.0",
+    "pyyaml>=6.0",
+    "requests>=2.31.0",
+    "pytest>=7.4.0",
+    "jupyter>=1.0.0",
+    "ipython>=8.10.0",
+]
+
+[project.optional-dependencies]
+# 機器學習
+ml = [
+    "scikit-learn>=1.3.0",
+    "xgboost>=2.0.0",
+    "lightgbm>=4.0.0",
+    "catboost>=1.2.0",
+    "shap>=0.43.0",
+    "mlflow>=2.8.0",
+]
+
+# 深度學習
+dl = [
+    "torch>=2.5.0",
+    "torchvision>=0.20.0",
+    "tensorflow>=2.20.0",
+    "transformers>=4.45.0",
+    "datasets>=2.14.0",
+    "accelerate>=1.0.0",
+    "sentence-transformers>=2.2.0",
+    "opencv-python>=4.8.0",
+]
+
+# LLM 應用
+llm = [
+    "openai>=1.50.0",
+    "anthropic>=0.39.0",
+    "langchain>=0.3.0",
+    "langchain-openai>=0.2.0",
+    "langgraph>=0.2.0",
+    "chromadb>=0.5.0",
+    "faiss-cpu>=1.8.0",
+    "pypdf>=5.0.0",
+    "fastapi>=0.115.0",
+    "uvicorn>=0.31.0",
+    "gradio>=5.0.0",
+    "streamlit>=1.39.0",
+]
+
+# 開發工具
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=6.0.0",
+    "pytest-asyncio>=0.24.0",
+    "ruff>=0.7.0",
+    "black>=24.0.0",
+    "mypy>=1.8.0",
+    "pre-commit>=3.6.0",
+    "sphinx>=7.2.0",
+    "ipdb>=0.13.0",
+]
+
+# 完整安裝
+full = [
+    "my-ai-learning-notes[ml,dl,llm,dev]",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/My-AI-Learning-Notes"
+Documentation = "https://github.com/yourusername/My-AI-Learning-Notes"
+Repository = "https://github.com/yourusername/My-AI-Learning-Notes"
+Issues = "https://github.com/yourusername/My-AI-Learning-Notes/issues"
+
+# ==================== 工具配置 ====================
+
+[tool.black]
+line-length = 100
+target-version = ['py39', 'py310', 'py311', 'py312']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # 默認排除
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+  # 自定義排除
+  | data
+  | logs
+  | checkpoints
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 100
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+skip_gitignore = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
+    "UP", # pyupgrade
+]
+ignore = [
+    "E501",  # line too long (handled by black)
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+    "W191",  # indentation contains tabs
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+ignore_missing_imports = true
+exclude = [
+    'venv',
+    'env',
+    'build',
+    'dist',
+]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = [
+    "-ra",
+    "-q",
+    "--strict-markers",
+    "--cov=.",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+]
+testpaths = [
+    "tests",
+]
+python_files = [
+    "test_*.py",
+    "*_test.py",
+]
+python_classes = [
+    "Test*",
+]
+python_functions = [
+    "test_*",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["."]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "*/__pycache__/*",
+    "*/venv/*",
+    "*/env/*",
+    "setup.py",
+]
+
+[tool.coverage.report]
+precision = 2
+show_missing = true
+skip_covered = false
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
+
+[tool.bandit]
+exclude_dirs = [
+    "tests",
+    "venv",
+    "env",
+]
+skips = [
+    "B101",  # assert_used
+    "B601",  # paramiko_calls
+]

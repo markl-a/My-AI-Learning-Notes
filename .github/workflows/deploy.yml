@@ -1,0 +1,240 @@
+# ============================================================
+# Deploy Workflow - 自動部署
+# ============================================================
+#
+# 觸發條件：
+# - 推送 tag (v*.*.*)
+# - 手動觸發
+#
+# ============================================================
+
+name: Deploy
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: '部署環境'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+
+env:
+  DOCKER_REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  # ==================== 構建 Docker 鏡像 ====================
+  build-docker:
+    name: 構建 Docker 鏡像
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    strategy:
+      matrix:
+        project:
+          - name: rag-chatbot
+            path: 5.AI研究前沿_2024-2025/實戰項目/RAG-ChatBot
+          - name: document-analyzer
+            path: 5.AI研究前沿_2024-2025/實戰項目/AI-Document-Analyzer
+
+    steps:
+      - name: 📥 Checkout 代碼
+        uses: actions/checkout@v4
+
+      - name: 🔐 登錄 Docker Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.DOCKER_REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📋 提取元數據
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}/${{ matrix.project.name }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha,prefix={{branch}}-
+
+      - name: 🏗️ 設置 Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: 🐳 構建並推送 Docker 鏡像
+        uses: docker/build-push-action@v5
+        with:
+          context: ${{ matrix.project.path }}
+          file: ${{ matrix.project.path }}/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64,linux/arm64
+
+      - name: 📊 鏡像掃描
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ steps.meta.outputs.tags }}
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+        continue-on-error: true
+
+      - name: 📤 上傳掃描結果
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: 'trivy-results.sarif'
+        continue-on-error: true
+
+  # ==================== 部署到 Staging ====================
+  deploy-staging:
+    name: 部署到 Staging
+    runs-on: ubuntu-latest
+    needs: build-docker
+    if: github.event.inputs.environment == 'staging' || github.ref == 'refs/heads/develop'
+    environment:
+      name: staging
+      url: https://staging.example.com
+
+    steps:
+      - name: 📥 Checkout 代碼
+        uses: actions/checkout@v4
+
+      - name: 🚀 部署到 Staging 環境
+        run: |
+          echo "部署到 Staging 環境..."
+          # 這裡添加實際的部署命令
+          # 例如：kubectl apply -f k8s/staging/
+          # 或：docker-compose -f docker-compose.staging.yml up -d
+
+      - name: 🧪 健康檢查
+        run: |
+          echo "執行健康檢查..."
+          # curl -f https://staging.example.com/api/health || exit 1
+
+      - name: 📬 發送通知
+        if: always()
+        run: |
+          echo "Staging 部署完成"
+
+  # ==================== 部署到 Production ====================
+  deploy-production:
+    name: 部署到 Production
+    runs-on: ubuntu-latest
+    needs: build-docker
+    if: github.event.inputs.environment == 'production' || startsWith(github.ref, 'refs/tags/v')
+    environment:
+      name: production
+      url: https://example.com
+
+    steps:
+      - name: 📥 Checkout 代碼
+        uses: actions/checkout@v4
+
+      - name: 🚀 部署到 Production 環境
+        run: |
+          echo "部署到 Production 環境..."
+          # 這裡添加實際的部署命令
+
+      - name: 🧪 健康檢查
+        run: |
+          echo "執行健康檢查..."
+          # curl -f https://example.com/api/health || exit 1
+
+      - name: 📊 部署驗證
+        run: |
+          echo "驗證部署狀態..."
+
+      - name: 📬 發送成功通知
+        if: success()
+        run: |
+          echo "✅ Production 部署成功！"
+
+      - name: 🔄 回滾（如果失敗）
+        if: failure()
+        run: |
+          echo "❌ 部署失敗，執行回滾..."
+          # 添加回滾邏輯
+
+  # ==================== 發布到 GitHub Releases ====================
+  release:
+    name: 創建 GitHub Release
+    runs-on: ubuntu-latest
+    needs: deploy-production
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+
+    steps:
+      - name: 📥 Checkout 代碼
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 📝 生成 Release Notes
+        id: release_notes
+        run: |
+          # 提取版本號
+          VERSION=${GITHUB_REF#refs/tags/}
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+
+          # 生成 changelog
+          git log --pretty=format:"* %s (%h)" $(git describe --tags --abbrev=0 HEAD^)..HEAD > CHANGELOG.txt
+
+      - name: 📦 打包項目文件
+        run: |
+          mkdir -p release-assets
+          # 打包實戰項目
+          tar -czf release-assets/rag-chatbot.tar.gz 5.AI研究前沿_2024-2025/實戰項目/RAG-ChatBot
+          tar -czf release-assets/document-analyzer.tar.gz 5.AI研究前沿_2024-2025/實戰項目/AI-Document-Analyzer
+
+      - name: 🎉 創建 Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Release ${{ steps.release_notes.outputs.VERSION }}
+          body_path: CHANGELOG.txt
+          files: |
+            release-assets/*
+          draft: false
+          prerelease: false
+
+  # ==================== 更新文檔 ====================
+  update-docs:
+    name: 更新文檔網站
+    runs-on: ubuntu-latest
+    needs: release
+    if: startsWith(github.ref, 'refs/tags/v')
+
+    steps:
+      - name: 📥 Checkout 代碼
+        uses: actions/checkout@v4
+
+      - name: 🐍 設置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 📦 安裝依賴
+        run: |
+          pip install mkdocs mkdocs-material
+
+      - name: 🏗️ 構建文檔
+        run: |
+          # mkdocs build
+
+      - name: 🚀 部署到 GitHub Pages
+        run: |
+          # mkdocs gh-deploy --force
+          echo "文檔已更新"

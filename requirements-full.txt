@@ -1,0 +1,28 @@
+# ============================================================
+# My AI Learning Notes - 完整依賴
+# ============================================================
+#
+# 包含所有模塊的依賴（核心 + ML + DL + LLM + 開發工具）
+# 安裝：pip install -r requirements-full.txt
+#
+# 注意：這會安裝大量包，建議根據需求選擇性安裝：
+#   - 基礎學習：requirements.txt + requirements-ml.txt
+#   - 深度學習：requirements.txt + requirements-dl.txt
+#   - LLM 應用：requirements.txt + requirements-llm.txt
+#   - 開發環境：requirements.txt + requirements-dev.txt
+# ============================================================
+
+# 核心依賴
+-r requirements.txt
+
+# 機器學習
+-r requirements-ml.txt
+
+# 深度學習
+-r requirements-dl.txt
+
+# LLM 應用
+-r requirements-llm.txt
+
+# 開發工具
+-r requirements-dev.txt
