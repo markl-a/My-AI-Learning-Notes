@@ -1,0 +1,60 @@
+name: "問題諮詢 / Question"
+description: "詢問關於專案的問題 / Ask a question about the project"
+title: "[Question]: "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        歡迎提問！在提問之前，請先查閱：
+        - [README.md](https://github.com/markl-a/My-AI-Learning-Notes/blob/main/README.md)
+        - [學習路徑指南](https://github.com/markl-a/My-AI-Learning-Notes/blob/main/LEARNING_PATHS.md)
+        - [快速開始指南](https://github.com/markl-a/My-AI-Learning-Notes/blob/main/QUICKSTART.md)
+
+        Welcome! Before asking, please check the documentation above.
+
+  - type: textarea
+    id: question
+    attributes:
+      label: 您的問題 / Your Question
+      description: 請清楚描述您的問題 / Please describe your question clearly
+      placeholder: 我想了解...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: topic
+    attributes:
+      label: 相關主題 / Related Topic
+      description: 這個問題屬於哪個主題？ / Which topic is this question about?
+      options:
+        - 🔢 數學基礎 (Math Fundamentals)
+        - 🐍 Python 基礎 (Python Basics)
+        - 🤖 機器學習 (Machine Learning)
+        - 🧠 深度學習 (Deep Learning)
+        - 🔤 LLM 基礎 (LLM Fundamentals)
+        - 📚 RAG 系統 (RAG System)
+        - 🤝 Agent 開發 (Agent Development)
+        - ⚙️ 環境設置 (Environment Setup)
+        - 📦 依賴/安裝 (Dependencies/Installation)
+        - 其他 (Other)
+    validations:
+      required: true
+
+  - type: textarea
+    id: tried
+    attributes:
+      label: 已嘗試的方法 / What have you tried?
+      description: 您已經嘗試過什麼方法？ / What solutions have you already tried?
+      placeholder: 我已經嘗試...
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: 補充資訊 / Additional Context
+      description: 任何有助於回答問題的資訊 / Any information that might help answer your question
+      placeholder: 環境資訊、錯誤訊息、截圖等...
+    validations:
+      required: false

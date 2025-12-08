@@ -49,17 +49,15 @@ jobs:
       - name: 🔍 Ruff - 代碼檢查
         run: |
           ruff check . --output-format=github
-        continue-on-error: true
 
       - name: 🎨 Black - 代碼格式檢查
         run: |
           black --check --diff .
-        continue-on-error: true
 
       - name: 📝 MyPy - 類型檢查
         run: |
           mypy . --ignore-missing-imports --no-strict-optional
-        continue-on-error: true
+        continue-on-error: true  # 類型檢查可以較寬鬆
 
   # ==================== 單元測試 ====================
   test:
@@ -153,18 +151,18 @@ jobs:
 
       - name: 🔐 Bandit - 安全漏洞掃描
         run: |
-          bandit -r . -f json -o bandit-report.json || true
-        continue-on-error: true
+          bandit -r . -f json -o bandit-report.json --exit-zero
+        # 產出報告但不阻擋 CI，讓開發者檢視結果
 
       - name: 🛡️ Safety - 依賴安全檢查
         run: |
-          safety check --json || true
-        continue-on-error: true
+          safety check --json --continue-on-error || true
+        # 依賴安全問題需要人工評估
 
       - name: 🔍 Pip Audit - 依賴審計
         run: |
-          pip-audit --desc || true
-        continue-on-error: true
+          pip-audit --desc
+        continue-on-error: true  # 依賴審計供參考
 
   # ==================== 構建檢查 ====================
   build:

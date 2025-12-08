@@ -1,0 +1,71 @@
+name: "功能請求 / Feature Request"
+description: "提出新功能或改進建議 / Suggest a new feature or improvement"
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感謝您提出功能建議！請盡可能詳細地描述您的需求。
+        Thank you for your feature suggestion! Please describe your needs as detailed as possible.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 問題描述 / Problem Description
+      description: 您希望解決什麼問題？ / What problem would you like to solve?
+      placeholder: 清楚描述您遇到的問題或不便之處...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: 建議解決方案 / Proposed Solution
+      description: 您希望如何解決這個問題？ / How would you like to solve this problem?
+      placeholder: 描述您理想中的解決方案...
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 替代方案 / Alternatives Considered
+      description: 您考慮過其他解決方案嗎？ / Have you considered any alternative solutions?
+      placeholder: 描述您考慮過的其他方法...
+    validations:
+      required: false
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: 功能類別 / Feature Category
+      description: 這個功能屬於哪個類別？ / Which category does this feature belong to?
+      options:
+        - 📚 內容/文檔 (Content/Documentation)
+        - 💻 代碼示例 (Code Examples)
+        - 🧪 測試 (Testing)
+        - 🔧 工具/自動化 (Tools/Automation)
+        - 📖 學習路徑 (Learning Path)
+        - 🌐 國際化 (Internationalization)
+        - 🎨 UI/UX 改進 (UI/UX Improvement)
+        - 其他 (Other)
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 補充資訊 / Additional Context
+      description: 任何其他相關資訊 / Any other relevant information
+      placeholder: 截圖、參考連結等...
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: 貢獻意願 / Contribution
+      description: 您是否願意協助實現這個功能？ / Would you like to help implement this feature?
+      options:
+        - label: 我願意提交 PR 來實現這個功能 / I'm willing to submit a PR for this feature
