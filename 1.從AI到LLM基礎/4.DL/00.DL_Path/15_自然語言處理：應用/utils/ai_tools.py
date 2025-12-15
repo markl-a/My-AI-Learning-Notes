@@ -13,7 +13,7 @@ import time
 class AIAssistant:
     """AI 助手基類"""
 
-    def __init__(self, api_key: Optional[str] = None, model: str = "gpt-3.5-turbo"):
+    def __init__(self, api_key: Optional[str] = None, model: str = "gpt-4o-mini"):
         """
         Args:
             api_key: API 密鑰
@@ -30,19 +30,28 @@ class AIAssistant:
 class OpenAIAssistant(AIAssistant):
     """OpenAI GPT 助手"""
 
-    def __init__(self, api_key: Optional[str] = None, model: str = "gpt-3.5-turbo"):
+    def __init__(self, api_key: Optional[str] = None, model: str = "gpt-4o-mini"):
         """
         Args:
             api_key: OpenAI API 密鑰 (如果為 None，從環境變量獲取)
-            model: 模型名稱
+            model: 模型名稱 (推薦: gpt-4o-mini, gpt-4o)
         """
         super().__init__(api_key, model)
         self.api_key = api_key or os.getenv('OPENAI_API_KEY')
+        self._client = None
 
         if not self.api_key:
             print("⚠️ 警告: 未設置 OPENAI_API_KEY")
             print("請設置環境變量: export OPENAI_API_KEY='your-key'")
             print("或直接傳入 api_key 參數")
+
+    @property
+    def client(self):
+        """延遲初始化 OpenAI 客戶端"""
+        if self._client is None and self.api_key:
+            from openai import OpenAI
+            self._client = OpenAI(api_key=self.api_key)
+        return self._client
 
     def generate(
         self,
@@ -72,10 +81,10 @@ class OpenAIAssistant(AIAssistant):
             return "❌ 錯誤: 未設置 API 密鑰"
 
         try:
-            import openai
-            openai.api_key = self.api_key
+            if self.client is None:
+                return "❌ 錯誤: 無法初始化 OpenAI 客戶端"
 
-            response = openai.ChatCompletion.create(
+            response = self.client.chat.completions.create(
                 model=self.model,
                 messages=[{"role": "user", "content": prompt}],
                 temperature=temperature,
@@ -86,7 +95,7 @@ class OpenAIAssistant(AIAssistant):
             return response.choices[0].message.content.strip()
 
         except ImportError:
-            return "❌ 錯誤: 請安裝 openai 套件 (pip install openai)"
+            return "❌ 錯誤: 請安裝 openai 套件 (pip install openai>=1.0)"
         except Exception as e:
             return f"❌ 錯誤: {str(e)}"
 
@@ -94,7 +103,7 @@ class OpenAIAssistant(AIAssistant):
 class AnthropicAssistant(AIAssistant):
     """Anthropic Claude 助手"""
 
-    def __init__(self, api_key: Optional[str] = None, model: str = "claude-3-sonnet-20240229"):
+    def __init__(self, api_key: Optional[str] = None, model: str = "claude-3-5-sonnet-20241022"):
         """
         Args:
             api_key: Anthropic API 密鑰
@@ -140,7 +149,7 @@ class AnthropicAssistant(AIAssistant):
 def generate_with_gpt(
     prompt: str,
     api_key: Optional[str] = None,
-    model: str = "gpt-3.5-turbo",
+    model: str = "gpt-4o-mini",
     temperature: float = 0.7,
 ) -> str:
     """

@@ -1,6 +1,8 @@
 """
 AI 輔助數據生成工具
 使用 LLM API (OpenAI/Anthropic) 自動生成高質量的訓練數據
+
+更新: 2025-01 - 遷移到 OpenAI SDK v1.0+
 """
 
 import json
@@ -9,7 +11,7 @@ from typing import List, Dict, Optional
 from dataclasses import dataclass
 import asyncio
 from anthropic import Anthropic
-import openai
+from openai import OpenAI
 
 
 @dataclass
@@ -38,8 +40,8 @@ class AIDataGenerator:
             self.client = Anthropic(api_key=api_key or os.getenv("ANTHROPIC_API_KEY"))
             self.model = "claude-3-5-sonnet-20241022"
         elif provider == "openai":
-            openai.api_key = api_key or os.getenv("OPENAI_API_KEY")
-            self.model = "gpt-4"
+            self.client = OpenAI(api_key=api_key or os.getenv("OPENAI_API_KEY"))
+            self.model = "gpt-4o"
         else:
             raise ValueError(f"不支持的提供者: {provider}")
 
@@ -73,7 +75,7 @@ class AIDataGenerator:
             )
             content = response.content[0].text
         else:  # openai
-            response = openai.ChatCompletion.create(
+            response = self.client.chat.completions.create(
                 model=self.model,
                 messages=[{"role": "user", "content": prompt}]
             )
@@ -191,8 +193,8 @@ class AIDataGenerator:
                 messages=[{"role": "user", "content": prompt}]
             )
             content = response.content[0].text
-        else:
-            response = openai.ChatCompletion.create(
+        else:  # openai
+            response = self.client.chat.completions.create(
                 model=self.model,
                 messages=[{"role": "user", "content": prompt}]
             )
