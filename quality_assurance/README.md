@@ -341,8 +341,8 @@ python validators/code_validator.py . -r --report report.txt --quiet
 
 - 📚 [主要文檔](../README.md)
 - 🤝 [貢獻指南](../CONTRIBUTING.md)
-- 🐛 [問題追蹤](https://github.com/yourusername/My-AI-Learning-Notes/issues)
-- 💬 [討論區](https://github.com/yourusername/My-AI-Learning-Notes/discussions)
+- 🐛 [問題追蹤](https://github.com/markl-a/My-AI-Learning-Notes/issues)
+- 💬 [討論區](https://github.com/markl-a/My-AI-Learning-Notes/discussions)
 
 ---
 
@@ -362,8 +362,8 @@ python validators/code_validator.py . -r --report report.txt --quiet
 有問題或建議？
 
 - 📧 Email: your.email@example.com
-- 💬 Discussions: [GitHub Discussions](https://github.com/yourusername/My-AI-Learning-Notes/discussions)
-- 🐛 Issues: [GitHub Issues](https://github.com/yourusername/My-AI-Learning-Notes/issues)
+- 💬 Discussions: [GitHub Discussions](https://github.com/markl-a/My-AI-Learning-Notes/discussions)
+- 🐛 Issues: [GitHub Issues](https://github.com/markl-a/My-AI-Learning-Notes/issues)
 
 ---
 

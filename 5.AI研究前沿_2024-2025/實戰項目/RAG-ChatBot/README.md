@@ -270,8 +270,8 @@ MIT License
 
 ## 📞 聯繫
 
-- Issues: [GitHub Issues](https://github.com/yourusername/rag-chatbot/issues)
-- Discussions: [GitHub Discussions](https://github.com/yourusername/rag-chatbot/discussions)
+- Issues: [GitHub Issues](https://github.com/markl-a/rag-chatbot/issues)
+- Discussions: [GitHub Discussions](https://github.com/markl-a/rag-chatbot/discussions)
 
 ## 🙏 致謝
 

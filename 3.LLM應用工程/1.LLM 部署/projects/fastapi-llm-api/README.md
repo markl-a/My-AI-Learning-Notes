@@ -391,4 +391,4 @@ MIT License
 
 - 📧 Email: support@example.com
 - 💬 Discord: [加入我們的社群](https://discord.gg/example)
-- 🐛 Issues: [GitHub Issues](https://github.com/yourusername/fastapi-llm-api/issues)
+- 🐛 Issues: [GitHub Issues](https://github.com/markl-a/fastapi-llm-api/issues)

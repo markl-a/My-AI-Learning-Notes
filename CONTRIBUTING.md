@@ -87,14 +87,14 @@
 ### 2. Clone 到本地
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/My-AI-Learning-Notes.git
+git clone https://github.com/markl-a/My-AI-Learning-Notes.git
 cd My-AI-Learning-Notes
 ```
 
 ### 3. 添加上游倉庫
 
 ```bash
-git remote add upstream https://github.com/ORIGINAL_OWNER/My-AI-Learning-Notes.git
+git remote add upstream https://github.com/markl-a/My-AI-Learning-Notes.git
 ```
 
 ### 4. 創建虛擬環境
@@ -583,7 +583,7 @@ def example():
 
 ### Q1: 我應該從哪裡開始？
 
-**A:** 查看 [Good First Issues](https://github.com/yourusername/My-AI-Learning-Notes/labels/good%20first%20issue) 標籤，這些是適合新貢獻者的任務。
+**A:** 查看 [Good First Issues](https://github.com/markl-a/My-AI-Learning-Notes/labels/good%20first%20issue) 標籤，這些是適合新貢獻者的任務。
 
 ### Q2: 我發現了一個 Bug，但不知道如何修復
 
@@ -623,14 +623,14 @@ git push origin main
 
 ### 貢獻者列表
 
-查看 [Contributors](https://github.com/yourusername/My-AI-Learning-Notes/graphs/contributors)
+查看 [Contributors](https://github.com/markl-a/My-AI-Learning-Notes/graphs/contributors)
 
 ---
 
 ## 📧 聯繫方式
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/My-AI-Learning-Notes/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/My-AI-Learning-Notes/discussions)
+- **Issues**: [GitHub Issues](https://github.com/markl-a/My-AI-Learning-Notes/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/markl-a/My-AI-Learning-Notes/discussions)
 - **Email**: your.email@example.com
 
 ---

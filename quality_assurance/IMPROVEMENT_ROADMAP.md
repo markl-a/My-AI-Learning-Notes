@@ -927,8 +927,8 @@ print("Softmax 驗證:", validator.verify_with_examples(softmax, test_cases))
 
 ## 📞 聯繫方式
 
-- **GitHub Issues**: [報告問題](https://github.com/yourusername/My-AI-Learning-Notes/issues)
-- **Discussions**: [參與討論](https://github.com/yourusername/My-AI-Learning-Notes/discussions)
+- **GitHub Issues**: [報告問題](https://github.com/markl-a/My-AI-Learning-Notes/issues)
+- **Discussions**: [參與討論](https://github.com/markl-a/My-AI-Learning-Notes/discussions)
 - **Email**: your.email@example.com
 
 ---
