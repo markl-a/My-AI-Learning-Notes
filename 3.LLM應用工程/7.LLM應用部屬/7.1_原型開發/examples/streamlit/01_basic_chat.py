@@ -171,7 +171,7 @@ def call_openai(messages_list, temperature, max_tokens):
         client = OpenAI(api_key=OPENAI_API_KEY)
 
         response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",
             messages=messages_list,
             temperature=temperature,
             max_tokens=max_tokens

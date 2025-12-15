@@ -399,7 +399,7 @@ async def main():
     """主函數"""
     # 要測試的模型
     models = [
-        "gpt-3.5-turbo",
+        "gpt-4o-mini",
         # "gpt-4",  # 取消註釋以測試 GPT-4
         # "gpt-4-turbo-preview",
     ]

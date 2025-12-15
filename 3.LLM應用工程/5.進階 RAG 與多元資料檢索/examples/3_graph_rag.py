@@ -75,7 +75,7 @@ class KnowledgeGraphBuilder:
     從文本中抽取實體和關係，構建知識圖譜
     """
 
-    def __init__(self, llm_model: str = "gpt-3.5-turbo"):
+    def __init__(self, llm_model: str = "gpt-4o-mini"):
         """初始化"""
         self.llm = ChatOpenAI(
             model=llm_model,
@@ -394,7 +394,7 @@ class GraphRAGSystem:
 
     def __init__(
         self,
-        llm_model: str = "gpt-3.5-turbo",
+        llm_model: str = "gpt-4o-mini",
         graph_path: Optional[str] = None
     ):
         """初始化"""

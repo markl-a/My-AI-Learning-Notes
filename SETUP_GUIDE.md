@@ -15,7 +15,7 @@
 
 ```bash
 # 1. 克隆專案
-git clone https://github.com/yourusername/My-AI-Learning-Notes.git
+git clone https://github.com/markl-a/My-AI-Learning-Notes.git
 cd My-AI-Learning-Notes
 
 # 2. 創建虛擬環境
@@ -401,8 +401,8 @@ python verify_installation.py
 ## 📖 更多資源
 
 - 📚 [主要 README](README.md)
-- 🐛 [問題報告](https://github.com/yourusername/My-AI-Learning-Notes/issues)
-- 💬 [討論區](https://github.com/yourusername/My-AI-Learning-Notes/discussions)
+- 🐛 [問題報告](https://github.com/markl-a/My-AI-Learning-Notes/issues)
+- 💬 [討論區](https://github.com/markl-a/My-AI-Learning-Notes/discussions)
 - 🤝 [貢獻指南](CONTRIBUTING.md)
 
 ---
@@ -412,7 +412,7 @@ python verify_installation.py
 如果遇到問題：
 
 1. 查看 [常見問題](#常見問題)
-2. 搜索 [Issues](https://github.com/yourusername/My-AI-Learning-Notes/issues)
+2. 搜索 [Issues](https://github.com/markl-a/My-AI-Learning-Notes/issues)
 3. 創建新的 Issue
 4. 加入社群討論
 

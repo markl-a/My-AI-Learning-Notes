@@ -231,7 +231,7 @@ class RAGAgent:
     def __init__(
         self,
         vector_store_path: str = "./chroma_db_agent",
-        llm_model: str = "gpt-3.5-turbo"
+        llm_model: str = "gpt-4o-mini"
     ):
         """初始化 Agent"""
         self.llm = ChatOpenAI(
@@ -370,7 +370,7 @@ class MultiAgentSystem:
     - Synthesis Agent: 綜合和總結
     """
 
-    def __init__(self, llm_model: str = "gpt-3.5-turbo"):
+    def __init__(self, llm_model: str = "gpt-4o-mini"):
         """初始化多 Agent 系統"""
         self.llm = ChatOpenAI(
             model=llm_model,

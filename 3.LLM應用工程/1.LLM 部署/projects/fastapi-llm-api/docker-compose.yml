@@ -1,0 +1,96 @@
+# ============================================================
+# FastAPI LLM API - Docker Compose
+# ============================================================
+#
+# 用於本地開發和測試
+# 啟動: docker-compose up -d
+# 停止: docker-compose down
+#
+# ============================================================
+
+version: '3.8'
+
+services:
+  # ==================== API 服務 ====================
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fastapi-llm-api
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - REDIS_URL=redis://redis:6379/0
+      - DATABASE_URL=sqlite:///./app.db
+    env_file:
+      - .env
+    depends_on:
+      - redis
+    volumes:
+      - ./app:/app/app:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # ==================== Redis 緩存 ====================
+  redis:
+    image: redis:7-alpine
+    container_name: fastapi-llm-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # ==================== Prometheus 監控 (可選) ====================
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: fastapi-llm-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+  # ==================== Grafana 儀表板 (可選) ====================
+  grafana:
+    image: grafana/grafana:latest
+    container_name: fastapi-llm-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+volumes:
+  redis_data:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  default:
+    name: fastapi-llm-network

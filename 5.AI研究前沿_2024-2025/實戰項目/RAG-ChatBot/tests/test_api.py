@@ -44,7 +44,7 @@ class TestHealthEndpoints:
         mock_rag_engine.get_stats.return_value = {
             "total_documents": 100,
             "total_conversations": 10,
-            "model_name": "gpt-3.5-turbo"
+            "model_name": "gpt-4o-mini"
         }
 
         response = client.get("/api/stats")

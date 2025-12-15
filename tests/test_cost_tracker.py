@@ -69,7 +69,7 @@ class TestCostTracker:
         tracker = CostTracker()
 
         result = tracker.log_usage(
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",
             input_tokens=2000,
             output_tokens=1000
         )
@@ -151,7 +151,7 @@ class TestCostTracker:
         tracker = CostTracker(session_name="test")
 
         tracker.log_usage("gpt-4", 1000, 500)
-        tracker.log_usage("gpt-3.5-turbo", 2000, 1000)
+        tracker.log_usage("gpt-4o-mini", 2000, 1000)
 
         summary = tracker.get_summary()
 
@@ -159,9 +159,9 @@ class TestCostTracker:
         assert summary["total_calls"] == 2
         assert summary["total_tokens"] == 4500  # 1500 + 3000
         assert "gpt-4" in summary["by_model"]
-        assert "gpt-3.5-turbo" in summary["by_model"]
+        assert "gpt-4o-mini" in summary["by_model"]
         assert summary["by_model"]["gpt-4"]["calls"] == 1
-        assert summary["by_model"]["gpt-3.5-turbo"]["calls"] == 1
+        assert summary["by_model"]["gpt-4o-mini"]["calls"] == 1
 
     def test_group_by_model(self):
         """測試按模型分組統計"""
@@ -169,14 +169,14 @@ class TestCostTracker:
 
         tracker.log_usage("gpt-4", 1000, 500)
         tracker.log_usage("gpt-4", 2000, 1000)
-        tracker.log_usage("gpt-3.5-turbo", 1000, 500)
+        tracker.log_usage("gpt-4o-mini", 1000, 500)
 
         grouped = tracker._group_by_model()
 
         assert grouped["gpt-4"]["calls"] == 2
         assert grouped["gpt-4"]["input_tokens"] == 3000
         assert grouped["gpt-4"]["output_tokens"] == 1500
-        assert grouped["gpt-3.5-turbo"]["calls"] == 1
+        assert grouped["gpt-4o-mini"]["calls"] == 1
 
     def test_reset(self):
         """測試重置功能"""
@@ -196,7 +196,7 @@ class TestCostTracker:
         tracker = CostTracker(session_name="save_test")
 
         tracker.log_usage("gpt-4", 1000, 500, {"task": "test"})
-        tracker.log_usage("gpt-3.5-turbo", 2000, 1000)
+        tracker.log_usage("gpt-4o-mini", 2000, 1000)
 
         with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
             filepath = f.name

@@ -24,12 +24,12 @@ def load_environment():
     print("✓ 環境變數載入成功")
 
 
-def get_llm(model: str = "gpt-3.5-turbo", temperature: float = 0.7, **kwargs):
+def get_llm(model: str = "gpt-4o-mini", temperature: float = 0.7, **kwargs):
     """
     取得 LLM 實例
 
     Args:
-        model: 模型名稱，預設為 gpt-3.5-turbo
+        model: 模型名稱，預設為 gpt-4o-mini
         temperature: 溫度參數，預設為 0.7
         **kwargs: 其他參數
 

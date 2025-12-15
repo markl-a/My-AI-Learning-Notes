@@ -69,7 +69,7 @@ class SQLRAGIntegration:
         self,
         db_path: str,
         vector_store_path: str = "./chroma_db_sql",
-        llm_model: str = "gpt-3.5-turbo"
+        llm_model: str = "gpt-4o-mini"
     ):
         """
         初始化 SQL + RAG 系統

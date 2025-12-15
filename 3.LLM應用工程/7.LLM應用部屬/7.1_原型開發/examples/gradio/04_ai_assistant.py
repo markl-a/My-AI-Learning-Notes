@@ -52,7 +52,7 @@ def call_llm(prompt: str, system_message: str = None, model: str = "openai") -> 
             messages.append({"role": "user", "content": prompt})
 
             response = client.chat.completions.create(
-                model="gpt-3.5-turbo",
+                model="gpt-4o-mini",
                 messages=messages,
                 temperature=0.7,
                 max_tokens=1500

@@ -61,7 +61,7 @@ def stream_openai(message: str, history: List[Tuple[str, str]]) -> Generator[str
 
         # 流式調用 API
         stream = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",
             messages=messages,
             temperature=0.7,
             max_tokens=1000,

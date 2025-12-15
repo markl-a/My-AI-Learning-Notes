@@ -87,7 +87,7 @@ class ChatMessage(BaseModel):
 
 class ChatRequest(BaseModel):
     messages: List[ChatMessage] = Field(..., description="對話歷史")
-    model: str = Field(default="gpt-3.5-turbo", description="使用的模型")
+    model: str = Field(default="gpt-4o-mini", description="使用的模型")
     temperature: float = Field(default=0.7, ge=0.0, le=2.0, description="溫度參數")
     max_tokens: int = Field(default=1000, ge=1, le=4000, description="最大生成 token 數")
 
@@ -288,7 +288,7 @@ async def chat(
     **認證：** 需要在 header 中提供 X-API-Key
 
     **支持的模型：**
-    - OpenAI: gpt-3.5-turbo, gpt-4
+    - OpenAI: gpt-4o-mini, gpt-4
     - Anthropic: claude-3-5-sonnet-20241022, claude-3-opus-20240229
 
     **範例請求：**
@@ -297,7 +297,7 @@ async def chat(
         "messages": [
             {"role": "user", "content": "你好！"}
         ],
-        "model": "gpt-3.5-turbo",
+        "model": "gpt-4o-mini",
         "temperature": 0.7,
         "max_tokens": 1000
     }
@@ -340,7 +340,7 @@ async def list_models(api_key: str = Depends(verify_api_key)):
 
     if OPENAI_API_KEY:
         models.extend([
-            {"provider": "OpenAI", "model": "gpt-3.5-turbo", "description": "Fast and cost-effective"},
+            {"provider": "OpenAI", "model": "gpt-4o-mini", "description": "Fast and cost-effective"},
             {"provider": "OpenAI", "model": "gpt-4", "description": "Most capable model"},
         ])
 

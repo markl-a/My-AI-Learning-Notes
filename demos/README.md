@@ -289,8 +289,8 @@ TEMPERATURE=0.7
 ## 📞 獲取幫助
 
 - 📚 查看[主要文檔](../README.md)
-- 🐛 報告[問題](https://github.com/yourusername/My-AI-Learning-Notes/issues)
-- 💬 加入[討論](https://github.com/yourusername/My-AI-Learning-Notes/discussions)
+- 🐛 報告[問題](https://github.com/markl-a/My-AI-Learning-Notes/issues)
+- 💬 加入[討論](https://github.com/markl-a/My-AI-Learning-Notes/discussions)
 
 ---
 

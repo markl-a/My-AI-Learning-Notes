@@ -151,18 +151,29 @@ jobs:
 
       - name: 🔐 Bandit - 安全漏洞掃描
         run: |
-          bandit -r . -f json -o bandit-report.json --exit-zero
-        # 產出報告但不阻擋 CI，讓開發者檢視結果
+          # 掃描高危漏洞（高嚴重性會阻擋CI）
+          bandit -r . -f json -o bandit-report.json -ll
+          # -ll 只報告中等及以上嚴重性的問題
 
       - name: 🛡️ Safety - 依賴安全檢查
         run: |
-          safety check --json --continue-on-error || true
-        # 依賴安全問題需要人工評估
+          # 檢查已知漏洞，高危問題會阻擋CI
+          safety check --json --output safety-report.json
+          echo "✅ 依賴安全檢查通過"
 
       - name: 🔍 Pip Audit - 依賴審計
         run: |
-          pip-audit --desc
-        continue-on-error: true  # 依賴審計供參考
+          # 審計依賴，發現漏洞會阻擋CI
+          pip-audit --desc --strict
+
+      - name: 📤 上傳安全報告
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-reports
+          path: |
+            bandit-report.json
+            safety-report.json
 
   # ==================== 構建檢查 ====================
   build:

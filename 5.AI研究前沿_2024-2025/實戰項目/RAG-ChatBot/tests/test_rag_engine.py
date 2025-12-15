@@ -25,7 +25,7 @@ class TestRAGEngine:
              patch('rag_engine.chromadb.Client'), \
              patch('rag_engine.AsyncOpenAI'):
             engine = RAGEngine(
-                model_name="gpt-3.5-turbo",
+                model_name="gpt-4o-mini",
                 embedding_model="all-MiniLM-L6-v2",
                 collection_name="test_collection"
             )
@@ -34,7 +34,7 @@ class TestRAGEngine:
     @pytest.mark.asyncio
     async def test_initialization(self, rag_engine):
         """測試初始化"""
-        assert rag_engine.model_name == "gpt-3.5-turbo"
+        assert rag_engine.model_name == "gpt-4o-mini"
         assert rag_engine.collection_name == "test_collection"
         assert rag_engine.conversations == {}
 
@@ -213,7 +213,7 @@ class TestRAGEngine:
         stats = rag_engine.get_stats()
         assert stats['total_documents'] == 100
         assert stats['total_conversations'] == 2
-        assert stats['model_name'] == "gpt-3.5-turbo"
+        assert stats['model_name'] == "gpt-4o-mini"
 
 
 class TestRAGEngineIntegration:
@@ -229,7 +229,7 @@ class TestRAGEngineIntegration:
             pytest.skip("Integration tests disabled")
 
         engine = RAGEngine(
-            model_name="gpt-3.5-turbo",
+            model_name="gpt-4o-mini",
             embedding_model="all-MiniLM-L6-v2"
         )
 

@@ -19,7 +19,7 @@ class RAGEngine:
     def __init__(
         self,
         embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2",
-        llm_model: str = "gpt-3.5-turbo",
+        llm_model: str = "gpt-4o-mini",
         chroma_persist_dir: str = "./chroma_db"
     ):
         """
