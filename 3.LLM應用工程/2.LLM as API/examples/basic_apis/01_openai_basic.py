@@ -130,12 +130,51 @@ def function_calling_example():
         return data
 
     def calculate(expression: str) -> float:
-        """安全地計算數學表達式"""
+        """安全地計算數學表達式
+
+        使用 ast.literal_eval 和 operator 模組的安全方法，
+        避免 eval() 的安全風險。
+        """
+        import ast
+        import operator
+
+        # 支援的安全運算符
+        operators = {
+            ast.Add: operator.add,
+            ast.Sub: operator.sub,
+            ast.Mult: operator.mul,
+            ast.Div: operator.truediv,
+            ast.Pow: operator.pow,
+            ast.USub: operator.neg,
+            ast.UAdd: operator.pos,
+        }
+
+        def safe_eval(node):
+            """遞迴安全計算 AST 節點"""
+            if isinstance(node, ast.Constant):  # 數字
+                return node.value
+            elif isinstance(node, ast.BinOp):  # 二元運算
+                left = safe_eval(node.left)
+                right = safe_eval(node.right)
+                op = operators.get(type(node.op))
+                if op is None:
+                    raise ValueError(f"不支援的運算符: {type(node.op).__name__}")
+                return op(left, right)
+            elif isinstance(node, ast.UnaryOp):  # 一元運算
+                operand = safe_eval(node.operand)
+                op = operators.get(type(node.op))
+                if op is None:
+                    raise ValueError(f"不支援的運算符: {type(node.op).__name__}")
+                return op(operand)
+            else:
+                raise ValueError(f"不支援的表達式類型: {type(node).__name__}")
+
         try:
-            # 注意：在生產環境中應該使用更安全的方法
-            return eval(expression, {"__builtins__": {}})
-        except:
-            return "計算錯誤"
+            # 解析表達式為 AST
+            tree = ast.parse(expression, mode='eval')
+            return safe_eval(tree.body)
+        except Exception as e:
+            return f"計算錯誤: {e}"
 
     # 可用的函數映射
     available_functions = {
