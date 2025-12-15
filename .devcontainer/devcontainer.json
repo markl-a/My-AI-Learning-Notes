@@ -1,0 +1,71 @@
+{
+  "name": "AI Learning Notes Dev Environment",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11",
+
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+
+  "postCreateCommand": "bash scripts/setup.sh || pip install -r requirements.txt && pip install -r requirements-dev.txt",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.debugpy",
+        "ms-toolsai.jupyter",
+        "ms-toolsai.jupyter-keymap",
+        "ms-toolsai.jupyter-renderers",
+        "charliermarsh.ruff",
+        "ms-python.black-formatter",
+        "github.copilot",
+        "github.copilot-chat",
+        "eamodio.gitlens",
+        "yzhang.markdown-all-in-one",
+        "bierner.markdown-mermaid",
+        "redhat.vscode-yaml",
+        "tamasfe.even-better-toml",
+        "mechatroner.rainbow-csv"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.formatting.provider": "none",
+        "[python]": {
+          "editor.defaultFormatter": "ms-python.black-formatter",
+          "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+          }
+        },
+        "editor.rulers": [100],
+        "files.trimTrailingWhitespace": true,
+        "files.insertFinalNewline": true,
+        "jupyter.askForKernelRestart": false,
+        "jupyter.notebookFileRoot": "${workspaceFolder}"
+      }
+    }
+  },
+
+  "mounts": [
+    "source=${localWorkspaceFolder}/.env,target=/workspaces/My-AI-Learning-Notes/.env,type=bind,consistency=cached"
+  ],
+
+  "forwardPorts": [8000, 8501, 7860, 8888],
+
+  "portsAttributes": {
+    "8000": {"label": "FastAPI", "onAutoForward": "notify"},
+    "8501": {"label": "Streamlit", "onAutoForward": "notify"},
+    "7860": {"label": "Gradio", "onAutoForward": "notify"},
+    "8888": {"label": "Jupyter", "onAutoForward": "notify"}
+  },
+
+  "remoteUser": "vscode",
+
+  "containerEnv": {
+    "PYTHONPATH": "/workspaces/My-AI-Learning-Notes",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  }
+}
