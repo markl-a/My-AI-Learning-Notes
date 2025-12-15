@@ -232,9 +232,8 @@ jobs:
 
       - name: 🏗️ 構建文檔
         run: |
-          # mkdocs build
+          mkdocs build --strict
 
       - name: 🚀 部署到 GitHub Pages
         run: |
-          # mkdocs gh-deploy --force
-          echo "文檔已更新"
+          mkdocs gh-deploy --force

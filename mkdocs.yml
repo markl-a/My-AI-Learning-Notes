@@ -1,0 +1,195 @@
+# ============================================================
+# MkDocs Configuration - AI Learning Notes 文檔網站
+# ============================================================
+
+site_name: AI Learning Notes | AI 學習筆記
+site_description: 從 AI 基礎到 LLM 應用的完整學習指南
+site_author: markl-a
+site_url: https://markl-a.github.io/My-AI-Learning-Notes/
+
+# Repository
+repo_name: markl-a/My-AI-Learning-Notes
+repo_url: https://github.com/markl-a/My-AI-Learning-Notes
+edit_uri: edit/main/
+
+# Copyright
+copyright: Copyright &copy; 2024-2025 AI Learning Notes Contributors
+
+# Theme Configuration
+theme:
+  name: material
+  language: zh-TW
+
+  palette:
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: deep purple
+      toggle:
+        icon: material/brightness-7
+        name: 切換深色模式
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: deep purple
+      toggle:
+        icon: material/brightness-4
+        name: 切換淺色模式
+
+  font:
+    text: Noto Sans TC
+    code: JetBrains Mono
+
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.indexes
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.tabs.link
+    - content.code.copy
+    - content.code.annotate
+    - toc.follow
+
+  icon:
+    repo: fontawesome/brands/github
+    logo: material/brain
+
+# Plugins
+plugins:
+  - search:
+      lang:
+        - zh
+        - en
+      separator: '[\s\-\.]+'
+  - tags:
+      tags_file: tags.md
+
+# Extensions
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: markl-a
+      repo: My-AI-Learning-Notes
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+# Extra JavaScript for Math
+extra_javascript:
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+# Extra CSS
+extra_css:
+  - stylesheets/extra.css
+
+# Extra Configuration
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/markl-a
+      name: GitHub
+
+  analytics:
+    provider: google
+    property: G-XXXXXXXXXX  # 替換為實際的 GA ID
+
+  generator: false
+
+  # Version selector (for future use)
+  version:
+    provider: mike
+
+# Navigation Structure
+nav:
+  - 首頁: index.md
+  - 快速開始:
+    - 學習路徑: LEARNING_PATHS.md
+    - 快速入門: QUICKSTART.md
+    - 先修知識: PREREQUISITES.md
+    - 術語表: GLOSSARY.md
+
+  - 1. AI/LLM 基礎:
+    - 1.從AI到LLM基礎/README.md
+    - 深度學習基礎: 1.從AI到LLM基礎/深度學習基礎/README.md
+    - Transformer 架構: 1.從AI到LLM基礎/Transformer架構/README.md
+    - 預訓練模型: 1.從AI到LLM基礎/預訓練模型/README.md
+
+  - 2. LLM 模型工程:
+    - 2.深入LLM模型工程與LLM運維/README.md
+    - 模型訓練: 2.深入LLM模型工程與LLM運維/1.LLM訓練/README.md
+    - 模型評估: 2.深入LLM模型工程與LLM運維/2.LLM評估/README.md
+    - 模型微調: 2.深入LLM模型工程與LLM運維/3.微調技術/README.md
+
+  - 3. LLM 應用工程:
+    - 3.LLM應用工程/README.md
+    - LLM 部署: 3.LLM應用工程/1.LLM 部署/README.md
+    - LLM as API: 3.LLM應用工程/2.LLM as API/README.md
+    - Prompt Engineering: 3.LLM應用工程/3.提示工程學/README.md
+    - RAG 系統: 3.LLM應用工程/4.RAG/README.md
+    - Agent 框架: 3.LLM應用工程/5.Agent/README.md
+    - 實戰項目: 3.LLM應用工程/9.實戰/README.md
+
+  - 4. 更新 Blog:
+    - 4.相關的更新Blog/README.md
+
+  - 5. AI 研究前沿:
+    - 5.AI研究前沿_2024-2025/README.md
+    - 多模態 AI: 5.AI研究前沿_2024-2025/多模態AI/README.md
+    - AI Agent: 5.AI研究前沿_2024-2025/AI-Agent/README.md
+
+  - 6. DeepLearning.ai 短課程:
+    - 6.DeepLearning.ai短課程學習紀錄/README.md
+
+  - 9. 面試與職業:
+    - 9.面試準備與職業發展/README.md
+    - 面試題庫: 9.面試準備與職業發展/面試題庫/README.md
+
+  - 資源:
+    - 學習資源: RESOURCES.md
+    - 貢獻指南: CONTRIBUTING.md
+    - 更新日誌: CHANGELOG.md
+    - 標籤索引: tags.md
