@@ -1,0 +1,205 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "lastUpdated": "2025-01-15",
+    "languages": ["zh-TW", "en", "ja"]
+  },
+  "terms": [
+    {
+      "id": "llm",
+      "zh-TW": "大型語言模型",
+      "en": "Large Language Model (LLM)",
+      "ja": "大規模言語モデル",
+      "abbr": "LLM",
+      "category": "core"
+    },
+    {
+      "id": "prompt-engineering",
+      "zh-TW": "提示工程",
+      "en": "Prompt Engineering",
+      "ja": "プロンプトエンジニアリング",
+      "category": "application"
+    },
+    {
+      "id": "rag",
+      "zh-TW": "檢索增強生成",
+      "en": "Retrieval-Augmented Generation (RAG)",
+      "ja": "検索拡張生成",
+      "abbr": "RAG",
+      "category": "application"
+    },
+    {
+      "id": "fine-tuning",
+      "zh-TW": "微調",
+      "en": "Fine-tuning",
+      "ja": "ファインチューニング",
+      "category": "training"
+    },
+    {
+      "id": "alignment",
+      "zh-TW": "對齊",
+      "en": "Alignment",
+      "ja": "アラインメント",
+      "category": "safety"
+    },
+    {
+      "id": "agent",
+      "zh-TW": "智能體/代理",
+      "en": "Agent",
+      "ja": "エージェント",
+      "category": "application"
+    },
+    {
+      "id": "transformer",
+      "zh-TW": "Transformer",
+      "en": "Transformer",
+      "ja": "トランスフォーマー",
+      "category": "architecture"
+    },
+    {
+      "id": "attention",
+      "zh-TW": "注意力機制",
+      "en": "Attention Mechanism",
+      "ja": "アテンション機構",
+      "category": "architecture"
+    },
+    {
+      "id": "embedding",
+      "zh-TW": "嵌入/向量表示",
+      "en": "Embedding",
+      "ja": "埋め込み",
+      "category": "core"
+    },
+    {
+      "id": "tokenization",
+      "zh-TW": "分詞/標記化",
+      "en": "Tokenization",
+      "ja": "トークン化",
+      "category": "preprocessing"
+    },
+    {
+      "id": "inference",
+      "zh-TW": "推理",
+      "en": "Inference",
+      "ja": "推論",
+      "category": "deployment"
+    },
+    {
+      "id": "quantization",
+      "zh-TW": "量化",
+      "en": "Quantization",
+      "ja": "量子化",
+      "category": "optimization"
+    },
+    {
+      "id": "lora",
+      "zh-TW": "低秩適應",
+      "en": "Low-Rank Adaptation (LoRA)",
+      "ja": "低ランク適応",
+      "abbr": "LoRA",
+      "category": "training"
+    },
+    {
+      "id": "rlhf",
+      "zh-TW": "人類反饋強化學習",
+      "en": "Reinforcement Learning from Human Feedback (RLHF)",
+      "ja": "人間フィードバックからの強化学習",
+      "abbr": "RLHF",
+      "category": "training"
+    },
+    {
+      "id": "dpo",
+      "zh-TW": "直接偏好優化",
+      "en": "Direct Preference Optimization (DPO)",
+      "ja": "直接選好最適化",
+      "abbr": "DPO",
+      "category": "training"
+    },
+    {
+      "id": "context-window",
+      "zh-TW": "上下文窗口",
+      "en": "Context Window",
+      "ja": "コンテキストウィンドウ",
+      "category": "core"
+    },
+    {
+      "id": "hallucination",
+      "zh-TW": "幻覺",
+      "en": "Hallucination",
+      "ja": "ハルシネーション",
+      "category": "evaluation"
+    },
+    {
+      "id": "prompt-injection",
+      "zh-TW": "提示注入",
+      "en": "Prompt Injection",
+      "ja": "プロンプトインジェクション",
+      "category": "security"
+    },
+    {
+      "id": "chain-of-thought",
+      "zh-TW": "思維鏈",
+      "en": "Chain-of-Thought (CoT)",
+      "ja": "思考の連鎖",
+      "abbr": "CoT",
+      "category": "prompting"
+    },
+    {
+      "id": "few-shot",
+      "zh-TW": "少樣本學習",
+      "en": "Few-shot Learning",
+      "ja": "少数ショット学習",
+      "category": "prompting"
+    },
+    {
+      "id": "zero-shot",
+      "zh-TW": "零樣本學習",
+      "en": "Zero-shot Learning",
+      "ja": "ゼロショット学習",
+      "category": "prompting"
+    },
+    {
+      "id": "vector-database",
+      "zh-TW": "向量資料庫",
+      "en": "Vector Database",
+      "ja": "ベクトルデータベース",
+      "category": "infrastructure"
+    },
+    {
+      "id": "multimodal",
+      "zh-TW": "多模態",
+      "en": "Multimodal",
+      "ja": "マルチモーダル",
+      "category": "architecture"
+    },
+    {
+      "id": "temperature",
+      "zh-TW": "溫度參數",
+      "en": "Temperature",
+      "ja": "温度パラメータ",
+      "category": "generation"
+    },
+    {
+      "id": "top-p",
+      "zh-TW": "核採樣",
+      "en": "Top-p (Nucleus Sampling)",
+      "ja": "トップP（核サンプリング）",
+      "category": "generation"
+    }
+  ],
+  "categories": {
+    "core": "核心概念",
+    "architecture": "模型架構",
+    "training": "訓練技術",
+    "application": "應用技術",
+    "deployment": "部署相關",
+    "optimization": "優化技術",
+    "safety": "安全與對齊",
+    "evaluation": "評估相關",
+    "prompting": "提示技術",
+    "preprocessing": "預處理",
+    "infrastructure": "基礎設施",
+    "generation": "生成控制",
+    "security": "安全防護"
+  }
+}
