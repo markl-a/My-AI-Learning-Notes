@@ -9,25 +9,49 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, StreamingResponse
 from pydantic import BaseModel
 from typing import List, Optional
+from contextlib import asynccontextmanager
 import uvicorn
 import asyncio
 from rag_engine import RAGEngine
+from middleware.rate_limiter import rate_limiter, rate_limit_middleware
+
+
+# 生命週期管理
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """應用生命週期管理"""
+    # 啟動時
+    await rate_limiter.start()
+    yield
+    # 關閉時
+    await rate_limiter.stop()
+
 
 # 創建 FastAPI 應用
 app = FastAPI(
     title="RAG ChatBot API",
     description="檢索增強生成聊天機器人",
-    version="1.0.0"
+    version="1.0.0",
+    lifespan=lifespan
 )
 
-# CORS 配置
+# CORS 配置 - 從環境變量讀取允許的來源
+import os
+ALLOWED_ORIGINS = os.getenv(
+    "ALLOWED_ORIGINS",
+    "http://localhost:3000,http://localhost:8080,http://127.0.0.1:3000"
+).split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization", "X-Requested-With"],
 )
+
+# 速率限制中間件
+app.middleware("http")(rate_limit_middleware)
 
 # 初始化 RAG 引擎
 rag_engine = RAGEngine()

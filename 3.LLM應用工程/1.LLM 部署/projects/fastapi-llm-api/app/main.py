@@ -61,12 +61,16 @@ app = FastAPI(
 )
 
 # CORS 中間件
+# 從環境變量讀取允許的來源，生產環境應設置具體域名
+import os
+ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://localhost:8080").split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # 生產環境應設置具體域名
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization", "X-Requested-With"],
 )
 
 

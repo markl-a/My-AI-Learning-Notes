@@ -177,11 +177,26 @@ def init_clients():
 
 
 def verify_api_key(credentials: HTTPAuthorizationCredentials = Depends(security)) -> str:
-    """驗證 API Key"""
-    expected_key = os.getenv("API_KEY", "your-secret-key")
+    """驗證 API Key
 
-    if credentials.credentials != expected_key:
-        logger.warning(f"無效的 API Key 嘗試")
+    使用 secrets.compare_digest 進行常數時間比較，
+    防止時序攻擊（timing attack）。
+    """
+    import secrets
+
+    expected_key = os.getenv("API_KEY")
+
+    # 確保 API_KEY 已設置
+    if not expected_key:
+        logger.error("API_KEY 環境變量未設置")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Server configuration error"
+        )
+
+    # 使用常數時間比較防止時序攻擊
+    if not secrets.compare_digest(credentials.credentials, expected_key):
+        logger.warning("無效的 API Key 嘗試")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid API Key"
