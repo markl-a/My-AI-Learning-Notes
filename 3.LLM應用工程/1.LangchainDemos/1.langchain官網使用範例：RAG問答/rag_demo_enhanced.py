@@ -39,7 +39,7 @@ from langchain.chains.combine_documents import create_stuff_documents_chain
 class EnhancedRAG:
     """增強版 RAG 系統"""
 
-    def __init__(self, model_name: str = "gpt-3.5-turbo", temperature: float = 0.7):
+    def __init__(self, model_name: str = "gpt-4o-mini", temperature: float = 0.7):
         """
         初始化 RAG 系統
 

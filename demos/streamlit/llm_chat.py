@@ -192,7 +192,7 @@ def main():
         )
 
         if model_provider == "OpenAI":
-            model_options = ["gpt-4o", "gpt-4o-mini", "gpt-3.5-turbo"]
+            model_options = ["gpt-4o", "gpt-4o-mini", "gpt-4o-mini"]
         else:
             model_options = ["llama3.2", "llama3.1", "phi3", "mistral"]
 

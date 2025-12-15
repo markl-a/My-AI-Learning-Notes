@@ -49,7 +49,7 @@ class QueryRewriter:
     - 修正模糊的表達
     """
 
-    def __init__(self, model_name: str = "gpt-3.5-turbo", temperature: float = 0.0):
+    def __init__(self, model_name: str = "gpt-4o-mini", temperature: float = 0.0):
         """
         初始化查詢改寫器
 
@@ -218,7 +218,7 @@ class HyDERetriever:
     def __init__(
         self,
         vector_store: Chroma,
-        model_name: str = "gpt-3.5-turbo",
+        model_name: str = "gpt-4o-mini",
         temperature: float = 0.7
     ):
         """
@@ -372,7 +372,7 @@ class AdvancedQueryRAG:
     def __init__(
         self,
         embedding_model: str = "text-embedding-3-small",
-        llm_model: str = "gpt-3.5-turbo",
+        llm_model: str = "gpt-4o-mini",
         persist_directory: str = "./chroma_db"
     ):
         """初始化進階 RAG 系統"""
@@ -671,7 +671,7 @@ def main():
     # 初始化系統
     print("初始化 RAG 系統...")
     rag_system = AdvancedQueryRAG(
-        llm_model=os.getenv("LLM_MODEL", "gpt-3.5-turbo"),
+        llm_model=os.getenv("LLM_MODEL", "gpt-4o-mini"),
         persist_directory="./chroma_db_demo"
     )
 

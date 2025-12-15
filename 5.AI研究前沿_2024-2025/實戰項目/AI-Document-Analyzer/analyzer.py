@@ -19,7 +19,7 @@ class DocumentAnalyzer:
 
     def __init__(
         self,
-        model_name: str = "gpt-3.5-turbo",
+        model_name: str = "gpt-4o-mini",
         api_key: Optional[str] = None
     ):
         """

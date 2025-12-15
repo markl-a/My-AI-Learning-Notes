@@ -181,7 +181,7 @@ def example_basic_conversation():
     """示例 1: 基本對話"""
     print("=== 示例 1: 基本對話 ===\n")
 
-    system = AutoGenSystem(model="gpt-3.5-turbo")
+    system = AutoGenSystem(model="gpt-4o-mini")
     assistant, user_proxy = system.create_assistant_user_pair()
 
     # 開始對話
@@ -195,7 +195,7 @@ def example_code_execution():
     """示例 2: 代碼執行"""
     print("\n=== 示例 2: 代碼生成與執行 ===\n")
 
-    system = AutoGenSystem(model="gpt-3.5-turbo")
+    system = AutoGenSystem(model="gpt-4o-mini")
     assistant, user_proxy = system.create_code_assistant()
 
     # 請求生成並執行代碼
@@ -211,7 +211,7 @@ def example_math_problem():
     """示例 3: 數學問題求解"""
     print("\n=== 示例 3: 數學問題求解 ===\n")
 
-    system = AutoGenSystem(model="gpt-3.5-turbo")
+    system = AutoGenSystem(model="gpt-4o-mini")
     assistant, user_proxy = system.create_code_assistant()
 
     user_proxy.initiate_chat(
@@ -228,7 +228,7 @@ def example_data_analysis():
     """示例 4: 數據分析"""
     print("\n=== 示例 4: 數據分析 ===\n")
 
-    system = AutoGenSystem(model="gpt-3.5-turbo")
+    system = AutoGenSystem(model="gpt-4o-mini")
     assistant, user_proxy = system.create_code_assistant()
 
     user_proxy.initiate_chat(
@@ -247,7 +247,7 @@ def example_group_chat():
     """示例 5: 群組對話"""
     print("\n=== 示例 5: 多Agent群組對話 ===\n")
 
-    system = AutoGenSystem(model="gpt-3.5-turbo")
+    system = AutoGenSystem(model="gpt-4o-mini")
     agents = system.create_research_team()
     manager = system.create_group_chat(agents, max_round=12)
 
@@ -263,7 +263,7 @@ def example_two_agent_debate():
     """示例 6: 雙Agent辯論"""
     print("\n=== 示例 6: Agent辯論 ===\n")
 
-    system = AutoGenSystem(model="gpt-3.5-turbo")
+    system = AutoGenSystem(model="gpt-4o-mini")
 
     # 正方
     pro_agent = autogen.AssistantAgent(
@@ -296,7 +296,7 @@ def example_custom_function():
     """示例 7: 自定義函數調用"""
     print("\n=== 示例 7: 自定義函數 ===\n")
 
-    system = AutoGenSystem(model="gpt-3.5-turbo")
+    system = AutoGenSystem(model="gpt-4o-mini")
 
     # 定義自定義函數
     def get_stock_price(symbol: str) -> str:
@@ -332,7 +332,7 @@ def example_iterative_refinement():
     """示例 8: 迭代改進"""
     print("\n=== 示例 8: 迭代改進代碼 ===\n")
 
-    system = AutoGenSystem(model="gpt-3.5-turbo")
+    system = AutoGenSystem(model="gpt-4o-mini")
 
     # 代碼撰寫者
     coder = autogen.AssistantAgent(

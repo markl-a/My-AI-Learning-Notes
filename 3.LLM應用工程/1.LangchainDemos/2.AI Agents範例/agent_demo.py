@@ -122,7 +122,7 @@ def demo_react_agent():
     ]
 
     # 建立 LLM
-    llm = get_llm(model="gpt-3.5-turbo", temperature=0)
+    llm = get_llm(model="gpt-4o-mini", temperature=0)
 
     # ReAct prompt 模板
     react_prompt = PromptTemplate.from_template("""
@@ -207,7 +207,7 @@ def demo_tool_calling_agent():
     ]
 
     # 建立支援 function calling 的 LLM
-    llm = get_llm(model="gpt-3.5-turbo", temperature=0)
+    llm = get_llm(model="gpt-4o-mini", temperature=0)
 
     # Tool-calling prompt
     prompt = ChatPromptTemplate.from_messages([
@@ -285,7 +285,7 @@ def demo_agent_with_search():
     ]
 
     # 建立 LLM
-    llm = get_llm(model="gpt-3.5-turbo", temperature=0)
+    llm = get_llm(model="gpt-4o-mini", temperature=0)
 
     # Tool-calling prompt
     prompt = ChatPromptTemplate.from_messages([
@@ -350,7 +350,7 @@ class ConversationalAgent:
             ),
         ]
 
-        self.llm = get_llm(model="gpt-3.5-turbo", temperature=0)
+        self.llm = get_llm(model="gpt-4o-mini", temperature=0)
 
         # 建立 prompt
         self.prompt = ChatPromptTemplate.from_messages([

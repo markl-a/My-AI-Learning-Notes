@@ -37,7 +37,7 @@ class Message(BaseModel):
 
 class ChatRequest(BaseModel):
     message: str
-    model: Optional[str] = "gpt-3.5-turbo"
+    model: Optional[str] = "gpt-4o-mini"
 
 
 class ChatResponse(BaseModel):
@@ -71,7 +71,7 @@ async def chat(request: ChatRequest):
     ```json
     {
         "message": "你好！",
-        "model": "gpt-3.5-turbo"
+        "model": "gpt-4o-mini"
     }
     ```
     """
@@ -121,7 +121,7 @@ async def summarize(text: str):
         client = OpenAI(api_key=api_key)
 
         response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",
             messages=[
                 {
                     "role": "system",
@@ -152,7 +152,7 @@ async def translate(text: str, target_language: str = "英文"):
         client = OpenAI(api_key=api_key)
 
         response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",
             messages=[
                 {
                     "role": "system",

@@ -27,7 +27,7 @@ from langchain_core.output_parsers import StrOutputParser
 class DocumentProcessor:
     """文件處理器"""
 
-    def __init__(self, model_name: str = "gpt-3.5-turbo"):
+    def __init__(self, model_name: str = "gpt-4o-mini"):
         load_environment()
         setup_langsmith()
         self.llm = get_llm(model=model_name)

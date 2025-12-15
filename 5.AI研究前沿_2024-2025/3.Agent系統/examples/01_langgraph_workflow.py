@@ -220,7 +220,7 @@ class SimpleAgent:
     """簡單的 LangGraph Agent 示例"""
 
     def __init__(self):
-        self.llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
+        self.llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
 
     def create_simple_workflow(self) -> StateGraph:
         """創建簡單的工作流"""
@@ -291,7 +291,7 @@ def example_research_agent():
         print("請設定 OPENAI_API_KEY 環境變數")
         return
 
-    agent = ResearchAgent(model="gpt-3.5-turbo")  # 使用較便宜的模型
+    agent = ResearchAgent(model="gpt-4o-mini")  # 使用較便宜的模型
 
     # 運行查詢
     query = "解釋什麼是 Transformer 架構，以及它為什麼重要？"

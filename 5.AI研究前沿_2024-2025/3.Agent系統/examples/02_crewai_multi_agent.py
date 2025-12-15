@@ -279,7 +279,7 @@ def example_research_crew():
     """示例 1: 研究團隊"""
     print("=== 示例 1: CrewAI 研究團隊 ===\n")
 
-    research_crew = ResearchCrew(model="gpt-3.5-turbo")
+    research_crew = ResearchCrew(model="gpt-4o-mini")
     crew = research_crew.create_research_crew()
 
     # 執行研究任務
@@ -295,7 +295,7 @@ def example_content_team():
     """示例 2: 內容創作團隊"""
     print("=== 示例 2: 內容創作團隊 ===\n")
 
-    content_crew = ResearchCrew(model="gpt-3.5-turbo")
+    content_crew = ResearchCrew(model="gpt-4o-mini")
     crew = content_crew.create_content_team()
 
     result = crew.kickoff(inputs={
@@ -310,7 +310,7 @@ def example_product_team():
     """示例 3: 產品開發團隊"""
     print("=== 示例 3: 產品開發團隊 ===\n")
 
-    product_crew = ResearchCrew(model="gpt-3.5-turbo")
+    product_crew = ResearchCrew(model="gpt-4o-mini")
     crew = product_crew.create_product_team()
 
     result = crew.kickoff(inputs={
@@ -351,7 +351,7 @@ def example_with_tools():
     )
 
     # 創建帶工具的 Agent
-    llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.7)
+    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.7)
 
     research_agent = Agent(
         role='研究助手',
