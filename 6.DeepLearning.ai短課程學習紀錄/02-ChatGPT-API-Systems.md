@@ -33,7 +33,7 @@ import json
 
 client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
-def get_completion(prompt, model="gpt-3.5-turbo"):
+def get_completion(prompt, model="gpt-4o-mini"):
     """單輪對話的簡化版本"""
     messages = [{"role": "user", "content": prompt}]
     response = client.chat.completions.create(
@@ -43,7 +43,7 @@ def get_completion(prompt, model="gpt-3.5-turbo"):
     )
     return response.choices[0].message.content
 
-def get_completion_from_messages(messages, model="gpt-3.5-turbo", temperature=0):
+def get_completion_from_messages(messages, model="gpt-4o-mini", temperature=0):
     """多輪對話版本"""
     response = client.chat.completions.create(
         model=model,
@@ -86,7 +86,7 @@ print(response)
 #### Tokens 計算
 
 ```python
-def get_completion_and_token_count(messages, model="gpt-3.5-turbo", temperature=0):
+def get_completion_and_token_count(messages, model="gpt-4o-mini", temperature=0):
     """取得回應並計算 token 數量"""
     response = client.chat.completions.create(
         model=model,
@@ -802,7 +802,7 @@ import hashlib
 from functools import lru_cache
 
 @lru_cache(maxsize=100)
-def cached_completion(prompt_hash, model="gpt-3.5-turbo"):
+def cached_completion(prompt_hash, model="gpt-4o-mini"):
     """使用快取避免重複的 API 呼叫"""
     # 實際實作需要從 hash 反查原始 prompt
     # 這裡僅示範概念

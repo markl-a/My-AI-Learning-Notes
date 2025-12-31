@@ -51,7 +51,7 @@ from langchain_core.output_parsers import StrOutputParser
 
 class QueryRewriter:
     def __init__(self):
-        self.llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
+        self.llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
 
     def rewrite_for_retrieval(self, query: str) -> str:
         """重寫查詢以提升檢索效果"""
@@ -126,7 +126,7 @@ print(f"\n後退提示：{rewriter.step_back_prompting(original_query)}")
 ```python
 class QueryDecomposer:
     def __init__(self):
-        self.llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
+        self.llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
 
     def decompose(self, complex_query: str) -> list:
         """將複雜查詢分解為子問題"""
@@ -341,7 +341,7 @@ for i, (doc, score) in enumerate(reranked_docs, 1):
 ```python
 class LLMReranker:
     def __init__(self):
-        self.llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
+        self.llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
 
     def rerank(
         self,
@@ -530,7 +530,7 @@ print(json.dumps(quality_scores, indent=2, ensure_ascii=False))
 ```python
 class AdvancedRAGSystem:
     def __init__(self):
-        self.llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
+        self.llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
         self.query_rewriter = QueryRewriter()
         self.evaluator = RAGEvaluator()
 

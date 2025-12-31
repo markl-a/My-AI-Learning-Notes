@@ -257,9 +257,9 @@ print(f"元數據: {chunks[0].metadata}")
 ### 4.4.3 使用 Chroma 建立向量資料庫
 
 ```python
-from langchain.vectorstores import Chroma
-from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.document_loaders import TextLoader
+from langchain_community.vectorstores import Chroma
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_community.document_loaders import TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 # 1. 準備數據
@@ -318,9 +318,9 @@ for doc, score in results_with_scores:
 ### 4.4.4 完整的 RAG 系統實現
 
 ```python
-from langchain.vectorstores import Chroma
-from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.llms import OpenAI
+from langchain_community.vectorstores import Chroma
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_openai import OpenAI
 from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
 
@@ -378,11 +378,11 @@ for i, doc in enumerate(result['source_documents'], 1):
 ### 4.4.5 使用 LangChain 的簡化 RAG
 
 ```python
-from langchain.document_loaders import TextLoader
+from langchain_community.document_loaders import TextLoader
 from langchain.text_splitter import CharacterTextSplitter
-from langchain.vectorstores import FAISS
-from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.chat_models import ChatOpenAI
+from langchain_community.vectorstores import FAISS
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_openai import ChatOpenAI
 from langchain.chains import ConversationalRetrievalChain
 from langchain.memory import ConversationBufferMemory
 

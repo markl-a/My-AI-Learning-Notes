@@ -223,7 +223,7 @@ def main():
             ollama_models = ollama.list().get('models', [])
             if ollama_models:
                 default_models.append(ollama_models[0]['name'])
-        except:
+        except (ImportError, Exception):
             pass
 
         if default_models:

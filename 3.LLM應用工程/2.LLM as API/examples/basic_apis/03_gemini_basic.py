@@ -36,7 +36,7 @@ def basic_chat():
         print(f"  - Prompt tokens: {response.usage_metadata.prompt_token_count}")
         print(f"  - Candidates tokens: {response.usage_metadata.candidates_token_count}")
         print(f"  - Total tokens: {response.usage_metadata.total_token_count}")
-    except:
+    except AttributeError:
         pass
 
     return response
@@ -196,7 +196,7 @@ def safety_settings_example():
     try:
         for rating in response.candidates[0].safety_ratings:
             print(f"  - {rating.category.name}: {rating.probability.name}")
-    except:
+    except (AttributeError, IndexError):
         print("  無安全評分資訊")
 
     return response

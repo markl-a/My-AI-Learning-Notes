@@ -412,9 +412,28 @@ from langchain_community.tools import DuckDuckGoSearchRun
 search = DuckDuckGoSearchRun()
 
 def calculator(expression: str) -> str:
-    """計算數學表達式"""
+    """計算數學表達式（安全版本）"""
+    import ast
+    import operator
+
+    ops = {
+        ast.Add: operator.add, ast.Sub: operator.sub,
+        ast.Mult: operator.mul, ast.Div: operator.truediv,
+        ast.Pow: operator.pow, ast.USub: operator.neg
+    }
+
+    def safe_eval(node):
+        if isinstance(node, ast.Num):
+            return node.n
+        elif isinstance(node, ast.BinOp):
+            return ops[type(node.op)](safe_eval(node.left), safe_eval(node.right))
+        elif isinstance(node, ast.UnaryOp):
+            return ops[type(node.op)](safe_eval(node.operand))
+        raise ValueError("不支援的運算")
+
     try:
-        return str(eval(expression))
+        tree = ast.parse(expression, mode='eval')
+        return str(safe_eval(tree.body))
     except:
         return "Invalid expression"
 

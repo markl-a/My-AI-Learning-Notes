@@ -66,7 +66,7 @@ functions = [
 messages = [{"role": "user", "content": "台北現在天氣如何？"}]
 
 response = client.chat.completions.create(
-    model="gpt-3.5-turbo",
+    model="gpt-4o-mini",
     messages=messages,
     functions=functions,
     function_call="auto"  # 讓模型自動決定是否呼叫函數
@@ -102,7 +102,7 @@ if response_message.function_call:
 
         # 獲取最終回應
         second_response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",
             messages=messages
         )
 
@@ -148,9 +148,28 @@ def get_stock_price(symbol: str) -> Dict[str, Any]:
     return {"error": "找不到該股票"}
 
 def calculate(expression: str) -> Dict[str, Any]:
-    """計算數學表達式"""
+    """計算數學表達式（安全版本）"""
+    import ast
+    import operator
+
+    ops = {
+        ast.Add: operator.add, ast.Sub: operator.sub,
+        ast.Mult: operator.mul, ast.Div: operator.truediv,
+        ast.Pow: operator.pow, ast.USub: operator.neg
+    }
+
+    def safe_eval(node):
+        if isinstance(node, ast.Num):
+            return node.n
+        elif isinstance(node, ast.BinOp):
+            return ops[type(node.op)](safe_eval(node.left), safe_eval(node.right))
+        elif isinstance(node, ast.UnaryOp):
+            return ops[type(node.op)](safe_eval(node.operand))
+        raise ValueError("不支援的運算")
+
     try:
-        result = eval(expression)
+        tree = ast.parse(expression, mode='eval')
+        result = safe_eval(tree.body)
         return {"expression": expression, "result": result}
     except Exception as e:
         return {"error": str(e)}
@@ -206,7 +225,7 @@ def run_conversation(user_message: str):
 
     # 第一次 API 呼叫
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o-mini",
         messages=messages,
         functions=functions,
         function_call="auto"
@@ -238,7 +257,7 @@ def run_conversation(user_message: str):
 
         # 第二次 API 呼叫
         second_response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",
             messages=messages
         )
 
@@ -384,7 +403,7 @@ from langchain.agents import AgentExecutor, create_openai_functions_agent
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
 # 初始化模型
-llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
+llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
 
 # 建立提示模板
 prompt = ChatPromptTemplate.from_messages([
@@ -470,7 +489,7 @@ from datetime import datetime
 
 class MultiToolAssistant:
     def __init__(self):
-        self.llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
+        self.llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
         self.tools = self.create_tools()
         self.agent_executor = self.create_agent()
 

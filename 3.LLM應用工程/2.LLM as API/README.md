@@ -378,9 +378,8 @@ if __name__ == "__main__":
 **RAG 應用範例**：
 ```python
 import gradio as gr
-from langchain.vectorstores import Chroma
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.chat_models import ChatOpenAI
+from langchain_community.vectorstores import Chroma
+from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain.chains import RetrievalQA
 
 # 初始化

@@ -170,7 +170,7 @@ plan = [
 **實作範例**：
 ```python
 from langchain.memory import ConversationBufferMemory, VectorStoreRetrieverMemory
-from langchain.vectorstores import Chroma
+from langchain_community.vectorstores import Chroma
 
 # 短期記憶
 short_term_memory = ConversationBufferMemory(
@@ -484,9 +484,28 @@ def search_tool(query: str) -> str:
     return mock_results.get(query, "未找到相關資訊")
 
 def calculator_tool(expression: str) -> str:
-    """計算器工具"""
+    """計算器工具（安全版本）"""
+    import ast
+    import operator
+
+    ops = {
+        ast.Add: operator.add, ast.Sub: operator.sub,
+        ast.Mult: operator.mul, ast.Div: operator.truediv,
+        ast.Pow: operator.pow, ast.USub: operator.neg
+    }
+
+    def safe_eval(node):
+        if isinstance(node, ast.Num):
+            return node.n
+        elif isinstance(node, ast.BinOp):
+            return ops[type(node.op)](safe_eval(node.left), safe_eval(node.right))
+        elif isinstance(node, ast.UnaryOp):
+            return ops[type(node.op)](safe_eval(node.operand))
+        raise ValueError("不支援的運算")
+
     try:
-        result = eval(expression)  # 注意：生產環境應使用安全的計算方法
+        tree = ast.parse(expression, mode='eval')
+        result = safe_eval(tree.body)
         return str(result)
     except Exception as e:
         return f"計算錯誤: {str(e)}"
@@ -508,8 +527,9 @@ print(f"答案：{answer}")
 
 ```python
 from langchain.agents import initialize_agent, Tool, AgentType
-from langchain.llms import OpenAI
-from langchain.utilities import GoogleSearchAPIWrapper, PythonREPL
+from langchain_openai import OpenAI
+from langchain_community.utilities import GoogleSearchAPIWrapper
+from langchain_experimental.utilities import PythonREPL
 
 # 初始化工具
 search = GoogleSearchAPIWrapper()
@@ -2016,13 +2036,13 @@ class AgentEvaluator:
 class CostTracker:
     """成本追蹤器"""
 
-    # 2024 價格（美元）
+    # 2025 價格（美元）
     PRICING = {
-        "gpt-4": {"input": 0.03 / 1000, "output": 0.06 / 1000},
+        "gpt-4o": {"input": 0.0025 / 1000, "output": 0.01 / 1000},
+        "gpt-4o-mini": {"input": 0.00015 / 1000, "output": 0.0006 / 1000},
         "gpt-4-turbo": {"input": 0.01 / 1000, "output": 0.03 / 1000},
-        "gpt-3.5-turbo": {"input": 0.0005 / 1000, "output": 0.0015 / 1000},
         "claude-3-opus": {"input": 0.015 / 1000, "output": 0.075 / 1000},
-        "claude-3-sonnet": {"input": 0.003 / 1000, "output": 0.015 / 1000},
+        "claude-3.5-sonnet": {"input": 0.003 / 1000, "output": 0.015 / 1000},
     }
 
     def __init__(self):

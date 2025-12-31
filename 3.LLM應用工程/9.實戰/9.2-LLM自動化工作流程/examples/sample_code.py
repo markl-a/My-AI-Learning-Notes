@@ -28,7 +28,7 @@ def process_user_data(data):
             if item['age'] > 18:
                 result.append(item)
         return result
-    except:
+    except (KeyError, TypeError):
         return []
 
 

@@ -82,7 +82,7 @@ def test_gemini(prompt: str, model_name: str = "gemini-1.5-pro") -> Dict:
         prompt_tokens = response.usage_metadata.prompt_token_count
         completion_tokens = response.usage_metadata.candidates_token_count
         total_tokens = response.usage_metadata.total_token_count
-    except:
+    except AttributeError:
         prompt_tokens = 0
         completion_tokens = 0
         total_tokens = 0

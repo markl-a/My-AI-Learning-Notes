@@ -24,7 +24,7 @@ client = OpenAI()
 def chat(message, history):
     """聊天功能"""
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o-mini",
         messages=[{"role": "user", "content": message}]
     )
     return response.choices[0].message.content
@@ -33,7 +33,7 @@ def chat(message, history):
 demo = gr.ChatInterface(
     fn=chat,
     title="AI 聊天機器人",
-    description="使用 GPT-3.5 的聊天機器人"
+    description="使用 GPT-4o-mini 的聊天機器人"
 )
 
 # 啟動

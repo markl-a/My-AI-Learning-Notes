@@ -215,7 +215,7 @@ class Llama31Model:
                 tool_call = json.loads(json_str)
                 if 'tool' in tool_call:
                     return tool_call
-        except:
+        except (json.JSONDecodeError, ValueError):
             pass
         return None
 

@@ -349,7 +349,7 @@ class MultimodalRAG:
 
     def __init__(self):
         self.text_embeddings = OpenAIEmbeddings()
-        self.vision_model = ChatOpenAI(model="gpt-4-vision-preview")
+        self.vision_model = ChatOpenAI(model="gpt-4o")  # GPT-4o 具備視覺能力
 
     def process_document_with_images(self, pdf_path: str):
         """處理包含圖像的 PDF 文檔"""

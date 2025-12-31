@@ -335,8 +335,29 @@ async def calculate(expression: str) -> str:
     Returns:
         計算結果
     """
+    import ast
+    import operator
+
+    # 安全的運算符映射
+    ops = {
+        ast.Add: operator.add, ast.Sub: operator.sub,
+        ast.Mult: operator.mul, ast.Div: operator.truediv,
+        ast.Pow: operator.pow, ast.USub: operator.neg
+    }
+
+    def safe_eval(node):
+        if isinstance(node, ast.Num):
+            return node.n
+        elif isinstance(node, ast.BinOp):
+            return ops[type(node.op)](safe_eval(node.left), safe_eval(node.right))
+        elif isinstance(node, ast.UnaryOp):
+            return ops[type(node.op)](safe_eval(node.operand))
+        else:
+            raise ValueError(f"不支援的運算: {type(node)}")
+
     try:
-        result = eval(expression)  # 注意: 生產環境需要安全處理
+        tree = ast.parse(expression, mode='eval')
+        result = safe_eval(tree.body)
         return f"結果: {result}"
     except Exception as e:
         return f"計算錯誤: {str(e)}"

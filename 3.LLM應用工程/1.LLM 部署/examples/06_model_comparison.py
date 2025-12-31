@@ -282,8 +282,8 @@ def demo_basic_comparison():
     try:
         ollama.list()
         available_models.extend(["llama3.1:8b", "mistral:7b"])
-    except:
-        console.print("[yellow]⚠️  Ollama 不可用[/yellow]")
+    except Exception as e:
+        console.print(f"[yellow]⚠️  Ollama 不可用: {e}[/yellow]")
 
     if not available_models:
         console.print("[red]❌ 沒有可用的模型[/red]\n")
@@ -324,7 +324,7 @@ def demo_performance_comparison():
     try:
         ollama.list()
         models.append("llama3.1:8b")
-    except:
+    except Exception:
         pass
 
     if len(models) < 2:
@@ -444,7 +444,7 @@ def demo_quality_comparison():
     try:
         ollama.list()
         models.append("llama3.1:8b")
-    except:
+    except Exception:
         pass
 
     if not models:
@@ -477,7 +477,7 @@ def demo_save_comparison():
     try:
         ollama.list()
         models.append("llama3.1:8b")
-    except:
+    except Exception:
         pass
 
     if not models:

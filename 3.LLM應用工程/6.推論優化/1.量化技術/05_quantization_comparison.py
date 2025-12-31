@@ -530,7 +530,7 @@ class QuantizationComparison:
         # 顯示（如果在互動環境中）
         try:
             plt.show()
-        except:
+        except Exception:
             pass
 
 

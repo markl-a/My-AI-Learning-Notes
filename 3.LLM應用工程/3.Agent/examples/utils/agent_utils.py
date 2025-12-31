@@ -46,7 +46,7 @@ def setup_environment() -> Dict[str, str]:
 
 
 def get_llm(
-    model: str = "gpt-4-turbo-preview",
+    model: str = "gpt-4o",
     temperature: float = 0.7,
     max_tokens: Optional[int] = None,
     streaming: bool = False,

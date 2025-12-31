@@ -89,7 +89,7 @@ from langchain_openai import ChatOpenAI
 
 # 初始化聊天模型
 llm = ChatOpenAI(
-    model="gpt-3.5-turbo",
+    model="gpt-4o-mini",
     temperature=0.7,  # 控制輸出的隨機性
     max_tokens=100     # 限制輸出長度
 )
@@ -627,9 +627,28 @@ def get_current_weather(location: str) -> str:
     return weather_data.get(location, "查無此地點的天氣資訊")
 
 def calculate(expression: str) -> str:
-    """計算數學表達式"""
+    """計算數學表達式（安全版本）"""
+    import ast
+    import operator
+
+    ops = {
+        ast.Add: operator.add, ast.Sub: operator.sub,
+        ast.Mult: operator.mul, ast.Div: operator.truediv,
+        ast.Pow: operator.pow, ast.USub: operator.neg
+    }
+
+    def safe_eval(node):
+        if isinstance(node, ast.Num):
+            return node.n
+        elif isinstance(node, ast.BinOp):
+            return ops[type(node.op)](safe_eval(node.left), safe_eval(node.right))
+        elif isinstance(node, ast.UnaryOp):
+            return ops[type(node.op)](safe_eval(node.operand))
+        raise ValueError("不支援的運算")
+
     try:
-        result = eval(expression)
+        tree = ast.parse(expression, mode='eval')
+        result = safe_eval(tree.body)
         return f"計算結果：{result}"
     except:
         return "計算錯誤"
