@@ -548,7 +548,7 @@ for doc in compressed_docs:
 from langchain.chains import RetrievalQA
 from langchain_openai import ChatOpenAI
 
-llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
+llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
 
 qa_chain = RetrievalQA.from_chain_type(
     llm=llm,
@@ -727,7 +727,7 @@ class TaiwanKnowledgeBot:
 
     def create_conversation_chain(self):
         """建立對話鏈"""
-        llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
+        llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
 
         memory = ConversationBufferMemory(
             memory_key="chat_history",

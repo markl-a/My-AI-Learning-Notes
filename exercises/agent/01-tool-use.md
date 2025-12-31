@@ -138,7 +138,7 @@ def chat_with_tools(user_message: str, tools: list, executor: ToolExecutor) -> s
 
     # 第一次調用：獲取工具調用意圖
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o-mini",
         messages=messages,
         tools=tools,
         tool_choice="auto"

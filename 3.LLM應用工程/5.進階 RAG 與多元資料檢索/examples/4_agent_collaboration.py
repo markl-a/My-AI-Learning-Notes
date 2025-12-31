@@ -118,13 +118,27 @@ class CalculatorTool(BaseTool):
             # 清理輸入
             expression = expression.strip()
 
-            # 安全檢查：只允許數字和基本運算符
-            allowed_chars = set("0123456789+-*/().() ")
-            if not all(c in allowed_chars for c in expression):
-                return "錯誤：表達式包含不允許的字符"
+            # 使用 ast 模組進行安全計算
+            import ast
+            import operator
 
-            # 計算
-            result = eval(expression)
+            ops = {
+                ast.Add: operator.add, ast.Sub: operator.sub,
+                ast.Mult: operator.mul, ast.Div: operator.truediv,
+                ast.Pow: operator.pow, ast.USub: operator.neg
+            }
+
+            def safe_eval(node):
+                if isinstance(node, ast.Num):
+                    return node.n
+                elif isinstance(node, ast.BinOp):
+                    return ops[type(node.op)](safe_eval(node.left), safe_eval(node.right))
+                elif isinstance(node, ast.UnaryOp):
+                    return ops[type(node.op)](safe_eval(node.operand))
+                raise ValueError("不支援的運算")
+
+            tree = ast.parse(expression, mode='eval')
+            result = safe_eval(tree.body)
             return f"計算結果: {result}"
 
         except ZeroDivisionError:
