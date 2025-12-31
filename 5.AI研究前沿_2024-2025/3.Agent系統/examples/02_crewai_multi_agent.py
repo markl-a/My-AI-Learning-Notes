@@ -354,8 +354,8 @@ def example_with_tools():
             tree = ast.parse(expression, mode='eval')
             result = safe_eval(tree.body)
             return f"計算結果: {result}"
-        except:
-            return "計算錯誤"
+        except (SyntaxError, ValueError, TypeError) as e:
+            return f"計算錯誤: {e}"
 
     search_tool = Tool(
         name="網絡搜索",

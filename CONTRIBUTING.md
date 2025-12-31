@@ -224,7 +224,7 @@ mypy . --ignore-missing-imports
 
 from typing import List, Dict, Optional
 import numpy as np
-from langchain.llms import OpenAI
+from langchain_openai import OpenAI
 
 
 class ExampleClass:
