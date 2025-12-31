@@ -1782,17 +1782,17 @@ APIs 是部署 LLMs 的便捷方式。以下是如何使用一些常見的私有
     - 使用所獲取的 API Key，在您的應用程序中集成 API。
     - 例如，使用 OpenAI 的 API，可以參考以下 Python 代碼：
       ```python
-      import openai
+      from openai import OpenAI
 
-      openai.api_key = 'your-api-key-here'
+      client = OpenAI(api_key='your-api-key-here')
 
-      response = openai.Completion.create(
-          engine="text-davinci-003",
-          prompt="Hello, world!",
+      response = client.chat.completions.create(
+          model="gpt-4o-mini",
+          messages=[{"role": "user", "content": "Hello, world!"}],
           max_tokens=50
       )
 
-      print(response.choices[0].text.strip())
+      print(response.choices[0].message.content)
       ```
 
 #### 步驟 2：運行開源 LLMs

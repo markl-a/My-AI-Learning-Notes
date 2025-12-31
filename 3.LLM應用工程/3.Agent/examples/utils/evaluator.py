@@ -20,7 +20,7 @@ class AgentEvaluator:
     使用 LLM 評估 Agent 的輸出質量。
     """
 
-    def __init__(self, model: str = "gpt-4-turbo-preview"):
+    def __init__(self, model: str = "gpt-4o"):
         """
         初始化評估器
 

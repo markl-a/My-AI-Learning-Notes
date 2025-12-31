@@ -170,7 +170,7 @@ plan = [
 **實作範例**：
 ```python
 from langchain.memory import ConversationBufferMemory, VectorStoreRetrieverMemory
-from langchain.vectorstores import Chroma
+from langchain_community.vectorstores import Chroma
 
 # 短期記憶
 short_term_memory = ConversationBufferMemory(
@@ -527,8 +527,9 @@ print(f"答案：{answer}")
 
 ```python
 from langchain.agents import initialize_agent, Tool, AgentType
-from langchain.llms import OpenAI
-from langchain.utilities import GoogleSearchAPIWrapper, PythonREPL
+from langchain_openai import OpenAI
+from langchain_community.utilities import GoogleSearchAPIWrapper
+from langchain_experimental.utilities import PythonREPL
 
 # 初始化工具
 search = GoogleSearchAPIWrapper()
