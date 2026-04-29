@@ -6,6 +6,27 @@
 [![GitHub stars](https://img.shields.io/github/stars/markl-a/My-AI-Learning-Notes?style=social)](https://github.com/markl-a/My-AI-Learning-Notes)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Last Update](https://img.shields.io/badge/last%20update-2025--01-green.svg)](https://github.com/markl-a/My-AI-Learning-Notes)
+[![Powered by phantom-mesh](https://img.shields.io/badge/powered%20by-phantom--mesh-purple)](https://github.com/markl-a/phantom-mesh)
+
+---
+
+## 🔗 phantom-mesh 生態系（知識庫 + 面試訓練）
+
+本知識庫同時是 [phantom-mesh](https://github.com/markl-a/phantom-mesh) 生態系的
+**學習路徑與面試準備教材**。phantom-mesh 是自託管多 agent AI runtime，跨
+Mac / Linux / Windows / Android / iOS 五平台。
+
+**兩個用途：**
+
+1. **AI 工程師學習路徑**（如下方目錄）：從基礎數學到 LLM 應用工程的繁中筆記。
+2. **AI / 資料科學面試準備**：第 9 章「面試準備與職業發展」整合了 phantom-mesh
+   開發過程中遇到的真實問題作為案例 — multi-agent 協調、provider fallback、
+   streaming SSE 解析、cost tracking、跨平台 build chain。每個都是面試現場
+   可深入討論的題材。
+
+簡言之：**這份知識庫是學習筆記 + phantom-mesh 開發回饋產生的實戰教材合集**。
+
+---
 
 ## 📋 相關的框架以及演算法學習
 
