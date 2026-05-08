@@ -13,8 +13,8 @@
 ## 🔗 phantom-mesh 生態系（知識庫 + 面試訓練）
 
 本知識庫同時是 [phantom-mesh](https://github.com/markl-a/phantom-mesh) 生態系的
-**學習路徑與面試準備教材**。phantom-mesh 是自託管多 agent AI runtime，跨
-Mac / Linux / Windows / Android / iOS 五平台。
+**學習路徑與面試準備教材**。phantom-mesh 是自託管多 agent AI runtime，目標是逐步支援
+desktop / mobile / cloud surfaces；本 repo 不屬於 runtime，而是知識庫與面試材料。
 
 **兩個用途：**
 
@@ -25,6 +25,16 @@ Mac / Linux / Windows / Android / iOS 五平台。
    可深入討論的題材。
 
 簡言之：**這份知識庫是學習筆記 + phantom-mesh 開發回饋產生的實戰教材合集**。
+
+---
+
+## Current Verification
+
+Latest `goal_plan` local check:
+
+- `python -m pytest tests -q -x`: passed with warnings
+
+Current public claim: learning notes, interview foundation, and knowledge base. It is not a runtime component.
 
 ---
 
