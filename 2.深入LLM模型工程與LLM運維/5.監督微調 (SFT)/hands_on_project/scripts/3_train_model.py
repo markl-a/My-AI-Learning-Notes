@@ -14,11 +14,10 @@ import torch
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
-    TrainingArguments,
     BitsAndBytesConfig
 )
 from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
-from trl import SFTTrainer
+from trl import SFTTrainer, SFTConfig
 from datasets import Dataset
 import logging
 
@@ -185,10 +184,11 @@ def train(
     else:
         val_dataset = None
 
-    # 訓練參數
+    # 訓練參數 (TRL >= 0.12 後改用 SFTConfig,把 dataset_text_field / max_seq_length 等
+    # SFT 專屬欄位與 TrainingArguments 合併到同一個 config)
     logger.info("配置訓練參數...")
 
-    training_args = TrainingArguments(
+    training_args = SFTConfig(
         output_dir=output_dir,
         num_train_epochs=num_epochs,
         per_device_train_batch_size=batch_size,
@@ -205,12 +205,14 @@ def train(
         warmup_ratio=0.03,
         lr_scheduler_type="cosine",
         report_to="wandb" if use_wandb else "none",
-        evaluation_strategy="steps" if val_dataset else "no",
+        eval_strategy="steps" if val_dataset else "no",
         eval_steps=save_steps if val_dataset else None,
-        load_best_model_at_end=True if val_dataset else False
+        load_best_model_at_end=True if val_dataset else False,
+        dataset_text_field="text",
+        max_seq_length=max_seq_length,
     )
 
-    # 創建 Trainer
+    # 創建 Trainer (新版 SFTTrainer 用 processing_class 取代 tokenizer)
     logger.info("創建 SFTTrainer...")
 
     trainer = SFTTrainer(
@@ -218,9 +220,7 @@ def train(
         train_dataset=train_dataset,
         eval_dataset=val_dataset,
         peft_config=None,  # 已經應用了 PEFT
-        dataset_text_field="text",
-        max_seq_length=max_seq_length,
-        tokenizer=tokenizer,
+        processing_class=tokenizer,
         args=training_args
     )
 
