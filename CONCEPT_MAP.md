@@ -2,6 +2,8 @@
 
 > 本檔是 [GLOSSARY.md](./GLOSSARY.md) 的關係圖補充:GLOSSARY 是字母索引(每詞一行定義),CONCEPT_MAP 是主題關係圖(每概念對應到 canonical 檔案)。
 > 讀者找某個概念的權威來源,先查本檔。對於 2024-2026 才浮現的 frontier 新詞,請查 [FRONTIER_TERMS_INDEX.md](./FRONTIER_TERMS_INDEX.md)。
+>
+> **🕰️ 想知道某概念的歷史脈絡**(如 Transformer 為何 2017 才出現、為什麼 LSTM 主導 1997-2017、AI 為何有過兩次寒冬),請看 [AI 領域演進史 1950→2026](./AI_領域演進史_1950_to_2026.md)。本檔只標「現在在哪」,歷史檔解釋「為什麼變這樣」。
 
 ---
 

@@ -13,7 +13,7 @@
 
 | 目標 | 從這開始 | 估時 |
 |---|---|---|
-| 🗺️ **想懂 2024-2026 整片 AI 領域** | [2024-2026 AI 完整領域全景圖](./2024-2026_AI完整領域全景圖.md) + [CONCEPT_MAP.md](./CONCEPT_MAP.md) | 30 分鐘讀完 |
+| 🗺️ **想懂 AI 從 1950 到 2026 整片發展** | [AI 領域演進史 1950→2026](./AI_領域演進史_1950_to_2026.md)(歷史長軸)+ [2024-2026 AI 完整領域全景圖](./2024-2026_AI完整領域全景圖.md)(當代 frontier)+ [CONCEPT_MAP.md](./CONCEPT_MAP.md) | 30 分鐘讀完(歷史 15 分 + frontier 15 分)|
 | ⚡ **想立刻動手跑 LLM** | [📒 5 份 Colab Notebook](#-五份-colab-notebook完整-llm-工程訓練曲線) | 30 分鐘跑通第一份 |
 | 🎯 **準備 AI 工程師面試** | [主題 9 面試準備](./9.面試準備與職業發展/README.md) — 180+ 題 + 5 案例 | 6 週衝刺 |
 | 🤝 **phantom-mesh contributor** | [全景圖 #13/14](./2024-2026_AI完整領域全景圖.md) + [Case_02 LLM Gateway](./9.面試準備與職業發展/2.系統設計案例/Case_02_LLM_Gateway_API_Platform.md) | 1 週 ramp-up |
