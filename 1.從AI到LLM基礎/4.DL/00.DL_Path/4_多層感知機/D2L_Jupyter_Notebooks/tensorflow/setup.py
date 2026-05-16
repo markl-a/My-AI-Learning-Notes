@@ -6,7 +6,7 @@ requirements = [
     'numpy==1.23.5',
     'matplotlib==3.7.2',
     'matplotlib-inline==0.1.6',
-    'requests==2.31.0',
+    'requests==2.33.0',
     'pandas==2.0.3'
 ]
 
