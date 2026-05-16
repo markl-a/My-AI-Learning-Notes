@@ -1,6 +1,11 @@
 # ============================================================
 # MkDocs Configuration - AI Learning Notes 文檔網站
 # ============================================================
+# [WIP] nav 路徑與實際目錄不符,2026-05 標記待重寫
+# 目前許多 nav 條目指向不存在的子目錄(深度學習基礎、Transformer 架構、
+# 預訓練模型、多模態 AI、AI-Agent、面試題庫 子節點),已先註解掉。
+# 待完整重新規劃 site nav,對應現在 22 主題 + frontier 章節的實際結構。
+# ============================================================
 
 site_name: AI Learning Notes | AI 學習筆記
 site_description: 從 AI 基礎到 LLM 應用的完整學習指南
@@ -135,7 +140,7 @@ extra:
 
   analytics:
     provider: google
-    property: G-XXXXXXXXXX  # 替換為實際的 GA ID
+    property: G-PLACEHOLDER  # 替換為實際的 GA ID(2026-05 placeholder)
 
   generator: false
 
@@ -154,23 +159,26 @@ nav:
 
   - 1. AI/LLM 基礎:
     - 1.從AI到LLM基礎/README.md
-    - 深度學習基礎: 1.從AI到LLM基礎/深度學習基礎/README.md
-    - Transformer 架構: 1.從AI到LLM基礎/Transformer架構/README.md
-    - 預訓練模型: 1.從AI到LLM基礎/預訓練模型/README.md
+    # [WIP] 以下子節點實際目錄名為 1.Math_4_ML / 2.AI_Intro / 3.ML_&_Data_Analysis / 4.DL,nav 待重寫
+    # - 深度學習基礎: 1.從AI到LLM基礎/深度學習基礎/README.md
+    # - Transformer 架構: 1.從AI到LLM基礎/Transformer架構/README.md
+    # - 預訓練模型: 1.從AI到LLM基礎/預訓練模型/README.md
 
   - 2. LLM 模型工程:
     - 2.深入LLM模型工程與LLM運維/README.md
-    - 模型訓練: 2.深入LLM模型工程與LLM運維/1.LLM訓練/README.md
-    - 模型評估: 2.深入LLM模型工程與LLM運維/2.LLM評估/README.md
-    - 模型微調: 2.深入LLM模型工程與LLM運維/3.微調技術/README.md
+    # [WIP] 實際目錄為 1.LLM 基礎與架構 / 5.監督微調 (SFT) / 6.偏好對齊 / 8.模型部署與運維 等
+    # - 模型訓練: 2.深入LLM模型工程與LLM運維/1.LLM訓練/README.md
+    # - 模型評估: 2.深入LLM模型工程與LLM運維/2.LLM評估/README.md
+    # - 模型微調: 2.深入LLM模型工程與LLM運維/3.微調技術/README.md
 
   - 3. LLM 應用工程:
     - 3.LLM應用工程/README.md
     - LLM 部署: 3.LLM應用工程/1.LLM 部署/README.md
     - LLM as API: 3.LLM應用工程/2.LLM as API/README.md
-    - Prompt Engineering: 3.LLM應用工程/3.提示工程學/README.md
-    - RAG 系統: 3.LLM應用工程/4.RAG/README.md
-    - Agent 框架: 3.LLM應用工程/5.Agent/README.md
+    # [WIP] 提示工程實際目錄不是「3.提示工程學」,RAG 實際為「4.(RAG) 基礎」,Agent 為「3.Agent」
+    # - Prompt Engineering: 3.LLM應用工程/3.提示工程學/README.md
+    # - RAG 系統: 3.LLM應用工程/4.RAG/README.md
+    # - Agent 框架: 3.LLM應用工程/5.Agent/README.md
     - 實戰項目: 3.LLM應用工程/9.實戰/README.md
 
   - 4. 更新 Blog:
@@ -178,15 +186,17 @@ nav:
 
   - 5. AI 研究前沿:
     - 5.AI研究前沿_2024-2025/README.md
-    - 多模態 AI: 5.AI研究前沿_2024-2025/多模態AI/README.md
-    - AI Agent: 5.AI研究前沿_2024-2025/AI-Agent/README.md
+    # [WIP] 實際子目錄為 1.大型語言模型(LLM) / 2.多模態模型 / 3.Agent系統 等
+    # - 多模態 AI: 5.AI研究前沿_2024-2025/多模態AI/README.md
+    # - AI Agent: 5.AI研究前沿_2024-2025/AI-Agent/README.md
 
   - 6. DeepLearning.ai 短課程:
     - 6.DeepLearning.ai短課程學習紀錄/README.md
 
   - 9. 面試與職業:
     - 9.面試準備與職業發展/README.md
-    - 面試題庫: 9.面試準備與職業發展/面試題庫/README.md
+    # [WIP] 實際子目錄為 1.LLM面試題庫
+    # - 面試題庫: 9.面試準備與職業發展/面試題庫/README.md
 
   - 資源:
     - 學習資源: RESOURCES.md
