@@ -142,10 +142,15 @@ jobs:
           import pathlib
           import sys
 
+          # 排除的目錄:
+          # - .ipynb_checkpoints: jupyter 暫存
+          # - D2L_Jupyter_Notebooks: 上游 d2l-book archive,TF 版多個 chapter 是空檔
+          SKIP_DIRS = {'.ipynb_checkpoints', 'D2L_Jupyter_Notebooks'}
+
           errors = []
           checked = 0
           for nb_path in pathlib.Path('.').rglob('*.ipynb'):
-              if '.ipynb_checkpoints' in nb_path.parts:
+              if any(part in SKIP_DIRS for part in nb_path.parts):
                   continue
               checked += 1
               try:
@@ -154,7 +159,7 @@ jobs:
               except Exception as e:
                   errors.append((str(nb_path), type(e).__name__, str(e)[:200]))
 
-          print(f"檢查了 {checked} 個 .ipynb")
+          print(f"檢查了 {checked} 個 .ipynb (已排除 d2l archive)")
           if errors:
               print(f"\n❌ {len(errors)} 個 notebook 格式異常:")
               for path, err_type, msg in errors:
