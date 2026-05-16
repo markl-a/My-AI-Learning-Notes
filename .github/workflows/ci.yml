@@ -166,16 +166,14 @@ jobs:
 
       - name: 🛡️ Safety - 依賴安全檢查
         run: |
-          # 檢查已知漏洞，高危問題會阻擋CI
+          # 檢查已知漏洞,發現即擋
           safety check --json --output safety-report.json
           echo "✅ 依賴安全檢查通過"
-        continue-on-error: true
 
       - name: 🔍 Pip Audit - 依賴審計
         run: |
-          # 審計依賴，發現漏洞會阻擋CI
+          # 審計依賴,發現漏洞即擋
           pip-audit --desc --strict
-        continue-on-error: true
 
       - name: 📤 上傳安全報告
         if: always()
@@ -231,6 +229,7 @@ jobs:
         if: |
           needs.lint.result == 'success' &&
           needs.test.result == 'success' &&
+          needs.security.result == 'success' &&
           needs.build.result == 'success'
         run: echo "✅ 所有 CI 檢查通過！"
 
@@ -238,6 +237,7 @@ jobs:
         if: |
           needs.lint.result != 'success' ||
           needs.test.result != 'success' ||
+          needs.security.result != 'success' ||
           needs.build.result != 'success'
         run: |
           echo "❌ 部分 CI 檢查失敗，請查看詳細日誌"
