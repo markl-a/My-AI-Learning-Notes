@@ -21,7 +21,7 @@
 │                                                         │
 │  💻 軟件工程師 (想學AI)                                  │
 │  └─> 開始: 1.從AI到LLM基礎/3.ML_&_Data_Analysis/         │
-│      ├─ 機器學習算法                                     │
+│      ├─ 機器學習演算法                                     │
 │      ├─ 深度學習基礎                                     │
 │      └─ PyTorch/TensorFlow                              │
 │                                                         │
@@ -40,7 +40,7 @@
 │                                                         │
 │  🔬 研究者 (追蹤前沿)                                    │
 │  └─> 開始: 5.AI研究前沿_2024-2025/                       │
-│      └─ 50篇關鍵論文與代碼                               │
+│      └─ 50篇關鍵論文與程式碼                               │
 │                                                         │
 └─────────────────────────────────────────────────────────┘
 ```
@@ -68,7 +68,7 @@ print(response.choices[0].message.content)
 ### 場景2: 構建你的第一個RAG系統
 
 ```python
-# 5行代碼構建RAG
+# 5行程式碼構建RAG
 from langchain_community.vectorstores import Chroma
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain.chains import RetrievalQA
@@ -80,7 +80,7 @@ result = qa.invoke({"query": "你的問題"})
 
 **位置**: `3.LLM應用工程/4.RAG基礎/`
 
-### 場景3: 創建你的第一個AI Agent
+### 場景3: 建立你的第一個AI Agent
 
 ```python
 # LangGraph簡單Agent
@@ -120,26 +120,26 @@ image.save("output.png")
 | 模塊 | 內容 | 難度 | 時間 |
 |------|------|------|------|
 | [Python基礎](./1.從AI到LLM基礎/2.AI_Intro/) | 語法、OOP、常用庫 | 🟢 入門 | 2週 |
-| [數學基礎](./1.從AI到LLM基礎/1.Math/) | 線性代數、微積分、概率 | 🟡 中級 | 4週 |
-| [機器學習](./1.從AI到LLM基礎/3.ML_&_Data_Analysis/) | 算法、特徵工程、評估 | 🟡 中級 | 6週 |
+| [數學基礎](./1.從AI到LLM基礎/1.Math_4_ML/) | 線性代數、微積分、概率 | 🟡 中級 | 4週 |
+| [機器學習](./1.從AI到LLM基礎/3.ML_&_Data_Analysis/) | 演算法、特徵工程、評估 | 🟡 中級 | 6週 |
 | [深度學習](./1.從AI到LLM基礎/4.DL/) | CNN、RNN、Transformer | 🔴 進階 | 8週 |
 
 ### 2. LLM核心 (3-6個月)
 
 | 模塊 | 內容 | 難度 | 時間 |
 |------|------|------|------|
-| [Transformer架構](./2.深入LLM模型工程與LLM運維/1.模型架構/) | 注意力機制、位置編碼 | 🔴 進階 | 4週 |
-| [模型訓練](./2.深入LLM模型工程與LLM運維/2.模型訓練/) | 預訓練、微調、LoRA | 🔴 進階 | 6週 |
-| [模型部署](./2.深入LLM模型工程與LLM運維/3.模型部署/) | vLLM、量化、優化 | 🔴 進階 | 4週 |
+| [Transformer架構](./2.深入LLM模型工程與LLM運維/1.LLM%20基礎與架構/) | 注意力機制、位置編碼 | 🔴 進階 | 4週 |
+| [模型訓練](./2.深入LLM模型工程與LLM運維/5.監督微調%20(SFT)/) | 預訓練、微調、LoRA | 🔴 進階 | 6週 |
+| [模型部署](./2.深入LLM模型工程與LLM運維/8.模型部署與運維/) | vLLM、量化、優化 | 🔴 進階 | 4週 |
 
 ### 3. LLM應用 (持續)
 
 | 模塊 | 內容 | 難度 | 預計時間 |
 |------|------|------|----------|
-| [RAG系統](./3.LLM應用工程/4.RAG基礎/) | 向量數據庫、檢索優化 | 🟡 中級 | 3週 |
+| [RAG系統](./3.LLM應用工程/4.RAG基礎/) | 向量資料庫、檢索優化 | 🟡 中級 | 3週 |
 | [Agent開發](./3.LLM應用工程/3.Agent/) | LangGraph、CrewAI | 🔴 進階 | 4週 |
-| [多模態生成](./3.LLM應用工程/10.多模態生成/) | 圖片、視頻、音樂 | 🔴 進階 | 8週 |
-| [生產部署](./3.LLM應用工程/7.部署/) | Docker、K8s、監控 | 🔴 進階 | 4週 |
+| [多模態生成](./3.LLM應用工程/10.多模態生成/) | 圖片、影片、音樂 | 🔴 進階 | 8週 |
+| [生產部署](./3.LLM應用工程/7.LLM應用部屬/) | Docker、K8s、監控 | 🔴 進階 | 4週 |
 
 ### 4. 前沿研究 (持續追蹤)
 
@@ -160,7 +160,7 @@ image.save("output.png")
 ```
 Month 1-2: 基礎打底
 ├─ Week 1-2: Python + NumPy + Pandas
-├─ Week 3-4: 機器學習算法
+├─ Week 3-4: 機器學習演算法
 ├─ Week 5-6: PyTorch基礎
 └─ Week 7-8: CNN + RNN實戰
 
@@ -183,17 +183,17 @@ Month 5-6: 應用開發
 Month 1: 快速上手
 ├─ Week 1: LLM API使用 (OpenAI, Anthropic)
 ├─ Week 2: LangChain基礎
-├─ Week 3: 向量數據庫 (Chroma, Pinecone)
+├─ Week 3: 向量資料庫 (Chroma, Pinecone)
 └─ Week 4: 構建第一個RAG系統
 
 Month 2: 進階技能
 ├─ Week 5: RAG優化 (GraphRAG, HyDE)
 ├─ Week 6: Agent開發 (LangGraph)
-├─ Week 7: 工具調用與函數
+├─ Week 7: 工具呼叫與函數
 └─ Week 8: 多模態應用
 
 Month 3: 生產就緒
-├─ Week 9: 性能優化 (vLLM, 緩存)
+├─ Week 9: 性能優化 (vLLM, 快取)
 ├─ Week 10: 部署策略 (Docker, API設計)
 ├─ Week 11: 監控與日誌
 └─ Week 12: 完整項目交付
@@ -210,7 +210,7 @@ Phase 1: 論文閱讀 (每週2-3篇)
 Phase 2: 技術實驗
 ├─ 選定研究方向
 ├─ 設計實驗方案
-├─ 代碼實現與測試
+├─ 程式碼實現與測試
 └─ 結果分析與優化
 
 Phase 3: 創新研究
@@ -231,7 +231,7 @@ Phase 3: 創新研究
 git clone https://github.com/markl-a/My-AI-Learning-Notes.git
 cd My-AI-Learning-Notes
 
-# 2. 創建虛擬環境
+# 2. 建立虛擬環境
 conda create -n ai-learning python=3.10
 conda activate ai-learning
 
@@ -255,9 +255,9 @@ docker-compose up -d
 
 # 包含服務:
 # - Jupyter Notebook (8888端口)
-# - ChromaDB (向量數據庫)
+# - ChromaDB (向量資料庫)
 # - Ollama (本地LLM)
-# - PostgreSQL (數據庫)
+# - PostgreSQL (資料庫)
 # - MLflow (實驗追蹤)
 ```
 
@@ -311,7 +311,7 @@ docker-compose up -d
 
 ### Q: 學完需要多久？
 
-- **入門** (能運行基礎代碼): 1-2個月
+- **入門** (能運行基礎程式碼): 1-2個月
 - **中級** (能構建RAG/Agent): 3-6個月
 - **高級** (能訓練/優化模型): 6-12個月
 - **專家** (能做研究創新): 1-2年+
@@ -319,7 +319,7 @@ docker-compose up -d
 ### Q: 推薦的學習順序？
 
 1. ✅ Python基礎 → NumPy/Pandas
-2. ✅ 機器學習算法 → PyTorch/TensorFlow
+2. ✅ 機器學習演算法 → PyTorch/TensorFlow
 3. ✅ Transformer架構 → LLM基礎
 4. ✅ LLM API使用 → Prompt Engineering
 5. ✅ RAG系統 → Agent開發
@@ -331,14 +331,14 @@ docker-compose up -d
 ## 🎓 學習建議
 
 ### DO ✅
-- ✅ **動手實踐**: 每個概念都要寫代碼驗證
+- ✅ **動手實踐**: 每個概念都要寫程式碼驗證
 - ✅ **構建項目**: 學以致用，解決實際問題
 - ✅ **記筆記**: 用自己的話總結理解
 - ✅ **參與社群**: 提問、分享、幫助他人
 - ✅ **持續學習**: AI發展快速，保持更新
 
 ### DON'T ❌
-- ❌ **只看不練**: 看視頻/讀文檔≠會用
+- ❌ **只看不練**: 看影片/讀文檔≠會用
 - ❌ **貪多求全**: 一次學太多容易放棄
 - ❌ **追求完美**: 先完成，再完美
 - ❌ **閉門造車**: 多交流，避免走彎路
@@ -359,7 +359,7 @@ docker-compose up -d
 ### 本週目標
 
 - [ ] 完成環境設置
-- [ ] 運行3個示例代碼
+- [ ] 運行3個示例程式碼
 - [ ] 閱讀1個核心概念文檔
 - [ ] 開始第一個小項目
 
@@ -375,7 +375,7 @@ docker-compose up -d
 ## 📬 聯繫與貢獻
 
 - **GitHub Issues**: 報告問題或建議
-- **Pull Requests**: 貢獻代碼或文檔
+- **Pull Requests**: 貢獻程式碼或文檔
 - **Discussions**: 技術討論與問答
 - **Star項目**: 支持項目發展
 

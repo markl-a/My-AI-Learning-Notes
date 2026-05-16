@@ -14,11 +14,11 @@
 
 ## A
 
-### Activation Function (激活函數)
+### Activation Function (激活函式)
 神經網路中用於引入非線性的函數。常見的有 ReLU、Sigmoid、Tanh、GELU 等。
 
 ### Adam (Adam 優化器)
-一種結合 Momentum 和 RMSprop 優點的自適應學習率優化算法，是深度學習中最常用的優化器之一。
+一種結合 Momentum 和 RMSprop 優點的自適應學習率優化演算法，是深度學習中最常用的優化器之一。
 
 ### Agent (代理/智能體)
 能夠感知環境並採取行動以實現目標的自主系統。在 LLM 領域，指能使用工具、做決策的 AI 系統。
@@ -40,7 +40,7 @@
 ## B
 
 ### Backpropagation (反向傳播)
-訓練神經網路的核心算法，通過計算損失函數對每個參數的梯度來更新權重。
+訓練神經網路的核心演算法，通過計算損失函式對每個參數的梯度來更新權重。
 
 ### Batch Size (批次大小)
 每次訓練迭代中使用的樣本數量。影響訓練速度、記憶體使用和模型收斂。
@@ -49,7 +49,7 @@
 Google 開發的預訓練語言模型，使用雙向 Transformer 編碼器，開創了 NLP 預訓練時代。
 
 ### BPE (Byte Pair Encoding)
-一種子詞分詞算法，通過迭代合併最頻繁的字符對來構建詞彙表。GPT 系列使用此方法。
+一種子詞分詞演算法，通過迭代合併最頻繁的字符對來構建詞彙表。GPT 系列使用此方法。
 
 ---
 
@@ -62,7 +62,7 @@ Google 開發的預訓練語言模型，使用雙向 Transformer 編碼器，開
 訓練過程中保存的模型狀態，用於恢復訓練或部署模型。
 
 ### CLIP (Contrastive Language-Image Pre-training)
-OpenAI 開發的視覺-語言模型，通過對比學習將圖像和文本映射到共同的嵌入空間。
+OpenAI 開發的視覺-語言模型，通過對比學習將圖像和文字映射到共同的嵌入空間。
 
 ### Constitutional AI (憲法 AI)
 Anthropic 提出的對齊方法，使用一組原則（"憲法"）來指導 AI 行為。
@@ -74,7 +74,7 @@ LLM 一次能處理的最大 token 數量。GPT-4 為 128K，Claude 3 為 200K�
 測量兩個向量之間角度的相似度度量，常用於比較嵌入向量。
 
 ### Cross-Entropy Loss (交叉熵損失)
-分類任務中常用的損失函數，衡量預測概率分佈與真實分佈之間的差異。
+分類任務中常用的損失函式，衡量預測概率分佈與真實分佈之間的差異。
 
 ---
 
@@ -87,7 +87,7 @@ Transformer 架構中負責生成輸出序列的部分。GPT 系列是純解碼�
 神經網路中每個神經元都與前一層所有神經元連接的層。
 
 ### Diffusion Model (擴散模型)
-通過學習逆轉逐步添加噪聲的過程來生成數據的生成模型。Stable Diffusion、DALL-E 3 基於此技術。
+通過學習逆轉逐步添加噪聲的過程來生成資料的生成模型。Stable Diffusion、DALL-E 3 基於此技術。
 
 ### Distillation (知識蒸餾)
 將大模型（教師）的知識轉移到小模型（學生）的技術，用於模型壓縮。
@@ -103,13 +103,13 @@ Transformer 架構中負責生成輸出序列的部分。GPT 系列是純解碼�
 ## E
 
 ### Embedding (嵌入)
-將離散數據（如文字、圖像）映射到連續向量空間的表示方法。
+將離散資料（如文字、圖像）映射到連續向量空間的表示方法。
 
 ### Encoder (編碼器)
 Transformer 架構中負責處理輸入序列的部分。BERT 是純編碼器架構。
 
 ### Epoch (訓練週期)
-完整遍歷一次訓練數據集的過程。
+完整遍歷一次訓練資料集的過程。
 
 ### Evaluation Metrics (評估指標)
 衡量模型性能的標準，如準確率、F1 分數、BLEU、ROUGE、困惑度等。
@@ -122,29 +122,29 @@ Transformer 架構中負責處理輸入序列的部分。BERT 是純編碼器架
 使用少量示例讓模型學習新任務的能力。GPT-3 展示了強大的 few-shot 能力。
 
 ### Fine-Tuning (微調)
-在預訓練模型基礎上，使用特定任務數據進行進一步訓練的過程。
+在預訓練模型基礎上，使用特定任務資料進行進一步訓練的過程。
 
 ### Flash Attention
 一種高效的注意力計算方法，通過優化記憶體訪問模式大幅加速 Transformer。
 
 ### Foundation Model (基礎模型)
-在大規模數據上預訓練的模型，可適應多種下游任務。如 GPT-4、Claude、LLaMA。
+在大規模資料上預訓練的模型，可適應多種下游任務。如 GPT-4、Claude、LLaMA。
 
-### Function Calling (函數調用)
-LLM 生成結構化輸出以調用外部函數或 API 的能力。
+### Function Calling (函式呼叫)
+LLM 生成結構化輸出以呼叫外部函數或 API 的能力。
 
 ---
 
 ## G
 
 ### GAN (Generative Adversarial Network, 生成對抗網絡)
-由生成器和判別器組成的生成模型，通過對抗訓練生成逼真數據。
+由生成器和判別器組成的生成模型，通過對抗訓練生成逼真資料。
 
 ### GELU (Gaussian Error Linear Unit)
-一種激活函數，被 BERT、GPT 等模型廣泛使用。
+一種激活函式，被 BERT、GPT 等模型廣泛使用。
 
 ### Gradient Descent (梯度下降)
-通過計算損失函數的梯度來迭代更新參數的優化算法。
+通過計算損失函式的梯度來迭代更新參數的優化演算法。
 
 ### GPTQ (GPT Quantization)
 一種後訓練量化方法，可將模型壓縮到 4-bit 或更低，同時保持精度。
@@ -175,8 +175,15 @@ LLM 生成看似合理但實際錯誤或虛構內容的現象。是 LLM 應用�
 ### In-Context Learning (上下文學習)
 LLM 通過提示中的示例學習執行新任務的能力，無需更新參數。
 
-### Inference (推理)
-使用訓練好的模型進行預測的過程。
+### Inference (推論)
+使用訓練好的模型進行預測的過程(模型 forward pass)。
+
+> ⚠️ 本 repo 統一:**Inference = 推論**(模型 forward pass);**Reasoning = 推理**(邏輯思維鏈)。早期中文文獻常把 Inference 譯為「推理」,本 repo 為與 Reasoning Models 的「推理」明確區分,將 Inference 統一譯為「推論」。
+
+### Reasoning (推理)
+邏輯推導 / 思維鏈(Chain-of-Thought),對應 `2.深入LLM/12.推理模型應用/`。代表系列:OpenAI o1 / o3、DeepSeek-R1、Claude extended thinking、Gemini 2.5 thinking。
+
+與 Inference 區分:Reasoning 是「邏輯能力 / 思考過程」,Inference 是「執行運算 / forward pass」。一次 Reasoning 過程內部可能包含多次 Inference 呼叫。
 
 ### Instruction Tuning (指令微調)
 使用指令-回應對微調 LLM，使其更好地遵循人類指令。
@@ -192,8 +199,8 @@ LLM 輸出結構化 JSON 格式的能力，便於程序化處理。
 
 ## K
 
-### KV Cache (鍵值緩存)
-在 Transformer 推理時緩存過去的 Key 和 Value，避免重複計算，加速生成。
+### KV Cache (鍵值快取)
+在 Transformer 推理時快取過去的 Key 和 Value，避免重複計算，加速生成。
 
 ### Knowledge Distillation (知識蒸餾)
 見 [Distillation](#distillation-知識蒸餾)。
@@ -203,7 +210,7 @@ LLM 輸出結構化 JSON 格式的能力，便於程序化處理。
 ## L
 
 ### LangChain
-用於構建 LLM 應用的開源框架，提供鏈式調用、記憶、工具等功能。
+用於構建 LLM 應用的開源框架，提供鏈式呼叫、記憶、工具等功能。
 
 ### Large Language Model (LLM, 大型語言模型)
 參數量達數十億至數萬億的語言模型，如 GPT-4、Claude、LLaMA、Gemini。
@@ -217,7 +224,7 @@ LLM 輸出結構化 JSON 格式的能力，便於程序化處理。
 ### LoRA (Low-Rank Adaptation)
 一種高效微調方法，通過添加低秩矩陣來適應新任務，大幅減少可訓練參數。
 
-### Loss Function (損失函數)
+### Loss Function (損失函式)
 衡量模型預測與真實值之間差距的函數，訓練目標是最小化損失。
 
 ---
@@ -225,7 +232,7 @@ LLM 輸出結構化 JSON 格式的能力，便於程序化處理。
 ## M
 
 ### MCP (Model Context Protocol)
-Anthropic 開發的協議，標準化 AI 模型與外部工具/數據源的交互方式。
+Anthropic 開發的協議，標準化 AI 模型與外部工具/資料源的交互方式。
 
 ### Mixture of Experts (MoE, 專家混合)
 將模型分為多個"專家"子網路，每次推理只激活部分專家，提高效率。
@@ -237,7 +244,7 @@ Anthropic 開發的協議，標準化 AI 模型與外部工具/數據源的交�
 將注意力機制分為多個"頭"並行計算，捕獲不同類型的關係。
 
 ### Multimodal (多模態)
-能處理多種類型數據（文本、圖像、音頻等）的模型，如 GPT-4V、Gemini。
+能處理多種類型資料（文字、圖像、音頻等）的模型，如 GPT-4V、Gemini。
 
 ---
 
@@ -257,7 +264,7 @@ Anthropic 開發的協議，標準化 AI 模型與外部工具/數據源的交�
 開放的神經網路交換格式，支持跨框架模型部署。
 
 ### Overfitting (過擬合)
-模型過度學習訓練數據的特定模式，導致泛化能力下降。
+模型過度學習訓練資料的特定模式，導致泛化能力下降。
 
 ---
 
@@ -270,10 +277,10 @@ Anthropic 開發的協議，標準化 AI 模型與外部工具/數據源的交�
 衡量語言模型預測能力的指標，越低表示模型越好。
 
 ### Pre-Training (預訓練)
-在大規模無標註數據上訓練模型學習通用表示的過程。
+在大規模無標註資料上訓練模型學習通用表示的過程。
 
 ### Prompt (提示)
-給 LLM 的輸入文本，用於引導模型生成期望的輸出。
+給 LLM 的輸入文字，用於引導模型生成期望的輸出。
 
 ### Prompt Engineering (提示工程)
 設計和優化提示以獲得更好 LLM 輸出的技術和實踐。
@@ -311,7 +318,7 @@ Anthropic 開發的協議，標準化 AI 模型與外部工具/數據源的交�
 使用人類反饋訓練獎勵模型，再用強化學習對齊 LLM 的技術。
 
 ### RNN (Recurrent Neural Network, 循環神經網路)
-能處理序列數據的神經網路，通過隱藏狀態傳遞信息。已被 Transformer 取代。
+能處理序列資料的神經網路，通過隱藏狀態傳遞資訊。已被 Transformer 取代。
 
 ### RoPE (Rotary Position Embedding)
 旋轉位置編碼，一種高效的位置編碼方法，被 LLaMA 等模型採用。
@@ -321,7 +328,7 @@ Anthropic 開發的協議，標準化 AI 模型與外部工具/數據源的交�
 ## S
 
 ### Scaling Law (縮放定律)
-描述模型性能如何隨參數量、數據量、計算量增長的經驗規律。
+描述模型性能如何隨參數量、資料量、計算量增長的經驗規律。
 
 ### Self-Attention (自注意力)
 序列中每個元素都與所有其他元素計算注意力的機制。
@@ -330,7 +337,7 @@ Anthropic 開發的協議，標準化 AI 模型與外部工具/數據源的交�
 基於語義相似度而非關鍵詞匹配的搜索技術，通常使用嵌入向量。
 
 ### SFT (Supervised Fine-Tuning, 監督微調)
-使用標註數據對預訓練模型進行監督學習的過程。
+使用標註資料對預訓練模型進行監督學習的過程。
 
 ### Softmax
 將向量轉換為概率分佈的函數，常用於分類任務的輸出層。
@@ -346,16 +353,16 @@ Anthropic 開發的協議，標準化 AI 模型與外部工具/數據源的交�
 控制 LLM 輸出隨機性的參數。高溫度更隨機，低溫度更確定。
 
 ### Tensor (張量)
-多維數組，深度學習中數據和參數的基本表示形式。
+多維陣列，深度學習中資料和參數的基本表示形式。
 
 ### TensorRT
-NVIDIA 的深度學習推理優化器，可大幅加速 GPU 推理。
+NVIDIA 的深度學習推論優化器，可大幅加速 GPU 推理。
 
 ### Token (詞元)
-LLM 處理文本的基本單位，可以是單詞、子詞或字符。
+LLM 處理文字的基本單位，可以是單詞、子詞或字符。
 
 ### Tokenizer (分詞器)
-將文本轉換為 token 序列的工具。
+將文字轉換為 token 序列的工具。
 
 ### Top-K / Top-P Sampling
 控制 LLM 生成多樣性的採樣策略。Top-K 限制候選數，Top-P（Nucleus）限制累積概率。
@@ -371,20 +378,20 @@ LLM 處理文本的基本單位，可以是單詞、子詞或字符。
 ## U
 
 ### Underfitting (欠擬合)
-模型未能充分學習數據模式，導致訓練和測試表現都差。
+模型未能充分學習資料模式，導致訓練和測試表現都差。
 
 ---
 
 ## V
 
 ### VAE (Variational Autoencoder, 變分自編碼器)
-一種生成模型，學習數據的潛在表示並可生成新樣本。
+一種生成模型，學習資料的潛在表示並可生成新樣本。
 
-### Vector Database (向量數據庫)
-專門存儲和檢索高維向量的數據庫，如 Pinecone、Milvus、Chroma。
+### Vector Database (向量資料庫)
+專門存儲和檢索高維向量的資料庫，如 Pinecone、Milvus、Chroma。
 
 ### vLLM
-高效的 LLM 推理引擎，使用 PagedAttention 技術優化記憶體管理。
+高效的 LLM 推論引擎，使用 PagedAttention 技術優化記憶體管理。
 
 ---
 
