@@ -22,7 +22,7 @@
 - **[2025 AI 框架與工具生態](./2025_AI框架與工具生態.md)** - LangChain, vLLM, SGLang 等工具對比
 
 #### 實用資源
-- **[LLM 速查表 (Quick Reference)](./LLM速查表_Quick_Reference.md)** 📋 - 公式、代碼、超參數快速查閱
+- **[LLM 速查表 (Quick Reference)](./LLM速查表_Quick_Reference.md)** 📋 - 公式、程式碼、超參數快速查閱
 - **[實戰練習題與解答](./實戰練習題與解答.md)** 💪 - 從基礎到高級的完整練習
 - **[LLM 最佳實踐指南](./LLM最佳實踐指南.md)** 🎯 - 開發與部署經驗總結
 
@@ -32,7 +32,7 @@
 
 ### 什麼是 LLM？
 
-大型語言模型 (Large Language Models, LLM) 是基於深度學習的自然語言處理模型，通常包含數億到數千億個參數。這些模型通過在海量文本數據上進行預訓練，學習語言的統計規律和語義關係。
+大型語言模型 (Large Language Models, LLM) 是基於深度學習的自然語言處理模型，通常包含數億到數千億個參數。這些模型通過在海量文字資料上進行預訓練，學習語言的統計規律和語義關係。
 
 ### Transformer 架構核心概念
 
@@ -40,7 +40,7 @@ Transformer 是現代 LLM 的基礎架構，由 Vaswani 等人在 2017 年的論
 
 1. **自注意力機制 (Self-Attention)**：允許模型關注輸入序列中的不同位置
 2. **多頭注意力 (Multi-Head Attention)**：並行計算多個注意力表示
-3. **位置編碼 (Positional Encoding)**：為序列添加位置信息
+3. **位置編碼 (Positional Encoding)**：為序列添加位置資訊
 4. **前饋神經網絡 (Feed-Forward Networks)**：對每個位置獨立應用
 5. **層歸一化 (Layer Normalization)**：穩定訓練過程
 
@@ -105,7 +105,7 @@ head_i = Attention(QW_i^Q, KW_i^K, VW_i^V)
 ### 解碼器架構特點
 
 - **單向注意力**：只能看到當前位置之前的內容 (Causal Masking)
-- **自回歸生成**：逐個 token 生成文本
+- **自回歸生成**：逐個 token 生成文字
 - **上下文窗口**：有固定的最大輸入長度限制
 
 ### GPT 的訓練目標
@@ -124,7 +124,7 @@ L = -Σ log P(x_t | x_1, ..., x_{t-1})
 
 ### 什麼是 Tokenization？
 
-Tokenization 是將文本轉換為模型可處理的數字序列的過程。
+Tokenization 是將文字轉換為模型可處理的數字序列的過程。
 
 ### 常見的 Tokenization 方法
 
@@ -145,7 +145,7 @@ Tokenization 是將文本轉換為模型可處理的數字序列的過程。
 ### Tokenization 流程
 
 ```
-原始文本 → [分詞] → Token序列 → [映射] → ID序列 → [嵌入] → 向量序列
+原始文字 → [分詞] → Token序列 → [映射] → ID序列 → [嵌入] → 向量序列
 ```
 
 ### 特殊 Token
@@ -180,7 +180,7 @@ Tokenization 是將文本轉換為模型可處理的數字序列的過程。
 
 1. **Causal (Masked) Self-Attention**
    - 用於解碼器
-   - 掩蓋未來信息
+   - 掩蓋未來資訊
 
 2. **Cross-Attention**
    - 用於編碼器-解碼器架構
@@ -355,7 +355,7 @@ print(f"注意力權重形狀: {weights.shape}")
 
 ```python
 def create_causal_mask(seq_len):
-    """創建因果掩碼，使模型只能看到當前和之前的 token"""
+    """建立因果掩碼，使模型只能看到當前和之前的 token"""
     mask = torch.tril(torch.ones(seq_len, seq_len))
     return mask.unsqueeze(0).unsqueeze(0)  # (1, 1, seq_len, seq_len)
 
@@ -388,7 +388,7 @@ class PositionalEncoding(nn.Module):
     def __init__(self, d_model, max_len=5000):
         super().__init__()
 
-        # 創建位置編碼矩陣
+        # 建立位置編碼矩陣
         pe = torch.zeros(max_len, d_model)
         position = torch.arange(0, max_len, dtype=torch.float).unsqueeze(1)
         div_term = torch.exp(torch.arange(0, d_model, 2).float() *
@@ -452,7 +452,7 @@ tokenizers = {
 
 text = "Hello, how are you doing today? I'm learning about Large Language Models!"
 
-print("原始文本:", text)
+print("原始文字:", text)
 print("\n" + "="*80 + "\n")
 
 for name, model_name in tokenizers.items():
@@ -469,7 +469,7 @@ for name, model_name in tokenizers.items():
         print(f"  Token IDs: {token_ids[:10]}...")
         print()
 
-        # 解碼回文本
+        # 解碼回文字
         decoded_text = tokenizer.decode(token_ids)
         print(f"  解碼後: {decoded_text}")
         print("\n" + "-"*80 + "\n")
@@ -566,7 +566,7 @@ class TinyGPT(nn.Module):
     def forward(self, input_ids):
         batch_size, seq_len = input_ids.size()
 
-        # 創建因果掩碼
+        # 建立因果掩碼
         mask = create_causal_mask(seq_len).to(input_ids.device)
 
         # Token 嵌入 + 位置編碼
@@ -585,7 +585,7 @@ class TinyGPT(nn.Module):
 
         return logits
 
-# 創建模型
+# 建立模型
 vocab_size = 50257  # GPT-2 詞彙表大小
 d_model = 256
 num_heads = 4
@@ -687,7 +687,7 @@ print(f"輸出 logits 形狀: {logits.shape}")
 - **Claude 3.5**：Computer Use 功能
 
 #### 5. 注意力機制優化
-- **Flash Attention 2/3**：更快的推理速度
+- **Flash Attention 2/3**：更快的推論速度
 - **Multi-Query Attention (MQA)**：減少推理內存
 - **Grouped-Query Attention (GQA)**：平衡性能與效率
 
@@ -718,7 +718,7 @@ print(f"輸出 logits 形狀: {logits.shape}")
    - 推理任務 → o1, DeepSeek-R1
    - 長文檔 → Gemini 1.5 Pro, Claude 4
    - 多模態 → GPT-4o, Gemini Pro Vision
-   - 代碼生成 → Claude 3.5, GPT-4o
+   - 程式碼生成 → Claude 3.5, GPT-4o
 
 2. **成本預算**
    - 高預算：Claude Opus, GPT-4o

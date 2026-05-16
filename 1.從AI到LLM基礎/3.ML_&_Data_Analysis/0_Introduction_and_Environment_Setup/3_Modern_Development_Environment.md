@@ -239,7 +239,7 @@ curl -sSL https://install.python-poetry.org | python3 -
 
 **初始化項目**:
 ```bash
-# 創建新項目
+# 建立新項目
 poetry new my-ml-project
 
 # 在現有項目中初始化
@@ -308,7 +308,7 @@ poetry export -f requirements.txt --output requirements.txt --without-hashes
 **特點**:
 - ⚡ 用 Rust 編寫，比 pip 快 10-100 倍
 - 🎯 完全兼容 pip 接口
-- 💾 全局緩存，節省磁盤空間
+- 💾 全局快取，節省磁盤空間
 - 🔄 更好的依賴解析
 
 **安裝**:
@@ -324,7 +324,7 @@ uv pip install pandas numpy scikit-learn
 # 從 requirements.txt 安裝
 uv pip install -r requirements.txt
 
-# 創建虛擬環境
+# 建立虛擬環境
 uv venv
 
 # 編譯依賴
@@ -409,7 +409,7 @@ Shift + M               合併單元格
 A / B                   在上/下方插入單元格
 ```
 
-### 3.2 VS Code - 通用代碼編輯器
+### 3.2 VS Code - 通用程式碼編輯器
 
 **必備擴展**:
 ```json
@@ -446,14 +446,14 @@ A / B                   在上/下方插入單元格
 ### 3.3 Cursor - AI 輔助開發工具
 
 **特點**:
-- 🤖 基於 VS Code，集成 AI 代碼補全
+- 🤖 基於 VS Code，集成 AI 程式碼補全
 - 💬 與 AI 對話式編程
-- 🔍 AI 驅動的代碼搜索和重構
+- 🔍 AI 驅動的程式碼搜索和重構
 
 **最佳實踐**:
 1. 使用 `Cmd/Ctrl + K` 觸發 AI 編輯
 2. 使用 `Cmd/Ctrl + L` 打開 AI 聊天
-3. 選中代碼後詢問解釋或優化建議
+3. 選中程式碼後詢問解釋或優化建議
 
 ---
 
@@ -462,17 +462,17 @@ A / B                   在上/下方插入單元格
 ### 4.1 GitHub Copilot
 
 **功能**:
-- 📝 實時代碼建議
-- 💡 根據註釋生成代碼
-- 🔄 代碼重構建議
+- 📝 實時程式碼建議
+- 💡 根據註釋生成程式碼
+- 🔄 程式碼重構建議
 
 **最佳實踐**:
 ```python
-# 技巧1: 寫清晰的註釋，讓 Copilot 生成代碼
+# 技巧1: 寫清晰的註釋，讓 Copilot 生成程式碼
 # 使用 pandas 讀取 CSV，處理缺失值，並進行標準化
 # Copilot 會建議完整的實現
 
-# 技巧2: 開始寫函數簽名
+# 技巧2: 開始寫函式簽名
 def train_xgboost_model(X_train, y_train, params=None):
     """
     訓練 XGBoost 模型並返回訓練好的模型
@@ -499,17 +499,17 @@ def train_xgboost_model(X_train, y_train, params=None):
 ### 4.3 ChatGPT / Claude for Code
 
 **使用場景**:
-1. **代碼生成**: 描述需求，生成初始代碼
-2. **代碼審查**: 粘貼代碼，要求審查和改進
-3. **調試**: 粘貼錯誤信息，獲取解決方案
+1. **程式碼生成**: 描述需求，生成初始程式碼
+2. **程式碼審查**: 粘貼程式碼，要求審查和改進
+3. **調試**: 粘貼錯誤資訊，獲取解決方案
 4. **學習**: 詢問概念解釋和最佳實踐
 
 **提示詞範例**:
 ```
-"我需要一個 Python 函數來處理不平衡數據集，使用 SMOTE 進行過採樣，
+"我需要一個 Python 函式來處理不平衡資料集，使用 SMOTE 進行過採樣，
 並包含交叉驗證。請包含錯誤處理和詳細註釋。"
 
-"審查以下代碼並提出改進建議：[粘貼代碼]"
+"審查以下程式碼並提出改進建議：[粘貼程式碼]"
 
 "解釋 XGBoost 的 'learning_rate' 參數如何影響模型性能，
 並提供調優建議。"
@@ -531,8 +531,8 @@ echo "🚀 設置機器學習開發環境..."
 echo "📦 安裝 uv..."
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# 2. 創建虛擬環境
-echo "🐍 創建 Python 虛擬環境..."
+# 2. 建立虛擬環境
+echo "🐍 建立 Python 虛擬環境..."
 uv venv .venv
 source .venv/bin/activate  # Linux/Mac
 # .venv\Scripts\activate   # Windows
@@ -613,11 +613,11 @@ help:
 	@echo "可用命令："
 	@echo "  make install      - 安裝依賴"
 	@echo "  make test         - 運行測試"
-	@echo "  make format       - 格式化代碼"
-	@echo "  make lint         - 代碼檢查"
+	@echo "  make format       - 格式化程式碼"
+	@echo "  make lint         - 程式碼檢查"
 	@echo "  make docker-build - 構建 Docker 鏡像"
 	@echo "  make docker-run   - 運行 Docker 容器"
-	@echo "  make clean        - 清理緩存"
+	@echo "  make clean        - 清理快取"
 
 install:
 	uv pip install -r requirements.txt
@@ -689,7 +689,7 @@ repos:
 - [ ] 選擇依賴管理工具 (Poetry 或 uv)
 - [ ] 配置 IDE (VS Code / Cursor / JupyterLab)
 - [ ] 設置 AI 輔助工具 (Copilot / Codeium)
-- [ ] 創建標準化的項目結構
+- [ ] 建立標準化的項目結構
 - [ ] 配置 pre-commit hooks
 - [ ] 編寫 Dockerfile 和 docker-compose.yml
 - [ ] 設置版本控制 (.gitignore)
@@ -724,4 +724,4 @@ repos:
 
 ---
 
-**下一步**: 設置好環境後，前往 `1_Data_Acquisition_and_Analysis/` 開始學習數據處理和分析！
+**下一步**: 設置好環境後，前往 `1_Data_Acquisition_and_Analysis/` 開始學習資料處理和分析！

@@ -83,7 +83,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 
-# 載入數據
+# 載入資料
 iris = load_iris()
 X_train, X_test, y_train, y_test = train_test_split(
     iris.data, iris.target, test_size=0.2, random_state=42
@@ -165,7 +165,7 @@ with mlflow.start_run(run_name="optuna_optimization"):
    - 實驗對比和可視化
 
 2. **MLflow Projects**
-   - 打包代碼為可重現格式
+   - 打包程式碼為可重現格式
    - 環境管理
    - 遠程執行
 
@@ -198,7 +198,7 @@ with mlflow.start_run(run_name="optuna_optimization"):
 mlflow.set_experiment("customer_churn_prediction")
 
 with mlflow.start_run():
-    # 數據準備
+    # 資料準備
     X_train, X_test, y_train, y_test = prepare_data()
 
     # 超參數調整
@@ -284,7 +284,7 @@ for name, model in models.items():
 **A**: 設置共享的 MLflow 追蹤伺服器：
 
 ```bash
-# 服務器端
+# 伺服器端
 mlflow server \
     --backend-store-uri postgresql://user:password@localhost/mlflow \
     --default-artifact-root s3://mlflow-artifacts \
@@ -299,7 +299,7 @@ mlflow.set_tracking_uri("http://mlflow-server:5000")
 **A**:
 1. 記錄所有超參數
 2. 設置隨機種子
-3. 記錄數據版本/hash
+3. 記錄資料版本/hash
 4. 記錄環境資訊（Python版本、套件版本）
 5. 使用 MLflow Projects
 
@@ -338,7 +338,7 @@ mlflow.set_tracking_uri("http://mlflow-server:5000")
 ### 實踐專案
 
 1. **Kaggle 競賽**：使用 MLflow 追蹤實驗
-2. **開源貢獻**：為 MLflow/Optuna 貢獻代碼
+2. **開源貢獻**：為 MLflow/Optuna 貢獻程式碼
 3. **個人專案**：構建完整的 ML 流水線
 
 ## 進階主題
@@ -367,7 +367,7 @@ mlflow.set_tracking_uri("http://mlflow-server:5000")
 歡迎貢獻！如果你發現任何問題或有改進建議：
 
 1. 提出 Issue 描述問題
-2. Fork 專案並創建分支
+2. Fork 專案並建立分支
 3. 提交 Pull Request
 
 ## 更新日誌

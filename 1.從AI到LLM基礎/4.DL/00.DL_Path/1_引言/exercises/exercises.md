@@ -23,7 +23,7 @@
    - 適合邏輯明確的任務
 
 2. **機器學習**：
-   - 從數據中學習規則和模式
+   - 從資料中學習規則和模式
    - 給定輸入和輸出，學習規則
    - 適合難以明確編程的任務
 
@@ -42,7 +42,7 @@ def is_spam(email):
 ```python
 # 垃圾郵件過濾 - ML 方法
 model = train_on_labeled_emails()
-is_spam = model.predict(email)  # 從數據中學習規則
+is_spam = model.predict(email)  # 從資料中學習規則
 ```
 
 **優勢**：
@@ -64,13 +64,13 @@ is_spam = model.predict(email)  # 從數據中學習規則
 
 | 特性 | 監督學習 | 無監督學習 |
 |------|---------|-----------|
-| **數據** | 帶標籤（輸入-輸出對） | 無標籤（只有輸入） |
-| **目標** | 學習輸入到輸出的映射 | 發現數據的內在結構 |
+| **資料** | 帶標籤（輸入-輸出對） | 無標籤（只有輸入） |
+| **目標** | 學習輸入到輸出的映射 | 發現資料的內在結構 |
 | **訓練** | 利用標籤指導學習 | 自主發現模式 |
 
 **監督學習例子**：
 1. **垃圾郵件分類**
-   - 輸入：郵件文本
+   - 輸入：郵件文字
    - 標籤：垃圾/正常
    - 任務：預測新郵件類別
 
@@ -103,14 +103,14 @@ is_spam = model.predict(email)  # 從數據中學習規則
 **答案**：
 
 **定義**：
-過擬合指模型在訓練數據上表現很好，但在新數據（測試數據）上表現差。
+過擬合指模型在訓練資料上表現很好，但在新資料（測試資料）上表現差。
 
 **發生原因**：
 1. **模型過於複雜**
    - 參數太多
    - 網絡層數太深
 
-2. **訓練數據不足**
+2. **訓練資料不足**
    - 樣本量太小
    - 不能代表真實分布
 
@@ -133,9 +133,9 @@ is_spam = model.predict(email)  # 從數據中學習規則
    ```
 
 **解決方法**：
-1. **增加數據**
+1. **增加資料**
    - 收集更多訓練樣本
-   - 數據增強
+   - 資料增強
 
 2. **簡化模型**
    - 減少參數數量
@@ -241,7 +241,7 @@ is_spam = model.predict(email)  # 從數據中學習規則
 import numpy as np
 import matplotlib.pyplot as plt
 
-# 生成數據
+# 生成資料
 np.random.seed(42)
 X = np.random.randn(100, 1) * 10
 y = 3 * X + 7 + np.random.randn(100, 1) * 5
@@ -257,14 +257,14 @@ class LinearRegression:
         訓練模型
         提示：使用梯度下降
         """
-        # TODO: 你的代碼
+        # TODO: 你的程式碼
         pass
 
     def predict(self, X):
         """
         預測
         """
-        # TODO: 你的代碼
+        # TODO: 你的程式碼
         pass
 
 # 使用你的模型
@@ -322,7 +322,7 @@ class LinearRegression:
         """預測"""
         return self.w * X + self.b
 
-# 生成數據
+# 生成資料
 np.random.seed(42)
 X = np.random.randn(100, 1) * 10
 y = 3 * X + 7 + np.random.randn(100, 1) * 5
@@ -364,14 +364,14 @@ plt.show()
 
 ---
 
-### 練習 2：數據預處理
+### 練習 2：資料預處理
 
-**任務**：實現常見的數據預處理技術
+**任務**：實現常見的資料預處理技術
 
 ```python
 import numpy as np
 
-# 原始數據（不同特徵的尺度差異很大）
+# 原始資料（不同特徵的尺度差異很大）
 data = np.array([
     [1, 1000, 0.5],
     [2, 2000, 0.6],
@@ -384,22 +384,22 @@ data = np.array([
 
 def min_max_normalize(X):
     """
-    最小-最大歸一化：將數據縮放到 [0, 1]
+    最小-最大歸一化：將資料縮放到 [0, 1]
     公式：x_norm = (x - x_min) / (x_max - x_min)
     """
-    # TODO: 你的代碼
+    # TODO: 你的程式碼
     pass
 
 def standardize(X):
     """
-    標準化：將數據轉換為均值0，標準差1
+    標準化：將資料轉換為均值0，標準差1
     公式：x_std = (x - mean) / std
     """
-    # TODO: 你的代碼
+    # TODO: 你的程式碼
     pass
 
 # 測試
-print("原始數據:")
+print("原始資料:")
 print(data)
 
 print("\n歸一化後:")
@@ -438,7 +438,7 @@ data = np.array([
     [5, 2500, 0.5]
 ])
 
-print("原始數據:")
+print("原始資料:")
 print(data)
 print(f"均值: {data.mean(axis=0)}")
 print(f"標準差: {data.std(axis=0)}")
@@ -481,14 +481,14 @@ plt.show()
   - 優點：簡單直觀
   - 缺點：對異常值敏感
 
-- **標準化**：將數據轉換為均值0、標準差1的分布
+- **標準化**：將資料轉換為均值0、標準差1的分布
   - 優點：對異常值較穩健
   - 缺點：不保證固定範圍
 
 **使用場景**：
 - 神經網絡：通常使用標準化
 - 樹模型：通常不需要預處理
-- 距離相關算法（如KNN）：需要預處理
+- 距離相關演算法（如KNN）：需要預處理
 
 </details>
 
@@ -496,14 +496,14 @@ plt.show()
 
 ### 練習 3：訓練/驗證/測試集分割
 
-**任務**：實現數據集的正確分割
+**任務**：實現資料集的正確分割
 
 ```python
 import numpy as np
 
 def split_dataset(X, y, train_ratio=0.7, val_ratio=0.15, test_ratio=0.15, seed=42):
     """
-    將數據集分割為訓練集、驗證集和測試集
+    將資料集分割為訓練集、驗證集和測試集
 
     參數:
         X: 特徵矩陣
@@ -516,7 +516,7 @@ def split_dataset(X, y, train_ratio=0.7, val_ratio=0.15, test_ratio=0.15, seed=4
     返回:
         X_train, X_val, X_test, y_train, y_val, y_test
     """
-    # TODO: 你的代碼
+    # TODO: 你的程式碼
     pass
 
 # 測試
@@ -525,7 +525,7 @@ y = np.random.randint(0, 2, 1000)
 
 X_train, X_val, X_test, y_train, y_val, y_test = split_dataset(X, y)
 
-print(f"原始數據: {len(X)} 樣本")
+print(f"原始資料: {len(X)} 樣本")
 print(f"訓練集: {len(X_train)} 樣本 ({len(X_train)/len(X)*100:.1f}%)")
 print(f"驗證集: {len(X_val)} 樣本 ({len(X_val)/len(X)*100:.1f}%)")
 print(f"測試集: {len(X_test)} 樣本 ({len(X_test)/len(X)*100:.1f}%)")
@@ -538,7 +538,7 @@ print(f"測試集: {len(X_test)} 樣本 ({len(X_test)/len(X)*100:.1f}%)")
 import numpy as np
 
 def split_dataset(X, y, train_ratio=0.7, val_ratio=0.15, test_ratio=0.15, seed=42):
-    """將數據集分割為訓練集、驗證集和測試集"""
+    """將資料集分割為訓練集、驗證集和測試集"""
 
     # 檢查比例總和
     assert abs(train_ratio + val_ratio + test_ratio - 1.0) < 1e-6, \
@@ -562,7 +562,7 @@ def split_dataset(X, y, train_ratio=0.7, val_ratio=0.15, test_ratio=0.15, seed=4
     val_indices = indices[train_end:val_end]
     test_indices = indices[val_end:]
 
-    # 分割數據
+    # 分割資料
     X_train, y_train = X[train_indices], y[train_indices]
     X_val, y_val = X[val_indices], y[val_indices]
     X_test, y_test = X[test_indices], y[test_indices]
@@ -575,8 +575,8 @@ y = np.random.randint(0, 2, 1000)
 
 X_train, X_val, X_test, y_train, y_val, y_test = split_dataset(X, y)
 
-print(f"✓ 數據集分割完成！")
-print(f"\n原始數據: {len(X)} 樣本")
+print(f"✓ 資料集分割完成！")
+print(f"\n原始資料: {len(X)} 樣本")
 print(f"訓練集: {len(X_train)} 樣本 ({len(X_train)/len(X)*100:.1f}%)")
 print(f"驗證集: {len(X_val)} 樣本 ({len(X_val)/len(X)*100:.1f}%)")
 print(f"測試集: {len(X_test)} 樣本 ({len(X_test)/len(X)*100:.1f}%)")
@@ -584,7 +584,7 @@ print(f"\n特徵形狀: {X_train.shape}")
 print(f"標籤形狀: {y_train.shape}")
 
 # 檢查類別分布
-print(f"\n原始數據類別分布:")
+print(f"\n原始資料類別分布:")
 for i in range(2):
     count = np.sum(y == i)
     print(f"  類別 {i}: {count} ({count/len(y)*100:.1f}%)")
@@ -603,8 +603,8 @@ for i in range(2):
    - **測試集**：最終評估，評估泛化能力
 
 2. **常見比例**：
-   - 小數據集：60/20/20 或 70/15/15
-   - 大數據集：98/1/1（如有百萬樣本）
+   - 小資料集：60/20/20 或 70/15/15
+   - 大資料集：98/1/1（如有百萬樣本）
 
 3. **注意事項**：
    - 測試集永遠不參與訓練
@@ -623,7 +623,7 @@ for i in range(2):
 
 **任務**：設計一個完整的機器學習解決方案，包括：
 1. 問題定義
-2. 數據收集
+2. 資料收集
 3. 特徵工程
 4. 模型選擇
 5. 評估指標
@@ -638,9 +638,9 @@ for i in range(2):
 - **輸出**：是否購買（0/1）
 - **目標**：提高轉化率，增加銷售
 
-**2. 數據收集**
+**2. 資料收集**
 
-需要的數據：
+需要的資料：
 ```python
 # 用戶特徵
 - 用戶ID
@@ -673,7 +673,7 @@ for i in range(2):
 **3. 特徵工程**
 
 ```python
-# 創建新特徵
+# 建立新特徵
 - 價格敏感度 = 歷史平均訂單金額 / 商品價格
 - 品類興趣 = 該品類歷史購買次數
 - 時間特徵 = 星期幾、是否節假日
@@ -682,7 +682,7 @@ for i in range(2):
 # 特徵編碼
 - 類別特徵：One-Hot 或 Embedding
 - 數值特徵：標準化
-- 文本特徵：TF-IDF 或 詞嵌入
+- 文字特徵：TF-IDF 或 詞嵌入
 ```
 
 **4. 模型選擇**
@@ -720,7 +720,7 @@ for i in range(2):
 - GMV（成交總額）增長
 - 用戶體驗（不要過度推薦）
 
-# 示例代碼
+# 示例程式碼
 from sklearn.metrics import classification_report, roc_auc_score
 
 y_pred = model.predict(X_test)
@@ -744,7 +744,7 @@ print(f'AUC: {roc_auc_score(y_test, y_pred_proba):.4f}')
 - 準備回滾機制
 
 # 性能優化
-- 模型推理延遲 < 100ms
+- 模型推論延遲 < 100ms
 - 批量預測
 - 模型壓縮（如量化）
 
@@ -754,7 +754,7 @@ print(f'AUC: {roc_auc_score(y_test, y_pred_proba):.4f}')
 - 性能指標告警
 ```
 
-**完整代碼框架**：
+**完整程式碼框架**：
 
 ```python
 import pandas as pd
@@ -763,9 +763,9 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, roc_auc_score
 
-# 1. 數據準備
+# 1. 資料準備
 def prepare_data():
-    # 加載數據
+    # 加載資料
     df = pd.read_csv('user_behavior.csv')
 
     # 特徵工程
@@ -820,30 +820,30 @@ if __name__ == "__main__":
 
 **使用深度學習的情況**：
 
-1. **大規模數據**
+1. **大規模資料**
    - 有數百萬樣本
-   - 深度學習能更好利用數據
+   - 深度學習能更好利用資料
 
 2. **複雜特徵**
-   - 圖像、語音、文本
+   - 圖像、語音、文字
    - 自動特徵提取很重要
 
 3. **端到端學習**
-   - 從原始數據到結果
+   - 從原始資料到結果
    - 無需手動特徵工程
 
 4. **表示學習**
-   - 需要學習數據的抽象表示
+   - 需要學習資料的抽象表示
    - 遷移學習
 
 **使用傳統ML的情況**：
 
-1. **小數據集**
+1. **小資料集**
    - 少於幾千樣本
    - 傳統ML更穩定
 
-2. **結構化數據**
-   - 表格數據
+2. **結構化資料**
+   - 表格資料
    - 特徵明確
 
 3. **可解釋性重要**
@@ -862,9 +862,9 @@ if __name__ == "__main__":
 **決策流程圖**：
 
 ```
-數據量大(>10萬樣本)？
-├─ 是 → 數據類型？
-│         ├─ 圖像/語音/文本 → 深度學習 ✓
+資料量大(>10萬樣本)？
+├─ 是 → 資料類型？
+│         ├─ 圖像/語音/文字 → 深度學習 ✓
 │         └─ 結構化表格 → 嘗試 XGBoost
 └─ 否 → 可解釋性重要？
           ├─ 是 → 傳統ML（如邏輯回歸、決策樹）
@@ -901,7 +901,7 @@ def k_fold_cross_validation(X, y, k=5, model_class=None):
     返回:
         scores: 每折的分數列表
     """
-    # TODO: 你的代碼
+    # TODO: 你的程式碼
     pass
 ```
 
@@ -909,7 +909,7 @@ def k_fold_cross_validation(X, y, k=5, model_class=None):
 <summary>點擊查看提示</summary>
 
 **提示**：
-1. 將數據分成 k 個大致相等的部分
+1. 將資料分成 k 個大致相等的部分
 2. 每次使用一個部分作為驗證集，其餘作為訓練集
 3. 訓練模型並評估
 4. 返回所有折的平均性能
@@ -927,7 +927,7 @@ def k_fold_cross_validation(X, y, k=5, model_class=None):
 - [ ] 知道過擬合的原因和解決方法
 - [ ] 能區分參數和超參數
 - [ ] 會實現簡單的線性回歸
-- [ ] 掌握數據預處理技術
+- [ ] 掌握資料預處理技術
 - [ ] 理解訓練/驗證/測試集的作用
 - [ ] 能設計機器學習解決方案
 - [ ] 知道何時使用深度學習 vs 傳統ML

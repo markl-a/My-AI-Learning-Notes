@@ -1,5 +1,8 @@
 # 資料集準備與建立
 
+> 📌 **戰略視角**:2024-2026 合成資料趨勢與工具選型請見 [`../../19.Synthetic_Data_Engineering/`](../../19.Synthetic_Data_Engineering/README.md)。
+> 本檔聚焦工程實作(爬蟲、清理、SFT/RLHF 資料製作)。
+
 ## 目錄
 1. [原始資料收集與清理](#31-原始資料收集與清理)
 2. [Instruction Dataset 準備與格式化](#32-instruction-dataset-準備與格式化)
@@ -840,7 +843,7 @@ class SyntheticDataGenerator:
 
     def generate_qa_pairs(self, topic: str, num_pairs: int = 10):
         """生成問答對"""
-        prompt = f"""請生成 {num_pairs} 個關於「{topic}」的高質量問答對。
+        prompt = f"""請生成 {num_pairs} 個關於「{topic}」的高品質問答對。
 
 格式：
 Q: 問題
@@ -2013,7 +2016,7 @@ else:
 3. **Argilla** (前身為 rubrix)
    - 網址: https://github.com/argilla-io/argilla
    - 支援: 文字分類、NER、問答、生成任務
-   - 特色: ML 友善、支援主動學習、整合 HuggingFace
+   - 特色: ML 友善、支援主動學習、整合 Hugging Face
 
    安裝:
    pip install argilla
@@ -2167,7 +2170,7 @@ rg.log(dataset, name="product_reviews")
    - 網址: https://www.pachyderm.com/
    - 資料版本控制 + 管線自動化
 
-5. **HuggingFace Datasets Hub**
+5. **Hugging Face Datasets Hub**
    - 網址: https://huggingface.co/datasets
    - 公開分享資料集
    - 內建版本控制
@@ -3058,7 +3061,7 @@ merged = integrator.merge(max_samples_per_source=500)
 1. 過採樣（over-sampling）少數類別
 2. 欠採樣（under-sampling）多數類別
 3. 合成少數類別資料（SMOTE、ADASYN）
-4. 調整損失函數權重
+4. 調整損失函式權重
 ```
 
 **問題 3：標註成本高**

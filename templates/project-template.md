@@ -29,12 +29,12 @@
 
 ```
 [項目名稱]
-├── data/               # 數據目錄
-│   ├── raw/           # 原始數據
-│   └── processed/     # 處理後數據
+├── data/               # 資料目錄
+│   ├── raw/           # 原始資料
+│   └── processed/     # 處理後資料
 ├── notebooks/          # Jupyter notebooks
-├── src/               # 源代碼
-│   ├── data/          # 數據處理
+├── src/               # 源程式碼
+│   ├── data/          # 資料處理
 │   ├── models/        # 模型定義
 │   └── utils/         # 工具函數
 ├── tests/             # 測試
@@ -44,15 +44,15 @@
 
 ---
 
-## 📊 數據集
+## 📊 資料集
 
-### 數據來源
-- **名稱**: [數據集名稱]
+### 資料來源
+- **名稱**: [資料集名稱]
 - **來源**: [URL]
 - **大小**: [X MB/GB]
 - **樣本數**: [N 筆]
 
-### 數據欄位
+### 資料欄位
 | 欄位名 | 類型 | 描述 |
 |-------|------|------|
 | feature1 | float | 描述 |
@@ -70,14 +70,14 @@
 git clone [repo-url]
 cd [project-name]
 
-# 2. 創建虛擬環境
+# 2. 建立虛擬環境
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
 
 # 3. 安裝依賴
 pip install -r requirements.txt
 
-# 4. 下載數據
+# 4. 下載資料
 python scripts/download_data.py
 ```
 
@@ -98,13 +98,13 @@ python src/predict.py --input "sample_input"
 
 ## 📝 實現步驟
 
-### Step 1: 數據探索與預處理
+### Step 1: 資料探索與預處理
 
 ```python
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# 載入數據
+# 載入資料
 df = pd.read_csv('data/raw/dataset.csv')
 
 # 基本探索
@@ -120,7 +120,7 @@ df = df.dropna()
 ```
 
 **關鍵點**：
-- 檢查數據質量
+- 檢查資料品質
 - 處理缺失值和異常值
 - 特徵轉換和編碼
 
@@ -131,7 +131,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report
 
-# 分割數據
+# 分割資料
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
@@ -199,7 +199,7 @@ Feature Importance:
 - [ ] 實現交叉驗證
 - [ ] 添加更多特徵工程
 - [ ] 部署為 API 服務
-- [ ] 創建互動式 Dashboard
+- [ ] 建立互動式 Dashboard
 
 ---
 
@@ -213,9 +213,9 @@ Feature Importance:
 
 ## ✅ 完成檢查清單
 
-- [ ] 完成數據探索
+- [ ] 完成資料探索
 - [ ] 實現基礎模型
 - [ ] 達到基準性能
 - [ ] 完成超參數調優
 - [ ] 撰寫項目文檔
-- [ ] 代碼整理和重構
+- [ ] 程式碼整理和重構

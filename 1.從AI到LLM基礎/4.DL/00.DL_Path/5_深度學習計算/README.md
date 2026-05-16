@@ -10,7 +10,7 @@
 
 - 🏗️ 靈活構建複雜的神經網絡架構
 - 🎛️ 精確控制模型參數的初始化和管理
-- 🔧 創建自定義層和模型組件
+- 🔧 建立自定義層和模型組件
 - 💾 高效地保存和加載模型
 - ⚡ 充分利用GPU/TPU等加速器
 - 🚀 優化模型的計算性能
@@ -49,7 +49,7 @@ class CustomBlock(nn.Module):
 
 **練習題**: ✅ 已完成
 - 實現平行區塊 (Parallel Block)
-- 創建可複製的網路實例
+- 建立可複製的網路實例
 - 探索不同的模塊組合方式
 
 ---
@@ -79,8 +79,8 @@ model.apply(custom_init)
 ```
 
 **重要概念**:
-- **Xavier/Glorot初始化**: 適用於tanh/sigmoid激活函數
-- **Kaiming/He初始化**: 適用於ReLU激活函數
+- **Xavier/Glorot初始化**: 適用於tanh/sigmoid激活函式
+- **Kaiming/He初始化**: 適用於ReLU激活函式
 - **參數共享**: 減少模型大小，提高泛化能力
 - **參數綁定**: 在多個層之間共享權重
 
@@ -102,7 +102,7 @@ model.apply(custom_init)
 **核心概念**:
 - 框架自動推斷層的輸入輸出維度
 - 簡化模型定義過程
-- 提高代碼的靈活性和可維護性
+- 提高程式碼的靈活性和可維護性
 
 **優勢**:
 ```python
@@ -126,7 +126,7 @@ net = nn.Sequential(
 📄 **文件**: `4_custom-layer.ipynb`
 
 **學習目標**:
-- 創建無參數的自定義層
+- 建立無參數的自定義層
 - 實現帶參數的自定義層
 - 集成自定義層到複雜模型中
 
@@ -191,7 +191,7 @@ start_epoch = checkpoint['epoch'] + 1
 
 **生產環境考慮**:
 - ✅ 版本控制和向後兼容性
-- ✅ 模型元數據的保存
+- ✅ 模型元資料的保存
 - ✅ 跨設備的模型遷移
 - ✅ 安全的序列化和反序列化
 
@@ -207,7 +207,7 @@ start_epoch = checkpoint['epoch'] + 1
 **學習目標**:
 - 掌握多平台加速器的使用
 - 優化GPU內存使用
-- 理解數據傳輸開銷
+- 理解資料傳輸開銷
 - 實現高效的設備管理
 
 **2024-2025年更新重點**:
@@ -218,7 +218,7 @@ start_epoch = checkpoint['epoch'] + 1
 - **ROCm** - AMD GPU
 - **XLA** - Google TPU
 
-**跨平台代碼模式**:
+**跨平台程式碼模式**:
 ```python
 def get_device():
     """自動選擇最佳設備"""
@@ -292,7 +292,7 @@ else:
 
 **練習題**: ✅ 已完成
 - 比較CPU vs GPU的計算速度
-- 測量數據傳輸開銷
+- 測量資料傳輸開銷
 - 實現多GPU並行計算
 - 在MPS上訓練模型
 
@@ -313,7 +313,7 @@ else:
 📄 **文件**: `8_distributed-training.ipynb`
 
 **計劃內容**:
-- 數據並行 (DataParallel, DistributedDataParallel)
+- 資料並行 (DataParallel, DistributedDataParallel)
 - 模型並行 (Pipeline Parallelism)
 - 混合並行策略
 - 多節點訓練
@@ -341,21 +341,21 @@ else:
 ## 🤖 AI輔助學習工具
 
 ### 1. GitHub Copilot
-**用途**: 代碼補全和生成
+**用途**: 程式碼補全和生成
 ```python
 # Copilot可以幫助你快速生成模型架構
 # 只需輸入註釋，它會建議完整的實現
 
-# 創建一個帶殘差連接的自定義塊
+# 建立一個帶殘差連接的自定義塊
 # [讓Copilot幫你完成]
 ```
 
 ### 2. ChatGPT / Claude
-**用途**: 概念解釋和代碼審查
+**用途**: 概念解釋和程式碼審查
 - 解釋複雜的深度學習概念
-- 審查你的代碼並提供改進建議
+- 審查你的程式碼並提供改進建議
 - 生成測試用例
-- 調試錯誤信息
+- 調試錯誤資訊
 
 ### 3. PyTorch官方文檔的AI搜索
 **鏈接**: https://pytorch.org/docs/stable/index.html
@@ -395,7 +395,7 @@ writer.add_scalar('Loss/train', train_loss, epoch)
    - 實現至少3個自定義模型
 
 2. **Week 3-4**: 延遲初始化、自定義層
-   - 創建2-3個自定義層
+   - 建立2-3個自定義層
    - 集成到實際項目中
 
 3. **Week 5-6**: 文件讀寫、GPU計算
@@ -404,7 +404,7 @@ writer.add_scalar('Loss/train', train_loss, epoch)
 
 ### 進階路線 (2-3週)
 1. 深入研究一個特定主題（如自定義層或GPU優化）
-2. 閱讀相關論文並實現算法
+2. 閱讀相關論文並實現演算法
 3. 貢獻到開源項目
 
 ### 實戰建議
@@ -444,7 +444,7 @@ writer.add_scalar('Loss/train', train_loss, epoch)
 
 ### 基礎環境
 ```bash
-# 創建虛擬環境
+# 建立虛擬環境
 conda create -n dl-compute python=3.10
 conda activate dl-compute
 
@@ -464,7 +464,7 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 # 實驗追踪
 pip install wandb tensorboard
 
-# 代碼質量
+# 程式碼品質
 pip install black isort flake8 mypy
 
 # Jupyter支持
@@ -517,13 +517,13 @@ class ResidualBlock(nn.Module):
 **難度**: ⭐⭐⭐⭐
 **知識點**: 所有核心概念的綜合應用
 
-完整代碼見: `examples/training_pipeline.py`
+完整程式碼見: `examples/training_pipeline.py`
 
 ### 項目3: 跨平台部署方案
 **難度**: ⭐⭐⭐⭐⭐
 **知識點**: 模型導出、優化、部署
 
-完整代碼見: `examples/deployment_example.py`
+完整程式碼見: `examples/deployment_example.py`
 
 ---
 
@@ -544,7 +544,7 @@ for i, (data, target) in enumerate(dataloader):
         optimizer.step()
         optimizer.zero_grad()
 
-# 3. 清理GPU緩存
+# 3. 清理GPU快取
 torch.cuda.empty_cache()
 ```
 
@@ -562,7 +562,7 @@ except RuntimeError:
 **檢查清單**:
 - ✅ 確保使用`model.eval()`進行推理
 - ✅ 檢查是否正確加載了優化器狀態
-- ✅ 驗證數據預處理流程一致性
+- ✅ 驗證資料預處理流程一致性
 
 ### Q4: 梯度爆炸/消失
 **解決方案**:
@@ -594,7 +594,7 @@ model.apply(lambda m: nn.init.xavier_normal_(m.weight)
 - [ ] 了解延遲初始化的機制
 
 ### 進階技能 ✓
-- [ ] 創建複雜的自定義層
+- [ ] 建立複雜的自定義層
 - [ ] 實現高效的模型保存/加載
 - [ ] 優化GPU內存使用
 - [ ] 處理多設備計算
@@ -603,7 +603,7 @@ model.apply(lambda m: nn.init.xavier_normal_(m.weight)
 - [ ] 完成至少一個端到端的項目
 - [ ] 能夠調試性能問題
 - [ ] 理解生產環境的考慮因素
-- [ ] 能夠閱讀和理解開源代碼
+- [ ] 能夠閱讀和理解開源程式碼
 
 ---
 
@@ -617,7 +617,7 @@ model.apply(lambda m: nn.init.xavier_normal_(m.weight)
 
 **提交流程**:
 1. Fork本倉庫
-2. 創建你的特性分支 (`git checkout -b feature/AmazingFeature`)
+2. 建立你的特性分支 (`git checkout -b feature/AmazingFeature`)
 3. 提交你的修改 (`git commit -m 'Add some AmazingFeature'`)
 4. 推送到分支 (`git push origin feature/AmazingFeature`)
 5. 開啟一個Pull Request
@@ -630,12 +630,12 @@ model.apply(lambda m: nn.init.xavier_normal_(m.weight)
 - ✨ 新增多平台GPU支持 (CUDA/MPS/ROCm)
 - 📚 完善所有練習題的答案
 - 🎯 添加AI輔助學習工具指南
-- 🔧 更新代碼示例到PyTorch 2.0+
+- 🔧 更新程式碼示例到PyTorch 2.0+
 
 ### v2.0 (2023)
 - 📖 重構文檔結構
 - ✅ 添加完整的練習題
-- 🚀 優化代碼示例
+- 🚀 優化程式碼示例
 
 ### v1.0 (2022)
 - 🎉 初始版本發布

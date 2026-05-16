@@ -176,7 +176,7 @@ client = InferenceClient(
 )
 
 response = client.text_generation(
-    "寫一個 Python 函數計算階乘",
+    "寫一個 Python 函式計算階乘",
     max_new_tokens=200,
     temperature=0.5
 )
@@ -357,7 +357,7 @@ def chat(message, history):
 
     return response.choices[0].message.content
 
-# 創建介面
+# 建立介面
 demo = gr.ChatInterface(
     chat,
     title="AI 聊天機器人",
@@ -406,7 +406,7 @@ def answer_question(question):
 
     return answer + sources
 
-# 創建介面
+# 建立介面
 interface = gr.Interface(
     fn=answer_question,
     inputs=gr.Textbox(lines=2, placeholder="輸入你的問題..."),
@@ -736,7 +736,7 @@ def chat():
 
 @app.route('/api/summarize', methods=['POST'])
 def summarize():
-    """文本摘要端點"""
+    """文字摘要端點"""
     try:
         data = request.json
         text = data.get('text', '')
@@ -750,7 +750,7 @@ def summarize():
             messages=[
                 {
                     "role": "system",
-                    "content": f"你是一個專業的摘要助理。請將以下文本摘要為不超過 {max_length} 字的內容。"
+                    "content": f"你是一個專業的摘要助理。請將以下文字摘要為不超過 {max_length} 字的內容。"
                 },
                 {
                     "role": "user",
@@ -782,7 +782,7 @@ def translate():
             messages=[
                 {
                     "role": "system",
-                    "content": f"你是一個專業的翻譯助理。請將以下文本翻譯成{target_lang}。"
+                    "content": f"你是一個專業的翻譯助理。請將以下文字翻譯成{target_lang}。"
                 },
                 {
                     "role": "user",

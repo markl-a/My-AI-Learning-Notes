@@ -233,7 +233,7 @@ model.add_adapter("sentiment", config=adapter_config)
 model.train_adapter("sentiment")
 
 # 訓練（只訓練 Adapter 參數）
-# ... 訓練代碼 ...
+# ... 訓練程式碼 ...
 
 # 儲存 Adapter（只有幾 MB）
 model.save_adapter("./my_adapter", "sentiment")
@@ -702,7 +702,7 @@ output = model(image)  # (1, 1000)
 ```
 
 **變體：**
-- **DeiT：** 數據高效的 ViT
+- **DeiT：** 資料高效的 ViT
 - **Swin Transformer：** 階層式 ViT
 - **BEiT：** 自監督預訓練 ViT
 
@@ -900,7 +900,7 @@ ZeRO-3: 分割優化器狀態 + 梯度 + 模型參數
 ```python
 # 安裝: pip install deepspeed
 
-# ds_config.json - DeepSpeed 配置文件
+# ds_config.json - DeepSpeed 設定檔
 {
     "train_batch_size": 32,
     "gradient_accumulation_steps": 1,
@@ -954,7 +954,7 @@ for batch in dataloader:
     model_engine.step()
 ```
 
-**使用 HuggingFace Trainer：**
+**使用 Hugging Face Trainer：**
 ```python
 from transformers import Trainer, TrainingArguments
 
@@ -1055,7 +1055,7 @@ for batch in dataloader:
     optimizer.step()
 ```
 
-**使用 HuggingFace Trainer：**
+**使用 Hugging Face Trainer：**
 ```python
 from transformers import Trainer, TrainingArguments
 
@@ -1144,7 +1144,7 @@ class MoELayer(nn.Module):
         self.num_experts = num_experts
         self.top_k = top_k
 
-        # 創建多個專家
+        # 建立多個專家
         self.experts = nn.ModuleList([
             Expert(input_dim, hidden_dim)
             for _ in range(num_experts)
@@ -1322,9 +1322,9 @@ for output in outputs:
     print(f"Prompt: {prompt}\nGenerated: {generated_text}\n")
 ```
 
-**OpenAI 兼容 API 服務器：**
+**OpenAI 兼容 API 伺服器：**
 ```bash
-# 啟動 vLLM 服務器
+# 啟動 vLLM 伺服器
 python -m vllm.entrypoints.openai.api_server \
     --model meta-llama/Llama-2-7b-chat-hf \
     --port 8000
@@ -1546,7 +1546,7 @@ print(tokenizer.decode(outputs[0]))
 - ✅ 記憶體開銷小
 
 **應用場景：**
-- 長文本生成
+- 長文字生成
 - 實時對話系統
 - 批次推理
 - 資源受限環境
@@ -1657,7 +1657,7 @@ outputs2 = llm.generate(more_prompts, sampling_params)
 | 技術 | 記憶體 | 吞吐量 | 延遲 | 難度 | 適用場景 |
 |------|--------|--------|------|------|----------|
 | **vLLM/PagedAttention** 🆕 | ⬇️⬇️⬇️ | ⬆️⬆️⬆️ | ➡️ | 低 | 生產環境推理 |
-| **Speculative Decoding** 🆕 | ➡️ | ⬆️⬆️ | ⬇️⬇️ | 中 | 長文本生成 |
+| **Speculative Decoding** 🆕 | ➡️ | ⬆️⬆️ | ⬇️⬇️ | 中 | 長文字生成 |
 | **Continuous Batching** 🆕 | ➡️ | ⬆️⬆️⬆️ | ⬇️ | 低 | API 服務 |
 | **4-bit/8-bit 量化** | ⬇️⬇️⬇️ | ⬆️⬆️ | ➡️ | 低 | 資源受限推理 |
 | **Flash Attention** | ⬇️⬇️ | ⬆️⬆️ | ⬇️ | 低 | 長上下文推理 |
@@ -1783,7 +1783,7 @@ GPU 數量 > 1？
 場景 → 推薦方案
 
 生產環境 API 服務：
-└─ vLLM 或 TGI（HuggingFace）
+└─ vLLM 或 TGI（Hugging Face）
 
 單次批次推理：
 └─ Transformers + Flash Attention 2
@@ -1860,7 +1860,7 @@ max_length = 512  # 從 2048 降低
 # 6. 使用更小的 LoRA rank
 r = 8  # 從 64 降低
 
-# 7. 清理 GPU 緩存
+# 7. 清理 GPU 快取
 torch.cuda.empty_cache()
 ```
 
@@ -1877,7 +1877,7 @@ model = AutoModelForCausalLM.from_pretrained(
     attn_implementation="flash_attention_2"
 )
 
-# ✅ 優化數據載入
+# ✅ 優化資料載入
 dataloader_num_workers = 4
 dataloader_pin_memory = True
 
@@ -1902,7 +1902,7 @@ warmup_steps = 100  # 或 warmup_ratio = 0.1
 # 3. 使用梯度裁剪
 max_grad_norm = 1.0
 
-# 4. 檢查數據質量
+# 4. 檢查資料品質
 # 確保標籤正確，沒有 NaN
 
 # 5. 降低 LoRA dropout
@@ -1914,7 +1914,7 @@ lora_alpha = 32  # 嘗試 alpha = 2 * r
 
 ### 推理問題
 
-#### 1. **推理速度慢**
+#### 1. **推論速度慢**
 
 **優化檢查清單：**
 ```python
@@ -1937,7 +1937,7 @@ attn_implementation = "flash_attention_2"
 # 使用 padding 到固定長度
 ```
 
-#### 2. **生成質量問題**
+#### 2. **生成品質問題**
 
 **調整生成參數：**
 ```python
@@ -2001,7 +2001,7 @@ attn_implementation = "sdpa"  # 而不是 "flash_attention_2"
 #### 2. **DeepSpeed 配置錯誤**
 
 ```python
-# 常見錯誤：配置文件格式
+# 常見錯誤：設定檔格式
 # ❌ 錯誤
 "fp16": {"enabled": true}  # Python 布林值
 
@@ -2029,13 +2029,13 @@ with open("ds_config.json") as f:
 2. ✅ 實作 Vision Transformer
 3. ✅ 探索各種模型量化方法
 4. ✅ 學習 Flash Attention
-5. ✅ 實作簡單的推理優化
+5. ✅ 實作簡單的推論優化
 
 ### 進階（6-12 個月）
 1. ✅ 掌握 DeepSpeed/FSDP 分散式訓練
 2. ✅ 研究 MoE 架構
 3. ✅ 實作 Diffusion Models
-4. ✅ 深入推理優化（vLLM, Speculative Decoding）
+4. ✅ 深入推論優化（vLLM, Speculative Decoding）
 5. ✅ 從頭預訓練小型模型
 
 ### 專家級（12+ 個月）
@@ -2090,8 +2090,8 @@ with open("ds_config.json") as f:
 - **[Flash Attention](https://github.com/Dao-AILab/flash-attention)** - 高效注意力實作
 
 #### 推理框架 🆕
-- **[vLLM](https://github.com/vllm-project/vllm)** - PagedAttention 推理引擎
-- **[Text Generation Inference (TGI)](https://github.com/huggingface/text-generation-inference)** - HuggingFace 推理服務
+- **[vLLM](https://github.com/vllm-project/vllm)** - PagedAttention 推論引擎
+- **[Text Generation Inference (TGI)](https://github.com/huggingface/text-generation-inference)** - Hugging Face 推論服務
 - **[Medusa](https://github.com/FasterDecoding/Medusa)** - Speculative Decoding
 - **[llama.cpp](https://github.com/ggerganov/llama.cpp)** - CPU 推理（支持量化）
 
@@ -2171,7 +2171,7 @@ with open("ds_config.json") as f:
 
 1. **從簡單開始**：先掌握 LoRA + AMP + Flash Attention
 2. **根據資源選擇**：24GB GPU → QLoRA，多卡 → FSDP/DeepSpeed
-3. **優先推理優化**：生產環境必用 vLLM 或 TGI
+3. **優先推論優化**：生產環境必用 vLLM 或 TGI
 4. **持續學習**：關注 Hugging Face Blog 和最新論文
 5. **動手實踐**：用開源庫快速驗證想法
 

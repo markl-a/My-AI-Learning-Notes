@@ -1,7 +1,7 @@
-# Model Context Protocol (MCP) 協議與工具調用
+# Model Context Protocol (MCP) 協議與工具呼叫
 
 > **最後更新**: 2025-12-14
-> **狀態**: 2024-2025年AI工具調用的新標準
+> **狀態**: 2024-2025年AI工具呼叫的新標準
 
 ---
 
@@ -22,7 +22,7 @@
 
 ### 1.1 什麼是MCP？
 
-**Model Context Protocol (MCP)** 是由Anthropic於2024年11月推出的開放標準協議，旨在統一AI應用與外部工具、數據源之間的通信方式。
+**Model Context Protocol (MCP)** 是由Anthropic於2024年11月推出的開放標準協議，旨在統一AI應用與外部工具、資料源之間的通信方式。
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -101,7 +101,7 @@
 ### 2.2 核心概念
 
 #### Tools (工具)
-LLM可以調用的函數，執行特定操作：
+LLM可以呼叫的函數，執行特定操作：
 
 ```python
 # MCP工具定義示例
@@ -127,7 +127,7 @@ LLM可以調用的函數，執行特定操作：
 ```
 
 #### Resources (資源)
-提供給LLM讀取的數據源：
+提供給LLM讀取的資料源：
 
 ```python
 # MCP資源定義示例
@@ -146,11 +146,11 @@ LLM可以調用的函數，執行特定操作：
 # MCP提示模板示例
 {
     "name": "code_review",
-    "description": "代碼審查提示模板",
+    "description": "程式碼審查提示模板",
     "arguments": [
         {
             "name": "code",
-            "description": "要審查的代碼",
+            "description": "要審查的程式碼",
             "required": True
         },
         {
@@ -175,7 +175,7 @@ tools = [
         "type": "function",
         "function": {
             "name": "get_weather",
-            "description": "獲取天氣信息",
+            "description": "獲取天氣資訊",
             "parameters": {
                 "type": "object",
                 "properties": {
@@ -205,7 +205,7 @@ server = Server("weather-server")
 
 @server.tool()
 async def get_weather(location: str) -> str:
-    """獲取天氣信息"""
+    """獲取天氣資訊"""
     # 實現邏輯
     return f"{location}的天氣: 晴天, 25°C"
 
@@ -264,7 +264,7 @@ async def main():
             tools = await session.list_tools()
             print(f"可用工具: {[t.name for t in tools.tools]}")
 
-            # 調用工具
+            # 呼叫工具
             result = await session.call_tool(
                 "search_documents",
                 arguments={"query": "機器學習", "limit": 5}
@@ -288,7 +288,7 @@ from langchain_mcp import MCPToolkit
 from langchain.agents import create_react_agent
 from langchain_openai import ChatOpenAI
 
-# 創建MCP工具包
+# 建立MCP工具包
 mcp_toolkit = MCPToolkit(
     servers=[
         {"command": "python", "args": ["file_server.py"]},
@@ -299,7 +299,7 @@ mcp_toolkit = MCPToolkit(
 # 獲取所有MCP工具
 tools = mcp_toolkit.get_tools()
 
-# 創建Agent
+# 建立Agent
 llm = ChatOpenAI(model="gpt-4")
 agent = create_react_agent(llm, tools)
 
@@ -320,7 +320,7 @@ from mcp.server.stdio import stdio_server
 from mcp.types import Tool, TextContent, Resource
 import asyncio
 
-# 創建伺服器實例
+# 建立伺服器實例
 server = Server("my-custom-server")
 
 # 定義工具
@@ -407,10 +407,10 @@ async def read_file(path: str) -> str:
 @server.prompt()
 async def summarize_template(text: str, style: str = "concise") -> str:
     """
-    文本摘要提示模板
+    文字摘要提示模板
 
     Args:
-        text: 要摘要的文本
+        text: 要摘要的文字
         style: 摘要風格 (concise, detailed, bullet_points)
     """
     templates = {
@@ -457,11 +457,11 @@ class StatefulServer:
                 context={},
                 history=[]
             )
-            return f"會話已創建: {user_id}"
+            return f"會話已建立: {user_id}"
 
         @self.server.tool()
         async def add_to_context(user_id: str, key: str, value: str) -> str:
-            """添加上下文信息"""
+            """添加上下文資訊"""
             if user_id not in self.sessions:
                 return "會話不存在"
             self.sessions[user_id].context[key] = value
@@ -508,13 +508,13 @@ class SecureServer:
         @self.server.tool()
         @self.require_permission("read")
         async def read_data(path: str, role: str = "guest") -> str:
-            """讀取數據 (需要read權限)"""
+            """讀取資料 (需要read權限)"""
             return f"讀取: {path}"
 
         @self.server.tool()
         @self.require_permission("write")
         async def write_data(path: str, content: str, role: str = "guest") -> str:
-            """寫入數據 (需要write權限)"""
+            """寫入資料 (需要write權限)"""
             return f"寫入到: {path}"
 
         @self.server.tool()
@@ -613,7 +613,7 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 複製代碼
+# 複製程式碼
 COPY . .
 
 # 健康檢查
@@ -778,10 +778,10 @@ class OptimizedServer:
         self._setup_tools()
 
     def _setup_tools(self):
-        # 使用緩存
+        # 使用快取
         @self.server.tool()
         async def cached_search(query: str) -> list:
-            """帶緩存的搜索"""
+            """帶快取的搜索"""
             cache_key = f"search:{query}"
             if cache_key in self._cache:
                 return self._cache[cache_key]
@@ -821,7 +821,7 @@ class OptimizedServer:
 
 完整實現請參見: [examples/rag_mcp_server.py](./examples/rag_mcp_server.py)
 
-### 8.2 數據庫查詢MCP伺服器
+### 8.2 資料庫查詢MCP伺服器
 
 完整實現請參見: [examples/database_mcp_server.py](./examples/database_mcp_server.py)
 

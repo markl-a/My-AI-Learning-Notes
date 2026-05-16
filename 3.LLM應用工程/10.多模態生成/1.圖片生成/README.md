@@ -17,7 +17,7 @@
 完成本章節後，你將能夠：
 
 - ✅ 理解Diffusion模型的工作原理
-- ✅ 使用Stable Diffusion生成高質量圖片
+- ✅ 使用Stable Diffusion生成高品質圖片
 - ✅ 運用ControlNet精確控制生成內容
 - ✅ 訓練和使用自定義LoRA模型
 - ✅ 掌握提示詞工程技巧
@@ -127,7 +127,7 @@ image.save("generated_portrait.png")
 
 ### 什麼是ControlNet？
 
-ControlNet是一種條件控制技術，允許你使用邊緣檢測、深度圖、姿態等信息精確控制生成內容。
+ControlNet是一種條件控制技術，允許你使用邊緣檢測、深度圖、姿態等資訊精確控制生成內容。
 
 ### 支持的控制類型
 
@@ -171,7 +171,7 @@ controlnet = ControlNetModel.from_pretrained(
     torch_dtype=torch.float16
 )
 
-# 3. 創建Pipeline
+# 3. 建立Pipeline
 pipe = StableDiffusionControlNetPipeline.from_pretrained(
     "runwayml/stable-diffusion-v1-5",
     controlnet=controlnet,
@@ -212,7 +212,7 @@ controlnet_depth = ControlNetModel.from_pretrained(
     "lllyasviel/sd-controlnet-depth", torch_dtype=torch.float16
 )
 
-# 創建多控制Pipeline
+# 建立多控制Pipeline
 pipe = StableDiffusionControlNetPipeline.from_pretrained(
     "runwayml/stable-diffusion-v1-5",
     controlnet=[controlnet_canny, controlnet_depth],
@@ -279,10 +279,10 @@ image.save("lora_output.png")
 
 ### 訓練自定義LoRA
 
-#### 準備訓練數據
+#### 準備訓練資料
 
 ```bash
-# 數據集結構
+# 資料集結構
 dataset/
 ├── images/
 │   ├── img_001.jpg
@@ -305,7 +305,7 @@ import pandas as pd
 from tqdm import tqdm
 
 class ImageCaptionDataset(Dataset):
-    """圖片-文本對數據集"""
+    """圖片-文字對資料集"""
     def __init__(self, metadata_file, image_dir, tokenizer, image_processor):
         self.df = pd.read_csv(metadata_file)
         self.image_dir = image_dir
@@ -323,7 +323,7 @@ class ImageCaptionDataset(Dataset):
         image = Image.open(image_path).convert("RGB")
         image = self.image_processor(image)
 
-        # 編碼文本
+        # 編碼文字
         caption = row['caption']
         text_inputs = self.tokenizer(
             caption,
@@ -390,7 +390,7 @@ def train_lora(
         weight_decay=1e-2
     )
 
-    # 4. 準備數據集
+    # 4. 準備資料集
     dataset = ImageCaptionDataset(
         dataset_path,
         image_dir,
@@ -425,7 +425,7 @@ def train_lora(
             ).long()
             noisy_latents = pipe.scheduler.add_noise(latents, noise, timesteps)
 
-            # 獲取文本嵌入
+            # 獲取文字嵌入
             encoder_hidden_states = pipe.text_encoder(input_ids)[0]
 
             # 預測噪聲
@@ -471,7 +471,7 @@ if __name__ == "__main__":
 
 ### LoRA 訓練最佳實踐
 
-#### 數據準備
+#### 資料準備
 
 ```python
 # prepare_dataset.py
@@ -487,7 +487,7 @@ def prepare_training_data(
     caption_prefix="a photo of"
 ):
     """
-    準備訓練數據
+    準備訓練資料
     - 調整圖片大小
     - 生成caption文件
     """
@@ -546,7 +546,7 @@ prepare_training_data(
 
 ### 1. Prompt Engineering（提示詞工程）
 
-#### 高質量提示詞結構
+#### 高品質提示詞結構
 
 ```python
 def build_quality_prompt(
@@ -556,7 +556,7 @@ def build_quality_prompt(
     camera_settings=True,
     lighting=True
 ):
-    """構建高質量提示詞"""
+    """構建高品質提示詞"""
 
     prompt_parts = [subject]
 
@@ -658,7 +658,7 @@ def batch_generate_with_grid(
     **generation_kwargs
 ):
     """
-    批量生成圖片並創建網格預覽
+    批量生成圖片並建立網格預覽
 
     Args:
         prompts: 提示詞列表
@@ -689,12 +689,12 @@ def batch_generate_with_grid(
         image.save(image_path)
         generated_images.append(image)
 
-    # 創建網格
+    # 建立網格
     create_image_grid(generated_images, f"{output_dir}/grid.png", cols=grid_cols)
     print(f"Generated {len(prompts)} images in {output_dir}")
 
 def create_image_grid(images, output_path, cols=4):
-    """創建圖片網格"""
+    """建立圖片網格"""
     n_images = len(images)
     rows = (n_images + cols - 1) // cols
 
@@ -1074,13 +1074,13 @@ print(f"Prompt used: {prompt}")
 完成本章節後，你應該能夠：
 
 - [ ] 理解Diffusion模型的基本原理
-- [ ] 使用Stable Diffusion生成高質量圖片
+- [ ] 使用Stable Diffusion生成高品質圖片
 - [ ] 掌握重要參數的調節技巧
 - [ ] 使用ControlNet進行精確控制
 - [ ] 組合多個ControlNet
 - [ ] 加載和使用LoRA模型
 - [ ] 訓練自定義LoRA
-- [ ] 編寫高質量的提示詞
+- [ ] 編寫高品質的提示詞
 - [ ] 進行圖片修復和編輯
 - [ ] 實現圖片放大
 - [ ] 構建實用的生成應用
@@ -1091,7 +1091,7 @@ print(f"Prompt used: {prompt}")
 
 完成圖片生成後，建議繼續學習：
 
-1. **影片生成** - 了解如何將靜態圖片擴展到動態視頻
+1. **影片生成** - 了解如何將靜態圖片擴展到動態影片
 2. **音樂生成** - 探索音頻生成技術
 3. **實戰項目** - 構建完整的多模態應用
 

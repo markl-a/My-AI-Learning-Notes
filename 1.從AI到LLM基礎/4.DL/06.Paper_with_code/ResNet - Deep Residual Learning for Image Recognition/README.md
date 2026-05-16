@@ -8,7 +8,7 @@
 >
 > **論文鏈接**: [arXiv:1512.03385](https://arxiv.org/abs/1512.03385)
 >
-> **官方代碼**: [GitHub - KaimingHe/deep-residual-networks](https://github.com/KaimingHe/deep-residual-networks)
+> **官方程式碼**: [GitHub - KaimingHe/deep-residual-networks](https://github.com/KaimingHe/deep-residual-networks)
 
 ---
 
@@ -188,7 +188,7 @@ Input x (256 維)
 **關鍵設計選擇**:
 - ✅ 使用 1x1 卷積調整維度（而非 padding）
 - ✅ 保持跳躍連接的簡潔性
-- ✅ 激活函數放在加法之後
+- ✅ 激活函式放在加法之後
 
 ---
 
@@ -199,7 +199,7 @@ Input x (256 維)
 **解決了深度學習的根本問題**:
 - ✅ 證明了可以訓練極深的網絡（1000+ 層）
 - ✅ 解決了退化問題（degradation problem）
-- ✅ 提供了新的優化視角（學習殘差而非目標函數）
+- ✅ 提供了新的優化視角（學習殘差而非目標函式）
 
 ### 2. 實踐影響
 
@@ -207,7 +207,7 @@ Input x (256 維)
 - 🏆 **ImageNet 2015**: Top-5 錯誤率 3.57%（超越人類水平 ~5.1%）
 - 🎯 **目標檢測**: Faster R-CNN, Mask R-CNN 的 backbone
 - 🖼️ **分割**: DeepLab, U-Net 的殘差變體
-- 🎬 **視頻**: 3D ResNet 用於動作識別
+- 🎬 **影片**: 3D ResNet 用於動作識別
 - 🌐 **NLP**: Transformer 中的殘差連接受其啟發
 
 ### 3. 架構影響
@@ -220,7 +220,7 @@ Input x (256 維)
 
 ### 4. 工程價值
 
-- ✅ **易於實現**: 概念簡單，代碼清晰
+- ✅ **易於實現**: 概念簡單，程式碼清晰
 - ✅ **穩定訓練**: 收斂快，不易過擬合
 - ✅ **可擴展性**: 容易調整深度和寬度
 - ✅ **遷移學習**: 預訓練模型效果好
@@ -252,13 +252,13 @@ Input x (256 維)
 - 🎨 可視化特徵和激活
 - 🔍 消融實驗
 
-### 4. `核心代碼/`
+### 4. `核心程式碼/`
 **模塊化實現**，包含：
 - `resnet.py`: ResNet 模型定義
 - `train.py`: 訓練腳本
 - `evaluate.py`: 評估腳本
 - `utils.py`: 工具函數
-- `config.py`: 配置文件
+- `config.py`: 設定檔
 
 ---
 
@@ -383,7 +383,7 @@ for epoch in range(100):
 
     # 評估
     model.eval()
-    # ... 評估代碼
+    # ... 評估程式碼
 ```
 
 ---
@@ -424,7 +424,7 @@ for epoch in range(100):
 **ResNet-50/101/152** (深層):
 - 使用 Bottleneck 塊（1×1 → 3×3 → 1×1）
 - 更高的表示能力
-- 適合大規模數據集
+- 適合大規模資料集
 
 ---
 
@@ -455,7 +455,7 @@ for epoch in range(100):
 
 ### 計算效率
 
-**推理速度** (單 GPU, batch_size=1):
+**推論速度** (單 GPU, batch_size=1):
 
 | 模型 | GPU | 推理時間 (ms) | 吞吐量 (imgs/s) |
 |------|-----|---------------|----------------|
@@ -563,7 +563,7 @@ output = model(image)['out']
 
 ## 📚 參考資源
 
-### 論文與代碼
+### 論文與程式碼
 
 - 📄 **原始論文**: [Deep Residual Learning for Image Recognition](https://arxiv.org/abs/1512.03385)
 - 💻 **官方實現 (Caffe)**: [KaimingHe/deep-residual-networks](https://github.com/KaimingHe/deep-residual-networks)
@@ -596,7 +596,7 @@ output = model(image)['out']
   - [Understanding ResNet](https://towardsdatascience.com/understanding-and-visualizing-resnets-442284831be8)
   - [ResNet 詳解](https://zhuanlan.zhihu.com/p/31852747)
 
-### 數據集
+### 資料集
 
 - **ImageNet**: [http://www.image-net.org/](http://www.image-net.org/)
 - **CIFAR-10/100**: [https://www.cs.toronto.edu/~kriz/cifar.html](https://www.cs.toronto.edu/~kriz/cifar.html)
@@ -631,7 +631,7 @@ ResNet: ∂L/∂x = ∂L/∂H · (∂F/∂x + 1)
 **Q1: 為什麼使用 1×1 卷積而非 padding？**
 - A: 1×1 卷積可以學習最優的維度映射，而 padding 是固定的
 
-**Q2: 激活函數應該放在加法前還是後？**
+**Q2: 激活函式應該放在加法前還是後？**
 - A: 論文實驗表明放在加法後效果更好（ResNet v2 有不同設計）
 
 **Q3: BN 應該放在哪裡？**
@@ -679,13 +679,13 @@ ResNet: ∂L/∂x = ∂L/∂H · (∂F/∂x + 1)
 
 ## 📄 授權
 
-本教程遵循原論文和官方代碼的授權協議。ResNet 論文和代碼開源免費使用。
+本教程遵循原論文和官方程式碼的授權協議。ResNet 論文和程式碼開源免費使用。
 
 ---
 
 ## 🏆 影響力
 
-**統計數據**:
+**統計資料**:
 - 📄 **引用次數**: 150,000+ (截至 2024)
 - ⭐ **GitHub Stars**: 100,000+ (各種實現總和)
 - 🏅 **獎項**: CVPR 2016 Best Paper Award

@@ -57,7 +57,7 @@ python main.py
 ### 2. Docker 部署
 
 ```bash
-# 1. 創建 .env 文件
+# 1. 建立 .env 文件
 echo "OPENAI_API_KEY=your-api-key" > .env
 
 # 2. 構建並啟動
@@ -158,7 +158,7 @@ def __init__(
 | `GET` | `/api/conversations/{id}` | 獲取對話 |
 | `DELETE` | `/api/conversations/{id}` | 刪除對話 |
 | `GET` | `/api/health` | 健康檢查 |
-| `GET` | `/api/stats` | 統計信息 |
+| `GET` | `/api/stats` | 統計資訊 |
 
 ## 🧪 測試
 
@@ -186,9 +186,9 @@ for doc in documents:
     await rag_engine.add_document(doc)
 ```
 
-### 3. 緩存
-- 使用 Redis 緩存頻繁查詢
-- 緩存嵌入結果
+### 3. 快取
+- 使用 Redis 快取頻繁查詢
+- 快取嵌入結果
 
 ### 4. 水平擴展
 ```bash
@@ -208,16 +208,16 @@ docker-compose up --scale rag-api=4
    - 限制請求頻率
    - 使用 HTTPS
 
-3. **數據隱私**
-   - 加密敏感數據
+3. **資料隱私**
+   - 加密敏感資料
    - 定期清理對話歷史
-   - 遵守數據保護法規
+   - 遵守資料保護法規
 
 ## 🐛 故障排除
 
 ### 問題 1: ChromaDB 錯誤
 ```bash
-# 清除數據庫
+# 清除資料庫
 rm -rf ./chroma_db
 # 重新啟動
 python main.py
@@ -240,7 +240,7 @@ curl https://api.openai.com/v1/usage
 
 ## 📚 擴展功能
 
-### 1. 添加更多向量數據庫
+### 1. 添加更多向量資料庫
 - Pinecone
 - Weaviate
 - Milvus

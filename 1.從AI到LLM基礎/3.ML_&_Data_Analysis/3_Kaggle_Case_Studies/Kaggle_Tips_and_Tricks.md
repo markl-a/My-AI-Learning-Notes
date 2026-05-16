@@ -13,7 +13,7 @@ EDA 的主要目的是深入了解資料結構、分佈、模式、異常值和�
 
 1. **基礎資料分析 / 基本統計**：  
    - 使用 `df.info()` 和 `df.describe()` 快速了解資料維度、欄位型態及缺失值分布。  
-   - 計算平均值、中位數、標準差、頻率等統計量，了解數據基本分佈情況。
+   - 計算平均值、中位數、標準差、頻率等統計量，了解資料基本分佈情況。
 
 2. **視覺化**：  
    - 直方圖 (Histograms)：查看數值特徵分佈。  
@@ -76,11 +76,11 @@ train['GarageType'] = train['GarageType'].fillna('None')
 ## II. 特徵工程 (Feature Engineering)
 
 ### 目的
-特徵工程是 Kaggle 比賽中提升模型效果的關鍵，透過創造更具代表性的特徵或轉換既有特徵來更好捕捉數據本質。
+特徵工程是 Kaggle 比賽中提升模型效果的關鍵，透過創造更具代表性的特徵或轉換既有特徵來更好捕捉資料本質。
 
 ### 常用方法
 
-#### A. 特徵創建 (Feature Creation)
+#### A. 特徵建立 (Feature Creation)
 - **組合特徵**：  
   利用加減乘除將特徵組合。例如：  
   `TotalSF = TotalBsmtSF + 1stFlrSF + 2ndFlrSF`  
@@ -186,7 +186,7 @@ print("Mean CV RMSE:", -scores.mean())
 - **特徵選擇與降維**：去冗餘特徵，降低模型複雜度。  
 - **正則化 (Ridge、Lasso、ElasticNet)**：限制模型參數大小，避免過度擬合。  
 - **Dropout (NN)**：降低神經網絡過擬合。  
-- **數據增強 (Data Augmentation)**：對圖像、語音數據生成變形樣本增加多樣性。
+- **資料增強 (Data Augmentation)**：對圖像、語音資料生成變形樣本增加多樣性。
 
 ### 交叉驗證策略
 - **Stratified K-Fold**：保持類別比例一致。  
@@ -213,7 +213,7 @@ print("Mean CV RMSE:", -scores.mean())
 ---
 
 ## VI. 常用工具與套件
-- 數據處理：`pandas`, `numpy`  
+- 資料處理：`pandas`, `numpy`  
 - 可視化：`matplotlib`, `seaborn`, `plotly`  
 - 機器學習：`scikit-learn`, `lightgbm`, `xgboost`  
 - 深度學習：`tensorflow`, `pytorch`  
@@ -223,10 +223,10 @@ print("Mean CV RMSE:", -scores.mean())
 ---
 
 ## VII. 注意事項
-- **資料分佈差異**：檢查訓練/測試集分佈，避免數據洩漏。  
+- **資料分佈差異**：檢查訓練/測試集分佈，避免資料洩漏。  
 - **可重現性**：固定隨機種子、使用 Docker/虛擬環境。  
 - **遵守比賽規則**：仔細閱讀官方要求。  
-- **資源管理**：優化代碼、合理分配運算資源。
+- **資源管理**：優化程式碼、合理分配運算資源。
 
 ---
 

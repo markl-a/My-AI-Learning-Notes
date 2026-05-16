@@ -91,7 +91,7 @@ AI（人工智慧）是一個相當廣泛的領域，它並不僅限於機器學
 
 ### 3. ML_&_Data_Analysis（機器學習與資料分析）
 
-包含機器學習基礎、資料分析、傳統ML演算法、EDA、特徵工程、Kaggle案例、分散式運算、大數據處理與ETL流程整合。
+包含機器學習基礎、資料分析、傳統ML演算法、EDA、特徵工程、Kaggle案例、分散式運算、大資料處理與ETL流程整合。
 
 #### 📂 子目錄結構：
 
@@ -127,6 +127,13 @@ AI（人工智慧）是一個相當廣泛的領域，它並不僅限於機器學
 - **[Model_Deployment_Introduction.md](3.ML_&_Data_Analysis/5_Best_Practices_and_MLOps_Basics/Model_Deployment_Introduction.md)**：模型部署基礎
 - **[Version_Control_and_Experiment_Tracking.md](3.ML_&_Data_Analysis/5_Best_Practices_and_MLOps_Basics/Version_Control_and_Experiment_Tracking.md)**：DVC、MLflow、Git
 - **[Scalability_and_Performance_Tuning.md](3.ML_&_Data_Analysis/5_Best_Practices_and_MLOps_Basics/Scalability_and_Performance_Tuning.md)**：效能調校
+
+##### 🆕 2026-05 新增 deep-dive(結構化資料 frontier)
+
+- **[Time_Series_Tabular_FM_2024-2026.md](3.ML_&_Data_Analysis/Time_Series_Tabular_FM_2024-2026.md)** — 時序 / 表格基礎模型全景(TabPFN v2 / Chronos / Moirai / TimesFM / Toto)
+- **[TabPFN_v2_hands_on.md](3.ML_&_Data_Analysis/TabPFN_v2_hands_on.md)** — 2.8 秒擊敗 4 小時 XGBoost(*Nature* 2025);30 行 sklearn 起手式 + UCI 對比
+- **[Chronos_Moirai_zero_shot_forecasting.md](3.ML_&_Data_Analysis/Chronos_Moirai_zero_shot_forecasting.md)** — Chronos-Bolt 比原版快 250×;Chronos-2 / Moirai 2.0 多模型對比;**GIFT-Eval 資料洩漏陷阱**
+- **[Time_LLM_hybrid_pipeline.md](3.ML_&_Data_Analysis/Time_LLM_hybrid_pipeline.md)** — TSFM + LLM 兩段式管線(預測 + 解釋 + 互動);與 Causal ML 接合
 
 #### 🎓 推薦學習路徑：
 
@@ -182,7 +189,15 @@ AI（人工智慧）是一個相當廣泛的領域，它並不僅限於機器學
 - 閱讀、運作與分析學術論文
 - 包含視訊品質評估等實際應用案例
 
-#### 🎓 學習建議：
+##### 🆕 2026-05 新增 deep-dive(CV / 多模態生成 frontier)
+
+- **[CV_全景_2024-2026.md](4.DL/CV_全景_2024-2026.md)** — 8 軸線:YOLO26/SAM 3/DINOv3/3DGS/FLUX/Sora/VLM/VLA + 2026 入門 CV 工程師最短路徑
+- **[Multimodal_Generation_2024-2026.md](4.DL/Multimodal_Generation_2024-2026.md)** — Diffusion → Flow Matching → DiT 範式;Any-to-Any (GPT-4o/Janus/OmniGen);影像/影片/3D/音樂生成 + C2PA 合規
+- **[SAM3_Grounding_DINO_hands_on.md](4.DL/SAM3_Grounding_DINO_hands_on.md)** — Promptable Concept Segmentation + Grounded-SAM pipeline,70 行 Python 範例
+- **[FLUX_ControlNet_LoRA_訓練實戰.md](4.DL/FLUX_ControlNet_LoRA_訓練實戰.md)** — FLUX.1 dev/schnell + ControlNet + IP-Adapter + LoRA 訓練(85 行 diffusers 完整 script)+ C2PA 簽章
+- **[04.Ultralytics/YOLO11_YOLO26_更新.md](4.DL/04.Ultralytics/YOLO11_YOLO26_更新.md)** — 既有 YOLOv8 教材的演進補完:YOLO11 → YOLOv12 → YOLO26 NMS-free + edge 部署
+
+#### 🎓 學習建議:
 
 **電腦視覺 (CV) 學習路徑：**
 1. CNN 基礎 → 圖像分類 → 物件檢測（YOLO）
@@ -255,7 +270,7 @@ Transformer 架構 → NLP 基礎 → Hugging Face → LLM 微調
 ### 進階項目
 1. **物件檢測系統**：使用 YOLOv8 建立實時檢測應用
 2. **圖像分割**：使用 SAM2 進行精確分割
-3. **文本生成**：使用 GPT-2 或小型 LLM 進行微調
+3. **文字生成**：使用 GPT-2 或小型 LLM 進行微調
 
 ---
 
@@ -269,22 +284,35 @@ Transformer 架構 → NLP 基礎 → Hugging Face → LLM 微調
 
 ---
 
-## 📅 2024-2025 最新技術補充
+## 📅 2024-2026 frontier 補充
 
-### 深度學習框架更新
-- **PyTorch 2.x**：引入 torch.compile() 提升效能
-- **Keras 3**：多後端支援，統一 API
-- **TensorFlow 2.16+**：改進的分散式訓練支援
+### 深度學習框架(2026)
+- **PyTorch 2.x + torch.compile()**:Inductor → Triton kernel 自動生成
+- **Keras 3**:多後端統一 API(TensorFlow / PyTorch / JAX)
+- **JAX + Flax/NNX**:TPU 一等公民、Google DeepMind 主力
 
-### 電腦視覺最新進展
-- **Segment Anything Model 2 (SAM2)**：通用影像與視訊分割
-- **YOLOv10**：最新的實時物件檢測模型
-- **Vision Transformer (ViT) 變體**：DeiT、Swin Transformer
+### 電腦視覺(2024-2026)— 詳見 [CV_全景_2024-2026.md](4.DL/CV_全景_2024-2026.md)
+- **YOLO26 (2026/01)**:原生 NMS-free、edge 推論降 43%
+- **SAM 3 / SAM 3.1**:Promptable Concept Segmentation,Grounded-SAM 為 2026 開放詞彙分割標配
+- **DINOv3**:7B 自監督骨幹,frozen + linear head 是 dense prediction 新基線
+- **3DGS / 4DGS**:已取代 NeRF 為 NVS 預設方案
+- **V-JEPA 2**:LeCun 路線的視覺世界模型
 
-### NLP 最新進展
-- **Transformer 架構演進**：為理解 LLM 打基礎
-- **多模態模型**：CLIP、BLIP 等視覺-語言模型
-- **高效微調技術**：LoRA、QLoRA 等參數高效方法
+### 多模態生成(2024-2026)— 詳見 [Multimodal_Generation_2024-2026.md](4.DL/Multimodal_Generation_2024-2026.md)
+- **Diffusion → Flow Matching / Rectified Flow + DiT** 範式轉移
+- **FLUX.1** 開源生成新王;**Sora 2 / Veo 3.1 / Kling 3.0** 影片生成
+- **Any-to-Any 統一模型**:GPT-4o / Gemini 3 / Janus-Pro / OmniGen 2
+- **C2PA + SynthID 合規**:EU AI Act 2026/08 強制標示
+
+### 結構化資料 frontier(2024-2026)— 詳見 [Time_Series_Tabular_FM_2024-2026.md](3.ML_&_Data_Analysis/Time_Series_Tabular_FM_2024-2026.md)
+- **TabPFN v2 (*Nature* 2025)**:2.8 秒擊敗 4 小時 XGBoost(≤10K 樣本)
+- **時序基礎模型**:TimeGPT / Chronos / Moirai / TimesFM / Toto 全部開源
+- **何時用 TSFM 何時 GBDT**:三層決策樹
+
+### LLM / NLP 基礎(往主題 2 走)
+- **MoE / Hybrid (Mamba+Attention) / Diffusion LLM** 三條 post-Transformer 路線
+- **LoRA → DoRA / PiSSA / rsLoRA**:2024-2025 新變體
+- **長 context 從 128K 到 10M**:YaRN / LongRoPE / iRoPE / NSA / MoBA
 
 ---
 
@@ -301,10 +329,35 @@ Transformer 架構 → NLP 基礎 → Hugging Face → LLM 微調
 
 ## 📞 相關連結
 
+### 同層 / 進階主題
 - [主目錄 README](../README.md)
-- [深入LLM模型工程與LLM運維](../2.深入LLM模型工程與LLM運維/README.md)
-- [LLM應用工程](../3.LLM應用工程/README.md)
+- [2024-2026 AI 完整領域全景圖](../2024-2026_AI完整領域全景圖.md)(廣度地圖)
+- [CONCEPT_MAP.md](../CONCEPT_MAP.md)(概念與檔案對照)
+- [FRONTIER_TERMS_INDEX.md](../FRONTIER_TERMS_INDEX.md)(2026 熱詞索引)
+
+### 後續學習
+- [主題 2:深入LLM模型工程與LLM運維](../2.深入LLM模型工程與LLM運維/README.md)
+- [主題 3:LLM應用工程](../3.LLM應用工程/README.md)
+- [主題 9:面試準備與職業發展](../9.面試準備與職業發展/README.md)
+
+### 跨領域 deep-dive(11-22 章)
+- [11.AI_Hardware_Compute](../11.AI_Hardware_Compute/README.md) — GPU/TPU/HBM/液冷
+- [12.AI_For_Science](../12.AI_For_Science/README.md) — AlphaFold 3 / Evo 2 / GNoME / GraphCast
+- [13.Robotics_Embodied_AI](../13.Robotics_Embodied_AI/README.md) — VLA / 人形機器人 / 世界模型
+- [14.Voice_Audio_AI](../14.Voice_Audio_AI/README.md) — Whisper / ElevenLabs / Suno
+- [15.Privacy_Confidential_AI](../15.Privacy_Confidential_AI/README.md) — FL / DP / TEE
+- [16.AI_Content_Authenticity](../16.AI_Content_Authenticity/README.md) — C2PA / SynthID
+- [17.Causal_ML](../17.Causal_ML/README.md) — 因果推論
+- [18.GNN_Graph_Learning](../18.GNN_Graph_Learning/README.md) — GNN / GraphRAG
+- [19.Synthetic_Data_Engineering](../19.Synthetic_Data_Engineering/README.md) — Magpie / distilabel
+- [20.Generative_UI](../20.Generative_UI/README.md) — v0 / Bolt / A2UI
+- [21.AI_Forecasting_Economics](../21.AI_Forecasting_Economics/README.md) — Epoch / METR / AI 2027
+- [22.Self_Improving_AI](../22.Self_Improving_AI/README.md) — AI Scientist / AlphaEvolve / RSI
+
+### 個人軌跡
 - [相關的更新Blog](../4.相關的更新Blog/)
+- [AI研究前沿 2024-2025](../5.AI研究前沿_2024-2025/)
+- [DeepLearning.ai短課程學習紀錄](../6.DeepLearning.ai短課程學習紀錄/)
 
 ---
 
@@ -314,4 +367,4 @@ Transformer 架構 → NLP 基礎 → Hugging Face → LLM 微調
 
 ---
 
-**最後更新日期：2025-11-16**
+**最後更新日期:2026-05-16**(本輪新增 9 份 deep-dive:CV 全景、Multimodal Generation、SAM 3、FLUX、YOLO11/26、Time Series FM、TabPFN v2、Chronos/Moirai、Time-LLM)

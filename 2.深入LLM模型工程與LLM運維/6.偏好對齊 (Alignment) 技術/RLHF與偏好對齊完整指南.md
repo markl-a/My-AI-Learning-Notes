@@ -28,11 +28,11 @@
 
 **Helpful (有用性)**：
 - 理解並完成用戶的任務
-- 提供有價值的信息
+- 提供有價值的資訊
 - 承認不確定性而非編造
 
 **Honest (誠實性)**：
-- 準確反映訓練數據和能力範圍
+- 準確反映訓練資料和能力範圍
 - 不誇大或虛假陳述
 - 區分事實與觀點
 
@@ -45,7 +45,7 @@
 
 ```
 階段 1: 監督微調 (SFT)
-├─ 使用高質量示範數據
+├─ 使用高品質示範資料
 └─ 學習基本的指令遵循能力
 
 階段 2: 人類反饋強化學習 (RLHF)
@@ -55,7 +55,7 @@
 
 階段 3: 直接偏好優化 (DPO/IPO/KTO)
 ├─ 無需獎勵模型和 RL
-├─ 直接從偏好數據學習
+├─ 直接從偏好資料學習
 └─ 訓練更簡單、穩定
 
 階段 4: 憲法式 AI (Constitutional AI)
@@ -74,7 +74,7 @@
 
 **目標**：訓練基礎模型遵循指令
 
-**數據格式**：
+**資料格式**：
 ```json
 {
   "prompt": "解釋什麼是量子糾纏",
@@ -88,13 +88,13 @@
 loss = CrossEntropy(model_output, target_completion)
 ```
 
-**數據量**：通常需要 10K-100K 高質量示範
+**資料量**：通常需要 10K-100K 高品質示範
 
 #### 階段 2：訓練獎勵模型 (Reward Model)
 
 **目標**：學習人類偏好函數
 
-**數據格式（偏好對）**：
+**資料格式（偏好對）**：
 ```json
 {
   "prompt": "如何學習深度學習？",
@@ -118,7 +118,7 @@ loss = -log(sigmoid(r_chosen - r_rejected))
 - `r_chosen`：偏好回答的獎勵分數
 - `r_rejected`：非偏好回答的獎勵分數
 
-**數據量**：通常需要 50K-500K 偏好對
+**資料量**：通常需要 50K-500K 偏好對
 
 #### 階段 3：強化學習優化 (RL Fine-tuning)
 
@@ -135,11 +135,11 @@ max E[r(x, y)] - β * KL(π_θ || π_ref)
 - `π_ref`：參考策略（SFT 模型）
 - `β`：KL 散度係數（防止偏離太遠）
 
-### 2.2 PPO (Proximal Policy Optimization) 算法
+### 2.2 PPO (Proximal Policy Optimization) 演算法
 
 **核心思想**：限制每次更新的策略變化幅度
 
-**PPO-Clip 目標函數**：
+**PPO-Clip 目標函式**：
 ```python
 L_CLIP(θ) = E[min(
     ratio * advantage,
@@ -176,7 +176,7 @@ advantage = r - baseline        # 優勢函數
   - Value model（PPO baseline）
 
 **3. 獎勵模型局限**
-- 可能過擬合標註數據
+- 可能過擬合標註資料
 - 難以泛化到 OOD 情況
 - 人類偏好的複雜性難以完全捕捉
 
@@ -239,7 +239,7 @@ L_DPO = -E[log σ(β * log(π_θ(y_w|x)/π_ref(y_w|x))
 
 **缺點**：
 - ❌ 理論性能上限可能略低於 RLHF
-- ❌ 對偏好數據質量敏感
+- ❌ 對偏好資料品質敏感
 - ❌ β 參數需要仔細調整
 
 ---
@@ -250,7 +250,7 @@ L_DPO = -E[log σ(β * log(π_θ(y_w|x)/π_ref(y_w|x))
 
 **改進點**：使用 MSE 損失代替 log-sigmoid
 
-**損失函數**：
+**損失函式**：
 ```python
 L_IPO = E[(r(x,y_w) - r(x,y_l) - 1)^2]
 ```
@@ -263,7 +263,7 @@ L_IPO = E[(r(x,y_w) - r(x,y_l) - 1)^2]
 
 **核心思想**：不需要成對偏好，只需要 thumbs up/down
 
-**數據格式**：
+**資料格式**：
 ```json
 {
   "prompt": "...",
@@ -274,13 +274,13 @@ L_IPO = E[(r(x,y_w) - r(x,y_l) - 1)^2]
 
 **優勢**：
 - 標註成本更低（不需要對比）
-- 適合已有的隱式反饋數據（點讚/點踩）
+- 適合已有的隱式反饋資料（點讚/點踩）
 
 ### 4.3 RRHF (Rank Responses to align Human Feedback)
 
 **改進點**：處理多個候選回答的排名
 
-**損失函數**：
+**損失函式**：
 ```python
 # 對所有排名對計算損失
 L = Σ -log σ(r(y_i) - r(y_j))  # 對所有 i > j
@@ -312,7 +312,7 @@ L = Σ -log σ(r(y_i) - r(y_j))  # 對所有 i > j
 
 ## 5. 偏好資料集建立
 
-### 5.1 數據收集方法
+### 5.1 資料收集方法
 
 #### 方法 1：人類對比標註
 
@@ -373,7 +373,7 @@ L = Σ -log σ(r(y_i) - r(y_j))  # 對所有 i > j
 4. 對於低置信度的，人類標註
 ```
 
-### 5.2 數據質量控制
+### 5.2 資料品質控制
 
 **1. 標註者間一致性**
 ```python
@@ -381,7 +381,7 @@ L = Σ -log σ(r(y_i) - r(y_j))  # 對所有 i > j
 κ = (P_observed - P_expected) / (1 - P_expected)
 
 # κ > 0.6 可接受
-# κ > 0.8 高質量
+# κ > 0.8 高品質
 ```
 
 **2. 多數投票**
@@ -411,7 +411,7 @@ L = Σ -log σ(r(y_i) - r(y_j))  # 對所有 i > j
 - 加入標註指南
 ```
 
-### 5.3 數據平衡與採樣
+### 5.3 資料平衡與採樣
 
 **類別平衡**：
 ```python
@@ -439,7 +439,7 @@ categories = {
 長回答 (>200 tokens): 25%
 ```
 
-### 5.4 開源偏好數據集
+### 5.4 開源偏好資料集
 
 **英文**：
 ```
@@ -458,9 +458,9 @@ categories = {
 
 **中文**：
 ```
-- BELLE Eval Set: 中文偏好數據
-- CValues: 中文價值對齊數據
-- Chinese HH-RLHF: 翻譯的 Anthropic 數據
+- BELLE Eval Set: 中文偏好資料
+- CValues: 中文價值對齊資料
+- Chinese HH-RLHF: 翻譯的 Anthropic 資料
 ```
 
 ---
@@ -476,7 +476,7 @@ from transformers import AutoModel, AutoTokenizer
 from torch.utils.data import Dataset, DataLoader
 
 class RewardModel(nn.Module):
-    """獎勵模型：輸入文本，輸出標量分數"""
+    """獎勵模型：輸入文字，輸出標量分數"""
 
     def __init__(self, base_model_name):
         super().__init__()
@@ -506,7 +506,7 @@ class RewardModel(nn.Module):
 
 
 class PreferenceDataset(Dataset):
-    """偏好對數據集"""
+    """偏好對資料集"""
 
     def __init__(self, data, tokenizer, max_length=512):
         self.data = data
@@ -596,14 +596,14 @@ def train_reward_model(model, train_loader, epochs=3, lr=1e-5):
 
 # 使用範例
 if __name__ == "__main__":
-    # 準備數據（示例）
+    # 準備資料（示例）
     preference_data = [
         {
             'prompt': '如何學習深度學習？',
             'chosen': '建議先打好數學基礎，包括線性代數、微積分和概率論。然後學習 Python 和 PyTorch，從簡單的神經網絡開始實作...',
             'rejected': '深度學習很簡單，直接用框架就行了。'
         },
-        # ... 更多數據
+        # ... 更多資料
     ]
 
     # 初始化
@@ -750,7 +750,7 @@ if __name__ == "__main__":
         lr=1e-6
     )
 
-    # 準備數據（需要實現 PreferenceDataset）
+    # 準備資料（需要實現 PreferenceDataset）
     # train_loader = ...
 
     # 訓練
@@ -773,7 +773,7 @@ model = AutoModelForCausalLM.from_pretrained(model_name)
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 tokenizer.pad_token = tokenizer.eos_token
 
-# 準備偏好數據集
+# 準備偏好資料集
 dataset = load_dataset("Anthropic/hh-rlhf", split="train")
 
 # DPO 訓練配置
@@ -790,10 +790,10 @@ training_args = DPOConfig(
     max_length=1024,
 )
 
-# 創建 trainer
+# 建立 trainer
 dpo_trainer = DPOTrainer(
     model=model,
-    ref_model=None,  # 會自動創建參考模型
+    ref_model=None,  # 會自動建立參考模型
     args=training_args,
     train_dataset=dataset,
     tokenizer=tokenizer,
@@ -863,9 +863,9 @@ torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
 DPO 是監督學習，訓練更穩定
 ```
 
-### 7.3 數據質量問題
+### 7.3 資料品質問題
 
-**問題**：標註者意見不一致，數據有噪聲
+**問題**：標註者意見不一致，資料有噪聲
 
 **解決方案**：
 
@@ -975,24 +975,24 @@ if step % every_n_steps == 0:
 - 工業界驗證（GPT-4, Claude）
 ```
 
-**已有隱式反饋數據**：
+**已有隱式反饋資料**：
 ```
 推薦：KTO
 原因：
 - 不需要成對比較
-- 可利用已有的點讚/點踩數據
+- 可利用已有的點讚/點踩資料
 ```
 
-### 8.2 數據建議
+### 8.2 資料建議
 
-**數據量**：
+**資料量**：
 ```
-SFT: 10K-100K 高質量示範
+SFT: 10K-100K 高品質示範
 Preference: 50K-500K 偏好對
 最小可行: SFT 1K + Preference 10K
 ```
 
-**數據多樣性**：
+**資料多樣性**：
 ```
 ✓ 涵蓋不同任務類型
 ✓ 包含不同難度級別
@@ -1075,7 +1075,7 @@ metrics = {
 - **DeepSpeed-Chat**: https://github.com/microsoft/DeepSpeedExamples/tree/master/applications/DeepSpeed-Chat
   - 完整的 RLHF 流程實現
 
-### 數據集
+### 資料集
 
 - **Anthropic HH-RLHF**: https://huggingface.co/datasets/Anthropic/hh-rlhf
 - **OpenAssistant**: https://huggingface.co/datasets/OpenAssistant/oasst1
@@ -1104,9 +1104,9 @@ metrics = {
    - 效果接近 RLHF
    - 小團隊首選
 
-3. **數據質量至關重要**
-   - 偏好數據決定對齊方向
-   - 投入時間建立高質量數據集
+3. **資料品質至關重要**
+   - 偏好資料決定對齊方向
+   - 投入時間建立高品質資料集
    - 持續評估和改進
 
 4. **實務挑戰需要經驗**
@@ -1124,7 +1124,7 @@ metrics = {
 
 **起步**：
 1. SFT 模型準備
-2. 收集 10K-50K 偏好數據
+2. 收集 10K-50K 偏好資料
 3. 嘗試 DPO 訓練
 
 **進階**：

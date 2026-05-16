@@ -35,7 +35,7 @@
 
 | # | 練習名稱 | 難度 | 預計時間 |
 |---|---------|------|----------|
-| 3.1 | [工具定義與調用](./agent/01-tool-use.md) | ⭐⭐ | 1 小時 |
+| 3.1 | [工具定義與呼叫](./agent/01-tool-use.md) | ⭐⭐ | 1 小時 |
 | 3.2 | [ReAct 模式實作](./agent/02-react.md) | ⭐⭐⭐ | 2 小時 |
 | 3.3 | [多 Agent 協作](./agent/03-multi-agent.md) | ⭐⭐⭐⭐ | 3 小時 |
 
@@ -44,7 +44,7 @@
 | # | 練習名稱 | 難度 | 預計時間 |
 |---|---------|------|----------|
 | 4.1 | [LoRA 微調入門](./fine-tuning/01-lora-basics.md) | ⭐⭐⭐ | 2 小時 |
-| 4.2 | [數據準備與清洗](./fine-tuning/02-data-prep.md) | ⭐⭐ | 1.5 小時 |
+| 4.2 | [資料準備與清洗](./fine-tuning/02-data-prep.md) | ⭐⭐ | 1.5 小時 |
 | 4.3 | [評估與迭代](./fine-tuning/03-evaluation.md) | ⭐⭐⭐ | 2 小時 |
 
 ## 如何使用
@@ -102,7 +102,7 @@ export OPENAI_API_KEY="your-key"
 我們鼓勵學習者提交自己的解答：
 
 1. Fork 此 repo
-2. 在 `exercises/submissions/your-github-username/` 下創建你的解答
+2. 在 `exercises/submissions/your-github-username/` 下建立你的解答
 3. 提交 PR
 
 優秀解答會被收錄到示例中！

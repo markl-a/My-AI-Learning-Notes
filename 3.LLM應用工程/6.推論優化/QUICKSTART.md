@@ -54,7 +54,7 @@ python 01_auto_optimizer.py
 **預期輸出**：
 - 系統資源分析
 - 智能優化建議
-- 自動生成優化代碼
+- 自動生成優化程式碼
 - 性能預測
 
 ## 驗證安裝
@@ -108,7 +108,7 @@ python test_all.py
 **A**: 是的，首次運行會自動下載。
 - 預設使用 GPT-2（較小，~500MB）
 - 可以修改為其他模型
-- 確保網路暢通或配置 HuggingFace mirror
+- 確保網路暢通或配置 Hugging Face mirror
 
 ### Q: 出現 OOM 錯誤怎麼辦？
 
@@ -196,10 +196,10 @@ model = AutoModelForCausalLM.from_pretrained(
 ### 配置快取目錄
 
 ```bash
-# 設置 HuggingFace 快取目錄
+# 設置 Hugging Face 快取目錄
 export HF_HOME=/path/to/cache
 
-# 或在代碼中
+# 或在程式碼中
 import os
 os.environ['HF_HOME'] = '/path/to/cache'
 ```
@@ -207,8 +207,8 @@ os.environ['HF_HOME'] = '/path/to/cache'
 ## 取得幫助
 
 - 📖 閱讀各模組的 README
-- 💬 查看代碼中的註釋和文檔字串
-- 🐛 檢查錯誤信息並搜尋解決方案
+- 💬 查看程式碼中的註釋和文檔字串
+- 🐛 檢查錯誤資訊並搜尋解決方案
 - 📝 參考最佳實踐指南
 
 ## 貢獻

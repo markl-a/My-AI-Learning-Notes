@@ -15,7 +15,7 @@
 1. **可重現性**：記錄所有參數和環境，確保實驗可以重現
 2. **比較分析**：輕鬆比較不同實驗的結果
 3. **協作**：團隊成員可以查看彼此的實驗結果
-4. **決策支持**：基於數據做出模型選擇決策
+4. **決策支持**：基於資料做出模型選擇決策
 5. **知識積累**：積累實驗經驗，避免重複工作
 
 ## 進階追蹤技巧
@@ -328,7 +328,7 @@ from sklearn.metrics import classification_report
 # 啟用自動記錄
 mlflow.sklearn.autolog()
 
-# 載入數據
+# 載入資料
 digits = load_digits()
 X_train, X_test, y_train, y_test = train_test_split(
     digits.data, digits.target, test_size=0.2, random_state=42
@@ -366,7 +366,7 @@ from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
-# 載入數據
+# 載入資料
 data = load_breast_cancer()
 X_train, X_test, y_train, y_test = train_test_split(
     data.data, data.target, test_size=0.2, random_state=42
@@ -439,17 +439,17 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.feature_selection import SelectKBest, f_classif
 
 def get_data_hash(df):
-    """計算數據的 hash 值，用於追蹤數據版本"""
+    """計算資料的 hash 值，用於追蹤資料版本"""
     return hashlib.md5(pd.util.hash_pandas_object(df).values).hexdigest()
 
 def track_feature_engineering():
     mlflow.set_experiment("feature_engineering_tracking")
 
     with mlflow.start_run(run_name="feature_engineering_v1"):
-        # 載入原始數據
+        # 載入原始資料
         df = pd.read_csv("data.csv")
 
-        # 記錄原始數據資訊
+        # 記錄原始資料資訊
         mlflow.log_params({
             "raw_data_shape": str(df.shape),
             "raw_data_hash": get_data_hash(df),
@@ -492,7 +492,7 @@ def track_feature_engineering():
         mlflow.log_artifact("scaler.pkl")
         mlflow.log_artifact("selector.pkl")
 
-        # 記錄處理後的數據統計
+        # 記錄處理後的資料統計
         mlflow.log_metrics({
             "data_reduction_ratio": X_selected.shape[0] / df.shape[0],
             "feature_reduction_ratio": X_selected.shape[1] / (df.shape[1] - 1)
@@ -515,12 +515,12 @@ with mlflow.start_run(run_name="optimized_item_based_cf_v2"):
     pass
 ```
 
-### 2. 參數組織
+### 2. 參陣列織
 
 ```python
 with mlflow.start_run():
     # 分組記錄參數
-    # 數據相關
+    # 資料相關
     mlflow.log_params({
         "data_version": "v1.2",
         "train_size": 0.8,
@@ -613,7 +613,7 @@ try:
     with mlflow.start_run(run_name="error_handling_example"):
         mlflow.log_param("status", "running")
 
-        # 訓練代碼
+        # 訓練程式碼
         model = train_model()
 
         mlflow.log_param("status", "success")

@@ -19,7 +19,7 @@
 
 - ✅ 理解音頻生成的基本原理
 - ✅ 使用MusicGen生成各種風格的音樂
-- ✅ 運用AudioLDM創建音效
+- ✅ 運用AudioLDM建立音效
 - ✅ 使用Bark進行語音合成
 - ✅ 處理和編輯生成的音頻
 - ✅ 構建音頻生成應用
@@ -34,7 +34,7 @@
 音頻信號基礎
 ├── 採樣率 (Sample Rate)
 │   ├── 8kHz - 語音
-│   ├── 16kHz - 語音高質量
+│   ├── 16kHz - 語音高品質
 │   ├── 44.1kHz - CD音質
 │   └── 48kHz - 專業音頻
 │
@@ -60,7 +60,7 @@
    - 擬音效果
 
 3. **語音合成**
-   - 文本轉語音 (TTS)
+   - 文字轉語音 (TTS)
    - 語音克隆
    - 情感語音
 
@@ -70,7 +70,7 @@
 
 ### 什麼是MusicGen？
 
-MusicGen是Meta開發的音樂生成模型，可以根據文本描述生成高質量的音樂片段。
+MusicGen是Meta開發的音樂生成模型，可以根據文字描述生成高品質的音樂片段。
 
 ### 核心特點
 
@@ -286,7 +286,7 @@ def crossfade_segments(segments, sample_rate, transition_duration):
     result = segments[0]
 
     for segment in segments[1:]:
-        # 創建淡出淡入曲線
+        # 建立淡出淡入曲線
         fadeout = torch.linspace(1, 0, transition_samples)
         fadein = torch.linspace(0, 1, transition_samples)
 
@@ -304,7 +304,7 @@ def crossfade_segments(segments, sample_rate, transition_duration):
 
     return result
 
-# 使用示例：創建多段音樂作品
+# 使用示例：建立多段音樂作品
 segments = [
     {
         "description": "gentle piano introduction, slow tempo, melancholic",
@@ -501,7 +501,7 @@ def generate_long_soundscape(
     final_audio = all_audio[0]
 
     for audio in all_audio[1:]:
-        # 創建淡入淡出
+        # 建立淡入淡出
         fadeout = np.linspace(1, 0, overlap_samples)
         fadein = np.linspace(0, 1, overlap_samples)
 
@@ -546,7 +546,7 @@ generate_long_soundscape(
 
 ### 什麼是Bark？
 
-Bark是Suno開發的多語言文本轉語音模型，支持語音生成、音樂生成和非語言聲音。
+Bark是Suno開發的多語言文字轉語音模型，支持語音生成、音樂生成和非語言聲音。
 
 ### 核心特點
 
@@ -572,7 +572,7 @@ import numpy as np
 # 預加載模型
 preload_models()
 
-# 基本文本轉語音
+# 基本文字轉語音
 text_prompt = """
     Hello, I am Bark, a text-to-speech model created by Suno.
     I can speak in many different voices and languages.
@@ -603,7 +603,7 @@ def generate_with_voice(
     使用特定語音預設生成音頻
 
     Args:
-        text: 要轉換的文本
+        text: 要轉換的文字
         voice_preset: 語音預設
         output_file: 輸出文件
     """
@@ -726,7 +726,7 @@ def generate_multilingual_speech():
 generate_multilingual_speech()
 ```
 
-### 長文本語音生成
+### 長文字語音生成
 
 ```python
 def generate_long_form_speech(
@@ -736,17 +736,17 @@ def generate_long_form_speech(
     segment_length=200  # 字符數
 ):
     """
-    生成長文本語音（分段處理）
+    生成長文字語音（分段處理）
 
     Args:
-        text: 長文本
+        text: 長文字
         voice_preset: 語音預設
         output_file: 輸出文件
         segment_length: 每段字符數
     """
     import numpy as np
 
-    # 分割文本為段落
+    # 分割文字為段落
     sentences = text.split('. ')
     segments = []
     current_segment = ""
@@ -1055,7 +1055,7 @@ class PodcastGenerator:
         output_file="podcast.wav"
     ):
         """
-        創建完整播客
+        建立完整播客
 
         Args:
             title: 播客標題
@@ -1166,7 +1166,7 @@ from audiocraft.data.audio import audio_write
 import torch
 
 class BackgroundMusicGenerator:
-    """為視頻生成背景音樂"""
+    """為影片生成背景音樂"""
 
     def __init__(self):
         self.model = MusicGen.get_pretrained('facebook/musicgen-medium')
@@ -1179,10 +1179,10 @@ class BackgroundMusicGenerator:
         output_file="bg_music.wav"
     ):
         """
-        根據視頻時長和情緒生成背景音樂
+        根據影片時長和情緒生成背景音樂
 
         Args:
-            video_duration: 視頻時長（秒）
+            video_duration: 影片時長（秒）
             mood: 情緒 (upbeat/calm/dramatic/playful/mysterious)
             genre: 風格 (electronic/acoustic/orchestral/ambient)
             output_file: 輸出文件
@@ -1219,7 +1219,7 @@ class BackgroundMusicGenerator:
         # 生成
         wav = self.model.generate([prompt], progress=True)
 
-        # 如果視頻更長，需要循環音樂
+        # 如果影片更長，需要循環音樂
         if video_duration > 30:
             # 保存基礎循環
             audio_write("temp_loop", wav[0].cpu(), self.model.sample_rate)
@@ -1308,7 +1308,7 @@ class BackgroundMusicGenerator:
 # 使用示例
 generator = BackgroundMusicGenerator()
 
-# 為視頻生成背景音樂
+# 為影片生成背景音樂
 generator.generate_for_video(
     video_duration=120,  # 2分鐘
     mood="upbeat",
@@ -1352,8 +1352,8 @@ generator.generate_playlist(
 - [ ] 使用MusicGen生成不同風格的音樂
 - [ ] 控制音樂的情緒和風格
 - [ ] 使用AudioLDM生成各種音效
-- [ ] 創建長時間的音景
-- [ ] 使用Bark進行文本轉語音
+- [ ] 建立長時間的音景
+- [ ] 使用Bark進行文字轉語音
 - [ ] 生成多語言和情感豐富的語音
 - [ ] 處理和編輯音頻文件
 - [ ] 混合多個音軌
@@ -1366,7 +1366,7 @@ generator.generate_playlist(
 完成音樂生成後，建議：
 
 1. **實戰項目** - 構建完整的多模態內容生成系統
-2. **整合應用** - 將圖片、視頻、音頻生成整合到實際應用中
+2. **整合應用** - 將圖片、影片、音頻生成整合到實際應用中
 3. **探索更多** - 研究最新的音頻生成技術和模型
 
 ---

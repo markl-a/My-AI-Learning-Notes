@@ -18,7 +18,7 @@
 # 原文格式
 ## 標題二
 - 列表項目
-- `代碼片段`
+- `程式碼片段`
 
 # 翻譯後保持相同格式
 ## Heading 2
@@ -34,7 +34,7 @@ def hello():
     """這是函數說明"""
     print("你好")  # 輸出問候
 
-# 翻譯：保留代碼，只翻譯註釋
+# 翻譯：保留程式碼，只翻譯註釋
 def hello():
     """This is function description"""
     print("你好")  # Output greeting (keep original output)
@@ -71,7 +71,7 @@ i18n/
 2. 在 Issue 中留言認領
 3. 等待分配確認
 
-### Step 2: 創建分支
+### Step 2: 建立分支
 
 ```bash
 git checkout -b i18n/en-chapter-1

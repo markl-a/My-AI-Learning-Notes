@@ -26,7 +26,7 @@ graph TD
 - **[ChatGPT Prompt Engineering for Developers](./01-Prompt-Engineering.md)**
   - 學習如何撰寫高效的提示詞
   - 提示工程的核心原則和技巧
-  - 實作：文本摘要、推論、轉換、擴展等應用
+  - 實作：文字摘要、推論、轉換、擴展等應用
   - ⭐ 推薦指數：★★★★★
 
 - **[Building Systems with ChatGPT API](./02-ChatGPT-API-Systems.md)**
@@ -107,7 +107,7 @@ graph TD
 - **[Building Generative AI Applications with Gradio](./12-Gradio-Applications.md)**
   - Gradio 快速建立 AI 介面
   - 部署與分享應用
-  - 實作：圖像生成、文本分析應用
+  - 實作：圖像生成、文字分析應用
   - ⭐ 推薦指數：★★★★☆
 
 ### 8️⃣ 評估與優化系列

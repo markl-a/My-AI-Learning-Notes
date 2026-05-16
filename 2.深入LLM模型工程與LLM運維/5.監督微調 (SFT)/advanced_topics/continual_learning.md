@@ -48,7 +48,7 @@ model = load_pretrained_model("gpt2")
 # 初始性能
 print("初始性能:")
 print(f"通用問答: {evaluate(model, general_qa_data)}")  # 85%
-print(f"代碼生成: {evaluate(model, code_data)}")  # 75%
+print(f"程式碼生成: {evaluate(model, code_data)}")  # 75%
 
 # 在客服對話上微調
 fine_tune(model, customer_service_data, epochs=5)
@@ -56,7 +56,7 @@ fine_tune(model, customer_service_data, epochs=5)
 print("\n微調後性能:")
 print(f"客服對話: {evaluate(model, customer_service_data)}")  # 95% ↑
 print(f"通用問答: {evaluate(model, general_qa_data)}")  # 60% ↓↓
-print(f"代碼生成: {evaluate(model, code_data)}")  # 45% ↓↓↓
+print(f"程式碼生成: {evaluate(model, code_data)}")  # 45% ↓↓↓
 ```
 
 ---
@@ -97,12 +97,12 @@ print(f"代碼生成: {evaluate(model, code_data)}")  # 45% ↓↓↓
    - 模型快速適應新任務的特定模式
    - 失去原有的通用性
 
-2. **數據分佈偏移**
-   - 微調數據與預訓練數據分佈差異大
-   - 模型過度擬合微調數據
+2. **資料分佈偏移**
+   - 微調資料與預訓練資料分佈差異大
+   - 模型過度擬合微調資料
 
-3. **小數據集效應**
-   - 微調數據量通常遠小於預訓練數據
+3. **小資料集效應**
+   - 微調資料量通常遠小於預訓練資料
    - 容易過擬合並遺忘通用知識
 
 ---
@@ -123,19 +123,19 @@ print(f"代碼生成: {evaluate(model, code_data)}")  # 45% ↓↓↓
 
 **目標**：在兩者之間找到平衡
 
-### 挑戰 2: 無法訪問舊數據
+### 挑戰 2: 無法訪問舊資料
 
-在實際應用中，通常無法訪問所有歷史訓練數據：
+在實際應用中，通常無法訪問所有歷史訓練資料：
 
-- **隱私限制**：無法保存用戶數據
-- **存儲限制**：無法存儲所有歷史數據
-- **許可限制**：預訓練數據不可用
+- **隱私限制**：無法保存用戶資料
+- **存儲限制**：無法存儲所有歷史資料
+- **許可限制**：預訓練資料不可用
 
 ### 挑戰 3: 計算成本
 
 持續學習需要額外的計算資源：
 
-- **重放 (Replay)**：需要存儲和重訓歷史數據
+- **重放 (Replay)**：需要存儲和重訓歷史資料
 - **正則化**：需要計算額外的正則項
 - **架構方法**：需要更複雜的模型結構
 
@@ -188,7 +188,7 @@ replay_buffer.add(task_a_data)
 
 # 訓練任務 B 時，混入重放樣本
 for epoch in range(num_epochs):
-    # 混合新舊數據
+    # 混合新舊資料
     replay_samples = replay_buffer.sample(batch_size // 2)
     new_samples = sample_from(task_b_data, batch_size // 2)
 
@@ -268,7 +268,7 @@ class GenerativeReplay:
         pseudo_samples = []
 
         for _ in range(n):
-            # 使用生成模型創建樣本
+            # 使用生成模型建立樣本
             prompt = f"Generate an example for task: {task_description}"
             generated = self.generator.generate(prompt)
 
@@ -306,7 +306,7 @@ L_total = L_new_task + λ Σ F_i (θ_i - θ*_i)^2
 
 其中：
 - L_new_task：新任務損失
-- F_i：參數 i 的 Fisher 信息（重要性）
+- F_i：參數 i 的 Fisher 資訊（重要性）
 - θ*_i：舊任務的最優參數
 - λ：正則化強度
 
@@ -330,11 +330,11 @@ class EWC:
             if param.requires_grad
         }
 
-        # 計算 Fisher 信息矩陣
+        # 計算 Fisher 資訊矩陣
         self.fisher_matrix = self._compute_fisher(dataloader)
 
     def _compute_fisher(self, dataloader):
-        """計算 Fisher 信息矩陣"""
+        """計算 Fisher 資訊矩陣"""
         fisher = {
             name: torch.zeros_like(param)
             for name, param in self.model.named_parameters()
@@ -354,7 +354,7 @@ class EWC:
             self.model.zero_grad()
             loss.backward()
 
-            # 累積梯度的平方作為 Fisher 信息
+            # 累積梯度的平方作為 Fisher 資訊
             for name, param in self.model.named_parameters():
                 if param.requires_grad and param.grad is not None:
                     fisher[name] += param.grad.pow(2)
@@ -461,7 +461,7 @@ def train_with_lwf(model, dataloader, lwf, alpha=0.5):
         outputs_new = model(**batch)
         task_loss = outputs_new.loss
 
-        # 蒸餾損失（在舊任務數據或新任務數據上）
+        # 蒸餾損失（在舊任務資料或新任務資料上）
         with torch.no_grad():
             outputs_old = lwf.old_model(**batch)
 
@@ -500,7 +500,7 @@ class ProgressiveNN:
         # 添加新列
         self.columns.append(new_model)
 
-        # 創建適配器連接新列和舊列
+        # 建立適配器連接新列和舊列
         adapter = self._create_adapter(len(self.columns))
         self.adapters.append(adapter)
 
@@ -545,7 +545,7 @@ class ModelWithAdapters(torch.nn.Module):
         for param in self.base_model.parameters():
             param.requires_grad = False
 
-        # 為每個任務創建適配器
+        # 為每個任務建立適配器
         hidden_size = base_model.config.hidden_size
         self.task_adapters = torch.nn.ModuleList([
             TaskAdapter(hidden_size, adapter_size)
@@ -610,11 +610,11 @@ class ContinualLearningTrainer:
             if self.use_ewc:
                 self.ewc = EWC(self.model, self.previous_dataloader)
 
-        # 2. 準備訓練數據
+        # 2. 準備訓練資料
         train_data = task_data
 
         if self.use_replay and len(self.replay_buffer.buffer) > 0:
-            # 混入重放數據
+            # 混入重放資料
             replay_samples = self.replay_buffer.get_all()
             train_data = task_data + replay_samples
 
@@ -722,9 +722,9 @@ class ComprehensiveContinualLearner:
         """訓練新任務"""
 
         print(f"\n訓練任務: {task_name}")
-        print(f"數據量: {len(task_data)}")
+        print(f"資料量: {len(task_data)}")
 
-        # 準備數據
+        # 準備資料
         train_data = self._prepare_training_data(task_data)
 
         # 如果是持續學習（不是第一個任務）
@@ -744,7 +744,7 @@ class ComprehensiveContinualLearner:
         self._evaluate_all_tasks()
 
     def _prepare_training_data(self, task_data):
-        """準備訓練數據"""
+        """準備訓練資料"""
 
         # 混入重放樣本
         if "replay" in self.strategies and len(self.task_history) > 0:
@@ -770,13 +770,13 @@ class ComprehensiveContinualLearner:
             self.old_models.append(old_model)
             print("已保存舊模型用於 LwF")
 
-        # EWC: 計算 Fisher 信息
+        # EWC: 計算 Fisher 資訊
         if "ewc" in self.strategies:
-            # 使用上一個任務的數據計算 Fisher
+            # 使用上一個任務的資料計算 Fisher
             prev_task_data = self.task_history[-1]["data"]
             ewc = EWC(self.model, self._create_dataloader(prev_task_data))
             self.ewc_components.append(ewc)
-            print("已計算 Fisher 信息用於 EWC")
+            print("已計算 Fisher 資訊用於 EWC")
 
     def _train(self, train_data, num_epochs, batch_size, learning_rate, is_continual):
         """執行訓練"""
@@ -907,7 +907,7 @@ class ComprehensiveContinualLearner:
         # 記錄任務
         self.task_history.append({
             "name": task_name,
-            "data": task_data[:100]  # 保存部分數據用於評估
+            "data": task_data[:100]  # 保存部分資料用於評估
         })
 
     def _evaluate_all_tasks(self):
@@ -963,7 +963,7 @@ class ComprehensiveContinualLearner:
         return importances
 
     def _create_dataloader(self, data, batch_size=4):
-        """創建數據加載器"""
+        """建立資料加載器"""
         from torch.utils.data import DataLoader
 
         dataset = Dataset.from_list(data)
@@ -1001,15 +1001,15 @@ if __name__ == "__main__":
         lwf_alpha=0.5
     )
 
-    # 準備任務數據
+    # 準備任務資料
     task_a_data = [{"text": "..."} for _ in range(1000)]
     task_b_data = [{"text": "..."} for _ in range(1000)]
     task_c_data = [{"text": "..."} for _ in range(1000)]
 
     # 依次訓練
     learner.train_task(task_a_data, "客服對話", num_epochs=3)
-    learner.train_task(task_b_data, "代碼生成", num_epochs=3)
-    learner.train_task(task_c_data, "文本摘要", num_epochs=3)
+    learner.train_task(task_b_data, "程式碼生成", num_epochs=3)
+    learner.train_task(task_c_data, "文字摘要", num_epochs=3)
 ```
 
 ---
@@ -1127,11 +1127,11 @@ monitor.plot_learning_curve()
 
 | 場景 | 推薦策略 | 原因 |
 |------|---------|------|
-| 可以保存少量歷史數據 | Replay + EWC | 平衡性能和成本 |
-| 完全無法保存歷史數據 | EWC + LwF | 純正則化方法 |
+| 可以保存少量歷史資料 | Replay + EWC | 平衡性能和成本 |
+| 完全無法保存歷史資料 | EWC + LwF | 純正則化方法 |
 | 有充足計算資源 | Replay + LwF + EWC | 最佳性能 |
 | 任務差異大 | Adapter Tuning | 避免干擾 |
-| 在線學習場景 | Replay + 動態權重 | 適應流式數據 |
+| 在線學習場景 | Replay + 動態權重 | 適應流式資料 |
 
 ### 2. 超參數調優
 
@@ -1151,11 +1151,11 @@ lwf_alpha = 0.5  # 範圍：0.3-0.7
 learning_rate = 1e-5  # 比標準微調更小
 ```
 
-### 3. 數據管理
+### 3. 資料管理
 
-- **重放數據選擇**：選擇困難樣本或代表性樣本
-- **數據質量**：確保重放數據質量高
-- **數據平衡**：保持任務間的平衡
+- **重放資料選擇**：選擇困難樣本或代表性樣本
+- **資料品質**：確保重放資料品質高
+- **資料平衡**：保持任務間的平衡
 
 ### 4. 定期評估
 

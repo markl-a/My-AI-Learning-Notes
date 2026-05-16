@@ -1,6 +1,6 @@
 # LLM 部署基礎示例
 
-本目錄包含各種 LLM 部署和使用的基礎示例代碼，每個示例都是獨立可運行的。
+本目錄包含各種 LLM 部署和使用的基礎示例程式碼，每個示例都是獨立可運行的。
 
 ## 📋 示例列表
 
@@ -13,14 +13,14 @@
 ### 2. OpenAI API 使用 (`02_openai_api.py`)
 - **說明**：通過 OpenAI API 使用 GPT 模型
 - **依賴**：OpenAI API key
-- **特色**：展示基礎調用、結構化輸出、多輪對話
+- **特色**：展示基礎呼叫、結構化輸出、多輪對話
 - **適用場景**：生產環境、高品質需求
 
 ### 3. Hugging Face 本地模型 (`03_huggingface_local.py`)
 - **說明**：使用 Transformers 加載和運行本地模型
 - **依賴**：GPU（推薦）、Transformers、PyTorch
 - **特色**：4-bit 量化、性能優化
-- **適用場景**：完全控制、數據隱私
+- **適用場景**：完全控制、資料隱私
 
 ### 4. 流式響應 (`04_streaming_response.py`)
 - **說明**：實現流式輸出，提升用戶體驗
@@ -32,10 +32,10 @@
 - **說明**：高效處理大量請求
 - **依賴**：本地模型或 API
 - **特色**：並行處理、進度追蹤、性能統計
-- **適用場景**：數據處理、批次任務
+- **適用場景**：資料處理、批次任務
 
 ### 6. 模型比較工具 (`06_model_comparison.py`)
-- **說明**：比較不同模型的性能和輸出質量
+- **說明**：比較不同模型的性能和輸出品質
 - **依賴**：多個模型（API 或本地）
 - **特色**：並排比較、性能分析、成本估算
 - **適用場景**：模型選擇、性能評估
@@ -103,7 +103,7 @@ ollama serve
 # 檢查 CUDA 是否可用
 python -c "import torch; print(torch.cuda.is_available())"
 
-# 查看 GPU 信息
+# 查看 GPU 資訊
 nvidia-smi
 ```
 
@@ -152,7 +152,7 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 
 @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=4, max=10))
 def call_api():
-    # API 調用代碼
+    # API 呼叫程式碼
     pass
 ```
 
@@ -165,4 +165,4 @@ def call_api():
 
 ## 🤝 貢獻
 
-歡迎提交問題和改進建議！如果你有好的示例代碼，請創建 Pull Request。
+歡迎提交問題和改進建議！如果你有好的示例程式碼，請建立 Pull Request。

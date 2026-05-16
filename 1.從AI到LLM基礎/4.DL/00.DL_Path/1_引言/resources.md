@@ -10,8 +10,8 @@
 
 1. **[動手學深度學習（Dive into Deep Learning）](https://zh.d2l.ai/)**
    - 📝 完整的交互式教材
-   - 💻 配套 PyTorch/TensorFlow 代碼
-   - 🎥 李沐老師的視頻講解
+   - 💻 配套 PyTorch/TensorFlow 程式碼
+   - 🎥 李沐老師的影片講解
    - 🆓 完全免費，中英文版本
    - ⭐ 評價：⭐⭐⭐⭐⭐
 
@@ -40,7 +40,7 @@
 5. **[Google 機器學習速成課程](https://developers.google.com/machine-learning/crash-course)**
    - ⚡ 快速入門
    - 💻 使用 TensorFlow
-   - 🎬 視頻 + 實踐練習
+   - 🎬 影片 + 實踐練習
    - 🆓 完全免費
    - ⭐ 評價：⭐⭐⭐⭐
 
@@ -59,7 +59,7 @@
 
 1. **《Python 機器學習》（Sebastian Raschka）**
    - 🎯 適合初學者
-   - 💻 豐富的代碼示例
+   - 💻 豐富的程式碼示例
    - 📊 實用的項目案例
    - 🌐 有中文譯本
 
@@ -110,14 +110,14 @@
    - 🆓 免費
 
 3. **[Distill.pub](https://distill.pub/)**
-   - 📰 高質量可視化文章
+   - 📰 高品質可視化文章
    - 🔬 深度學習研究
    - 🎨 精美的交互圖表
    - 🆓 免費閱讀
 
 4. **[ML Playground](https://ml-playground.com/)**
    - 🎮 機器學習遊樂場
-   - 📊 多種算法可視化
+   - 📊 多種演算法可視化
    - 🖱️ 實時互動
    - 🆓 免費
 
@@ -135,9 +135,9 @@
    - 🏆 配套競賽
    - 🆓 完全免費
 
-7. **[LeetCode](https://leetcode.com/)** (算法基礎)
+7. **[LeetCode](https://leetcode.com/)** (演算法基礎)
    - 💻 編程練習
-   - 🧮 算法訓練
+   - 🧮 演算法訓練
    - 🎯 為機器學習打基礎
 
 ---
@@ -147,7 +147,7 @@
 ### 中文頻道
 
 1. **[李沐的深度學習課程](https://space.bilibili.com/1567748478)**
-   - 🎬 動手學深度學習視頻
+   - 🎬 動手學深度學習影片
    - 📖 逐章講解
    - 💡 深入淺出
    - 🆓 免費
@@ -169,7 +169,7 @@
 4. **[Two Minute Papers](https://www.youtube.com/c/K%C3%A1rolyZsolnai)**
    - ⚡ AI 研究快速概覽
    - 🔬 最新論文解讀
-   - 🎬 短視頻形式
+   - 🎬 短影片形式
    - 🌐 英文
 
 5. **[Sentdex](https://www.youtube.com/c/sentdex)**
@@ -185,14 +185,14 @@
 ### 技術博客
 
 1. **[Towards Data Science](https://towardsdatascience.com/)**
-   - 📝 高質量技術文章
+   - 📝 高品質技術文章
    - 💡 實用教程
    - 🔬 最新研究
    - 🆓 部分免費
 
 2. **[Machine Learning Mastery](https://machinelearningmastery.com/)**
    - 📚 完整教程
-   - 💻 代碼示例
+   - 💻 程式碼示例
    - 🎯 實踐導向
    - 🆓 大部分免費
 
@@ -220,36 +220,36 @@
 
 ## 🛠️ 工具和資源
 
-### 數據集
+### 資料集
 
 1. **[Kaggle Datasets](https://www.kaggle.com/datasets)**
-   - 📊 大量真實數據集
+   - 📊 大量真實資料集
    - 🏆 配套競賽
    - 💡 學習實踐
    - 🆓 免費
 
 2. **[UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/)**
-   - 📚 經典數據集
+   - 📚 經典資料集
    - 🎓 學術研究
    - 📊 多種領域
    - 🆓 免費
 
 3. **[Papers with Code - Datasets](https://paperswithcode.com/datasets)**
-   - 🔬 研究數據集
+   - 🔬 研究資料集
    - 📄 配套論文
    - 📊 SOTA 基準
    - 🆓 免費
 
-### 代碼資源
+### 程式碼資源
 
 4. **[GitHub - Awesome Machine Learning](https://github.com/josephmisiti/awesome-machine-learning)**
    - 📚 精選資源列表
-   - 💻 代碼庫
+   - 💻 程式碼庫
    - 🛠️ 工具推薦
    - 🆓 免費
 
 5. **[Papers with Code](https://paperswithcode.com/)**
-   - 📄 論文 + 代碼
+   - 📄 論文 + 程式碼
    - 🔬 最新研究
    - 📊 性能比較
    - 🆓 免費
@@ -265,7 +265,7 @@
 7. **[Kaggle Notebooks](https://www.kaggle.com/code)**
    - 💻 在線編程環境
    - 🎮 免費 GPU
-   - 📊 直接訪問數據集
+   - 📊 直接訪問資料集
    - 🆓 免費
 
 ---
@@ -279,7 +279,7 @@
    - 💰 付費（有試用）
 
 2. **DataCamp**
-   - 💻 數據科學課程
+   - 💻 資料科學課程
    - 📊 機器學習
    - 🐍 Python/R
    - 💰 付費（有免費課程）
@@ -290,8 +290,8 @@
 
 ### 階段 1：基礎準備（2-4 週）
 1. Python 編程基礎
-2. NumPy, Pandas 數據處理
-3. Matplotlib 數據可視化
+2. NumPy, Pandas 資料處理
+3. Matplotlib 資料可視化
 4. 基本的線性代數和微積分
 
 **推薦資源：**
@@ -301,7 +301,7 @@
 
 ### 階段 2：機器學習入門（4-6 週）
 1. 機器學習基本概念
-2. 監督學習算法
+2. 監督學習演算法
 3. Scikit-learn 實踐
 4. 模型評估和調優
 
@@ -345,7 +345,7 @@
 
 2. **[CSDN](https://www.csdn.net/)**
    - 📰 技術博客
-   - 💻 代碼分享
+   - 💻 程式碼分享
    - 🤝 開發者社區
 
 ### 國際社區
@@ -358,7 +358,7 @@
 4. **[Stack Overflow](https://stackoverflow.com/questions/tagged/machine-learning)**
    - 💬 技術問答
    - 🐛 問題解決
-   - 💻 代碼幫助
+   - 💻 程式碼幫助
 
 5. **[Discord/Slack ML 社群]**
    - 💬 實時討論
@@ -389,7 +389,7 @@
 - 💡 關注問題動機
 - 📊 理解方法創新
 - 🔬 查看實驗結果
-- 💻 嘗試複現代碼
+- 💻 嘗試複現程式碼
 
 ---
 
@@ -422,7 +422,7 @@
 
 3. **建立學習筆記**
    - 記錄重要概念
-   - 整理代碼片段
+   - 整理程式碼片段
    - 總結學習心得
 
 4. **加入社區**

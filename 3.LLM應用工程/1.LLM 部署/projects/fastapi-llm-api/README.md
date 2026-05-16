@@ -15,13 +15,13 @@
 - 🤖 **提示詞優化**: 自動優化用戶提示詞以獲得更好的響應
 - 📈 **響應評分**: AI 評估響應質量並提供改進建議
 - ⚡ **性能分析**: 實時性能監控和優化建議
-- 💰 **成本追蹤**: 自動計算和追蹤 API 調用成本
+- 💰 **成本追蹤**: 自動計算和追蹤 API 呼叫成本
 - 🔄 **自動重試**: 智能錯誤處理和重試機制
 
 ### 安全功能
 - 🔐 **API Key 認證**: JWT token 認證
 - 🛡️ **速率限制**: 防止濫用
-- 📝 **輸入驗證**: Pydantic 數據驗證
+- 📝 **輸入驗證**: Pydantic 資料驗證
 - 🔒 **CORS 配置**: 靈活的跨域設置
 
 ## 📋 前置需求
@@ -360,7 +360,7 @@ curl http://localhost:8000/metrics
 
 ## 🔐 安全最佳實踐
 
-1. **永遠不要**在代碼中硬編碼 API keys
+1. **永遠不要**在程式碼中硬編碼 API keys
 2. 使用環境變數或密鑰管理服務
 3. 啟用 HTTPS（在生產環境）
 4. 實施速率限制
@@ -372,7 +372,7 @@ curl http://localhost:8000/metrics
 歡迎貢獻！請遵循以下步驟：
 
 1. Fork 本項目
-2. 創建特性分支 (`git checkout -b feature/AmazingFeature`)
+2. 建立特性分支 (`git checkout -b feature/AmazingFeature`)
 3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
 4. 推送到分支 (`git push origin feature/AmazingFeature`)
 5. 開啟 Pull Request

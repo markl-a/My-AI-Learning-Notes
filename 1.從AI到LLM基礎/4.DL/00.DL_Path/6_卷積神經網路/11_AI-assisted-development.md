@@ -15,42 +15,42 @@
 
 ## AI輔助開發工具
 
-### 1. 代碼輔助工具
+### 1. 程式碼輔助工具
 
 #### GitHub Copilot / ChatGPT / Claude
 **用途：**
-- 快速生成模型架構代碼
-- 編寫數據加載和預處理代碼
+- 快速生成模型架構程式碼
+- 編寫資料加載和預處理程式碼
 - 調試錯誤和異常
-- 優化代碼性能
+- 優化程式碼性能
 
 **示例提示詞：**
 ```
 # 生成ResNet塊
 "幫我實現一個ResNet的殘差塊，包含批量歸一化和跳躍連接"
 
-# 數據增強
-"為圖像分類任務創建一個數據增強pipeline，包含翻轉、旋轉、裁剪和顏色抖動"
+# 資料增強
+"為圖像分類任務建立一個資料增強pipeline，包含翻轉、旋轉、裁剪和顏色抖動"
 
 # 調試幫助
 "我的模型訓練時損失不下降，可能的原因和解決方案是什麼？"
 
 # 性能優化
-"如何優化這段PyTorch代碼的性能？[貼上代碼]"
+"如何優化這段PyTorch程式碼的性能？[貼上程式碼]"
 ```
 
 #### Cursor / Windsurf
 **特點：**
 - AI原生編輯器
-- 實時代碼建議
+- 實時程式碼建議
 - 上下文感知
 - 多文件編輯
 
 **最佳實踐：**
-1. 編寫清晰的註釋和文檔字符串
+1. 編寫清晰的註釋和文檔字串
 2. 使用AI生成測試用例
-3. 讓AI解釋複雜代碼片段
-4. 用AI重構和優化代碼
+3. 讓AI解釋複雜程式碼片段
+4. 用AI重構和優化程式碼
 
 ### 2. 實驗管理工具
 
@@ -145,7 +145,7 @@ best_model = clf.export_model()
 ```python
 import nni
 
-# 在訓練代碼中獲取超參數
+# 在訓練程式碼中獲取超參數
 params = nni.get_next_parameter()
 lr = params['learning_rate']
 batch_size = params['batch_size']
@@ -173,7 +173,7 @@ def objective(trial):
     dropout_rate = trial.suggest_uniform('dropout', 0.2, 0.5)
     weight_decay = trial.suggest_loguniform('weight_decay', 1e-6, 1e-3)
 
-    # 創建模型
+    # 建立模型
     model = create_model(dropout_rate=dropout_rate)
     optimizer = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
 
@@ -182,7 +182,7 @@ def objective(trial):
 
     return val_acc
 
-# 創建研究
+# 建立研究
 study = optuna.create_study(direction='maximize')
 study.optimize(objective, n_trials=50)
 
@@ -283,14 +283,14 @@ print("Best config:", best_trial.config)
 模型架構：[描述架構]
 學習率：0.001
 優化器：Adam
-數據集：[描述數據集]
+資料集：[描述資料集]
 可能的原因和解決方案是什麼？"
 ```
 
 **AI可能的回答：**
-1. 檢查數據預處理是否正確（歸一化、標準化）
+1. 檢查資料預處理是否正確（歸一化、標準化）
 2. 學習率可能太小，嘗試1e-2
-3. 檢查損失函數是否適配任務
+3. 檢查損失函式是否適配任務
 4. 驗證梯度是否為0（梯度消失）
 5. 檢查標籤是否正確
 
@@ -298,7 +298,7 @@ print("Best config:", best_trial.config)
 ```
 提示詞：
 "我的模型在訓練集上準確率95%，但驗證集只有70%，出現嚴重過擬合。
-已經使用了：Dropout(0.5), 數據增強, Batch Normalization
+已經使用了：Dropout(0.5), 資料增強, Batch Normalization
 還有什麼其他方法可以改善？"
 ```
 
@@ -367,7 +367,7 @@ for name, act in activations.items():
 **提示詞示例：**
 ```
 "分析這個訓練曲線，給出改進建議：
-[貼上loss和accuracy的數據或圖表]
+[貼上loss和accuracy的資料或圖表]
 
 觀察到的現象：
 1. 訓練損失穩定下降
@@ -380,17 +380,17 @@ for name, act in activations.items():
 
 ## 性能優化
 
-### 1. 使用AI優化代碼
+### 1. 使用AI優化程式碼
 
 **提示詞：**
 ```
-"優化以下PyTorch訓練代碼的性能：
-[貼上代碼]
+"優化以下PyTorch訓練程式碼的性能：
+[貼上程式碼]
 
 要求：
 1. 減少記憶體使用
 2. 提高訓練速度
-3. 保持代碼可讀性"
+3. 保持程式碼可讀性"
 ```
 
 ### 2. 混合精度訓練
@@ -398,7 +398,7 @@ for name, act in activations.items():
 ```python
 from torch.cuda.amp import autocast, GradScaler
 
-# 創建GradScaler
+# 建立GradScaler
 scaler = GradScaler()
 
 for epoch in range(num_epochs):
@@ -421,7 +421,7 @@ for epoch in range(num_epochs):
 # 訓練速度提升2-3倍（在支持Tensor Core的GPU上）
 ```
 
-### 3. 數據加載優化
+### 3. 資料加載優化
 
 ```python
 # 優化DataLoader
@@ -430,7 +430,7 @@ train_loader = DataLoader(
     batch_size=32,
     shuffle=True,
     num_workers=4,  # 使用多進程
-    pin_memory=True,  # 加速GPU數據傳輸
+    pin_memory=True,  # 加速GPU資料傳輸
     persistent_workers=True,  # PyTorch 1.7+
     prefetch_factor=2  # 預取批次數
 )
@@ -441,7 +441,7 @@ from nvidia.dali.pipeline import Pipeline
 import nvidia.dali.ops as ops
 import nvidia.dali.types as types
 
-# DALI pipeline（GPU上的數據增強）
+# DALI pipeline（GPU上的資料增強）
 class SimplePipeline(Pipeline):
     def __init__(self, batch_size, num_threads, device_id, data_dir):
         super(SimplePipeline, self).__init__(batch_size, num_threads, device_id)
@@ -501,7 +501,7 @@ with torch.no_grad():
 torch.quantization.convert(model, inplace=True)
 
 # 模型大小減少4倍
-# 推理速度提升2-4倍
+# 推論速度提升2-4倍
 ```
 
 ### 2. 模型剪枝
@@ -520,7 +520,7 @@ for name, module in model.named_modules():
         prune.remove(module, 'weight')
 
 # 參數減少30%
-# 推理速度提升約20-30%
+# 推論速度提升約20-30%
 ```
 
 ### 3. ONNX導出
@@ -572,11 +572,11 @@ output = loaded_model(input_tensor)
 ### 開始新項目時
 
 - [ ] 定義問題和評估指標
-- [ ] 收集和分析數據
+- [ ] 收集和分析資料
 - [ ] 建立baseline（簡單模型）
 - [ ] 選擇預訓練模型（如果適用）
 - [ ] 設置實驗跟蹤（wandb/tensorboard）
-- [ ] 創建數據增強pipeline
+- [ ] 建立資料增強pipeline
 - [ ] 實現訓練和驗證循環
 - [ ] 設置檢查點保存
 
@@ -593,7 +593,7 @@ output = loaded_model(input_tensor)
 ### 優化階段
 
 - [ ] 分析錯誤樣本
-- [ ] 調整數據增強策略
+- [ ] 調整資料增強策略
 - [ ] 嘗試不同的架構
 - [ ] 使用集成方法
 - [ ] 進行超參數調優
@@ -604,29 +604,29 @@ output = loaded_model(input_tensor)
 - [ ] 在測試集上評估
 - [ ] 測試邊緣情況
 - [ ] 優化模型（量化/剪枝）
-- [ ] 測試推理速度
+- [ ] 測試推論速度
 - [ ] 準備模型文檔
 - [ ] 設置監控和日誌
 
 ### 使用AI助手的最佳實踐
 
-**1. 代碼生成**
+**1. 程式碼生成**
 - ✅ 提供清晰的需求描述
 - ✅ 指定框架和版本
 - ✅ 要求添加註釋
 - ❌ 盲目複製粘貼
 
 **2. 調試**
-- ✅ 提供完整的錯誤信息
+- ✅ 提供完整的錯誤資訊
 - ✅ 描述已經嘗試的方法
 - ✅ 說明預期和實際行為
 - ❌ 只提供錯誤類型
 
 **3. 優化建議**
-- ✅ 提供性能瓶頸信息
+- ✅ 提供性能瓶頸資訊
 - ✅ 說明硬體限制
 - ✅ 指定優化目標
-- ❌ 要求"讓代碼更快"而不提供上下文
+- ❌ 要求"讓程式碼更快"而不提供上下文
 
 **4. 學習**
 - ✅ 要求解釋原理
@@ -638,9 +638,9 @@ output = loaded_model(input_tensor)
 
 ## AI工具推薦
 
-### 代碼開發
+### 程式碼開發
 - **Cursor / Windsurf**: AI原生編輯器
-- **GitHub Copilot**: 代碼補全
+- **GitHub Copilot**: 程式碼補全
 - **ChatGPT / Claude**: 技術諮詢和調試
 
 ### 實驗管理
@@ -657,7 +657,7 @@ output = loaded_model(input_tensor)
 ### 部署
 - **ONNX Runtime**: 跨平台推理
 - **TorchServe**: PyTorch官方部署
-- **Triton**: NVIDIA推理服務器
+- **Triton**: NVIDIA推理伺服器
 - **TensorRT**: NVIDIA GPU優化
 
 ### 監控和調試
@@ -670,8 +670,8 @@ output = loaded_model(input_tensor)
 ## 總結
 
 **AI輔助開發的核心原則：**
-1. **AI是工具，不是替代**：理解原理比快速生成代碼更重要
-2. **驗證和測試**：始終驗證AI生成的代碼
+1. **AI是工具，不是替代**：理解原理比快速生成程式碼更重要
+2. **驗證和測試**：始終驗證AI生成的程式碼
 3. **持續學習**：使用AI作為學習助手
 4. **記錄實驗**：使用工具記錄所有嘗試
 5. **自動化重複任務**：讓AI處理繁瑣的工作
@@ -683,4 +683,4 @@ output = loaded_model(input_tensor)
 - 在部署前進行充分的優化和測試
 - 建立系統的開發和部署流程
 
-通過合理使用AI工具，可以大幅提升開發效率和模型質量！
+通過合理使用AI工具，可以大幅提升開發效率和模型品質！

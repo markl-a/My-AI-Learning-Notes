@@ -1,12 +1,12 @@
 # 多模態模型 - 10篇關鍵論文
 
-> 2024-2025年多模態AI的突破：視覺、音頻、視頻統一處理
+> 2024-2025年多模態AI的突破：視覺、音頻、影片統一處理
 
 ---
 
 ## 📋 論文列表
 
-| # | 論文 | 機構 | 發布時間 | 代碼 | 影響力 |
+| # | 論文 | 機構 | 發布時間 | 程式碼 | 影響力 |
 |---|------|------|----------|------|--------|
 | 1 | Sora | OpenAI | 2024.02 | 未開源 | ⭐⭐⭐⭐⭐ |
 | 2 | FLUX.1 | Black Forest Labs | 2024.08 | [GitHub](https://github.com/black-forest-labs/flux) | ⭐⭐⭐⭐⭐ |
@@ -21,15 +21,15 @@
 
 ---
 
-## 1. Sora - 視頻生成革命
+## 1. Sora - 影片生成革命
 
 ### 🎯 核心貢獻
-- 文本生成高質量視頻（最長60秒）
+- 文字生成高品質影片（最長60秒）
 - Diffusion Transformer架構
 - 3D一致性與物理規律遵循
 - 多視角生成能力
 
-### 💻 概念代碼（基於公開信息）
+### 💻 概念程式碼（基於公開資訊）
 
 ```python
 # Sora未開源，以下為概念性實現
@@ -44,7 +44,7 @@ def generate_video_with_sora_like_model(
     fps: int = 24
 ):
     """
-    使用Sora風格的模型生成視頻
+    使用Sora風格的模型生成影片
 
     實際可用替代：
     - ModelScope text-to-video
@@ -77,7 +77,7 @@ def generate_video_with_sora_like_model(
 - 12B參數規模
 - 優秀的提示詞遵循
 
-### 💻 代碼實現
+### 💻 程式碼實現
 
 ```python
 from diffusers import FluxPipeline
@@ -251,7 +251,7 @@ result = model.transcribe(
 print(result["text"])
 ```
 
-### 7. AudioLDM 2 - 文本到音頻
+### 7. AudioLDM 2 - 文字到音頻
 
 ```python
 from diffusers import AudioLDM2Pipeline
@@ -277,15 +277,15 @@ scipy.io.wavfile.write("output.wav", rate=16000, data=audio)
 
 ### 8-10. Kling AI, Video-LLaMA, Qwen-VL
 
-**Kling AI**: 中國快手推出的視頻生成模型，與Sora競爭
-**Video-LLaMA**: 視頻理解對話模型
+**Kling AI**: 中國快手推出的影片生成模型，與Sora競爭
+**Video-LLaMA**: 影片理解對話模型
 **Qwen-VL**: 阿里巴巴視覺語言模型，中文優化
 
 ---
 
 ## 📊 性能對比
 
-| 模型 | 視覺理解 | 視頻生成 | 音頻處理 | 開源 |
+| 模型 | 視覺理解 | 影片生成 | 音頻處理 | 開源 |
 |------|---------|---------|---------|------|
 | GPT-4o | ⭐⭐⭐⭐⭐ | ❌ | ⭐⭐⭐⭐⭐ | ❌ |
 | Gemini 1.5 Pro | ⭐⭐⭐⭐⭐ | ❌ | ⭐⭐⭐⭐ | ❌ |

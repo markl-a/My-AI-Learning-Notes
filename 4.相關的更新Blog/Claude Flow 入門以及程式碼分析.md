@@ -93,7 +93,7 @@ npx claude-flow@alpha sparc modes
 # 預期輸出應包含:
 # - 版本號: v2.7.0-alpha.10
 # - 可用模式列表
-# - 配置文件確認
+# - 設定檔確認
 ```
  - -
 ### 🎯 2：基本命令與操作
@@ -126,7 +126,7 @@ npx claude-flow@alpha swarm "分析package.json並總結專案資訊" - clau
 npx claude-flow@alpha sparc tdd "實作一個簡單的計算機函數"
 # SPARC會自動執行5個階段:
 # S - Specification (需求分析)
-# P - Pseudocode (偽代碼設計)
+# P - Pseudocode (偽程式碼設計)
 # A - Architecture (架構設計)
 # R - Refinement (精煉優化)
 # C - Code (程式碼實作)
@@ -136,7 +136,7 @@ npx claude-flow@alpha sparc tdd "實作一個簡單的計算機函數"
 # 練習任務1: 程式碼分析
 npx claude-flow@alpha swarm "分析當前目錄結構並提供優化建議" - claude
 # 練習任務2: 簡單開發
-npx claude-flow@alpha sparc tdd "創建一個待辦事項API端點"
+npx claude-flow@alpha sparc tdd "建立一個待辦事項API端點"
 # 練習任務3: 文檔生成
 npx claude-flow@alpha swarm "為專案生成README.md" - claude
 ```
@@ -202,10 +202,10 @@ npx claude-flow@alpha memory status - reasoningbank
 npx claude-flow@alpha init - force - project-name "task-manager"
 cd task-manager
 # 步驟2: 使用SPARC開發
-npx claude-flow@alpha sparc tdd "創建任務管理REST API，包含CRUD操作"
+npx claude-flow@alpha sparc tdd "建立任務管理REST API，包含CRUD操作"
 # SPARC會自動:
 # 1. 分析需求 (Specification)
-# 2. 設計算法 (Pseudocode)
+# 2. 設計演算法 (Pseudocode)
 # 3. 規劃架構 (Architecture)
 # 4. 測試驅動開發 (Refinement)
 # 5. 實作程式碼 (Code)
@@ -274,7 +274,7 @@ npx claude-flow@alpha hive-mind spawn "構建企業級系統" - claude
 ```bash
 # 拓撲結構選擇指南:
 # Mesh (網狀) - 平等協作
-# 適用: 代碼審查、頭腦風暴、研究分析
+# 適用: 程式碼審查、頭腦風暴、研究分析
 npx claude-flow@alpha swarm init - topology mesh - max-agents 5
 # Hierarchical (層級) - 皇后領導
 # 適用: 大型項目、複雜架構、企業系統
@@ -309,7 +309,7 @@ npx claude-flow@alpha swarm spawn researcher "研究用戶管理最佳實踐"
 npx claude-flow@alpha swarm spawn system-architect "設計用戶管理架構"
 npx claude-flow@alpha swarm spawn backend-dev "實作用戶API"
 npx claude-flow@alpha swarm spawn tester "編寫測試套件"
-npx claude-flow@alpha swarm spawn reviewer "代碼審查"
+npx claude-flow@alpha swarm spawn reviewer "程式碼審查"
 # 步驟3: 監控進度
 watch -n 5 'npx claude-flow@alpha swarm status'
 # 步驟4: 儲存協調經驗
@@ -324,7 +324,7 @@ npx claude-flow@alpha memory store swarm_pattern "6-agent hierarchical for user 
 # 1. Specification (規格分析)
 npx claude-flow@alpha sparc run spec-pseudocode "電商支付系統"
 # 輸出: requirements.md, user-stories.md
-# 2. Pseudocode (偽代碼設計)
+# 2. Pseudocode (偽程式碼設計)
 # 自動在spec-pseudocode中完成
 # 3. Architecture (架構設計)
 npx claude-flow@alpha sparc run architect "支付系統架構設計"
@@ -591,7 +591,7 @@ npx claude-flow@alpha mcp start
 2. mcp__claude-flow__agent_spawn (類型: backend-dev)
 3. mcp__claude-flow__agent_spawn (類型: tester)
 4. mcp__claude-flow__task_orchestrate (任務: 認證系統)
-5. mcp__claude-flow__github_pr_manage (創建PR)
+5. mcp__claude-flow__github_pr_manage (建立PR)
 """
 # 3. 監控MCP任務狀態
 npx claude-flow@alpha mcp task-status <task-id>
@@ -622,12 +622,12 @@ npx claude-flow@alpha memory store testing_pipeline "自動化測試管道配置
 npx claude-flow@alpha github init
 # 會詢問:
 # - GitHub token
-# - 默認倉庫
+# - 預設倉庫
 # - PR模板
 # - Issue標籤
 # 2. 配置6種GitHub模式
 # - PR Manager: PR管理與審查
-# - Code Review Swarm: 多agent代碼審查
+# - Code Review Swarm: 多agent程式碼審查
 # - Issue Tracker: Issue追蹤與分類
 # - Release Manager: 發布管理
 # - Workflow Automation: CI/CD自動化
@@ -646,10 +646,10 @@ npx claude-flow@alpha github pr-manager
 # === 模式2: Code Review Swarm ===
 npx claude-flow@alpha github code-review-swarm - pr 123
 # 派遣agents:
-# - code-analyzer: 代碼質量
+# - code-analyzer: 程式碼品質
 # - security-manager: 安全審查
 # - perf-analyzer: 性能分析
-# - reviewer: 代碼風格
+# - reviewer: 程式碼風格
 # === 模式3: Issue Tracker ===
 npx claude-flow@alpha github issue-tracker
 # 自動執行:
@@ -661,7 +661,7 @@ npx claude-flow@alpha github issue-tracker
 npx claude-flow@alpha github release-manager - version 2.1.0
 # 自動執行:
 # 1. 生成CHANGELOG
-# 2. 創建release notes
+# 2. 建立release notes
 # 3. 打tag
 # 4. 發布到npm/GitHub
 ```
@@ -676,7 +676,7 @@ npx claude-flow@alpha swarm \
  - agents backend-dev,coder,tester \
  - parallel \
 "實作issue #45的用戶頭像功能"
-# 步驟3: 自動創建PR
+# 步驟3: 自動建立PR
 npx claude-flow@alpha github create-pr \
  - title "feat: 添加用戶頭像功能" \
  - issue 45 \
@@ -693,14 +693,14 @@ npx claude-flow@alpha github create-pr \
 npx claude-flow@alpha github init
 # 步驟2: 配置workflow automation
 npx claude-flow@alpha github workflow-automation setup
-# 步驟3: 創建測試PR
-# (手動在GitHub創建PR #999)
+# 步驟3: 建立測試PR
+# (手動在GitHub建立PR #999)
 # 步驟4: 觸發自動化流程
 npx claude-flow@alpha github pr-manager - pr 999
 # 步驟5: 監控並觀察自動化
 watch -n 10 'gh pr view 999'
 # 預期結果:
-# ✅ 自動代碼審查
+# ✅ 自動程式碼審查
 # ✅ 自動運行測試
 # ✅ 自動性能分析
 # ✅ 自動合併 (如果全部通過)
@@ -807,7 +807,7 @@ npx claude-flow@alpha swarm "新任務" \
  - claude
 # 預期結果:
 # ✅ 任務完成時間減少20–30%
-# ✅ 代碼質量提升
+# ✅ 程式碼品質提升
 # ✅ 自動選擇最佳agents
 ```
  - -
@@ -828,10 +828,10 @@ npx claude-flow@alpha swarm \
 npx claude-flow@alpha swarm \
  - agents system-architect,backend-dev \
 "設計用戶服務微服務組件"
-# 3. 數據庫架構
+# 3. 資料庫架構
 npx claude-flow@alpha swarm \
  - agents system-architect \
-"設計支持10TB數據的數據庫架構"
+"設計支持10TB資料的資料庫架構"
 ```
 #### 12.2 完整企業級項目
 ```bash
@@ -865,9 +865,9 @@ npx claude-flow@alpha swarm \
 npx claude-flow@alpha memory store microservices_pattern \
 "完整微服務架構模式，包含API網關、服務發現、配置中心" \
  - namespace architecture - reasoningbank
-# 儲存數據庫模式
+# 儲存資料庫模式
 npx claude-flow@alpha memory store database_pattern \
-"PostgreSQL主從複製 + Redis緩存 + Elasticsearch搜索" \
+"PostgreSQL主從複製 + Redis快取 + Elasticsearch搜索" \
  - namespace architecture - reasoningbank
 # 儲存部署模式
 npx claude-flow@alpha memory store deployment_pattern \
@@ -933,14 +933,14 @@ npx claude-flow@alpha swarm \
 npx claude-flow@alpha swarm \
  - agents system-architect \
 "設計多層負載均衡架構"
-# 3. 數據庫分片
+# 3. 資料庫分片
 npx claude-flow@alpha swarm \
  - agents system-architect,backend-dev \
-"設計數據庫分片策略，支持100TB數據"
-# 4. 緩存策略
+"設計資料庫分片策略，支持100TB資料"
+# 4. 快取策略
 npx claude-flow@alpha swarm \
  - agents system-architect \
-"設計多層緩存策略 (CDN + Redis + Application)"
+"設計多層快取策略 (CDN + Redis + Application)"
 ```
 #### 13.3 性能優化實戰
 ```bash
@@ -958,13 +958,13 @@ npx claude-flow@alpha swarm \
 "分析/api/users性能瓶頸"
 # 發現問題:
 # - N+1查詢問題
-# - 無緩存
+# - 無快取
 # - 無連接池
 # 步驟3: 實作優化
 npx claude-flow@alpha swarm \
  - agents coder,tester \
  - parallel \
-"優化/api/users: 添加查詢優化、Redis緩存、連接池"
+"優化/api/users: 添加查詢優化、Redis快取、連接池"
 # 步驟4: 驗證結果
 npx claude-flow@alpha swarm \
  - agents performance-benchmarker \
@@ -1010,19 +1010,19 @@ npx claude-flow@alpha memory store performance_optimization \
 # 1. Docker容器化
 npx claude-flow@alpha swarm \
  - agents cicd-engineer \
-"創建生產級Dockerfile和docker-compose.yml"
+"建立生產級Dockerfile和docker-compose.yml"
 # 2. Kubernetes部署
 npx claude-flow@alpha swarm \
  - agents cicd-engineer \
-"創建完整的Kubernetes manifests (Deployment, Service, Ingress, ConfigMap)"
+"建立完整的Kubernetes manifests (Deployment, Service, Ingress, ConfigMap)"
 # 3. Helm Charts
 npx claude-flow@alpha swarm \
  - agents cicd-engineer \
-"創建Helm chart，支持多環境部署"
+"建立Helm chart，支持多環境部署"
 # 4. CI/CD管道
 npx claude-flow@alpha swarm \
  - agents cicd-engineer \
-"創建GitHub Actions workflow: test -> build -> deploy"
+"建立GitHub Actions workflow: test -> build -> deploy"
 ```
 #### 14.2 監控與運維
 ```bash
@@ -1046,10 +1046,10 @@ npx claude-flow@alpha swarm \
 #### 14.3 完整DevOps流程
 ```bash
 # 項目: 完整的雲端DevOps流程
-# 階段1: 基礎設施即代碼
+# 階段1: 基礎設施即程式碼
 npx claude-flow@alpha swarm \
  - agents cicd-engineer \
-"使用Terraform創建AWS基礎設施"
+"使用Terraform建立AWS基礎設施"
 # 階段2: 容器化
 npx claude-flow@alpha swarm \
  - agents cicd-engineer \
@@ -1080,18 +1080,18 @@ npx claude-flow@alpha hive-mind wizard
 # 步驟2: 容器化
 npx claude-flow@alpha swarm \
  - agents cicd-engineer \
-"創建多階段Dockerfile優化鏡像大小"
+"建立多階段Dockerfile優化鏡像大小"
 # 步驟3: 本地測試
 docker-compose up -d
 # 驗證服務正常運行
 # 步驟4: Kubernetes配置
 npx claude-flow@alpha swarm \
  - agents cicd-engineer \
-"創建k8s manifests: staging和production環境"
+"建立k8s manifests: staging和production環境"
 # 步驟5: CI/CD管道
 npx claude-flow@alpha swarm \
  - agents cicd-engineer \
-"創建GitHub Actions: lint -> test -> build -> deploy"
+"建立GitHub Actions: lint -> test -> build -> deploy"
 # 步驟6: 監控設置
 npx claude-flow@alpha swarm \
  - agents cicd-engineer \
@@ -1150,12 +1150,12 @@ npx claude-flow@alpha hive-mind spawn "完整電商平台" - claude
 #### 項目4: 社交媒體API
 ```bash
 # 功能: 用戶、帖子、評論、點贊、關注
-npx claude-flow@alpha sparc pipeline "社交媒體API with 推薦算法"
+npx claude-flow@alpha sparc pipeline "社交媒體API with 推薦演算法"
 # 學習重點:
-# - 複雜數據模型
+# - 複雜資料模型
 # - 推薦系統
 # - 實時通知
-# - 緩存策略
+# - 快取策略
 ```
  - -
 ### 高級項目 (6–8週)
@@ -1230,7 +1230,7 @@ npx claude-flow@alpha swarm \
 # 簡單任務: mesh
 # 複雜項目: hierarchical
 # 動態需求: adaptive
-# 4. 啟用記憶緩存
+# 4. 啟用記憶快取
 npx claude-flow@alpha memory config - cache true
 # 5. 使用神經網絡模式
 npx claude-flow@alpha swarm \
@@ -1514,7 +1514,7 @@ v
 | **協調層** | SwarmCoordinator | `src/swarm/coordinator.ts` | Swarm拓撲、協調策略 |
 | **基礎層** | EventBus | `src/core/event-bus.ts` | 事件發布/訂閱機制 |
 | **基礎層** | ConfigManager | `src/core/config.ts` | 配置管理、安全性 |
-| **資料層** | MemoryManager | `src/memory/manager.ts` | 記憶CRUD、索引、緩存 |
+| **資料層** | MemoryManager | `src/memory/manager.ts` | 記憶CRUD、索引、快取 |
 | **資料層** | Persistence | `src/core/json-persistence.ts` | SQLite資料持久化 |
 | **整合層** | MCPServer | `src/mcp/server.ts` | MCP協議實作 |
 ---
@@ -1530,7 +1530,7 @@ v
 import { CLI, VERSION } from './cli-core.js';
 import { setupCommands } from './commands/index.js';
 async function main() {
-// 1. 創建CLI實例
+// 1. 建立CLI實例
 const cli = new CLI('claude-flow', 'Advanced AI Agent Orchestration System');
 // 2. 註冊所有命令
 setupCommands(cli);
@@ -1580,7 +1580,7 @@ v
 │   ├─ parseArgs() - 解析命令行參數                            │
 │   ├─ 檢查版本/幫助標誌                                        │
 │   ├─ 從命令映射中查找命令                                     │
-│   ├─ 載入配置文件 (可選)                                      │
+│   ├─ 載入設定檔 (可選)                                      │
 │   └─ 執行命令的action()函數                                  │
 └──────────────────────────────────────────────────────────────┘
 ```
@@ -1635,7 +1635,7 @@ process.exit(1);
 const ctx: CommandContext = {
 args: flags._.slice(1).map(String),  // 剩餘參數
 flags: flags,                         // 所有標誌
-config: await this.loadConfig(flags.config)  // 配置文件
+config: await this.loadConfig(flags.config)  // 設定檔
 };
 // 執行命令action
 try {
@@ -1689,7 +1689,7 @@ try {
 const content = await fs.readFile(configFile, 'utf8');
 return JSON.parse(content);
 } catch {
-return undefined;  // 配置文件可選
+return undefined;  // 設定檔可選
 }
 }
 }
@@ -2180,7 +2180,7 @@ data: { taskId, agentId: bestAgent.id },
 // 開始執行
 await this.executeTask(taskId);
 }
-// 最佳Agent選擇算法
+// 最佳Agent選擇演算法
 private findBestAgent(task: TaskDefinition): AgentState | undefined {
 const candidates = Array.from(this.agents.values())
 .filter(agent =>
@@ -2211,7 +2211,7 @@ return candidates[0];
 ┌─────────────────────────────────────────────────────────┐
 │ Layer 1: MemoryManager (管理層)                         │
 ├─────────────────────────────────────────────────────────┤
-│  - createBank()      創建agent專用記憶庫                │
+│  - createBank()      建立agent專用記憶庫                │
 │  - store()           儲存記憶條目                        │
 │  - retrieve()        檢索單個記憶                        │
 │  - query()           複雜查詢                            │
@@ -2227,8 +2227,8 @@ v              v              v
 ├─────────────────┤ ├─────────────────┤ ├─────────────────┤
 │ MemoryCache     │ │ MemoryIndexer   │ │ IMemoryBackend  │
 │                 │ │                 │ │                 │
-│ - LRU緩存       │ │ - 關鍵字索引    │ │ ┌─────────────┐ │
-│ - 熱數據        │ │ - 全文搜尋      │ │ │SQLiteBackend│ │
+│ - LRU快取       │ │ - 關鍵字索引    │ │ ┌─────────────┐ │
+│ - 熱資料        │ │ - 全文搜尋      │ │ │SQLiteBackend│ │
 │ - 快速訪問      │ │ - 時間索引      │ │ └─────────────┘ │
 │                 │ │ - 類型索引      │ │ ┌─────────────┐ │
 │ 訪問: O(1)      │ │                 │ │ │ Markdown    │ │
@@ -2268,7 +2268,7 @@ private logger: ILogger,
 ) {
 // 1. 初始化後端 (SQLite or Markdown)
 this.backend = this.createBackend();
-// 2. 初始化緩存 (LRU)
+// 2. 初始化快取 (LRU)
 this.cache = new MemoryCache(
 this.config.cacheSizeMB * 1024 * 1024,  // 轉換為bytes
 this.logger,

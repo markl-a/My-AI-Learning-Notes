@@ -30,7 +30,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import cross_val_score
 from sklearn.datasets import load_iris
 
-# 載入數據
+# 載入資料
 iris = load_iris()
 X, y = iris.data, iris.target
 
@@ -38,7 +38,7 @@ X, y = iris.data, iris.target
 mlflow.set_experiment("optuna_sklearn_optimization")
 
 def objective(trial):
-    # 在 MLflow 中創建嵌套 run
+    # 在 MLflow 中建立嵌套 run
     with mlflow.start_run(nested=True, run_name=f"trial_{trial.number}"):
         # 超參數採樣
         params = {
@@ -75,14 +75,14 @@ def objective(trial):
 
     return mean_score
 
-# 創建父 run 來組織所有試驗
+# 建立父 run 來組織所有試驗
 with mlflow.start_run(run_name="optuna_optimization"):
     # 記錄優化配置
     mlflow.log_param("optimization_tool", "optuna")
     mlflow.log_param("n_trials", 50)
     mlflow.log_param("cv_folds", 5)
 
-    # 創建 Optuna 研究
+    # 建立 Optuna 研究
     study = optuna.create_study(
         direction='maximize',
         study_name='rf_optimization'
@@ -148,7 +148,7 @@ def objective(trial):
 
     return score
 
-# 創建研究並添加 callback
+# 建立研究並添加 callback
 study = optuna.create_study(direction='maximize')
 study.optimize(objective, n_trials=50, callbacks=[mlflow_callback])
 ```
@@ -216,7 +216,7 @@ def objective(trial):
         else:
             optimizer = optim.SGD(model.parameters(), lr=lr, momentum=0.9)
 
-        # 創建 DataLoader
+        # 建立 DataLoader
         train_loader = DataLoader(
             train_dataset,
             batch_size=batch_size,
@@ -301,7 +301,7 @@ def objective(trial):
 mlflow.set_experiment("pytorch_optuna_optimization")
 
 with mlflow.start_run(run_name="full_optimization"):
-    # 創建帶剪枝的研究
+    # 建立帶剪枝的研究
     study = optuna.create_study(
         direction='maximize',
         pruner=optuna.pruners.MedianPruner(
@@ -417,7 +417,7 @@ with mlflow.start_run(run_name="gridsearch_optimization"):
     # 記錄所有結果
     results_df = pd.DataFrame(grid_search.cv_results_)
 
-    # 為每個參數組合創建子 run
+    # 為每個參數組合建立子 run
     for idx, params in enumerate(grid_search.cv_results_['params']):
         with mlflow.start_run(nested=True, run_name=f"config_{idx}"):
             mlflow.log_params(params)
@@ -485,7 +485,7 @@ with mlflow.start_run(run_name="randomsearch_optimization"):
     random_search.fit(X_train, y_train)
 
     # 記錄結果（同 Grid Search）
-    # ... 省略類似代碼 ...
+    # ... 省略類似程式碼 ...
 
     # 可視化參數分佈
     import matplotlib.pyplot as plt
@@ -572,7 +572,7 @@ with mlflow.start_run(run_name="hyperband_search"):
     mlflow.log_param("tuner_type", "Hyperband")
     mlflow.log_param("max_epochs", 50)
 
-    # 創建調優器
+    # 建立調優器
     tuner = kt.Hyperband(
         build_model,
         objective='val_accuracy',
@@ -665,7 +665,7 @@ from src.training.optimizer import OptunaOptimizer
 from src.utils.mlflow_utils import setup_mlflow, log_optimization_results
 
 def load_config(config_path):
-    """載入配置文件"""
+    """載入設定檔"""
     with open(config_path, 'r') as f:
         return yaml.safe_load(f)
 
@@ -680,14 +680,14 @@ def main(args):
         tracking_uri=args.mlflow_uri
     )
 
-    # 載入數據
-    print("載入數據...")
+    # 載入資料
+    print("載入資料...")
     train_data, val_data, test_data = load_data(
         data_path=args.data_path,
         **model_config['data']
     )
 
-    # 創建優化器
+    # 建立優化器
     optimizer = OptunaOptimizer(
         model_config=model_config,
         search_config=search_config,
@@ -737,11 +737,11 @@ if __name__ == "__main__":
     parser.add_argument("--experiment-name", type=str, required=True,
                         help="MLflow 實驗名稱")
     parser.add_argument("--model-config", type=str, default="config/model_config.yaml",
-                        help="模型配置文件路徑")
+                        help="模型設定檔路徑")
     parser.add_argument("--search-config", type=str, default="config/search_config.yaml",
-                        help="搜索配置文件路徑")
+                        help="搜索設定檔路徑")
     parser.add_argument("--data-path", type=str, required=True,
-                        help="數據路徑")
+                        help="資料路徑")
     parser.add_argument("--mlflow-uri", type=str, default="http://localhost:5000",
                         help="MLflow 追蹤 URI")
     parser.add_argument("--n-trials", type=int, default=50,
@@ -839,7 +839,7 @@ def log_model_performance(model, test_data, model_name="model"):
 2. **完整記錄**：記錄所有試驗的參數和指標
 3. **可視化**：生成並保存優化過程的可視化圖表
 4. **最佳模型**：自動保存表現最好的模型
-5. **可擴展性**：設計可重用的代碼結構
+5. **可擴展性**：設計可重用的程式碼結構
 
 這些整合方法可以幫助你：
 - 更好地管理超參數調整實驗

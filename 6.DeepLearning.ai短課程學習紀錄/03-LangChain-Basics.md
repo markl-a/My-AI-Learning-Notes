@@ -397,7 +397,7 @@ history_template = """
 請回答以下歷史問題：{input}
 """
 
-# 創建提示資訊
+# 建立提示資訊
 prompt_infos = [
     {
         "name": "physics",

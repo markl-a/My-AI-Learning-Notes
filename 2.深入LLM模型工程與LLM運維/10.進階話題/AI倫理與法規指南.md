@@ -47,11 +47,11 @@
    - 要求內容安全審核
    - 演算法備案制度
 
-2. 《互聯網信息服務深度合成管理規定》
+2. 《互聯網資訊服務深度合成管理規定》
    - 深度偽造技術規範
    - 標記要求
 
-3. 《互聯網信息服務算法推薦管理規定》
+3. 《互聯網資訊服務演算法推薦管理規定》
    - 演算法透明度
    - 用戶權益保護
 ```
@@ -215,7 +215,7 @@ class ExplainabilityTools:
         }
 
     def generate_explanation_text(self, instance, feature_names) -> str:
-        """生成可讀的解釋文本"""
+        """生成可讀的解釋文字"""
         lime_exp = self.lime_explanation(instance, feature_names)
 
         text = ["=== 模型決策解釋 ===\n"]
@@ -300,7 +300,7 @@ class PIIDetector:
     }
 
     def detect(self, text: str) -> Dict[str, List[str]]:
-        """偵測文本中的 PII"""
+        """偵測文字中的 PII"""
         import re
         findings = {}
 
@@ -566,7 +566,7 @@ print(assessment.generate_report())
 ## 📚 資源參考
 
 ### 法規文件
-- [EU AI Act 官方文本](https://eur-lex.europa.eu)
+- [EU AI Act 官方文字](https://eur-lex.europa.eu)
 - [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework)
 - [中國生成式AI管理辦法](http://www.cac.gov.cn)
 

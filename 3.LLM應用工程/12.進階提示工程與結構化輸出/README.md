@@ -24,9 +24,9 @@
 
 | 特性 | Prompt 1.0 | Prompt 2.0 |
 |------|-----------|-----------|
-| **輸出格式** | 自由文本 | 結構化JSON/Schema |
+| **輸出格式** | 自由文字 | 結構化JSON/Schema |
 | **可靠性** | 依賴模型理解 | Schema強制約束 |
-| **工具調用** | 模擬/解析 | 原生Function Calling |
+| **工具呼叫** | 模擬/解析 | 原生Function Calling |
 | **推理方式** | 單步回答 | CoT/ToT多步推理 |
 | **優化方法** | 人工調整 | DSPy自動優化 |
 | **評估指標** | 主觀評價 | 量化指標 |
@@ -309,7 +309,7 @@ tools = [
         "type": "function",
         "function": {
             "name": "get_product_details",
-            "description": "獲取產品詳細信息",
+            "description": "獲取產品詳細資訊",
             "parameters": {
                 "type": "object",
                 "properties": {
@@ -370,7 +370,7 @@ def chat_with_tools(user_message: str, conversation_history: list):
 
     assistant_message = response.choices[0].message
 
-    # 如果需要調用工具
+    # 如果需要呼叫工具
     if assistant_message.tool_calls:
         conversation_history.append(assistant_message)
 
@@ -378,7 +378,7 @@ def chat_with_tools(user_message: str, conversation_history: list):
             function_name = tool_call.function.name
             function_args = json.loads(tool_call.function.arguments)
 
-            # 調用對應函數
+            # 呼叫對應函數
             function_response = tool_functions[function_name](**function_args)
 
             # 添加工具結果
@@ -399,14 +399,14 @@ def chat_with_tools(user_message: str, conversation_history: list):
     return assistant_message.content
 ```
 
-### 3.2 並行工具調用
+### 3.2 並行工具呼叫
 
 ```python
 import asyncio
 from typing import List, Dict, Any
 
 async def execute_tool_calls_parallel(tool_calls: List) -> List[Dict[str, Any]]:
-    """並行執行多個工具調用"""
+    """並行執行多個工具呼叫"""
 
     async def execute_single(tool_call):
         function_name = tool_call.function.name
@@ -428,7 +428,7 @@ async def execute_tool_calls_parallel(tool_calls: List) -> List[Dict[str, Any]]:
             "content": json.dumps(result, ensure_ascii=False)
         }
 
-    # 並行執行所有工具調用
+    # 並行執行所有工具呼叫
     results = await asyncio.gather(*[execute_single(tc) for tc in tool_calls])
     return results
 ```
@@ -476,8 +476,8 @@ dspy.configure(lm=lm)
 
 # 定義Signature
 class SentimentAnalysis(dspy.Signature):
-    """分析文本情感"""
-    text: str = dspy.InputField(desc="要分析的文本")
+    """分析文字情感"""
+    text: str = dspy.InputField(desc="要分析的文字")
     sentiment: str = dspy.OutputField(desc="情感: positive/negative/neutral")
     confidence: float = dspy.OutputField(desc="置信度 0-1")
 
@@ -488,7 +488,7 @@ print(f"情感: {result.sentiment}, 置信度: {result.confidence}")
 
 # Chain of Thought
 class ReasonedSentiment(dspy.Signature):
-    """分析文本情感並給出推理過程"""
+    """分析文字情感並給出推理過程"""
     text: str = dspy.InputField()
     reasoning: str = dspy.OutputField(desc="分析推理過程")
     sentiment: str = dspy.OutputField()
@@ -500,7 +500,7 @@ result = cot_predictor(text="產品質量不錯，但客服態度很差")
 # 自動優化
 from dspy.teleprompt import BootstrapFewShot
 
-# 準備訓練數據
+# 準備訓練資料
 trainset = [
     dspy.Example(text="太好了！", sentiment="positive", confidence=0.95),
     dspy.Example(text="很失望", sentiment="negative", confidence=0.9),
@@ -581,7 +581,7 @@ cot_prompt = """
 
 讓我們一步步來:
 1. 首先，我需要理解問題...
-2. 然後，分析關鍵信息...
+2. 然後，分析關鍵資訊...
 3. 接著，應用相關知識...
 4. 最後，得出結論...
 
@@ -1097,7 +1097,7 @@ class PromptOptimizer:
                     4. 添加約束
                     5. 簡化表達
 
-                    以JSON數組格式輸出。
+                    以JSON陣列格式輸出。
                 """}
             ],
             response_format={"type": "json_object"}
@@ -1121,6 +1121,6 @@ class PromptOptimizer:
 
 ## 🔗 相關章節
 
-- [MCP協議與工具調用](../11.MCP協議與工具調用/README.md)
+- [MCP協議與工具呼叫](../11.MCP協議與工具呼叫/README.md)
 - [Agent工具設計](../3.Agent/AI_Agents_與_Agentic_Workflows_2024-2025.md)
 - [LLM安全與防禦](../8.LLM安全與防禦/README.md)

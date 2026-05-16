@@ -29,7 +29,7 @@ LLM 生成回答
 
 ### 1. RAG 文檔檢索
 - 支持多種文檔格式（PDF、TXT、Markdown、Word）
-- 智能文本分塊（Chunk）策略
+- 智能文字分塊（Chunk）策略
 - 向量化存儲（ChromaDB）
 - 混合檢索（向量 + 關鍵詞）
 
@@ -50,7 +50,7 @@ LLM 生成回答
 
 ### 4. 生產級特性
 - RESTful API（FastAPI）
-- 請求限流和緩存
+- 請求限流和快取
 - 完整的錯誤處理
 - 結構化日誌
 - 性能監控指標
@@ -88,7 +88,7 @@ docs/
   └── document4.docx
 ```
 
-### 4. 初始化向量數據庫
+### 4. 初始化向量資料庫
 
 ```bash
 python src/document_processor.py --init
@@ -175,7 +175,7 @@ POST /api/v1/query
   "answer": "回答內容",
   "sources": [
     {
-      "content": "來源文本",
+      "content": "來源文字",
       "document": "文檔名稱",
       "score": 0.95
     }
@@ -208,7 +208,7 @@ GET /api/v1/stats
 ├── docker-compose.yml       # Docker Compose 配置
 ├── .env.example            # 環境變數模板
 ├── config/
-│   ├── config.yaml         # 主配置文件
+│   ├── config.yaml         # 主設定檔
 │   └── logging.yaml        # 日誌配置
 ├── src/
 │   ├── __init__.py
@@ -218,7 +218,7 @@ GET /api/v1/stats
 │   ├── vector_store.py     # 向量存儲管理
 │   ├── agent_tools.py      # Agent 工具集
 │   ├── llm_client.py       # LLM 客戶端封裝
-│   ├── models.py           # 數據模型
+│   ├── models.py           # 資料模型
 │   └── utils.py            # 工具函數
 ├── docs/                   # 存放要索引的文檔
 │   └── sample_doc.md
@@ -227,14 +227,14 @@ GET /api/v1/stats
 │   ├── test_system.py      # 系統集成測試
 │   ├── test_rag.py         # RAG 功能測試
 │   └── test_agent.py       # Agent 功能測試
-└── data/                   # 運行時數據（向量庫等）
+└── data/                   # 運行時資料（向量庫等）
     └── .gitkeep
 ```
 
 ## 技術棧
 
 - **LLM**: OpenAI GPT-4 / Claude / 本地模型
-- **向量數據庫**: ChromaDB
+- **向量資料庫**: ChromaDB
 - **Embedding**: OpenAI text-embedding-3-small
 - **Web 框架**: FastAPI
 - **Agent 框架**: LangChain / LlamaIndex
@@ -272,8 +272,8 @@ GET /api/v1/stats
 
 ## 性能優化
 
-- 向量檢索緩存
-- 問答結果緩存
+- 向量檢索快取
+- 問答結果快取
 - 異步處理
 - 批量 embedding
 - 連接池管理
@@ -324,7 +324,7 @@ llm:
 
 ## 擴展方向
 
-- [ ] 添加多模態支持（圖像、視頻）
+- [ ] 添加多模態支持（圖像、影片）
 - [ ] 實現流式響應
 - [ ] 添加用戶認證和權限管理
 - [ ] 集成更多外部工具（郵件、日曆等）

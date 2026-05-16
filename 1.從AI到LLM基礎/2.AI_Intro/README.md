@@ -79,7 +79,7 @@ print(f"診斷結果: {diagnosis}")
 - **聊天機器人**：ChatGPT、Claude、Gemini 等對話系統
 - **機器翻譯**：Google 翻譯、DeepL
 - **情感分析**：社交媒體輿情分析、產品評論分析
-- **文本摘要**：新聞摘要、文檔總結
+- **文字摘要**：新聞摘要、文檔總結
 
 ### Python 實作範例：簡單的情感分析
 ```python
@@ -91,7 +91,7 @@ class SimpleSentimentAnalyzer:
         self.negative_words = ['壞', '差', '糟糕', '討厭', '失望', '不滿', '爛', '難過', '遺憾', '後悔']
 
     def analyze(self, text):
-        """分析文本情感"""
+        """分析文字情感"""
         positive_count = sum(1 for word in self.positive_words if word in text)
         negative_count = sum(1 for word in self.negative_words if word in text)
 
@@ -115,7 +115,7 @@ texts = [
 
 for text in texts:
     sentiment, score = analyzer.analyze(text)
-    print(f"文本: {text}")
+    print(f"文字: {text}")
     print(f"情感: {sentiment} (強度: {score})\n")
 ```
 
@@ -146,7 +146,7 @@ for text, result in zip(texts, results):
 ## 電腦視覺（Computer Vision）
 
 ### 概念介紹
-讓機器可透過影像與視覺資訊理解週遭環境，包括影像辨識、物件偵測、影像分割、人臉識別、動作偵測等，從而能辨別、分析和理解影像或視訊數據。
+讓機器可透過影像與視覺資訊理解週遭環境，包括影像辨識、物件偵測、影像分割、人臉識別、動作偵測等，從而能辨別、分析和理解影像或視訊資料。
 
 ### 實際應用案例
 - **人臉識別**：手機解鎖、門禁系統
@@ -200,7 +200,7 @@ class SimpleImageProcessor:
         img = cv2.imread(image_path)
         hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
-        # 創建顏色遮罩
+        # 建立顏色遮罩
         mask = cv2.inRange(hsv, lower_color, upper_color)
 
         # 找到輪廓
@@ -242,7 +242,7 @@ processor = SimpleImageProcessor()
 - **任務調度**：生產排程、人員排班
 - **遊戲AI**：策略遊戲的決策樹
 
-### Python 實作範例：A* 路徑規劃算法
+### Python 實作範例：A* 路徑規劃演算法
 ```python
 import heapq
 from typing import List, Tuple, Set
@@ -281,7 +281,7 @@ class AStarPathPlanner:
         return neighbors
 
     def find_path(self, start: Tuple[int, int], goal: Tuple[int, int]) -> List[Tuple[int, int]]:
-        """使用 A* 算法尋找最短路徑"""
+        """使用 A* 演算法尋找最短路徑"""
         # 優先隊列：(f_score, 位置)
         open_set = [(0, start)]
 
@@ -339,7 +339,7 @@ class AStarPathPlanner:
 
     def visualize_path(self, path: List[Tuple[int, int]]):
         """可視化路徑"""
-        # 創建網格副本
+        # 建立網格副本
         visual_grid = [row[:] for row in self.grid]
 
         # 標記路徑
@@ -547,11 +547,11 @@ class GeneticAlgorithm:
         self.crossover_rate = crossover_rate
 
     def create_individual(self, n_items):
-        """創建個體（隨機二進制串）"""
+        """建立個體（隨機二進制串）"""
         return [random.randint(0, 1) for _ in range(n_items)]
 
     def create_population(self, n_items):
-        """創建初始種群"""
+        """建立初始種群"""
         return [self.create_individual(n_items) for _ in range(self.population_size)]
 
     def fitness(self, individual, weights, values, max_weight):
@@ -618,7 +618,7 @@ class GeneticAlgorithm:
                 best_fitness = max_fitness
                 best_individual = population[fitnesses.index(max_fitness)][:]
 
-            # 創建新種群
+            # 建立新種群
             new_population = []
 
             while len(new_population) < self.population_size:
@@ -821,7 +821,7 @@ class MultiAgentSystem:
         self.area_size = area_size
         self.target = (target_x, target_y)
 
-        # 創建智能體
+        # 建立智能體
         self.agents = []
         for i in range(n_agents):
             x = random.uniform(0, area_size)
@@ -1093,7 +1093,7 @@ print(f"\n最終結果: {results}")
 - LLM + 知識圖譜 = 更準確的知識推理
 - LLM + 電腦視覺 = 視覺問答和圖像生成
 - LLM + 強化學習 = 自主決策系統
-- LLM + 規劃算法 = 智能任務分解
+- LLM + 規劃演算法 = 智能任務分解
 
 ### 2. AI Agents（自主代理）時代
 
@@ -1109,9 +1109,9 @@ AI Agents 是能夠自主感知環境、制定計畫、執行動作並達成目�
 
 **應用領域**：
 - **軟體開發**：自動編碼、除錯、測試
-- **研究助手**：文獻檢索、數據分析、報告生成
-- **業務自動化**：客戶服務、數據處理、流程優化
-- **個人助理**：行程安排、信息管理、決策支持
+- **研究助手**：文獻檢索、資料分析、報告生成
+- **業務自動化**：客戶服務、資料處理、流程優化
+- **個人助理**：行程安排、資訊管理、決策支持
 
 **主流框架**：
 - LangGraph（狀態圖驅動）
@@ -1134,16 +1134,16 @@ class HybridAISystem:
     def __init__(self, llm, knowledge_base, reasoning_engine):
         self.llm = llm                      # 大型語言模型
         self.kb = knowledge_base            # 知識庫
-        self.reasoning = reasoning_engine   # 推理引擎
+        self.reasoning = reasoning_engine   # 推論引擎
 
     def solve_problem(self, query):
         # 1. 使用 LLM 理解問題
         problem_structure = self.llm.parse(query)
 
-        # 2. 從知識庫檢索相關信息
+        # 2. 從知識庫檢索相關資訊
         relevant_facts = self.kb.retrieve(problem_structure)
 
-        # 3. 使用推理引擎進行邏輯推導
+        # 3. 使用推論引擎進行邏輯推導
         reasoning_result = self.reasoning.infer(relevant_facts)
 
         # 4. 使用 LLM 生成自然語言回答
@@ -1156,7 +1156,7 @@ class HybridAISystem:
 
 **技術進化**：
 - **多向量檢索**：密集檢索 + 稀疏檢索的混合方式
-- **圖檢索**：利用知識圖譜的結構化信息
+- **圖檢索**：利用知識圖譜的結構化資訊
 - **多模態檢索**：跨文字、圖像、音訊的統一檢索
 - **自適應檢索**：根據查詢類型動態調整策略
 
@@ -1175,8 +1175,8 @@ class HybridAISystem:
 
 **優勢**：
 - 降低運算成本和能耗
-- 提高推理速度
-- 保護數據隱私
+- 提高推論速度
+- 保護資料隱私
 - 適應特定場景需求
 
 ---
@@ -1200,7 +1200,7 @@ class HybridAISystem:
 **與 LLM 融合** → 神經符號 AI，結合可解釋性和學習能力
 
 ### 規劃與決策 + LLM
-**傳統規劃** 使用搜索算法（A*、Dijkstra）
+**傳統規劃** 使用搜索演算法（A*、Dijkstra）
 **與 LLM 融合** → LLM 驅動的任務分解和計畫生成
 
 ---
@@ -1214,7 +1214,7 @@ AI領域包含了大量多元的研究與應用方向，而機器學習與深度
 ### 學習建議
 
 1. **理論與實踐結合**：不要只學習理論，要動手實作
-2. **從簡單開始**：先掌握基礎算法，再深入複雜模型
+2. **從簡單開始**：先掌握基礎演算法，再深入複雜模型
 3. **關注應用場景**：理解不同技術適用的場景
 4. **持續學習**：AI領域發展快速，保持學習熱情
 

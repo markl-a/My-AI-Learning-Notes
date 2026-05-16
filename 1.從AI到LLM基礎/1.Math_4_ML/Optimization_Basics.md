@@ -3,7 +3,7 @@
 ## 目錄
 1. 前言
 2. 最優化問題的基本概念
-    - 目標函數 (Objective Function)、損失函數 (Loss Function)
+    - 目標函式 (Objective Function)、損失函式 (Loss Function)
     - 全域極小值 (Global Minimum) 與局部極小值 (Local Minimum)
     - 鞍點 (Saddle Point) 與平坦區域
     - 凸問題 (Convex Problem) 與非凸問題 (Non-Convex Problem)
@@ -38,32 +38,32 @@
 9. 實務案例與建議
     - 深度學習中常見使用 SGD with Momentum 或 Adam
     - 大規模資料集與分佈式訓練下的優化考量
-    - 將數值穩定技巧融入損失函數與模型架構設計
+    - 將數值穩定技巧融入損失函式與模型架構設計
 10. 延伸閱讀與參考資源
 
 ---
 
 ## 1. 前言
 
-優化 (Optimization) 是機器學習與深度學習中不可或缺的核心步驟。我們在訓練模型時，需透過對參數空間進行搜索，找到使損失函數 (例如交叉熵、均方誤差) 值最小的參數組合。深度學習中的優化問題通常極為複雜、非凸且含有許多局部極小點、鞍點以及高維度的平坦區域。
+優化 (Optimization) 是機器學習與深度學習中不可或缺的核心步驟。我們在訓練模型時，需透過對參數空間進行搜索，找到使損失函式 (例如交叉熵、均方誤差) 值最小的參數組合。深度學習中的優化問題通常極為複雜、非凸且含有許多局部極小點、鞍點以及高維度的平坦區域。
 
 本章將介紹優化的基本概念與常用的一階法，重點在梯度下降及其變形（如動量法、自適應學習率法則等）。同時，本章也加入在數值計算上的考量，包括如何處理浮點誤差、上溢下溢問題，並簡述二階方法及約束優化的概念，最後提供實務選擇策略和學習資源。
 
 ## 2. 最優化問題的基本概念
 
-- **目標函數 / 損失函數**：優化的目標為最小化或最大化一函數 f(x)。在機器學習中通常最小化訓練損失。
+- **目標函式 / 損失函式**：優化的目標為最小化或最大化一函數 f(x)。在機器學習中通常最小化訓練損失。
 
 - **全域極小值 (Global Minimum)**：f(x*) ≤ f(x) 對任意 x 成立，x* 為全域最小點。但對複雜非凸問題，找到全域最小往往很難。
 
-- **局部極小值 (Local Minimum)**：f(x*) ≤ f(x) 在 x 鄰近區域成立。在非凸問題中，我們常只能期望找到局部極小點或夠低的代價函數值即可。
+- **局部極小值 (Local Minimum)**：f(x*) ≤ f(x) 在 x 鄰近區域成立。在非凸問題中，我們常只能期望找到局部極小點或夠低的代價函式值即可。
 
 - **鞍點 (Saddle Point)**：一點處梯度為 0，但該點同時在某些方向上彎曲向上、在某些方向上彎曲向下，不是極小或極大。在高維空間中，鞍點與平坦區域比局部極小點更加普遍。
 
-- **凸問題 (Convex Problem)**：若目標函數為凸函數，任何局部極小點即為全域極小點。可惜深度學習中多為非凸問題。
+- **凸問題 (Convex Problem)**：若目標函式為凸函數，任何局部極小點即為全域極小點。可惜深度學習中多為非凸問題。
 
 ## 3. 基於梯度的一階優化方法
 
-- **梯度 (Gradient)**：目標函數對參數向量的偏導數組成的向量，指出上升最快方向。向相反方向走即下降最快。
+- **梯度 (Gradient)**：目標函式對參數向量的偏導數組成的向量，指出上升最快方向。向相反方向走即下降最快。
 
 - **梯度下降法 (Gradient Descent)**：反覆更新 x ← x − ϵ∇f(x)，其中 ϵ 為學習率。若 ϵ 適中且梯度方向可靠，能使 f(x) 遞減。
 
@@ -100,7 +100,7 @@
   - RMSProp：對梯度平方移動平均以調整學習率。  
   - Adam：同時考慮動量 (一階矩) 與梯度平方 (二階矩) 的估計，自適應校正更新步伐。
 
-- **隨機梯度下降 (SGD)**：每次利用小批次 (mini-batch) 樣本估計梯度，可在高維大數據環境中更快速地進行參數更新。
+- **隨機梯度下降 (SGD)**：每次利用小批次 (mini-batch) 樣本估計梯度，可在高維大資料環境中更快速地進行參數更新。
 
 ## 6. 二階與高階方法
 
@@ -144,8 +144,8 @@ def gradient_descent_1d(f, df, x0, learning_rate=0.1, n_iterations=50):
     一維函數的梯度下降
 
     Args:
-        f: 目標函數
-        df: 目標函數的導數
+        f: 目標函式
+        df: 目標函式的導數
         x0: 初始點
         learning_rate: 學習率
         n_iterations: 迭代次數
@@ -647,9 +647,9 @@ visualize_loss_surface()
 import numpy as np
 import matplotlib.pyplot as plt
 
-# 生成非線性分類數據
+# 生成非線性分類資料
 def generate_spiral_data(n_samples=100, n_classes=3):
-    """生成螺旋狀數據"""
+    """生成螺旋狀資料"""
     X = np.zeros((n_samples * n_classes, 2))
     y = np.zeros(n_samples * n_classes, dtype=int)
 
@@ -741,7 +741,7 @@ def train_network(X, y, optimizer_name='Adam', n_epochs=1000):
     np.random.seed(42)
     net = TwoLayerNet(input_size=2, hidden_size=20, output_size=3)
 
-    # 創建優化器
+    # 建立優化器
     if optimizer_name == 'SGD':
         optimizer = SGD(learning_rate=0.1)
     elif optimizer_name == 'Momentum':
@@ -781,7 +781,7 @@ def train_network(X, y, optimizer_name='Adam', n_epochs=1000):
 
     return net, losses, accuracies
 
-# 生成數據
+# 生成資料
 X, y = generate_spiral_data(n_samples=100, n_classes=3)
 
 # 測試不同優化器
@@ -950,7 +950,7 @@ def simulate_gradient_flow(n_layers, weight_scale, use_clipping=False, clip_valu
         # 權重梯度
         weight_grad = np.random.randn() * weight_scale
 
-        # 激活函數梯度（sigmoid）
+        # 激活函式梯度（sigmoid）
         activation_input = np.random.randn()
         activation_grad = sigmoid_grad(activation_input)
 
@@ -1195,7 +1195,7 @@ print(f"BFGS - 迭代: {len(path_bfgs)}, 最終值: {bfgs_values[-1]:.6f}")
 | 通用深度學習 | Adam | 自適應學習率，收斂快，對超參數不敏感 |
 | 計算機視覺（CNN） | SGD + Momentum | 最終性能通常更好，泛化能力強 |
 | 自然語言處理（Transformer） | AdamW | Adam 的改進版，更好的權重衰減 |
-| 強化學習 | Adam 或 RMSprop | 處理非平穩目標函數 |
+| 強化學習 | Adam 或 RMSprop | 處理非平穩目標函式 |
 | 大批次訓練 | LARS 或 LAMB | 專為大批次設計 |
 | 資源受限 | SGD | 記憶體佔用最小 |
 
@@ -1216,7 +1216,7 @@ print(f"BFGS - 迭代: {len(path_bfgs)}, 最終值: {bfgs_values[-1]:.6f}")
 **損失不下降：**
 - 檢查學習率（可能太小或太大）
 - 檢查梯度（是否為零或 NaN）
-- 檢查數據預處理和標準化
+- 檢查資料預處理和標準化
 - 檢查模型初始化
 
 **訓練不穩定：**
@@ -1228,7 +1228,7 @@ print(f"BFGS - 迭代: {len(path_bfgs)}, 最終值: {bfgs_values[-1]:.6f}")
 **過擬合：**
 - 增加正則化（L2, Dropout）
 - 使用 Early Stopping
-- 增加訓練數據或數據增強
+- 增加訓練資料或資料增強
 - 簡化模型
 
 ### 11.4 混合精度訓練
@@ -1238,7 +1238,7 @@ print(f"BFGS - 迭代: {len(path_bfgs)}, 最終值: {bfgs_values[-1]:.6f}")
 import torch
 from torch.cuda.amp import autocast, GradScaler
 
-# 創建梯度縮放器
+# 建立梯度縮放器
 scaler = GradScaler()
 
 for epoch in range(num_epochs):

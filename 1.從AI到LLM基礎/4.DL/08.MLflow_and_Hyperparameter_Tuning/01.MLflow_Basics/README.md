@@ -77,7 +77,7 @@ with mlflow.start_run():
 產出物是 Run 產生的任何文件，包括：
 - 訓練好的模型
 - 圖表和可視化
-- 數據文件
+- 資料文件
 - 其他任何相關文件
 
 ### 6. Models（模型）
@@ -115,20 +115,20 @@ with mlflow.start_run():
 
 ### 2. MLflow Projects
 
-**功能**：將機器學習代碼打包成可重現的格式
+**功能**：將機器學習程式碼打包成可重現的格式
 
 **使用場景**：
-- 確保代碼的可重現性
+- 確保程式碼的可重現性
 - 在不同環境中運行相同的實驗
 - 與團隊分享項目
 
 **專案結構**：
 ```
 my_project/
-├── MLproject          # 專案配置文件
+├── MLproject          # 專案設定檔
 ├── conda.yaml         # 環境依賴
 ├── train.py          # 訓練腳本
-└── data/             # 數據目錄
+└── data/             # 資料目錄
 ```
 
 **MLproject 文件範例**：
@@ -278,7 +278,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, f1_score
 from sklearn.datasets import load_iris
 
-# 載入數據
+# 載入資料
 iris = load_iris()
 X_train, X_test, y_train, y_test = train_test_split(
     iris.data, iris.target, test_size=0.2, random_state=42
@@ -456,9 +456,9 @@ model.fit(X_train, y_train)
 
 ## 常見問題
 
-### Q1: MLflow 數據存儲在哪裡？
+### Q1: MLflow 資料存儲在哪裡？
 
-**A**: 默認情況下，MLflow 將數據存儲在本地的 `./mlruns` 目錄中。可以通過設定 `tracking_uri` 來改變存儲位置。
+**A**: 預設情況下，MLflow 將資料存儲在本地的 `./mlruns` 目錄中。可以通過設定 `tracking_uri` 來改變存儲位置。
 
 ### Q2: 如何在團隊中共享實驗結果？
 

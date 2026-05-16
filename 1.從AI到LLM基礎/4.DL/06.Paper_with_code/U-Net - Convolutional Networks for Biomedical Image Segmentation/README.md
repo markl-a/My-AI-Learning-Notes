@@ -19,9 +19,9 @@
 ### 核心問題
 
 醫學圖像分割面臨的挑戰：
-- ❌ **訓練數據少**: 醫學圖像標註成本高
+- ❌ **訓練資料少**: 醫學圖像標註成本高
 - ❌ **細節重要**: 需要精確的邊界定位
-- ❌ **上下文**: 需要全局和局部信息
+- ❌ **上下文**: 需要全局和局部資訊
 
 ### U-Net 的解決方案
 
@@ -29,7 +29,7 @@
 編碼器-解碼器 + 跳躍連接
 
 編碼器 (Contracting Path):
-↓ 捕捉上下文信息
+↓ 捕捉上下文資訊
 ↓ 逐步降低分辨率
 
 解碼器 (Expanding Path):
@@ -82,7 +82,7 @@ Output (388×388)
 ### 2. 跳躍連接 (Skip Connections)
 
 **為什麼重要？**
-- ✅ 保留空間細節信息
+- ✅ 保留空間細節資訊
 - ✅ 緩解梯度消失
 - ✅ 融合多尺度特徵
 
@@ -107,13 +107,13 @@ def forward(self, x):
     return self.final_conv(dec1)
 ```
 
-### 3. 數據增強策略
+### 3. 資料增強策略
 
 **彈性形變 (Elastic Deformation)**:
 - 模擬組織變形
 - 大幅增加訓練樣本多樣性
 
-**加權損失函數**:
+**加權損失函式**:
 ```python
 # 邊界加權損失
 weight_map = compute_weight_map(labels)
@@ -217,7 +217,7 @@ pip install segmentation-models-pytorch
 ```python
 import segmentation_models_pytorch as smp
 
-# 創建模型
+# 建立模型
 model = smp.Unet(
     encoder_name="resnet34",        # 使用 ResNet34 作為 encoder
     encoder_weights="imagenet",     # 使用 ImageNet 預訓練權重
@@ -245,7 +245,7 @@ for epoch in range(num_epochs):
 ### 從零訓練
 
 ```python
-# 數據增強
+# 資料增強
 from albumentations import (
     Compose, RandomRotate90, Flip, Transpose,
     ElasticTransform, GridDistortion, OpticalDistortion
@@ -294,7 +294,7 @@ for epoch in range(epochs):
 
 ### 醫學圖像分割基準
 
-| 數據集 | 任務 | Dice 係數 |
+| 資料集 | 任務 | Dice 係數 |
 |--------|------|-----------|
 | EM Segmentation | 神經元分割 | 0.98 |
 | DRIVE | 視網膜血管 | 0.95 |
@@ -398,7 +398,7 @@ nn.Conv3d(in_channels, out_channels, kernel_size=3)
 - 📄 **U-Net++**: [arXiv:1807.10165](https://arxiv.org/abs/1807.10165)
 - 📄 **Attention U-Net**: [arXiv:1804.03999](https://arxiv.org/abs/1804.03999)
 
-### 代碼實現
+### 程式碼實現
 
 - 🔥 **segmentation_models_pytorch**: [qubvel/segmentation_models.pytorch](https://github.com/qubvel/segmentation_models.pytorch)
 - 🐍 **milesial/Pytorch-UNet**: [github.com/milesial/Pytorch-UNet](https://github.com/milesial/Pytorch-UNet)
@@ -407,7 +407,7 @@ nn.Conv3d(in_channels, out_channels, kernel_size=3)
 ### 學習資源
 
 - 📖 **U-Net 詳解**: [towardsdatascience.com/unet](https://towardsdatascience.com/unet-line-by-line-explanation-9b191c76baf5)
-- 🎥 **視頻教程**: [YouTube - U-Net Explained](https://www.youtube.com/watch?v=oLvmLJkmXuc)
+- 🎥 **影片教程**: [YouTube - U-Net Explained](https://www.youtube.com/watch?v=oLvmLJkmXuc)
 
 ---
 

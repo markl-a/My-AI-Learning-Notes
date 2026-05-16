@@ -1,6 +1,6 @@
 # Pipeline API - 快速上手指南
 
-Pipeline API 是 Transformers 最簡單的使用方式，只需 2-3 行代碼即可完成複雜的 NLP、CV、Audio 任務。
+Pipeline API 是 Transformers 最簡單的使用方式，只需 2-3 行程式碼即可完成複雜的 NLP、CV、Audio 任務。
 
 ## 📚 學習目標
 
@@ -12,15 +12,15 @@ Pipeline API 是 Transformers 最簡單的使用方式，只需 2-3 行代碼即
 ## 支援的任務類型（2025 最新）
 
 ### NLP 任務
-- `text-classification` - 文本分類/情感分析
+- `text-classification` - 文字分類/情感分析
 - `token-classification` - 命名實體識別 (NER)
 - `question-answering` - 問答系統
-- `text-generation` - 文本生成
-- `summarization` - 文本摘要
+- `text-generation` - 文字生成
+- `summarization` - 文字摘要
 - `translation` - 機器翻譯
 - `zero-shot-classification` - 零樣本分類
 - `fill-mask` - 填空
-- `text2text-generation` - 文本到文本生成
+- `text2text-generation` - 文字到文字生成
 
 ### Computer Vision 任務
 - `image-classification` - 圖像分類
@@ -32,7 +32,7 @@ Pipeline API 是 Transformers 最簡單的使用方式，只需 2-3 行代碼即
 ### Audio 任務
 - `automatic-speech-recognition` - 語音識別
 - `audio-classification` - 音頻分類
-- `text-to-speech` - 文本轉語音
+- `text-to-speech` - 文字轉語音
 
 ### Multimodal 任務
 - `visual-question-answering` - 視覺問答
@@ -46,7 +46,7 @@ Pipeline API 是 Transformers 最簡單的使用方式，只需 2-3 行代碼即
 ```python
 from transformers import pipeline
 
-# 1. 創建 pipeline（自動下載模型）
+# 1. 建立 pipeline（自動下載模型）
 classifier = pipeline("sentiment-analysis")
 
 # 2. 使用 pipeline
@@ -95,7 +95,7 @@ classifier = pipeline("sentiment-analysis", device=device)
 
 ## 常見任務示例
 
-### 1. 文本分類
+### 1. 文字分類
 
 ```python
 classifier = pipeline("text-classification")
@@ -123,7 +123,7 @@ answer = qa(question=question, context=context)
 print(f"Answer: {answer['answer']} (score: {answer['score']:.4f})")
 ```
 
-### 4. 文本生成（2025 最新模型）
+### 4. 文字生成（2025 最新模型）
 
 ```python
 # 使用 LLaMA 3
@@ -192,10 +192,10 @@ print(f"Scores: {result['scores']}")
 ```python
 from transformers import pipeline
 
-# 創建 pipeline
+# 建立 pipeline
 classifier = pipeline("sentiment-analysis", device=0)
 
-# 大批次數據
+# 大批次資料
 texts = ["text " + str(i) for i in range(1000)]
 
 # 設置批次大小
@@ -320,5 +320,5 @@ classifier = pipeline("sentiment-analysis", model="./local_model")
 
 ## 下一步
 
-- 查看 [示例代碼](./examples/) 了解更多用法
+- 查看 [示例程式碼](./examples/) 了解更多用法
 - 前往 [03. 模型微調](../03.模型微調/) 學習如何訓練自己的模型

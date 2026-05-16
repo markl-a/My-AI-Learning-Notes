@@ -101,7 +101,7 @@ FC 7×7×30
 輸出: 7×7×30 張量
 ```
 
-### 損失函數
+### 損失函式
 
 ```python
 # YOLO 損失包含5部分
@@ -202,7 +202,7 @@ class YOLO(nn.Module):
 
 ## 🎯 應用場景
 
-### 1. 實時視頻檢測
+### 1. 實時影片檢測
 
 ```python
 import cv2
@@ -210,7 +210,7 @@ from ultralytics import YOLO
 
 model = YOLO('yolov8n.pt')
 
-# 視頻流檢測
+# 影片流檢測
 cap = cv2.VideoCapture(0)  # 攝像頭
 
 while True:
@@ -247,7 +247,7 @@ cap.release()
 
 - 缺陷檢測
 - 產品計數
-- 質量控制
+- 品質控制
 
 ---
 
@@ -278,7 +278,7 @@ cap.release()
 3. **YOLOv3** (2018): [arXiv:1804.02767](https://arxiv.org/abs/1804.02767)
 4. **YOLOv4** (2020): [arXiv:2004.10934](https://arxiv.org/abs/2004.10934)
 
-### 代碼實現
+### 程式碼實現
 
 - 🔥 **Ultralytics YOLOv8**: [ultralytics/ultralytics](https://github.com/ultralytics/ultralytics)
 - 📦 **Darknet (原始)**: [pjreddie/darknet](https://github.com/pjreddie/darknet)

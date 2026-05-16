@@ -18,9 +18,9 @@ Mixture of Experts (MoE) 是一種神經網絡架構範式，通過將大模型�
 
 ### 為什麼需要 MoE？
 
-1. **計算效率**：只激活部分參數，降低推理成本
+1. **計算效率**：只激活部分參數，降低推論成本
 2. **可擴展性**：可以擴展總參數量而不成比例增加計算
-3. **專業化**：不同專家可以專注於不同的任務或數據模式
+3. **專業化**：不同專家可以專注於不同的任務或資料模式
 4. **經濟性**：以更低成本達到更高性能
 
 ### MoE 的革命性影響
@@ -121,7 +121,7 @@ class MixtureOfExperts(nn.Module):
         self.num_experts = num_experts
         self.top_k = top_k
 
-        # 創建專家網絡
+        # 建立專家網絡
         self.experts = nn.ModuleList([
             SimpleExpert(input_dim, hidden_dim, output_dim)
             for _ in range(num_experts)
@@ -163,7 +163,7 @@ if __name__ == "__main__":
     num_experts = 8
     top_k = 2
 
-    # 創建 MoE 模型
+    # 建立 MoE 模型
     moe = MixtureOfExperts(input_dim, hidden_dim, output_dim, num_experts, top_k)
 
     # 測試前向傳播
@@ -217,7 +217,7 @@ class SparseTopKGating(nn.Module):
         top_k_logits, top_k_indices = torch.topk(logits, self.top_k, dim=-1)
         top_k_gates = F.softmax(top_k_logits, dim=-1)
 
-        # 創建稀疏表示
+        # 建立稀疏表示
         gates = torch.zeros_like(logits).scatter_(1, top_k_indices, top_k_gates)
 
         return gates, top_k_indices
@@ -240,7 +240,7 @@ class FineGrainedMoE(nn.Module):
         self.num_experts = num_experts * m  # mN 個專家
         self.num_selected = num_selected * m  # mK 個被選擇
 
-        # 創建細分的專家
+        # 建立細分的專家
         self.experts = nn.ModuleList([
             nn.Linear(input_dim, expert_dim)
             for _ in range(self.num_experts)
@@ -410,14 +410,14 @@ class MixtralMoELayer(nn.Module):
 - 總參數：141B
 - 激活參數：39B
 - 上下文窗口：64K tokens
-- 原生函數調用支持
+- 原生函式呼叫支持
 
 ### 3. DeepSeek-V3
 
 **驚人規格：**
 - 總參數：671B
 - 激活參數：37B（每個 token）
-- 訓練數據：14.8T tokens
+- 訓練資料：14.8T tokens
 - 訓練成本：$5.576M
 - 性能：MATH-500 達到 90.2
 
@@ -587,7 +587,7 @@ if __name__ == "__main__":
     batch_size = 2
     seq_len = 128
 
-    # 創建模型
+    # 建立模型
     model = MoETransformer(vocab_size, dim, num_heads, num_layers,
                           num_experts, top_k)
 
@@ -626,14 +626,14 @@ if __name__ == "__main__":
    - 提高模型表達能力
 
 4. **成本效益**
-   - 訓練和推理成本更低
+   - 訓練和推論成本更低
    - DeepSeek-V3 僅 $5.576M
 
 ### 挑戰
 
 1. **負載均衡**
    - 專家使用不均會影響性能
-   - 需要輔助損失函數
+   - 需要輔助損失函式
 
 ```python
 def load_balance_loss(router_probs, expert_indices, num_experts):
@@ -801,7 +801,7 @@ def train_moe_model(model, dataloader, optimizer, num_epochs):
         print(f"Epoch {epoch}: Loss={total_loss:.4f}, Aux Loss={total_aux_loss:.4f}")
 ```
 
-### 3. 推理優化
+### 3. 推論優化
 
 ```python
 class EfficientMoEInference(nn.Module):
@@ -901,7 +901,7 @@ print(f"DeepSeek-V3 FLOPs 節省: {saving:.1f}%")  # 94.5%
 Mixture of Experts (MoE) 架構是現代大型語言模型發展的關鍵技術之一：
 
 ✅ **效率突破**：以更少的計算達到更好的性能
-✅ **經濟優勢**：大幅降低訓練和推理成本
+✅ **經濟優勢**：大幅降低訓練和推論成本
 ✅ **可擴展性**：輕鬆擴展到數千億參數
 ✅ **專業化**：不同專家學習不同模式
 
@@ -912,5 +912,5 @@ Mixture of Experts (MoE) 架構是現代大型語言模型發展的關鍵技術�
 **下一步學習建議：**
 1. 實作簡單的 MoE 層
 2. 閱讀 DeepSeek-MoE 論文
-3. 嘗試在小規模數據集上訓練 MoE 模型
+3. 嘗試在小規模資料集上訓練 MoE 模型
 4. 探索負載均衡和穩定性優化技術

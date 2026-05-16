@@ -6,14 +6,14 @@
 
 - 掌握模型優化技術
 - 學習分布式訓練
-- 了解最新的推理優化方法
+- 了解最新的推論優化方法
 - 探索模型對齊和RLHF技術
 
 ## 目錄
 
 1. [模型量化](#模型量化)
 2. [分布式訓練](#分布式訓練)
-3. [推理優化](#推理優化)
+3. [推論優化](#推論優化)
 4. [模型對齊 (RLHF/DPO)](#模型對齊)
 5. [多模態模型](#多模態模型)
 
@@ -86,7 +86,7 @@ from transformers import AdamW
 
 accelerator = Accelerator()
 
-# 準備模型、優化器、數據載入器
+# 準備模型、優化器、資料載入器
 model, optimizer, train_dataloader = accelerator.prepare(
     model, optimizer, train_dataloader
 )
@@ -154,7 +154,7 @@ training_args = TrainingArguments(
 
 ---
 
-## 推理優化
+## 推論優化
 
 ### Flash Attention 2
 
@@ -233,7 +233,7 @@ ppo_config = PPOConfig(
     mini_batch_size=4,
 )
 
-# 3. 創建 PPO Trainer
+# 3. 建立 PPO Trainer
 ppo_trainer = PPOTrainer(
     config=ppo_config,
     model=model,
@@ -276,11 +276,11 @@ dpo_config = DPOConfig(
     per_device_train_batch_size=4,
 )
 
-# 3. 準備偏好數據
+# 3. 準備偏好資料
 # 格式: {"prompt": "...", "chosen": "...", "rejected": "..."}
 train_dataset = load_preference_dataset()
 
-# 4. 創建 DPO Trainer
+# 4. 建立 DPO Trainer
 dpo_trainer = DPOTrainer(
     model=model,
     args=dpo_config,
@@ -355,7 +355,7 @@ from PIL import Image
 model = CLIPModel.from_pretrained("openai/clip-vit-large-patch14")
 processor = CLIPProcessor.from_pretrained("openai/clip-vit-large-patch14")
 
-# 圖像和文本
+# 圖像和文字
 image = Image.open("photo.jpg")
 texts = ["a photo of a cat", "a photo of a dog", "a photo of a bird"]
 
@@ -414,11 +414,11 @@ print(result)
 
 ### 2. 分布式訓練選擇
 
-- **小模型 (< 1B)**: 數據並行
+- **小模型 (< 1B)**: 資料並行
 - **中型模型 (1B-10B)**: DeepSpeed ZeRO-2
 - **大型模型 (> 10B)**: FSDP 或 DeepSpeed ZeRO-3
 
-### 3. 推理優化策略
+### 3. 推論優化策略
 
 - **延遲優先**: Flash Attention 2 + TensorRT-LLM
 - **吞吐量優先**: vLLM + Continuous Batching

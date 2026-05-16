@@ -13,7 +13,7 @@
 
 2.Code 助手:
 
-目前是想做出能遵守公司內部的程式開發規範以及能調用公司內已開發程式碼的 codecopilot，目前可能會先理解開源的copilot以及devin項目。
+目前是想做出能遵守公司內部的程式開發規範以及能呼叫公司內已開發程式碼的 codecopilot，目前可能會先理解開源的copilot以及devin項目。
 
    下面為參考的項目，只希望能做出我日常生活中能用到的版本就好。
    1. [fauxpilot](https://github.com/fauxpilot/fauxpilot)

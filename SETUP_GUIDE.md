@@ -18,7 +18,7 @@
 git clone https://github.com/markl-a/My-AI-Learning-Notes.git
 cd My-AI-Learning-Notes
 
-# 2. 創建虛擬環境
+# 2. 建立虛擬環境
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
 
@@ -70,21 +70,21 @@ python --version
 
 如果版本過舊，請從 [python.org](https://www.python.org/downloads/) 下載最新版本。
 
-### Step 2: 創建虛擬環境
+### Step 2: 建立虛擬環境
 
 **為什麼需要虛擬環境？**
 - 隔離項目依賴
 - 避免版本衝突
 - 便於管理
 
-**創建方式：**
+**建立方式：**
 
 #### 使用 venv（內建）
 ```bash
 python -m venv venv
 ```
 
-#### 使用 conda（推薦用於數據科學）
+#### 使用 conda（推薦用於資料科學）
 ```bash
 conda create -n ai-learning python=3.11
 conda activate ai-learning
@@ -130,7 +130,7 @@ pip install -r requirements.txt -r requirements-ml.txt
 **包含的功能：**
 - ✅ 數學基礎（NumPy, SciPy, Matplotlib）
 - ✅ 機器學習（Scikit-learn, XGBoost, LightGBM）
-- ✅ 數據處理（Pandas）
+- ✅ 資料處理（Pandas）
 - ✅ 可視化（Matplotlib, Seaborn, Plotly）
 - ✅ Jupyter Notebook
 
@@ -183,7 +183,7 @@ pip install -r requirements.txt -r requirements-llm.txt
 **包含的功能：**
 - ✅ LLM API（OpenAI, Anthropic）
 - ✅ LangChain 生態系統
-- ✅ 向量數據庫（ChromaDB, FAISS）
+- ✅ 向量資料庫（ChromaDB, FAISS）
 - ✅ RAG 工具
 - ✅ Agent 框架
 - ✅ Web 框架（FastAPI, Gradio, Streamlit）
@@ -196,7 +196,7 @@ pip install -r requirements.txt -r requirements-llm.txt
 
 **需要 API 金鑰：**
 ```bash
-# 創建 .env 文件
+# 建立 .env 文件
 cp .env.example .env
 
 # 編輯 .env 文件，添加您的 API 金鑰
@@ -206,7 +206,7 @@ ANTHROPIC_API_KEY=your-key-here
 
 ---
 
-### 4️⃣ 開發者（貢獻代碼）
+### 4️⃣ 開發者（貢獻程式碼）
 
 **推薦配置：**
 ```bash
@@ -216,7 +216,7 @@ pip install -r requirements-full.txt -r requirements-dev.txt
 **包含的功能：**
 - ✅ 所有上述功能
 - ✅ 測試工具（pytest, coverage）
-- ✅ 代碼質量工具（black, ruff, mypy）
+- ✅ 程式碼品質工具（black, ruff, mypy）
 - ✅ 文檔工具（Sphinx, MkDocs）
 - ✅ 性能分析工具
 - ✅ Pre-commit hooks
@@ -321,7 +321,7 @@ pip-sync requirements.txt
 
 ### 快速驗證腳本
 
-創建 `verify_installation.py`：
+建立 `verify_installation.py`：
 
 ```python
 #!/usr/bin/env python
@@ -413,7 +413,7 @@ python verify_installation.py
 
 1. 查看 [常見問題](#常見問題)
 2. 搜索 [Issues](https://github.com/markl-a/My-AI-Learning-Notes/issues)
-3. 創建新的 Issue
+3. 建立新的 Issue
 4. 加入社群討論
 
 ---

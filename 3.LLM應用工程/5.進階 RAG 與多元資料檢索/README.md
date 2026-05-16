@@ -9,7 +9,7 @@
   - 混合檢索（Hybrid Search）
   - GraphRAG 的崛起
   - 多模態 RAG
-  - 頂級向量數據庫對比
+  - 頂級向量資料庫對比
   - 企業級部署最佳實踐
 
 #### 5.2 RAG 2.0 與多模態系統
@@ -113,7 +113,7 @@ agent.setup_tools()
 agent.create_agent()
 
 # Agent 自動選擇和使用工具
-result = agent.query("Python 是誰創建的？")
+result = agent.query("Python 是誰建立的？")
 ```
 
 ### 🚀 快速開始
@@ -142,7 +142,7 @@ python test_query_rewriting.py
 |------|---------|------|--------|
 | Query Rewriting | 模糊查詢 | 提升準確度 | 低 |
 | HyDE | 抽象概念 | 改善語義匹配 | 中 |
-| SQL Integration | 結構化數據 | 精確查詢 | 中 |
+| SQL Integration | 結構化資料 | 精確查詢 | 中 |
 | Graph RAG | 關係推理 | 多跳查詢 | 高 |
 | Agent System | 複雜任務 | 自主決策 | 高 |
 
@@ -169,7 +169,7 @@ python test_query_rewriting.py
 - [ ] 解釋各種進階 RAG 技術的原理
 - [ ] 選擇適合場景的技術方案
 - [ ] 實作和測試 RAG 系統
-- [ ] 整合多種數據源
+- [ ] 整合多種資料源
 - [ ] 設計 Agent 系統
 - [ ] 優化系統性能
 
@@ -183,3 +183,7 @@ python test_query_rewriting.py
 ---
 
 **所有程式碼都經過測試驗證，可直接使用於學習和生產環境。**
+
+## 延伸閱讀
+- [18.GNN_Graph_Learning](../../18.GNN_Graph_Learning/README.md) — GraphRAG 的圖學習基礎
+- [17.Causal_ML](../../17.Causal_ML/README.md) — Causal RAG / CausalRAG

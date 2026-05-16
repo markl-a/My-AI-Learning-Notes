@@ -51,12 +51,12 @@ docker-compose up -d chromadb postgres redis
 
 ## 🛠️ 可用服務
 
-### 向量數據庫
+### 向量資料庫
 
 | 服務 | 端口 | 用途 | 訪問地址 |
 |------|------|------|----------|
-| ChromaDB | 8000 | 輕量級向量數據庫 | http://localhost:8000 |
-| Qdrant | 6333, 6334 | 高性能向量數據庫 | http://localhost:6333 |
+| ChromaDB | 8000 | 輕量級向量資料庫 | http://localhost:8000 |
+| Qdrant | 6333, 6334 | 高性能向量資料庫 | http://localhost:6333 |
 
 **ChromaDB 範例：**
 ```python
@@ -100,12 +100,12 @@ response = llm.invoke("Hello, how are you?")
 
 ---
 
-### 數據庫
+### 資料庫
 
 | 服務 | 端口 | 用途 | 憑證 |
 |------|------|------|------|
-| PostgreSQL | 5432 | 關係型數據庫 + pgvector | user: ai_user, pass: ai_password |
-| MongoDB | 27017 | NoSQL 數據庫 | user: admin, pass: admin_password |
+| PostgreSQL | 5432 | 關係型資料庫 + pgvector | user: ai_user, pass: ai_password |
+| MongoDB | 27017 | NoSQL 資料庫 | user: admin, pass: admin_password |
 | Redis | 6379 | 快取 & 消息隊列 | pass: redis_password |
 
 **PostgreSQL 連接：**
@@ -152,7 +152,7 @@ es = Elasticsearch([{'host': 'localhost', 'port': 9200, 'scheme': 'http'}])
 |------|------|------|----------|------|
 | MLflow | 5000 | 實驗追蹤 | http://localhost:5000 | - |
 | Prometheus | 9090 | 指標收集 | http://localhost:9090 | - |
-| Grafana | 3001 | 數據可視化 | http://localhost:3001 | user: admin, pass: admin |
+| Grafana | 3001 | 資料可視化 | http://localhost:3001 | user: admin, pass: admin |
 
 **MLflow 範例：**
 ```python
@@ -187,10 +187,10 @@ docker-compose stop [service_name]
 # 重啟服務
 docker-compose restart [service_name]
 
-# 刪除服務（保留數據）
+# 刪除服務（保留資料）
 docker-compose down
 
-# 刪除服務和數據
+# 刪除服務和資料
 docker-compose down -v
 
 # 查看服務狀態
@@ -225,7 +225,7 @@ docker-compose exec ollama ollama list
 docker-compose exec redis redis-cli
 ```
 
-### 數據備份
+### 資料備份
 
 ```bash
 # 備份 PostgreSQL
@@ -237,7 +237,7 @@ cat backup.sql | docker-compose exec -T postgres psql -U ai_user ai_learning
 # 備份 MongoDB
 docker-compose exec mongodb mongodump --out /data/backup
 
-# 備份所有數據卷
+# 備份所有資料卷
 docker run --rm -v my-ai-learning-notes_chromadb_data:/data -v $(pwd):/backup alpine tar czf /backup/chromadb_backup.tar.gz /data
 ```
 
@@ -327,14 +327,14 @@ docker-compose build --no-cache [service_name]
 docker-compose up -d [service_name]
 ```
 
-### 問題 3: 數據丟失
+### 問題 3: 資料丟失
 
 **解決：**
 ```bash
-# 檢查數據卷
+# 檢查資料卷
 docker volume ls
 
-# 檢查數據卷詳情
+# 檢查資料卷詳情
 docker volume inspect my-ai-learning-notes_chromadb_data
 
 # 定期備份（見上方備份命令）
@@ -393,7 +393,7 @@ docker network inspect my-ai-learning-notes_ai-network
 
 ### 生產環境部署
 
-1. **修改所有默認密碼**
+1. **修改所有預設密碼**
    ```bash
    # 在 docker-compose.yml 中搜索 "change_in_production"
    # 替換為強密碼
@@ -437,7 +437,7 @@ docker network inspect my-ai-learning-notes_ai-network
 
 ---
 
-**提示：** 記得定期備份數據和更新服務鏡像！
+**提示：** 記得定期備份資料和更新服務鏡像！
 
 ```bash
 # 更新所有服務

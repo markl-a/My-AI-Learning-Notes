@@ -1,11 +1,11 @@
 # 實戰項目 (Practical Projects)
 
-本章節提供完整的端到端多模態生成項目，整合圖片、視頻、音樂生成技術。
+本章節提供完整的端到端多模態生成項目，整合圖片、影片、音樂生成技術。
 
 ## 📋 目錄
 
 1. [項目1：AI內容創作平台](#項目1ai內容創作平台)
-2. [項目2：自動短視頻生成器](#項目2自動短視頻生成器)
+2. [項目2：自動短影片生成器](#項目2自動短影片生成器)
 3. [項目3：產品營銷素材生成系統](#項目3產品營銷素材生成系統)
 4. [部署指南](#部署指南)
 
@@ -16,7 +16,7 @@
 | 項目 | 難度 | 技術棧 | 預計時間 |
 |------|------|--------|----------|
 | AI內容創作平台 | 🔴 高級 | SD, MusicGen, FastAPI, React | 40-50h |
-| 自動短視頻生成器 | 🟡 中級 | SVD, AnimateDiff, Bark | 20-30h |
+| 自動短影片生成器 | 🟡 中級 | SVD, AnimateDiff, Bark | 20-30h |
 | 產品營銷素材生成 | 🟢 初級 | SD, ControlNet, AudioLDM | 15-20h |
 
 ---
@@ -25,13 +25,13 @@
 
 ### 項目描述
 
-構建一個全功能的AI內容創作平台，用戶可以通過簡單的文本描述生成圖片、視頻和音樂。
+構建一個全功能的AI內容創作平台，用戶可以通過簡單的文字描述生成圖片、影片和音樂。
 
 ### 功能特性
 
-- ✅ 文本生成圖片（支持多種風格）
-- ✅ 圖片生成視頻
-- ✅ 文本生成音樂
+- ✅ 文字生成圖片（支持多種風格）
+- ✅ 圖片生成影片
+- ✅ 文字生成音樂
 - ✅ 批量生成和管理
 - ✅ 用戶認證和配額管理
 - ✅ Web界面和API接口
@@ -43,7 +43,7 @@
 │           前端 (React + TypeScript)      │
 ├─────────────────────────────────────────┤
 │     - 圖片生成界面                       │
-│     - 視頻生成界面                       │
+│     - 影片生成界面                       │
 │     - 音樂生成界面                       │
 │     - 項目管理                           │
 └─────────────────┬───────────────────────┘
@@ -75,14 +75,14 @@
                   │
                   ↓
 ┌─────────────────────────────────────────┐
-│      數據存儲                             │
-│   - PostgreSQL (元數據)                  │
-│   - Redis (緩存/任務隊列)                │
+│      資料存儲                             │
+│   - PostgreSQL (元資料)                  │
+│   - Redis (快取/任務隊列)                │
 │   - S3/MinIO (生成內容)                  │
 └─────────────────────────────────────────┘
 ```
 
-### 實現代碼
+### 實現程式碼
 
 #### 後端 API (FastAPI)
 
@@ -111,7 +111,7 @@ app.add_middleware(
 # Redis連接（用於任務隊列）
 redis_client = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
 
-# 數據模型
+# 資料模型
 class ImageGenerationRequest(BaseModel):
     prompt: str
     negative_prompt: Optional[str] = ""
@@ -155,7 +155,7 @@ async def generate_image(
     """生成圖片"""
     task_id = str(uuid.uuid4())
 
-    # 創建任務記錄
+    # 建立任務記錄
     task_data = {
         "task_id": task_id,
         "type": "image",
@@ -181,7 +181,7 @@ async def generate_video(
     request: VideoGenerationRequest,
     background_tasks: BackgroundTasks
 ):
-    """生成視頻"""
+    """生成影片"""
     task_id = str(uuid.uuid4())
 
     task_data = {
@@ -271,11 +271,11 @@ async def process_image_generation(task_id: str, request: ImageGenerationRequest
         update_task_status(task_id, "failed", 0, error=str(e))
 
 async def process_video_generation(task_id: str, request: VideoGenerationRequest):
-    """處理視頻生成任務"""
+    """處理影片生成任務"""
     try:
         update_task_status(task_id, "processing", 10)
 
-        # 生成視頻
+        # 生成影片
         video_path = video_gen.generate(
             image_url=request.image_url,
             prompt=request.prompt,
@@ -410,7 +410,7 @@ class ImageGenerator:
         return images
 
 class VideoGenerator:
-    """視頻生成器"""
+    """影片生成器"""
 
     def __init__(self):
         self.pipe = StableVideoDiffusionPipeline.from_pretrained(
@@ -428,14 +428,14 @@ class VideoGenerator:
         motion_strength=127,
         progress_callback=None
     ):
-        """生成視頻"""
+        """生成影片"""
         from diffusers.utils import load_image, export_to_video
 
         # 加載或生成輸入圖片
         if image_url:
             image = load_image(image_url)
         elif prompt:
-            # 使用圖片生成器創建初始圖片
+            # 使用圖片生成器建立初始圖片
             img_gen = ImageGenerator()
             images = img_gen.generate(prompt, num_images=1)
             image = images[0]
@@ -447,7 +447,7 @@ class VideoGenerator:
         if progress_callback:
             progress_callback(20)
 
-        # 生成視頻
+        # 生成影片
         frames = self.pipe(
             image=image,
             num_frames=min(25, duration * 7),
@@ -458,7 +458,7 @@ class VideoGenerator:
         if progress_callback:
             progress_callback(90)
 
-        # 導出視頻
+        # 導出影片
         os.makedirs("temp", exist_ok=True)
         output_path = "temp/video_output.mp4"
         export_to_video(frames, output_path, fps=7)
@@ -544,7 +544,7 @@ function App() {
   const [imagePrompt, setImagePrompt] = useState('');
   const [imageStyle, setImageStyle] = useState('realistic');
 
-  // 視頻生成
+  // 影片生成
   const [videoPrompt, setVideoPrompt] = useState('');
   const [videoDuration, setVideoDuration] = useState(3);
 
@@ -681,7 +681,7 @@ function App() {
           </div>
         )}
 
-        {/* 視頻生成 */}
+        {/* 影片生成 */}
         {activeTab === 'video' && (
           <div className="bg-white p-6 rounded-lg shadow">
             <h2 className="text-2xl font-bold mb-4">Generate Video</h2>
@@ -811,13 +811,13 @@ export default App;
 
 ---
 
-## 項目2：自動短視頻生成器
+## 項目2：自動短影片生成器
 
 ### 項目描述
 
-自動從文本腳本生成完整的短視頻，包括圖片、視頻、旁白和背景音樂。
+自動從文字腳本生成完整的短影片，包括圖片、影片、旁白和背景音樂。
 
-### 完整代碼
+### 完整程式碼
 
 ```python
 # short_video_creator.py
@@ -830,7 +830,7 @@ from PIL import Image
 import numpy as np
 
 class ShortVideoCreator:
-    """自動短視頻生成器"""
+    """自動短影片生成器"""
 
     def __init__(self):
         # 初始化所有模型
@@ -860,10 +860,10 @@ class ShortVideoCreator:
         music_volume=0.3
     ):
         """
-        從腳本創建視頻
+        從腳本建立影片
 
         Args:
-            script: 視頻腳本列表
+            script: 影片腳本列表
                 [
                     {
                         "visual": "scene description for image generation",
@@ -899,7 +899,7 @@ class ShortVideoCreator:
             temp_image_path = f"temp_scene_{idx}_image.png"
             image.save(temp_image_path)
 
-            # 圖片轉視頻
+            # 圖片轉影片
             print("Converting image to video...")
             image_resized = image.resize((1024, 576))
 
@@ -909,7 +909,7 @@ class ShortVideoCreator:
                 motion_bucket_id=80
             ).frames[0]
 
-            # 導出視頻
+            # 導出影片
             temp_video_path = f"temp_scene_{idx}_video.mp4"
             export_to_video(frames, temp_video_path, fps=7)
 
@@ -929,13 +929,13 @@ class ShortVideoCreator:
                     narration_audio
                 )
 
-                # 組合視頻和旁白
+                # 組合影片和旁白
                 video_clip = VideoFileClip(temp_video_path)
                 audio_clip = AudioFileClip(temp_narration_path)
 
-                # 調整視頻長度匹配音頻
+                # 調整影片長度匹配音頻
                 if audio_clip.duration > video_clip.duration:
-                    # 如果旁白更長，需要擴展視頻（循環或減慢）
+                    # 如果旁白更長，需要擴展影片（循環或減慢）
                     video_clip = video_clip.loop(duration=audio_clip.duration)
 
                 video_clip = video_clip.set_audio(audio_clip)
@@ -970,12 +970,12 @@ class ShortVideoCreator:
 
             music_audio, sr = librosa.load("temp_bg_music.wav", sr=SAMPLE_RATE)
 
-            # 循環音樂以匹配視頻長度
+            # 循環音樂以匹配影片長度
             if len(music_audio) / sr < total_duration:
                 num_loops = int(np.ceil(total_duration / (len(music_audio) / sr)))
                 music_audio = np.tile(music_audio, num_loops)
 
-            # 截取到視頻長度
+            # 截取到影片長度
             target_samples = int(final_video.duration * sr)
             music_audio = music_audio[:target_samples]
 
@@ -1000,7 +1000,7 @@ class ShortVideoCreator:
             else:
                 final_video = final_video.set_audio(bg_music_clip)
 
-        # 4. 導出最終視頻
+        # 4. 導出最終影片
         print(f"\n=== Exporting final video to {output_path} ===")
         final_video.write_videofile(
             output_path,
@@ -1048,7 +1048,7 @@ if __name__ == "__main__":
         }
     ]
 
-    # 創建視頻
+    # 建立影片
     creator.create_video_from_script(
         script,
         output_path="motivational_video.mp4",
@@ -1196,7 +1196,7 @@ class ProductMarketingGenerator:
         output_dir="marketing_bundle"
     ):
         """
-        創建完整的營銷素材包
+        建立完整的營銷素材包
 
         包含：
         - 產品圖 (5張不同角度/背景)
@@ -1294,7 +1294,7 @@ COPY requirements.txt .
 # 安裝Python包
 RUN pip3 install --no-cache-dir -r requirements.txt
 
-# 複製應用代碼
+# 複製應用程式碼
 COPY . .
 
 # 暴露端口
@@ -1368,10 +1368,10 @@ volumes:
 本章節提供了三個完整的實戰項目：
 
 1. **AI內容創作平台** - 企業級多模態生成系統
-2. **自動短視頻生成器** - 從腳本到成品的全自動流程
+2. **自動短影片生成器** - 從腳本到成品的全自動流程
 3. **產品營銷素材生成** - 批量生成營銷材料
 
-每個項目都包含完整的代碼實現和部署指南，可以直接用於實際生產環境。
+每個項目都包含完整的程式碼實現和部署指南，可以直接用於實際生產環境。
 
 ---
 

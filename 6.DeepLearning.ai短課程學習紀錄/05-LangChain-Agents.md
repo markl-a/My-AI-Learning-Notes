@@ -54,7 +54,7 @@ functions = [
             "properties": {
                 "symbol": {
                     "type": "string",
-                    "description": "股票代碼，例如：2330.TW（台積電）"
+                    "description": "股票程式碼，例如：2330.TW（台積電）"
                 }
             },
             "required": ["symbol"]
@@ -181,7 +181,7 @@ available_functions = {
     "calculate": calculate
 }
 
-# 函數定義
+# 函式定義
 functions = [
     {
         "name": "get_weather",
@@ -201,7 +201,7 @@ functions = [
         "parameters": {
             "type": "object",
             "properties": {
-                "symbol": {"type": "string", "description": "股票代碼"}
+                "symbol": {"type": "string", "description": "股票程式碼"}
             },
             "required": ["symbol"]
         }
@@ -383,7 +383,7 @@ tools = [
     Tool(
         name="匯率查詢",
         func=get_exchange_rate,
-        description="查詢外幣對台幣的匯率。輸入：貨幣代碼（USD、JPY、EUR）"
+        description="查詢外幣對台幣的匯率。輸入：貨幣程式碼（USD、JPY、EUR）"
     ),
     Tool(
         name="新聞搜尋",

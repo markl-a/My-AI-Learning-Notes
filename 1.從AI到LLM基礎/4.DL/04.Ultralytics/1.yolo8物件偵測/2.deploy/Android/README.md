@@ -2,7 +2,7 @@
 
 > 📱 **平台：** Android
 > 🔧 **框架：** ONNX Runtime / NCNN / TensorFlow Lite
-> ⚡ **特色：** 即時物件偵測，支援多種推理引擎
+> ⚡ **特色：** 即時物件偵測，支援多種推論引擎
 > 🔄 **最後更新：** 2025-01
 > ✅ **支援版本：** YOLO11, YOLOv10, YOLOv9, YOLOv8
 
@@ -84,11 +84,11 @@ dependencies {
 
 #### 3. 添加模型到專案
 
-1. 在 `app/src/main/assets/` 創建資料夾
+1. 在 `app/src/main/assets/` 建立資料夾
 2. 將 `best.onnx` 放入 `assets/` 資料夾
 3. 同時添加 `labels.txt`（類別名稱，每行一個）
 
-#### 4. 推理代碼範例
+#### 4. 推理程式碼範例
 
 ```kotlin
 import ai.onnxruntime.*
@@ -132,7 +132,7 @@ class YOLOv8Detector(private val context: Context) {
         // 調整圖像大小為 640x640
         val resizedBitmap = Bitmap.createScaledBitmap(bitmap, 640, 640, true)
 
-        // 轉換為浮點數組並歸一化 [0, 255] -> [0, 1]
+        // 轉換為浮點陣列並歸一化 [0, 255] -> [0, 1]
         val floatArray = FloatArray(3 * 640 * 640)
         val pixels = IntArray(640 * 640)
         resizedBitmap.getPixels(pixels, 0, 640, 0, 0, 640, 640)
@@ -434,7 +434,7 @@ val executorService = Executors.newFixedThreadPool(4)
 
 ## 🔧 常見問題
 
-### Q: 模型推理速度慢？
+### Q: 模型推論速度慢？
 
 **A:**
 - 使用量化模型（INT8）

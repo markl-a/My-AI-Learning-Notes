@@ -37,7 +37,7 @@
 ```
 給定前文 x₁, x₂, ..., xₜ，預測下一個 token xₜ₊₁
 
-損失函數：
+損失函式：
 L = -∑ log P(xₜ | x₁, ..., xₜ₋₁)
 ```
 
@@ -504,7 +504,7 @@ class DataMixtureManager:
 
     def create_mixture(self, total_samples: int = None) -> Dataset:
         """
-        創建混合資料集
+        建立混合資料集
 
         Args:
             total_samples: 總樣本數（None 則使用所有資料）
@@ -554,9 +554,9 @@ class DataMixtureManager:
         return mixed_dataset
 
 
-# 使用範例：創建預訓練資料配方
+# 使用範例：建立預訓練資料配方
 def create_pretraining_mixture():
-    """創建預訓練資料混合"""
+    """建立預訓練資料混合"""
     from datasets import load_dataset
 
     manager = DataMixtureManager()
@@ -581,7 +581,7 @@ def create_pretraining_mixture():
     # code = load_dataset("codeparrot/github-code", split="train", streaming=True)
     # manager.add_dataset("code", code, weight=0.1)
 
-    # 創建混合資料集
+    # 建立混合資料集
     mixed_dataset = manager.create_mixture(total_samples=50000)
 
     return mixed_dataset
@@ -672,14 +672,14 @@ class CurriculumDataMixture:
             }
 
     def create_curriculum_mixture(self, phase: int, samples: int) -> Dataset:
-        """創建特定階段的資料混合"""
+        """建立特定階段的資料混合"""
         weights = self.get_mixture_for_phase(phase)
 
         print(f"\n訓練階段 {phase + 1} 的資料配方:")
         for name, weight in weights.items():
             print(f"  {name}: {weight * 100:.1f}%")
 
-        # 使用 DataMixtureManager 創建混合
+        # 使用 DataMixtureManager 建立混合
         manager = DataMixtureManager()
         for name, weight in weights.items():
             if name in self.datasets:
@@ -717,7 +717,7 @@ class DataDeduplicator:
         self.seen_ids = set()
 
     def get_minhash(self, text: str) -> MinHash:
-        """計算文本的 MinHash"""
+        """計算文字的 MinHash"""
         minhash = MinHash(num_perm=self.num_perm)
 
         # 使用字符級 n-gram
@@ -728,10 +728,10 @@ class DataDeduplicator:
 
     def is_duplicate(self, text: str, doc_id: str) -> bool:
         """
-        檢查文本是否重複
+        檢查文字是否重複
 
         Args:
-            text: 待檢查文本
+            text: 待檢查文字
             doc_id: 文檔 ID
 
         Returns:
@@ -867,7 +867,7 @@ print(f"原始: {len(raw_texts)}, 高品質: {len(high_quality)}")
 
 1. **語言優化**：現有 tokenizer 對特定語言（如中文）效率低
 2. **領域適配**：包含領域特定詞彙和術語
-3. **效率提升**：減少 token 數量，提高推理速度
+3. **效率提升**：減少 token 數量，提高推論速度
 4. **成本降低**：更少的 token 意味著更低的 API 成本
 
 **Tokenizer 訓練實作**：
@@ -902,7 +902,7 @@ class TokenizerTrainer:
         self.tokenizer = None
 
     def create_tokenizer(self):
-        """創建 tokenizer"""
+        """建立 tokenizer"""
 
         if self.model_type == "bpe":
             # Byte-Pair Encoding（GPT 系列使用）
@@ -960,7 +960,7 @@ class TokenizerTrainer:
                 "<pad>",  # 填充 token
             ]
 
-        # 創建訓練器
+        # 建立訓練器
         if self.model_type == "bpe":
             trainer = trainers.BpeTrainer(
                 vocab_size=self.vocab_size,
@@ -1032,17 +1032,17 @@ def train_chinese_tokenizer():
 
     # 準備訓練資料（使用迭代器節省記憶體）
     def get_training_corpus():
-        # 這裡應該是大規模中文文本
+        # 這裡應該是大規模中文文字
         texts = [
             "人工智慧是計算機科學的一個分支。",
             "機器學習是實現人工智慧的一種方法。",
             "深度學習使用多層神經網絡進行學習。",
-            # ... 更多文本
+            # ... 更多文字
         ]
         for text in texts:
             yield text
 
-    # 創建訓練器
+    # 建立訓練器
     trainer = TokenizerTrainer(vocab_size=32000, model_type="bpe")
 
     # 訓練
@@ -1077,7 +1077,7 @@ def compare_tokenizers(text: str):
         "Qwen (中文優化)": "Qwen/Qwen-7B",
     }
 
-    print(f"測試文本: {text}")
+    print(f"測試文字: {text}")
     print("=" * 80)
 
     results = []
@@ -1138,7 +1138,7 @@ class PretrainingTokenizer:
 
     def prepare_dataset(self, texts: List[str]):
         """準備訓練資料集"""
-        # 創建 Dataset
+        # 建立 Dataset
         dataset = Dataset.from_dict({"text": texts})
 
         # Tokenize
@@ -1416,7 +1416,7 @@ class ContinualPretraining:
         """
         from datasets import Dataset
 
-        # 創建資料集
+        # 建立資料集
         dataset = Dataset.from_dict({"text": domain_texts})
 
         # Tokenize
@@ -1512,7 +1512,7 @@ class ContinualPretraining:
 # medical_texts = [
 #     "心肌梗塞是一種嚴重的心臟疾病...",
 #     "糖尿病的主要症狀包括...",
-#     # ... 更多醫療文本
+#     # ... 更多醫療文字
 # ]
 #
 # cp = ContinualPretraining("meta-llama/Llama-2-7b-hf")
@@ -2192,7 +2192,7 @@ class ResourceMonitor:
             print(f"  GPU 記憶體: {gpu_mem['allocated_gb']:.2f}/{gpu_mem['reserved_gb']:.2f} GB")
         print(f"  CPU 記憶體: {cpu_mem['used_gb']:.2f}/{cpu_mem['total_gb']:.2f} GB ({cpu_mem['percent']:.1f}%)")
 
-# 在訓練循環中定期調用
+# 在訓練循環中定期呼叫
 # if step % 100 == 0:
 #     ResourceMonitor.log_resource_usage()
 ```
@@ -2728,7 +2728,7 @@ def evaluate_pretrained_model(model_name="gpt2"):
 - 資源充足（數百萬美元預算）
 - 有大規模獨特資料
 - 需要完全控制模型架構和訓練過程
-- 目標是創建基礎模型
+- 目標是建立基礎模型
 
 **持續預訓練**適用於：
 - 資源有限
@@ -2760,7 +2760,7 @@ def evaluate_pretrained_model(model_name="gpt2"):
 
 **原因**：
 - 學習率過大
-- 批次中出現異常數據
+- 批次中出現異常資料
 - 數值不穩定
 - 梯度爆炸
 
@@ -2861,7 +2861,7 @@ def evaluate_pretrained_model(model_name="gpt2"):
 **啟示**：
 - GPT-3 (175B, 300B tokens) → 訓練不足
 - LLaMA (7B, 1T tokens) → 更優配置
-- 不要盲目追求大模型，數據同樣重要
+- 不要盲目追求大模型，資料同樣重要
 
 ### Q8: 訓練中如何檢測和處理 GPU OOM（記憶體不足）？
 

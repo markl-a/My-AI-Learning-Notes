@@ -50,7 +50,7 @@ print(keras.backend.backend())  # 查看當前後端
 - ✅ Functional API 介紹
 - ✅ 基本分類問題實作
 - ✅ 模型訓練與評估
-- ✅ 數據預處理最佳實踐
+- ✅ 資料預處理最佳實踐
 - ✅ 防止過擬合技巧
 - ✅ 模型優化策略
 - ✅ 錯誤分析方法
@@ -60,7 +60,7 @@ print(keras.backend.backend())  # 查看當前後端
 - 📓 `1.ANN/ANN.ipynb` - Jupyter Notebook 綜合範例
 - 🚀 `1.ANN/quick_start.py` - 快速入門腳本（適合初學者）
 - 💎 `1.ANN/best_practices.py` - 最佳實踐完整範例
-- 📊 `1.ANN/heart.csv` - 心臟病預測數據集
+- 📊 `1.ANN/heart.csv` - 心臟病預測資料集
 
 #### 學習建議
 1. 先閱讀 `README.md` 了解理論基礎
@@ -79,7 +79,7 @@ print(keras.backend.backend())  # 查看當前後端
 - ✅ 卷積層、池化層、批次正規化
 - ✅ CNN 架構設計模式
 - ✅ CIFAR-10 圖像分類實戰
-- ✅ 數據增強技術詳解
+- ✅ 資料增強技術詳解
 - ✅ 遷移學習完整教程
 - ✅ 預訓練模型使用指南
 - ✅ 模型可視化與解釋
@@ -98,7 +98,7 @@ print(keras.backend.backend())  # 查看當前後端
 #### 涵蓋主題
 - **基礎**: 卷積運算、特徵圖、感受野
 - **架構**: VGG、ResNet、EfficientNet 風格
-- **技術**: 數據增強、Dropout、BatchNorm
+- **技術**: 資料增強、Dropout、BatchNorm
 - **應用**: 圖像分類、特徵提取、微調
 - **可視化**: 特徵圖、Grad-CAM、混淆矩陣
 
@@ -112,7 +112,7 @@ print(keras.backend.backend())  # 查看當前後端
 - CIFAR-10 挑戰（目標：85%+ 準確率）
 - Fashion MNIST 分類
 - 貓狗分類器（使用遷移學習）
-- 自定義數據集應用
+- 自定義資料集應用
 
 
 ---
@@ -120,19 +120,19 @@ print(keras.backend.backend())  # 查看當前後端
 ### 💬 3. 自然語言處理（NLP）
 **狀態：規劃中**
 
-#### 3.1 文本處理基礎
+#### 3.1 文字處理基礎
 - ⏳ TextVectorization 層
 - ⏳ Embedding 層使用
 - ⏳ 序列處理技術
 
-#### 3.2 文本分類
+#### 3.2 文字分類
 - ⏳ 情感分析
 - ⏳ 新聞分類
 - ⏳ 垃圾郵件檢測
 
 #### 3.3 序列到序列模型
 - ⏳ 機器翻譯
-- ⏳ 文本摘要
+- ⏳ 文字摘要
 - ⏳ 問答系統
 
 #### 3.4 Transformer 架構
@@ -400,7 +400,7 @@ predictions = model.predict(x_new)
 ### 對於初學者：
 1. 從 ANN 基礎開始（已完成）
 2. 練習圖像分類任務（使用 MNIST, CIFAR-10）
-3. 嘗試文本分類（IMDB 評論）
+3. 嘗試文字分類（IMDB 評論）
 4. 完成 2-3 個端到端專案
 
 ### 對於中級學習者：
@@ -474,7 +474,7 @@ import keras
 from keras import layers
 import numpy as np
 
-# 生成示例數據
+# 生成示例資料
 x_train = np.random.random((1000, 20))
 y_train = np.random.randint(2, size=(1000, 1))
 
@@ -509,7 +509,7 @@ os.environ['KERAS_BACKEND'] = 'jax'  # 在 import keras 之前設置
 import keras
 ```
 
-**方法二：配置文件**
+**方法二：設定檔**
 ```bash
 # 在 ~/.keras/keras.json 中設置
 {
@@ -518,7 +518,7 @@ import keras
 }
 ```
 
-### Q2: Keras 2 代碼如何遷移到 Keras 3？
+### Q2: Keras 2 程式碼如何遷移到 Keras 3？
 
 ```python
 # Keras 2
@@ -545,7 +545,7 @@ keras.mixed_precision.set_global_policy('mixed_float16')
 # 2. 使用合適的批次大小
 batch_size = 32  # 根據 GPU 記憶體調整
 
-# 3. 啟用數據預取
+# 3. 啟用資料預取
 dataset = dataset.prefetch(buffer_size=tf.data.AUTOTUNE)
 
 # 4. 考慮切換到 JAX 後端（通常更快）
@@ -622,7 +622,7 @@ Transformer      1.0x         2.0x   1.2x
 ### 中級路徑（2-3 個月）
 1. 📝 深入 Functional API 和 Model Subclassing
 2. 📝 遷移學習實戰
-3. 📝 NLP 文本分類
+3. 📝 NLP 文字分類
 4. 📝 時間序列預測
 
 ### 進階路徑（3-6 個月）
@@ -651,7 +651,7 @@ pip install tensorflow  # 或 jax/torch
 
 **錯誤 3: "版本衝突"**
 ```bash
-# 創建新的虛擬環境
+# 建立新的虛擬環境
 python -m venv keras3_env
 source keras3_env/bin/activate  # Linux/Mac
 # 或
@@ -693,13 +693,13 @@ if gpus:
 ## 💪 實踐建議
 
 ### 學習技巧
-1. **動手實作** - 每學一個概念就寫代碼實作
+1. **動手實作** - 每學一個概念就寫程式碼實作
 2. **閱讀文檔** - Keras 文檔寫得非常好
 3. **研究範例** - 官方 examples 是最佳學習資源
 4. **參與社群** - 在論壇提問和回答問題
 5. **做專案** - 完成 2-3 個端到端的實際專案
 
-### 代碼規範
+### 程式碼規範
 ```python
 # 好的做法 ✅
 import keras

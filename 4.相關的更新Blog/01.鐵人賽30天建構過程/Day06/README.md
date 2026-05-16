@@ -44,7 +44,7 @@ LLM通常基於Transformer架構，其中特別採用了僅使用解碼器的設
 - [GPT-2圖解](https://jalammar.github.io/illustrated-gpt2/) by Jay Alammar: 專注於GPT架構的視覺化解釋。
 
 #### 3. **標記化 Tokenization**
-將原始文本資料轉換為模型可以理解的格式，即token。這過程包括將文本拆分為標記（通常是單字或子單字）。
+將原始文字資料轉換為模型可以理解的格式，即token。這過程包括將文字拆分為標記（通常是單字或子單字）。
 
 **具體請參考:**
 - [Let's build the GPT Tokenizer](https://youtu.be/zduSFxRajkE?si=IhIuECg3ZSGHRtWT): 解釋如何構建GPT分詞器。
@@ -66,11 +66,11 @@ LLM通常基於Transformer架構，其中特別採用了僅使用解碼器的設
 - [動手深度學習-注意力機制](https://zh.d2l.ai/chapter_attention-mechanisms/index.html): 詳細介紹注意力機制的理論和實現。
 
 #### 5. **文字生成**
-模型使用不同的策略生成文本輸出。常見策略包括貪婪解碼、波束搜尋、top-k 採樣和核採樣。
+模型使用不同的策略生成文字輸出。常見策略包括貪婪解碼、波束搜尋、top-k 採樣和核採樣。
 - [Decoding Strategies in LLMs](https://mlabonne.github.io/blog/posts/2023-06-07-Decoding_strategies.html): 對各種解碼策略的圖像化介紹及程式碼實現。
 
 **延伸閱讀與觀看**：
-- [如何產生文本: 透過 Transformers 以不同的解碼方法產生文本](https://huggingface.co/blog/zh/how-to-generate): 介紹各種文本生成策略及其實現。
+- [如何產生文字: 透過 Transformers 以不同的解碼方法產生文字](https://huggingface.co/blog/zh/how-to-generate): 介紹各種文字生成策略及其實現。
 
 #### 6. **參考的流程跑通小專案**
 
@@ -105,19 +105,19 @@ LLM通常基於Transformer架構，其中特別採用了僅使用解碼器的設
 
 另外將以訓練的模型合併也是一個提升表先的方法，具體的可參考這個 [mergekit](https://github.com/cg123/mergekit) 庫，這個課實現了許多融合的方法，如 SLERP, [DARE](https://arxiv.org/abs/2311.03099), 和 [TIES](https://arxiv.org/abs/2311.03099)。
 
-模型融合通常指的是將多個已訓練的模型合併成一個單一模型的過程。這不僅僅是用參數平均或投票決定輸出，而是在模型的權重和結構層面上進行合併。這個過程不需要再次訓練，可以通過數學操作（如球面線性內插（SLERP）或其他融合技術）將不同模型的知識整合起來。模型融合可用於創建一個表現更佳、更強大的模型，通常是將多個模型在特定任務上的優勢結合起來。
+模型融合通常指的是將多個已訓練的模型合併成一個單一模型的過程。這不僅僅是用參數平均或投票決定輸出，而是在模型的權重和結構層面上進行合併。這個過程不需要再次訓練，可以通過數學操作（如球面線性內插（SLERP）或其他融合技術）將不同模型的知識整合起來。模型融合可用於建立一個表現更佳、更強大的模型，通常是將多個模型在特定任務上的優勢結合起來。
 
 - [Merge LLMs with mergekit](https://mlabonne.github.io/blog/posts/2024-01-08_Merge_LLMs_with_mergekit.html): 關於使用mergekit進行模型融合的教程.
 
 ##### 7.4 **專家混合 Mixture of Experts**: 
 
-[Mixtral](https://arxiv.org/abs/2401.04088) 因其卓越的性能而重新使MoE架構流行起來。 與此同時，開源社區出現了一種frankenMoE，通過融合像 [Phixtral](https://huggingface.co/mlabonne/phixtral-2x2_8)這樣的模型，這是一個更經濟且性能良好的選項。MoE是一種結構，它包含多個子模型或“專家”，每個專家專門處理不同的任務或數據子集。在MoE架構中，一個“gate”或調度器決定對於給定的輸入，哪個專家被使用。這是一種稀疏啟動方法，可以大幅提升模型的容量和效率，因為不是所有的專家都會對每個輸入進行響應。
+[Mixtral](https://arxiv.org/abs/2401.04088) 因其卓越的性能而重新使MoE架構流行起來。 與此同時，開源社區出現了一種frankenMoE，通過融合像 [Phixtral](https://huggingface.co/mlabonne/phixtral-2x2_8)這樣的模型，這是一個更經濟且性能良好的選項。MoE是一種結構，它包含多個子模型或“專家”，每個專家專門處理不同的任務或資料子集。在MoE架構中，一個“gate”或調度器決定對於給定的輸入，哪個專家被使用。這是一種稀疏啟動方法，可以大幅提升模型的容量和效率，因為不是所有的專家都會對每個輸入進行響應。
 
 - [Mixture of Experts Explained](https://huggingface.co/blog/moe) by Hugging Face: 關於MoE及其工作方式的詳盡指南.
   
 ##### 7.5 **多模態模型 Multimodal models**: 
 
-這類模型像是（ [CLIP](https://openai.com/research/clip), [Stable Diffusion](https://stability.ai/stable-image), 或 [LLaVA](https://llava-vl.github.io/)) 能處理多種類型的輸入（文本、圖像、音頻等）以及具備了統一的嵌入空間，從而具備了強大的應用能力，如文本到圖像。
+這類模型像是（ [CLIP](https://openai.com/research/clip), [Stable Diffusion](https://stability.ai/stable-image), 或 [LLaVA](https://llava-vl.github.io/)) 能處理多種類型的輸入（文字、圖像、音頻等）以及具備了統一的嵌入空間，從而具備了強大的應用能力，如文字到圖像。
     
 - [Large Multimodal Models](https://huyenchip.com/2023/10/10/multimodal.html) by Chip Huyen: 對多模態系統及其近期發展歷史的概述.
     

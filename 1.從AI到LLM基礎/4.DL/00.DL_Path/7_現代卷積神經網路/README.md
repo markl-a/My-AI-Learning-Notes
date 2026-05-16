@@ -128,7 +128,7 @@ EfficientNet (2019) → MobileNet系列 (2017-2019) → 效率優化
 ### 基礎環境
 
 ```bash
-# 創建虛擬環境
+# 建立虛擬環境
 conda create -n modern-cnn python=3.10
 conda activate modern-cnn
 
@@ -149,7 +149,7 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 # 核心深度學習套件
 pip install torchvision torchsummary tensorboard
 
-# 數據處理與視覺化
+# 資料處理與視覺化
 pip install numpy pandas matplotlib seaborn opencv-python pillow
 
 # 模型工具
@@ -247,7 +247,7 @@ print(f"輸出形狀: {output.shape}")
 ```python
 import timm
 
-# 創建模型（自動下載預訓練權重）
+# 建立模型（自動下載預訓練權重）
 model = timm.create_model('resnet50', pretrained=True)
 
 # 查看模型配置
@@ -274,7 +274,7 @@ def objective(trial):
     val_acc = train_and_evaluate(lr, batch_size)
     return val_acc
 
-# 創建研究並優化
+# 建立研究並優化
 study = optuna.create_study(direction='maximize')
 study.optimize(objective, n_trials=100)
 
@@ -330,7 +330,7 @@ grayscale_cam = cam(input_tensor=input_image, targets=None)
 visualization = show_cam_on_image(rgb_img, grayscale_cam[0], use_rgb=True)
 ```
 
-### 5. 自動數據增強
+### 5. 自動資料增強
 
 使用 AutoAugment 和 RandAugment：
 
@@ -362,9 +362,9 @@ transform = transforms.Compose([
    - 理解為什麼而不只是怎麼做
 
 2. **動手實踐**
-   - 運行每一個代碼示例
+   - 運行每一個程式碼示例
    - 修改參數觀察變化
-   - 嘗試在不同數據集上實驗
+   - 嘗試在不同資料集上實驗
 
 3. **建立直覺**
    - 可視化網路結構
@@ -413,7 +413,7 @@ transform = transforms.Compose([
 - 使用更小的模型
 
 #### Q3: 過擬合嚴重？
-- 增加數據增強
+- 增加資料增強
 - 使用 Dropout 和正則化
 - 減少模型複雜度
 - 早停（Early Stopping）
@@ -485,7 +485,7 @@ transform = transforms.Compose([
   - [Model Zoo](https://modelzoo.co/)
   - [Netron (可視化工具)](https://netron.app/)
 
-### 數據集
+### 資料集
 
 - **CIFAR-10/100**: 小型圖像分類（60,000張圖片）
 - **Fashion-MNIST**: 時尚物品分類（70,000張圖片）
@@ -502,7 +502,7 @@ transform = transforms.Compose([
 - [ ] 理解卷積操作的原理
 - [ ] 掌握池化層的作用
 - [ ] 了解批歸一化的必要性
-- [ ] 理解激活函數的選擇
+- [ ] 理解激活函式的選擇
 
 ### 架構理解
 - [ ] 能說明 AlexNet 的創新點
@@ -558,7 +558,7 @@ transform = transforms.Compose([
 歡迎貢獻！如果你發現錯誤或有改進建議：
 
 1. Fork 本倉庫
-2. 創建你的特性分支 (`git checkout -b feature/AmazingFeature`)
+2. 建立你的特性分支 (`git checkout -b feature/AmazingFeature`)
 3. 提交你的更改 (`git commit -m 'Add some AmazingFeature'`)
 4. 推送到分支 (`git push origin feature/AmazingFeature`)
 5. 開啟一個 Pull Request

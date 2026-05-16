@@ -16,9 +16,9 @@
 **已完成的內容：**
 - ✅ **1. TensorFlow 快速入門** (`1.Tensorflow_JumpStart.ipynb`) - 完整的初學者教程，涵蓋基本概念和操作
 - ✅ **2. CNN 基礎實作** (`2.CNN/CNN.ipynb`) - 包含傳統 CNN、Dropout 正則化、AutoKeras 和 Optuna 超參數調優
-- ✅ **3. RNN 實作** (`3.RNNs/RNN.ipynb`) - 基於文本生成的 RNN 實現，使用 Alice in Wonderland 數據集
+- ✅ **3. RNN 實作** (`3.RNNs/RNN.ipynb`) - 基於文字生成的 RNN 實現，使用 Alice in Wonderland 資料集
 - ✅ **4. LSTM & GRU 實作** (`4.LSTM/LSTM&GRU.ipynb`) - 股票價格預測案例，展示 LSTM 和 GRU 的差異與應用
-- ✅ **5. tf.data 最佳實踐** (`5.TF_Data_Best_Practices.ipynb`) - 高效數據載入、預處理和性能優化技巧
+- ✅ **5. tf.data 最佳實踐** (`5.TF_Data_Best_Practices.ipynb`) - 高效資料載入、預處理和性能優化技巧
 - ✅ **6. 模型保存與部署** (`6.Model_Saving_and_Deployment.ipynb`) - 完整的模型保存、載入、轉換和部署指南
 
 **最近更新（2025-11-18）：**
@@ -27,7 +27,7 @@
 - 🆕 **Keras 3.x 整合** - 多後端支援（TensorFlow、JAX、PyTorch）
 - 🆕 **LiteRT 遷移提醒** - tf.lite 將逐步遷移至獨立的 LiteRT 項目
 - 🆕 **改進的 CUDA 支援** - Hermetic CUDA 實現更好的構建可重現性
-- 🔄 更新所有代碼示例以確保與最新版本兼容
+- 🔄 更新所有程式碼示例以確保與最新版本兼容
 
 **歷史更新（2025-01-18）：**
 - 新增 **tf.data API 最佳實踐**教程 - 涵蓋 prefetch、cache、並行處理等優化技術
@@ -45,9 +45,9 @@
 |------|------|------|----------|------|
 | 1 | TensorFlow 快速入門 | `1.Tensorflow_JumpStart.ipynb` | 基本操作、張量、模型建立 | ⭐ 入門 |
 | 2 | CNN 基礎實作 | `2.CNN/CNN.ipynb` | 卷積神經網路、Dropout、AutoKeras、Optuna | ⭐⭐ 初級 |
-| 3 | RNN 實作 | `3.RNNs/RNN.ipynb` | 循環神經網路、文本生成 | ⭐⭐ 初級 |
+| 3 | RNN 實作 | `3.RNNs/RNN.ipynb` | 循環神經網路、文字生成 | ⭐⭐ 初級 |
 | 4 | LSTM & GRU | `4.LSTM/LSTM&GRU.ipynb` | 長短期記憶網路、時間序列預測 | ⭐⭐⭐ 中級 |
-| 5 | tf.data 最佳實踐 | `5.TF_Data_Best_Practices.ipynb` | 數據管道、性能優化、並行處理 | ⭐⭐⭐ 中級 |
+| 5 | tf.data 最佳實踐 | `5.TF_Data_Best_Practices.ipynb` | 資料管道、性能優化、並行處理 | ⭐⭐⭐ 中級 |
 | 6 | 模型保存與部署 | `6.Model_Saving_and_Deployment.ipynb` | SavedModel、TFLite、部署策略 | ⭐⭐⭐⭐ 進階 |
 
 ### 🎯 推薦學習順序
@@ -80,14 +80,14 @@
 
 #### 機器學習基礎
 - ⏳ 基本圖像分類
-- ⏳ 基本文本分類
-- ⏳ 使用 TF Hub 的文本分類
+- ⏳ 基本文字分類
+- ⏳ 使用 TF Hub 的文字分類
 - ⏳ 回歸問題
 - ⏳ 過擬合與欠擬合
 - ⏳ 保存和加載模型
 - ⏳ 使用 Keras Tuner 調整超參數
 
-**推薦學習順序：** 圖像分類 → 文本分類 → 回歸 → 模型調優
+**推薦學習順序：** 圖像分類 → 文字分類 → 回歸 → 模型調優
 
 ---
 
@@ -99,14 +99,14 @@
 - ✅ 圖像增強技術
 - ✅ 批次處理與預取
 
-#### 3.2 文本資料
+#### 3.2 文字資料
 - ✅ Unicode 處理
 - ✅ 子詞標記化（Subword Tokenization）
 - ✅ TextVectorization 層
 
 #### 3.3 其他資料格式
 - ✅ CSV 文件處理
-- ✅ NumPy 數組轉換
+- ✅ NumPy 陣列轉換
 - ✅ pandas.DataFrame 整合
 - ⏳ TFRecord 和 tf.Example
 - ⏳ 影片資料處理
@@ -118,7 +118,7 @@
 **已涵蓋內容：**
 - 完整的 tf.data API 使用教程
 - 性能優化技巧（prefetch, cache, parallel map）
-- 不同數據源的處理方法
+- 不同資料源的處理方法
 - 實戰範例和基準測試
 
 ---
@@ -130,14 +130,14 @@
 - ⏳ 張量操作基礎
 - ⏳ 自定義層開發
 - ⏳ 自定義訓練迴圈
-- ⏳ 自定義損失函數與指標
+- ⏳ 自定義損失函式與指標
 
 #### 4.2 分散式訓練
 - ⏳ 使用 Keras 的分散式訓練
 - ⏳ `tf.distribute.Strategy` 介紹
 - ⏳ 多 GPU 訓練
 - ⏳ 多工作者訓練（Multi-worker Training）
-- ⏳ 參數服務器架構
+- ⏳ 參數伺服器架構
 - ⏳ DTensors 使用
 
 **適用場景：** 大規模資料集、大型模型訓練
@@ -173,11 +173,11 @@
 - ✅ RNN 基礎（已完成）
 - ✅ LSTM & GRU（已完成）
 - ⏳ KerasNLP 庫介紹
-- ⏳ 文本分類
+- ⏳ 文字分類
 - ⏳ 情感分析
 - ⏳ 命名實體識別（NER）
 - ⏳ 機器翻譯
-- ⏳ 文本生成
+- ⏳ 文字生成
 
 **檔案位置：**
 - `3.RNNs/RNN.ipynb`
@@ -252,7 +252,7 @@
 - ✅ 知識蒸餾
 
 #### 10.3 模型部署
-- ✅ TensorFlow Serving（服務器端）
+- ✅ TensorFlow Serving（伺服器端）
 - ✅ TensorFlow Lite（移動端/嵌入式）
 - ✅ TensorFlow.js（瀏覽器/Node.js）
 - ✅ ONNX 轉換
@@ -323,7 +323,7 @@
   ])
   ```
 - **🚀 TFLite 改進：** SignatureRunner 支援無簽名的模型
-- **⚠️ 重大變更：** 為了代碼健康，CUDA 構建中禁用了 TensorRT 支援
+- **⚠️ 重大變更：** 為了程式碼健康，CUDA 構建中禁用了 TensorRT 支援
 
 ### 升級建議
 
@@ -403,7 +403,7 @@ model.fit(dataset, epochs=epochs, callbacks=callbacks)
 
 ### 對於初學者：
 1. 從快速入門教程開始
-2. 練習基本的圖像分類和文本分類
+2. 練習基本的圖像分類和文字分類
 3. 了解 `tf.data` 和 Keras API
 4. 完成至少 2-3 個小專案
 
@@ -431,8 +431,10 @@ model.fit(dataset, epochs=epochs, callbacks=callbacks)
 
 ## 📝 注意事項
 
+> **注意：`tensorflow-gpu` 套件自 TF 2.0 起已合併到 `tensorflow`，2023 起 PyPI 已下架，請直接 `pip install tensorflow`。**
+
 1. **版本兼容性：** 建議使用 TensorFlow 2.15 或更高版本
-2. **GPU 支援：** 安裝 `tensorflow-gpu` 或使用統一的 `tensorflow` 套件（2.11+）
+2. **GPU 支援：** 安裝統一的 `tensorflow` 套件（2.0+ 起 CPU/GPU 已合併，不再使用 `tensorflow-gpu`）
 3. **環境配置：** 推薦使用 Conda 或 venv 建立虛擬環境
 4. **雲端訓練：** 可使用 Google Colab 或 Kaggle Notebooks 免費 GPU
 
@@ -497,7 +499,7 @@ model.compile(
     metrics=['accuracy']
 )
 
-# 載入 MNIST 數據集
+# 載入 MNIST 資料集
 mnist = keras.datasets.mnist
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
 x_train, x_test = x_train / 255.0, x_test / 255.0
@@ -517,7 +519,7 @@ print(f'Test accuracy: {test_acc:.4f}')
 ### Q1: TensorFlow 2.x 和 1.x 有什麼主要差異？
 
 **A:** 主要差異包括：
-- **預設 Eager Execution：** TensorFlow 2.x 預設啟用 eager execution，代碼更直觀易懂
+- **預設 Eager Execution：** TensorFlow 2.x 預設啟用 eager execution，程式碼更直觀易懂
 - **Keras 整合：** Keras 成為官方高階 API (`tf.keras`)
 - **移除 Session：** 不再需要 `tf.Session()`
 - **簡化 API：** 移除重複的 API，統一命名規範
@@ -526,7 +528,7 @@ print(f'Test accuracy: {test_acc:.4f}')
 ### Q2: 如何選擇 CNN、RNN 還是 Transformer？
 
 **A:** 選擇建議：
-- **CNN：** 圖像處理、局部特徵提取、空間數據
+- **CNN：** 圖像處理、局部特徵提取、空間資料
 - **RNN/LSTM/GRU：** 短序列、時間序列預測、需要記憶的任務
 - **Transformer：** 長序列、NLP 任務、需要並行處理的場景（推薦用於現代 NLP）
 
@@ -560,7 +562,7 @@ if gpus:
 1. **Dropout：** `keras.layers.Dropout(0.5)`
 2. **L2 正則化：** `keras.regularizers.l2(0.01)`
 3. **Early Stopping：** 監控驗證損失提前停止
-4. **數據增強：** 增加訓練數據多樣性
+4. **資料增強：** 增加訓練資料多樣性
 5. **Batch Normalization：** 穩定訓練過程
 6. **減少模型複雜度：** 減少層數或神經元數量
 
@@ -598,7 +600,7 @@ model.load_weights('model_weights.h5')
 
 ## ⚠️ 常見陷阱與最佳實踐
 
-### 陷阱 1: 忘記正規化數據
+### 陷阱 1: 忘記正規化資料
 ```python
 # ❌ 錯誤：未正規化
 model.fit(x_train, y_train)
@@ -608,16 +610,16 @@ x_train = x_train / 255.0
 model.fit(x_train, y_train)
 ```
 
-### 陷阱 2: 訓練/測試數據洩漏
+### 陷阱 2: 訓練/測試資料洩漏
 ```python
 # ❌ 錯誤：在分割前正規化
-scaler.fit(X)  # 使用全部數據
+scaler.fit(X)  # 使用全部資料
 X_scaled = scaler.transform(X)
 X_train, X_test = train_test_split(X_scaled)
 
 # ✅ 正確：只用訓練集擬合
 X_train, X_test = train_test_split(X)
-scaler.fit(X_train)  # 只使用訓練數據
+scaler.fit(X_train)  # 只使用訓練資料
 X_train = scaler.transform(X_train)
 X_test = scaler.transform(X_test)
 ```
@@ -656,18 +658,18 @@ set_seed(42)
 
 ## 🔧 效能優化技巧
 
-### 1. 使用 tf.data API 進行高效數據載入
+### 1. 使用 tf.data API 進行高效資料載入
 
 ```python
-# 建立高效的數據管道
+# 建立高效的資料管道
 AUTOTUNE = tf.data.AUTOTUNE
 
 dataset = tf.data.Dataset.from_tensor_slices((x_train, y_train))
 dataset = (dataset
     .shuffle(buffer_size=10000)
     .batch(batch_size=32)
-    .prefetch(buffer_size=AUTOTUNE)  # 預取數據
-    .cache()  # 快取數據
+    .prefetch(buffer_size=AUTOTUNE)  # 預取資料
+    .cache()  # 快取資料
 )
 
 model.fit(dataset, epochs=10)
@@ -761,7 +763,7 @@ profiler.stop()
 2. ✅ 實作基本圖像分類（MNIST, CIFAR-10）
 3. ✅ 學習「CNN 基礎實作」
 4. 🎯 完成 2-3 個小專案（建議：貓狗分類、手寫數字識別）
-5. 📚 學習 tf.data 和數據預處理
+5. 📚 學習 tf.data 和資料預處理
 
 ### 中級路徑（2-3 個月）
 1. ✅ 深入學習「RNN」、「LSTM & GRU」
@@ -771,7 +773,7 @@ profiler.stop()
 5. 📚 學習模型調優（Keras Tuner, Optuna）
 
 ### 進階路徑（3-6 個月）
-1. 📚 自定義訓練迴圈和損失函數
+1. 📚 自定義訓練迴圈和損失函式
 2. 📚 分散式訓練策略
 3. 📚 模型優化（剪枝、量化）
 4. 📚 模型部署（TF Serving, TFLite, TF.js）
@@ -789,8 +791,8 @@ profiler.stop()
 
 ### 實用工具
 - [TensorFlow Model Garden](https://github.com/tensorflow/models) - 官方模型實現
-- [TensorFlow Datasets](https://www.tensorflow.org/datasets) - 常用數據集
-- [Keras Code Examples](https://keras.io/examples/) - 高質量範例代碼
+- [TensorFlow Datasets](https://www.tensorflow.org/datasets) - 常用資料集
+- [Keras Code Examples](https://keras.io/examples/) - 高品質範例程式碼
 - [TensorFlow.js](https://www.tensorflow.org/js) - 瀏覽器端 ML
 
 ### 社群與支援
@@ -810,8 +812,8 @@ profiler.stop()
 ### 調試模型不收斂
 
 ```python
-# 1. 檢查數據是否正確
-print("數據範圍:", x_train.min(), x_train.max())
+# 1. 檢查資料是否正確
+print("資料範圍:", x_train.min(), x_train.max())
 print("標籤分布:", np.bincount(y_train))
 
 # 2. 從簡單模型開始
@@ -835,16 +837,16 @@ class GradientCallback(Callback):
                     print(f"{layer.name} weight mean: {np.mean(np.abs(weights[0]))}")
 ```
 
-### 處理不同數據類型
+### 處理不同資料類型
 
 ```python
-# 圖像數據
+# 圖像資料
 image_dataset = tf.data.Dataset.from_tensor_slices(images)
 image_dataset = image_dataset.map(
     lambda x: tf.image.resize(x, [224, 224])
 )
 
-# 文本數據
+# 文字資料
 from tensorflow.keras.layers import TextVectorization
 
 vectorize_layer = TextVectorization(
@@ -853,7 +855,7 @@ vectorize_layer = TextVectorization(
 )
 vectorize_layer.adapt(text_dataset)
 
-# 時間序列數據
+# 時間序列資料
 def create_sequences(data, seq_length):
     xs, ys = [], []
     for i in range(len(data)-seq_length):

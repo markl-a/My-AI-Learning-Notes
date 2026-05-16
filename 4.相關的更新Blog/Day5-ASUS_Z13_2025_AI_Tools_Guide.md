@@ -309,7 +309,7 @@ AMD Software: Adrenalin Edition → 效能 → 調校 → 手動
 
 ## 📝 快速開始腳本
 
-創建 `start_ai_suite.bat`:
+建立 `start_ai_suite.bat`:
 
 ```batch
 @echo off
@@ -343,7 +343,7 @@ pause
 4. [ComfyUI](https://github.com/comfyanonymous/ComfyUI)
 
 ### 模型資源
-1. [HuggingFace](https://huggingface.co/models)
+1. [Hugging Face](https://huggingface.co/models)
 2. [CivitAI](https://civitai.com/) (SD 模型)
 3. [TheBloke](https://huggingface.co/TheBloke) (量化 LLM)
 

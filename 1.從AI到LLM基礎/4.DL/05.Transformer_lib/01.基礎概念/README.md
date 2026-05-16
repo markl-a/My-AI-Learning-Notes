@@ -30,7 +30,7 @@ from transformers import AutoModel, AutoTokenizer, AutoConfig
 # 1. Model（模型）：執行推理和訓練的神經網路
 model = AutoModel.from_pretrained("bert-base-chinese")
 
-# 2. Tokenizer（分詞器）：將文本轉換為模型可理解的數字
+# 2. Tokenizer（分詞器）：將文字轉換為模型可理解的數字
 tokenizer = AutoTokenizer.from_pretrained("bert-base-chinese")
 
 # 3. Config（配置）：模型的超參數和設定
@@ -43,7 +43,7 @@ Hugging Face Transformers 遵循以下設計原則：
 
 - **統一接口**：所有模型使用相同的 API
 - **模型無關**：支援 PyTorch、TensorFlow、JAX
-- **易於使用**：3 行代碼即可使用任何模型
+- **易於使用**：3 行程式碼即可使用任何模型
 - **高度可擴展**：支援自定義模型和訓練邏輯
 
 ---
@@ -58,7 +58,7 @@ Hugging Face Transformers 遵循以下設計原則：
 ```python
 from transformers import (
     AutoModel,                              # 基礎模型（獲取隱藏狀態）
-    AutoModelForSequenceClassification,     # 文本分類
+    AutoModelForSequenceClassification,     # 文字分類
     AutoModelForTokenClassification,        # 標記分類（NER）
     AutoModelForQuestionAnswering,          # 問答
     AutoModelForCausalLM,                   # 因果語言模型（GPT 風格）
@@ -66,7 +66,7 @@ from transformers import (
     AutoModelForSeq2SeqLM,                  # 序列到序列（T5 風格）
 )
 
-# 範例：載入文本分類模型
+# 範例：載入文字分類模型
 model = AutoModelForSequenceClassification.from_pretrained(
     "bert-base-chinese",
     num_labels=2,  # 二分類
@@ -91,7 +91,7 @@ model = AutoModelForImageClassification.from_pretrained("google/vit-base-patch16
 from transformers import (
     AutoModelForSpeechSeq2Seq,          # 語音識別（Whisper）
     AutoModelForAudioClassification,    # 音頻分類
-    AutoModelForTextToSpectrogram,      # 文本轉語音
+    AutoModelForTextToSpectrogram,      # 文字轉語音
 )
 
 # 範例：載入語音識別模型
@@ -170,7 +170,7 @@ model.save_pretrained("./my_saved_model", safe_serialization=True)
 ### 1. Tokenizer 的工作流程
 
 ```
-原始文本 → 規範化 → 預分詞 → 模型分詞 → 後處理 → Token IDs
+原始文字 → 規範化 → 預分詞 → 模型分詞 → 後處理 → Token IDs
 ```
 
 ```python
@@ -254,7 +254,7 @@ fast_tokenizer = AutoTokenizer.from_pretrained("bert-base-chinese", use_fast=Tru
 slow_tokenizer = AutoTokenizer.from_pretrained("bert-base-chinese", use_fast=False)
 
 # Fast Tokenizer 的額外功能
-encoding = fast_tokenizer("測試文本", return_offsets_mapping=True)
+encoding = fast_tokenizer("測試文字", return_offsets_mapping=True)
 print("Offsets:", encoding['offset_mapping'])  # 字符級別的偏移量
 ```
 
@@ -297,7 +297,7 @@ print("Vocab size:", config.vocab_size)
 config.hidden_dropout_prob = 0.2
 config.attention_probs_dropout_prob = 0.2
 
-# 使用自定義配置創建模型
+# 使用自定義配置建立模型
 from transformers import AutoModel
 model = AutoModel.from_config(config)
 ```
@@ -307,7 +307,7 @@ model = AutoModel.from_config(config)
 ```python
 from transformers import AutoConfig, AutoModelForSequenceClassification
 
-# 創建分類模型的配置
+# 建立分類模型的配置
 config = AutoConfig.from_pretrained(
     "bert-base-chinese",
     num_labels=3,                   # 分類類別數
@@ -316,7 +316,7 @@ config = AutoConfig.from_pretrained(
     classifier_dropout=0.1,         # 分類器 Dropout
 )
 
-# 從配置創建模型
+# 從配置建立模型
 model = AutoModelForSequenceClassification.from_pretrained(
     "bert-base-chinese",
     config=config,
@@ -360,7 +360,7 @@ print(f"信心度: {confidence:.4f}")
 ### 範例 2：批次處理
 
 ```python
-# 批次處理多個文本
+# 批次處理多個文字
 texts = [
     "這個產品很好用",
     "質量太差了",
@@ -387,7 +387,7 @@ with torch.no_grad():
 for i, text in enumerate(texts):
     pred_class = torch.argmax(predictions[i]).item()
     confidence = predictions[i][pred_class].item()
-    print(f"文本: {text}")
+    print(f"文字: {text}")
     print(f"  預測: {pred_class}, 信心度: {confidence:.4f}\n")
 ```
 
@@ -423,11 +423,11 @@ model_flax = FlaxAutoModelForCausalLM.from_pretrained("gpt2")
 
 **答**：`attention_mask` 告訴模型哪些 token 是真實的（值為 1），哪些是填充的（值為 0）。這樣模型在計算注意力時會忽略填充的部分。
 
-### Q3: 如何處理超長文本？
+### Q3: 如何處理超長文字？
 
 **答**：
 1. **截斷**：使用 `truncation=True` 截取前 N 個 token
-2. **分段處理**：將長文本切分為多個片段分別處理
+2. **分段處理**：將長文字切分為多個片段分別處理
 3. **使用長序列模型**：如 Longformer, BigBird
 
 ### Q4: Fast Tokenizer 和 Slow Tokenizer 的區別？

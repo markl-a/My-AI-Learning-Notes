@@ -21,12 +21,12 @@
 
 ## 概述
 
-本專案包含多個 FastAPI 驅動的 REST API 服務，提供 LLM、RAG、文檔分析和代碼審查等功能。
+本專案包含多個 FastAPI 驅動的 REST API 服務，提供 LLM、RAG、文檔分析和程式碼審查等功能。
 
 ### 技術棧
 
 - **框架**: FastAPI 0.115+
-- **服務器**: Uvicorn (ASGI)
+- **伺服器**: Uvicorn (ASGI)
 - **認證**: HTTPBearer + API Key
 - **文檔**: OpenAPI 3.0 (Swagger UI + ReDoc)
 
@@ -39,7 +39,7 @@
 | **RAG ChatBot** | 8000 | RAG 增強的聊天機器人 | `/docs` |
 | **FastAPI LLM API** | 8000 | 多提供商 LLM 服務 | `/docs` |
 | **AI Document Analyzer** | 8001 | 文檔分析服務 | `/docs` |
-| **AI Code Review** | 8002 | 代碼審查服務 | `/docs` |
+| **AI Code Review** | 8002 | 程式碼審查服務 | `/docs` |
 
 ---
 
@@ -77,7 +77,7 @@ curl -H "X-API-Key: YOUR_API_KEY" \
 {
   "status": "success",
   "data": {
-    // 響應數據
+    // 響應資料
   },
   "metadata": {
     "timestamp": "2025-01-15T10:30:00Z",
@@ -94,7 +94,7 @@ curl -H "X-API-Key: YOUR_API_KEY" \
   "status_code": 400,
   "timestamp": "2025-01-15T10:30:00Z",
   "details": {
-    // 可選的詳細錯誤信息
+    // 可選的詳細錯誤資訊
   }
 }
 ```
@@ -111,7 +111,7 @@ curl -H "X-API-Key: YOUR_API_KEY" \
 | `403` | 禁止訪問 | 無權限訪問該資源 |
 | `404` | 未找到 | 資源不存在 |
 | `429` | 請求過多 | 超過速率限制 |
-| `500` | 服務器錯誤 | 內部錯誤 |
+| `500` | 伺服器錯誤 | 內部錯誤 |
 | `503` | 服務不可用 | LLM 提供商不可用 |
 
 ---
@@ -157,7 +157,7 @@ Retry-After: 30  (當被限制時)
 | `GET` | `/api/conversations/{id}` | 獲取對話 |
 | `DELETE` | `/api/conversations/{id}` | 刪除對話 |
 | `GET` | `/api/health` | 健康檢查 |
-| `GET` | `/api/stats` | 統計信息 |
+| `GET` | `/api/stats` | 統計資訊 |
 
 #### 聊天請求示例
 

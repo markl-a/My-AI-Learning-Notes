@@ -18,14 +18,14 @@
    - 感受野 (Receptive Field)
 
 2. **圖像分類實作**
-   - CIFAR-10 數據集
+   - CIFAR-10 資料集
    - 模型架構設計
    - 訓練和評估
 
-3. **數據增強技術**
+3. **資料增強技術**
    - 旋轉、翻轉、縮放
    - 顏色調整
-   - Keras 數據增強層
+   - Keras 資料增強層
 
 4. **遷移學習**
    - 預訓練模型使用
@@ -85,7 +85,7 @@ model.add(layers.Conv2D(
     kernel_size=(3, 3),      # 濾波器大小
     strides=(1, 1),          # 步幅
     padding='same',          # 填充方式: 'same' 或 'valid'
-    activation='relu',       # 激活函數
+    activation='relu',       # 激活函式
     input_shape=(28, 28, 1)  # 輸入形狀 (高, 寬, 通道)
 ))
 ```
@@ -98,11 +98,11 @@ model.add(layers.Conv2D(
 | **kernel_size** | 卷積核大小 | (3,3), (5,5), (7,7) |
 | **strides** | 步幅 | (1,1), (2,2) |
 | **padding** | 填充方式 | 'same', 'valid' |
-| **activation** | 激活函數 | 'relu', 'leaky_relu' |
+| **activation** | 激活函式 | 'relu', 'leaky_relu' |
 
 #### 2. 池化層 (Pooling Layer)
 
-池化用於降採樣,減少特徵圖的空間維度,同時保留重要信息。
+池化用於降採樣,減少特徵圖的空間維度,同時保留重要資訊。
 
 **最大池化 (Max Pooling):**
 
@@ -138,7 +138,7 @@ model.add(layers.GlobalAveragePooling2D())
 
 ```python
 model.add(layers.Conv2D(64, (3, 3)))
-model.add(layers.BatchNormalization())  # 在激活函數之前或之後
+model.add(layers.BatchNormalization())  # 在激活函式之前或之後
 model.add(layers.Activation('relu'))
 ```
 
@@ -177,7 +177,7 @@ model = keras.Sequential([
 ])
 ```
 
-**適用場景:** MNIST, Fashion MNIST 等簡單數據集
+**適用場景:** MNIST, Fashion MNIST 等簡單資料集
 
 ### 模式 2: 深度 CNN (VGG 風格)
 
@@ -274,18 +274,18 @@ def create_resnet_style_model(input_shape=(224, 224, 3), num_classes=10):
     return model
 ```
 
-**適用場景:** 複雜數據集, 需要更深網路時
+**適用場景:** 複雜資料集, 需要更深網路時
 
 ---
 
-## 📊 數據增強技術
+## 📊 資料增強技術
 
-數據增強可以:
-- ✅ 增加訓練數據的多樣性
+資料增強可以:
+- ✅ 增加訓練資料的多樣性
 - ✅ 防止過擬合
 - ✅ 提高模型泛化能力
 
-### Keras 3 數據增強層
+### Keras 3 資料增強層
 
 ```python
 from keras import layers
@@ -315,7 +315,7 @@ model = keras.Sequential([
 ])
 ```
 
-### 進階數據增強
+### 進階資料增強
 
 ```python
 import keras
@@ -365,16 +365,16 @@ from keras import layers
 from keras.datasets import cifar10
 import numpy as np
 
-# 1. 載入數據
+# 1. 載入資料
 (x_train, y_train), (x_test, y_test) = cifar10.load_data()
 
-# 2. 數據預處理
+# 2. 資料預處理
 x_train = x_train.astype('float32') / 255.0
 x_test = x_test.astype('float32') / 255.0
 
-# 3. 創建模型
+# 3. 建立模型
 model = keras.Sequential([
-    # 數據增強
+    # 資料增強
     layers.RandomFlip("horizontal"),
     layers.RandomRotation(0.1),
 
@@ -441,8 +441,8 @@ print(f"測試準確率: {test_acc*100:.2f}%")
 
 使用預訓練模型可以:
 - ✅ 節省訓練時間
-- ✅ 在小數據集上獲得更好性能
-- ✅ 利用大規模數據集的知識
+- ✅ 在小資料集上獲得更好性能
+- ✅ 利用大規模資料集的知識
 
 ### 使用預訓練模型
 
@@ -509,12 +509,12 @@ model.fit(x_train, y_train, epochs=10, validation_split=0.2)
 | 模型 | 參數量 | Top-1 準確率 | 適用場景 | 推薦用途 |
 |------|--------|-------------|---------|---------|
 | **EfficientNetB0** | 5.3M | 77.1% | 資源受限 | 移動端、嵌入式 |
-| **EfficientNetB7** | 66M | 84.3% | 高精度需求 | 服務器端 |
+| **EfficientNetB7** | 66M | 84.3% | 高精度需求 | 伺服器端 |
 | **ResNet50** | 25.6M | 76.0% | 通用 | 特徵提取 |
 | **ResNet152** | 60.2M | 78.3% | 深度網路 | 複雜任務 |
 | **VGG16** | 138M | 71.3% | 簡單架構 | 教學用途 |
 | **MobileNetV2** | 3.5M | 71.8% | 移動端 | 實時應用 |
-| **InceptionV3** | 23.9M | 77.9% | 多尺度特徵 | 多樣化數據 |
+| **InceptionV3** | 23.9M | 77.9% | 多尺度特徵 | 多樣化資料 |
 | **ConvNeXt** | 28M | 82.1% | 最新架構 | 研究前沿 |
 
 ### Keras 3 中使用預訓練模型
@@ -529,7 +529,7 @@ from keras.applications import (
     ConvNeXtTiny
 )
 
-# 創建模型
+# 建立模型
 model = EfficientNetB0(weights='imagenet')
 
 # 預處理輸入
@@ -581,7 +581,7 @@ plot_history(history)
 ```python
 def visualize_feature_maps(model, img, layer_name):
     """可視化卷積層的特徵圖"""
-    # 創建特徵提取模型
+    # 建立特徵提取模型
     feature_model = keras.Model(
         inputs=model.input,
         outputs=model.get_layer(layer_name).output
@@ -619,7 +619,7 @@ import keras
 
 def make_gradcam_heatmap(img_array, model, last_conv_layer_name, pred_index=None):
     """生成 Grad-CAM 熱力圖"""
-    # 創建梯度模型
+    # 建立梯度模型
     grad_model = keras.Model(
         inputs=model.input,
         outputs=[model.get_layer(last_conv_layer_name).output, model.output]
@@ -667,8 +667,8 @@ superimposed_img = cv2.addWeighted(img, 0.6, heatmap, 0.4, 0)
    - 在 Fashion MNIST 上構建 CNN 模型
    - 達到 90% 以上準確率
 
-2. **數據增強實驗**
-   - 比較有/無數據增強的性能差異
+2. **資料增強實驗**
+   - 比較有/無資料增強的性能差異
    - 嘗試不同的增強組合
 
 3. **架構調整**
@@ -683,7 +683,7 @@ superimposed_img = cv2.addWeighted(img, 0.6, heatmap, 0.4, 0)
 
 5. **遷移學習應用**
    - 使用 ResNet50 進行特徵提取
-   - 在自定義數據集上微調
+   - 在自定義資料集上微調
 
 6. **模型可視化**
    - 實作 Grad-CAM
@@ -711,13 +711,13 @@ superimposed_img = cv2.addWeighted(img, 0.6, heatmap, 0.4, 0)
 
 **可能原因:**
 - 學習率設置不當
-- 數據預處理錯誤
+- 資料預處理錯誤
 - 網路架構不合理
 - 訓練時間不足
 
 **解決方案:**
 ```python
-# 1. 檢查數據範圍
+# 1. 檢查資料範圍
 print(x_train.min(), x_train.max())  # 應該在 [0, 1] 或 [-1, 1]
 
 # 2. 使用學習率調度
@@ -744,7 +744,7 @@ model.fit(..., epochs=100)
 # 1. 增加 Dropout
 model.add(layers.Dropout(0.5))
 
-# 2. 使用數據增強
+# 2. 使用資料增強
 data_augmentation = keras.Sequential([
     layers.RandomFlip(),
     layers.RandomRotation(0.2),
@@ -780,7 +780,7 @@ os.environ['KERAS_BACKEND'] = 'jax'
 # 4. 確保使用 GPU
 print(keras.backend.backend())  # 檢查是否使用 GPU
 
-# 5. 使用數據預取
+# 5. 使用資料預取
 dataset = dataset.prefetch(buffer_size=AUTOTUNE)
 ```
 
@@ -789,10 +789,10 @@ dataset = dataset.prefetch(buffer_size=AUTOTUNE)
 **決策樹:**
 
 ```
-數據集大小 < 1000 張?
+資料集大小 < 1000 張?
 ├─ 是 → 使用遷移學習 (EfficientNet, ResNet)
-└─ 否 → 數據集大小 < 10000 張?
-    ├─ 是 → 小型 CNN + 數據增強
+└─ 否 → 資料集大小 < 10000 張?
+    ├─ 是 → 小型 CNN + 資料增強
     └─ 否 → 可以從頭訓練較大模型
 
 圖像尺寸 < 64x64?
@@ -810,7 +810,7 @@ dataset = dataset.prefetch(buffer_size=AUTOTUNE)
 
 ### 官方文檔
 - [Keras CNN 指南](https://keras.io/guides/convnets/)
-- [Keras 數據增強](https://keras.io/guides/data_augmentation/)
+- [Keras 資料增強](https://keras.io/guides/data_augmentation/)
 - [Keras 遷移學習](https://keras.io/guides/transfer_learning/)
 
 ### 推薦教程
@@ -837,7 +837,7 @@ dataset = dataset.prefetch(buffer_size=AUTOTUNE)
 - [ ] 解釋 CNN 的工作原理和優勢
 - [ ] 理解卷積、池化、批次正規化的作用
 - [ ] 設計並實作基本的 CNN 架構
-- [ ] 使用數據增強防止過擬合
+- [ ] 使用資料增強防止過擬合
 - [ ] 應用遷移學習解決實際問題
 - [ ] 可視化和解釋 CNN 學到的特徵
 - [ ] 選擇合適的預訓練模型

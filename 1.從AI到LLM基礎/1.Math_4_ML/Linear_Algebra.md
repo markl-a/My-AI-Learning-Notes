@@ -112,7 +112,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# 創建向量和矩陣
+# 建立向量和矩陣
 vector_a = np.array([1, 2, 3])
 vector_b = np.array([4, 5, 6])
 
@@ -145,7 +145,7 @@ print("\n3x3 單位矩陣:\n", identity)
 ```python
 import numpy as np
 
-# 創建可逆矩陣
+# 建立可逆矩陣
 A = np.array([[4, 7], [2, 6]])
 print("矩陣 A:\n", A)
 
@@ -194,7 +194,7 @@ print("\nFrobenius 范數:", frobenius_norm)
 import numpy as np
 import matplotlib.pyplot as plt
 
-# 創建對稱矩陣
+# 建立對稱矩陣
 A = np.array([[4, 2], [2, 3]])
 
 # 計算特徵值和特徵向量
@@ -239,7 +239,7 @@ plt.close()
 ```python
 import numpy as np
 
-# 創建矩陣
+# 建立矩陣
 A = np.array([[1, 2, 3],
               [4, 5, 6],
               [7, 8, 9],
@@ -275,12 +275,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.datasets import load_iris
 
-# 載入數據
+# 載入資料
 iris = load_iris()
 X = iris.data
 y = iris.target
 
-# 數據標準化
+# 資料標準化
 X_mean = np.mean(X, axis=0)
 X_centered = X - X_mean
 
@@ -318,7 +318,7 @@ plt.grid(True, alpha=0.3)
 plt.savefig('pca_visualization.png', dpi=100, bbox_inches='tight')
 plt.close()
 
-print("\n降維後的數據形狀:", X_pca.shape)
+print("\n降維後的資料形狀:", X_pca.shape)
 ```
 
 ### 10.7 在神經網路中的應用：權重矩陣初始化
@@ -342,7 +342,7 @@ def he_normal(n_in, n_out):
     std = np.sqrt(2 / n_in)
     return np.random.normal(0, std, (n_in, n_out))
 
-# 創建不同初始化方法的權重
+# 建立不同初始化方法的權重
 n_in, n_out = 128, 64
 
 W_xavier_uniform = xavier_uniform(n_in, n_out)
@@ -380,7 +380,7 @@ print("He Normal - 均值:", np.mean(W_he), "標準差:", np.std(W_he))
 import numpy as np
 import matplotlib.pyplot as plt
 
-# 生成數據
+# 生成資料
 np.random.seed(42)
 X = 2 * np.random.rand(100, 1)
 y = 4 + 3 * X + np.random.randn(100, 1)
@@ -400,7 +400,7 @@ y_predict = X_new_b @ theta_best
 
 # 視覺化
 plt.figure(figsize=(10, 6))
-plt.scatter(X, y, alpha=0.5, label='數據點')
+plt.scatter(X, y, alpha=0.5, label='資料點')
 plt.plot(X_new, y_predict, 'r-', linewidth=2, label='預測線')
 plt.xlabel('X')
 plt.ylabel('y')
@@ -426,7 +426,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
 
-# 創建或載入圖像 (這裡用隨機數據示例)
+# 建立或載入圖像 (這裡用隨機資料示例)
 # 實際使用時可以用: img = np.array(Image.open('image.jpg').convert('L'))
 img = np.random.rand(100, 100) * 255
 
@@ -596,7 +596,7 @@ def demonstrate_attention():
     seq_len = 5
     d_model = 8
 
-    # 創建簡單的輸入（模擬詞嵌入）
+    # 建立簡單的輸入（模擬詞嵌入）
     X = np.random.randn(batch_size, seq_len, d_model)
 
     # 自注意力（Q=K=V）
@@ -673,7 +673,7 @@ def demonstrate_tensor_operations():
     print("張量操作演示")
     print("=" * 60)
 
-    # 創建張量
+    # 建立張量
     A = np.random.randn(3, 4, 5)  # 3D 張量
     B = np.random.randn(5, 6)     # 2D 張量 (矩陣)
 
@@ -1032,7 +1032,7 @@ demonstrate_model_compression()
 
 **練習 5: PCA 實作**
 1. 從頭實現 PCA 演算法（不使用 sklearn）
-2. 在 Iris 數據集上應用你的實現
+2. 在 Iris 資料集上應用你的實現
 3. 比較不同主成分數量下的方差解釋比例
 4. 視覺化前兩個主成分
 
@@ -1046,7 +1046,7 @@ demonstrate_model_compression()
 
 **挑戰 1: 矩陣條件數分析**
 ```python
-# 創建一個病態矩陣（ill-conditioned matrix）
+# 建立一個病態矩陣（ill-conditioned matrix）
 # 1. 計算其條件數
 # 2. 分析條件數對線性方程組求解的影響
 # 3. 使用 SVD 或 QR 分解改善數值穩定性
@@ -1055,7 +1055,7 @@ demonstrate_model_compression()
 **挑戰 2: 低秩矩陣補全**
 ```python
 # 實現矩陣補全演算法
-# 1. 創建一個低秩矩陣並隨機移除部分元素
+# 1. 建立一個低秩矩陣並隨機移除部分元素
 # 2. 使用 SVD 或梯度下降恢復缺失元素
 # 3. 比較不同方法的效果
 ```
@@ -1063,7 +1063,7 @@ demonstrate_model_compression()
 **挑戰 3: 實現 LoRA (Low-Rank Adaptation)**
 ```python
 # 模擬 LoRA 在微調中的應用
-# 1. 創建一個大型權重矩陣 W ∈ ℝ^(1000×1000)
+# 1. 建立一個大型權重矩陣 W ∈ ℝ^(1000×1000)
 # 2. 實現 LoRA: ΔW = BA，其中 B ∈ ℝ^(1000×r), A ∈ ℝ^(r×1000)
 # 3. 比較完整微調和 LoRA 的參數量
 # 4. 分析不同秩 r 的影響
@@ -1103,7 +1103,7 @@ demonstrate_model_compression()
 - 預測未知評分
 - 評估推薦質量
 
-**項目 3: 文本嵌入降維**
+**項目 3: 文字嵌入降維**
 對高維詞向量進行降維：
 - 載入預訓練詞向量（如 Word2Vec）
 - 使用 PCA 和 t-SNE 降維
@@ -1135,7 +1135,7 @@ demonstrate_model_compression()
 **實驗 2: 正交性與梯度流**
 ```python
 # 研究正交權重矩陣對梯度流的影響
-# 1. 創建深層網路（10+ 層）
+# 1. 建立深層網路（10+ 層）
 # 2. 比較正交初始化和隨機初始化
 # 3. 測量梯度在每層的變化
 # 4. 分析梯度消失/爆炸現象

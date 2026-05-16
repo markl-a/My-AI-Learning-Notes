@@ -5,7 +5,7 @@
 1. [什麼是多任務學習](#什麼是多任務學習)
 2. [多任務學習的優勢](#多任務學習的優勢)
 3. [實現策略](#實現策略)
-4. [數據準備](#數據準備)
+4. [資料準備](#資料準備)
 5. [訓練技巧](#訓練技巧)
 6. [實作範例](#實作範例)
 7. [常見挑戰與解決方案](#常見挑戰與解決方案)
@@ -20,7 +20,7 @@
 
 在 SFT 的場景中，多任務學習意味著：
 
-- **單一模型處理多種任務**：問答、摘要、翻譯、代碼生成等
+- **單一模型處理多種任務**：問答、摘要、翻譯、程式碼生成等
 - **共享表示學習**：不同任務共享底層的語言理解能力
 - **任務特定適配**：為不同任務學習特定的模式
 
@@ -28,7 +28,7 @@
 
 | 特性 | 單任務學習 | 多任務學習 |
 |------|-----------|-----------|
-| 訓練數據 | 單一任務 | 多個任務混合 |
+| 訓練資料 | 單一任務 | 多個任務混合 |
 | 模型專精度 | 高（單任務） | 中等（多任務平衡） |
 | 泛化能力 | 有限 | 更強 |
 | 訓練成本 | 低 | 中等 |
@@ -44,17 +44,17 @@
 
 ```
 任務 1: 問答 → 學習理解問題和給出答案
-任務 2: 摘要 → 學習提取關鍵信息
+任務 2: 摘要 → 學習提取關鍵資訊
 任務 3: 翻譯 → 學習語言對應關係
 
 共享學習: 更好的語言理解和生成能力
 ```
 
-### 2. 數據效率
+### 2. 資料效率
 
-即使某個任務的數據較少，也能從其他任務中獲益：
+即使某個任務的資料較少，也能從其他任務中獲益：
 
-- **知識遷移**：從數據豐富的任務遷移知識到數據稀缺的任務
+- **知識遷移**：從資料豐富的任務遷移知識到資料稀缺的任務
 - **正則化效果**：多任務約束防止模型過度擬合單一任務
 
 ### 3. 降低部署成本
@@ -69,8 +69,8 @@
 
 ```
 問答 + 對話 → 提升交互理解能力
-代碼生成 + 代碼解釋 → 增強代碼理解
-翻譯 + 文本改寫 → 改善語言表達
+程式碼生成 + 程式碼解釋 → 增強程式碼理解
+翻譯 + 文字改寫 → 改善語言表達
 ```
 
 ---
@@ -79,16 +79,16 @@
 
 ### 策略 1: 任務混合訓練 (Task Mixing)
 
-**方法**：在訓練數據中混合不同任務的樣本
+**方法**：在訓練資料中混合不同任務的樣本
 
 **實現**：
 ```python
-# 準備不同任務的數據
-qa_data = [...]  # 問答數據
-summary_data = [...]  # 摘要數據
-translation_data = [...]  # 翻譯數據
+# 準備不同任務的資料
+qa_data = [...]  # 問答資料
+summary_data = [...]  # 摘要資料
+translation_data = [...]  # 翻譯資料
 
-# 混合數據
+# 混合資料
 mixed_data = qa_data + summary_data + translation_data
 
 # 打亂順序
@@ -105,7 +105,7 @@ trainer.train(mixed_data)
 
 **缺點**：
 - 難以控制任務比例
-- 可能被大數據集任務主導
+- 可能被大資料集任務主導
 
 ### 策略 2: 任務採樣 (Task Sampling)
 
@@ -122,7 +122,7 @@ task_weights = {
     "translation": 0.3  # 30%
 }
 
-# 創建加權採樣器
+# 建立加權採樣器
 weights = [task_weights[example["task_type"]] for example in dataset]
 sampler = WeightedRandomSampler(weights, len(dataset))
 
@@ -132,7 +132,7 @@ dataloader = DataLoader(dataset, sampler=sampler)
 
 **優點**：
 - 精確控制任務比例
-- 平衡不同大小的數據集
+- 平衡不同大小的資料集
 
 **缺點**：
 - 需要手動調整權重
@@ -148,7 +148,7 @@ P(task_i) = (N_i)^(1/T) / Σ(N_j)^(1/T)
 ```
 
 其中：
-- N_i：任務 i 的數據量
+- N_i：任務 i 的資料量
 - T：溫度參數（T=1 按原始比例，T→∞ 均勻分佈）
 
 **實現**：
@@ -204,7 +204,7 @@ def add_task_description(instruction, task_type):
     descriptions = {
         "qa": "請回答以下問題：",
         "summary": "請總結以下內容：",
-        "translation": "請翻譯以下文本："
+        "translation": "請翻譯以下文字："
     }
     return descriptions[task_type] + "\n" + instruction
 ```
@@ -219,11 +219,11 @@ def add_task_description(instruction, task_type):
 
 ---
 
-## 數據準備
+## 資料準備
 
-### 1. 統一數據格式
+### 1. 統一資料格式
 
-所有任務使用相同的數據結構：
+所有任務使用相同的資料結構：
 
 ```python
 {
@@ -244,7 +244,7 @@ def add_task_description(instruction, task_type):
 
 ```python
 def annotate_task_type(dataset, task_type):
-    """為數據集添加任務類型標註"""
+    """為資料集添加任務類型標註"""
     for example in dataset:
         example["task_type"] = task_type
         example["task_id"] = get_task_id(task_type)
@@ -255,21 +255,21 @@ qa_data = annotate_task_type(qa_data, "qa")
 summary_data = annotate_task_type(summary_data, "summary")
 ```
 
-### 3. 數據平衡
+### 3. 資料平衡
 
 確保任務之間的平衡：
 
 ```python
 def balance_multi_task_dataset(datasets, strategy="undersample"):
-    """平衡多任務數據集"""
+    """平衡多任務資料集"""
 
     if strategy == "undersample":
-        # 下採樣：所有任務使用最小數據集的大小
+        # 下採樣：所有任務使用最小資料集的大小
         min_size = min(len(d) for d in datasets)
         balanced = [d[:min_size] for d in datasets]
 
     elif strategy == "oversample":
-        # 上採樣：重複樣本使所有任務數據量一致
+        # 上採樣：重複樣本使所有任務資料量一致
         max_size = max(len(d) for d in datasets)
         balanced = []
         for d in datasets:
@@ -290,11 +290,11 @@ def balance_multi_task_dataset(datasets, strategy="undersample"):
 
 ### 4. 質量過濾
 
-確保每個任務的數據質量：
+確保每個任務的資料品質：
 
 ```python
 def filter_low_quality(dataset, task_type):
-    """過濾低質量樣本"""
+    """過濾低品質樣本"""
     filtered = []
 
     for example in dataset:
@@ -372,7 +372,7 @@ def train_with_task_accumulation(model, dataloader):
 ```python
 from torch.optim import AdamW
 
-# 為不同任務的參數組設置不同學習率
+# 為不同任務的參陣列設置不同學習率
 optimizer = AdamW([
     {'params': qa_params, 'lr': 1e-4},
     {'params': summary_params, 'lr': 2e-4},
@@ -440,7 +440,7 @@ import numpy as np
 
 
 class MultiTaskDataset:
-    """多任務數據集"""
+    """多任務資料集"""
 
     def __init__(self, task_datasets, task_weights=None, temperature=1.0):
         """
@@ -459,7 +459,7 @@ class MultiTaskDataset:
         else:
             self.task_weights = task_weights
 
-        # 合併數據集並添加任務標籤
+        # 合併資料集並添加任務標籤
         self.dataset = self._merge_datasets()
 
     def _temperature_sampling(self, sizes, temperature):
@@ -468,7 +468,7 @@ class MultiTaskDataset:
         return probs / probs.sum()
 
     def _merge_datasets(self):
-        """合併數據集"""
+        """合併資料集"""
         merged = []
         for task_name, dataset in self.task_datasets.items():
             for example in dataset:
@@ -499,7 +499,7 @@ def format_multi_task_example(example):
         "qa": "問答任務",
         "summary": "摘要任務",
         "translation": "翻譯任務",
-        "code": "代碼生成任務"
+        "code": "程式碼生成任務"
     }
 
     prefix = task_prefixes.get(task_type, "")
@@ -529,10 +529,10 @@ def train_multi_task_model(
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
 
-    # 創建多任務數據集
+    # 建立多任務資料集
     mt_dataset = MultiTaskDataset(task_datasets, temperature=temperature)
 
-    # 格式化數據
+    # 格式化資料
     formatted_data = [format_multi_task_example(ex) for ex in mt_dataset.dataset]
 
     # Tokenize
@@ -547,7 +547,7 @@ def train_multi_task_model(
     dataset = Dataset.from_list(formatted_data)
     tokenized_dataset = dataset.map(tokenize_function, batched=True)
 
-    # 創建採樣器
+    # 建立採樣器
     sampler = mt_dataset.get_weighted_sampler()
 
     # 訓練參數
@@ -582,19 +582,19 @@ def train_multi_task_model(
 
 # 使用示例
 if __name__ == "__main__":
-    # 準備不同任務的數據
+    # 準備不同任務的資料
     task_datasets = {
         "qa": [
             {"instruction": "什麼是 Python?", "input": "", "output": "Python 是一種高級編程語言..."},
-            # ... 更多 QA 數據
+            # ... 更多 QA 資料
         ],
         "summary": [
             {"instruction": "總結以下文章", "input": "文章內容...", "output": "摘要..."},
-            # ... 更多摘要數據
+            # ... 更多摘要資料
         ],
         "translation": [
             {"instruction": "翻譯成英文", "input": "你好世界", "output": "Hello World"},
-            # ... 更多翻譯數據
+            # ... 更多翻譯資料
         ]
     }
 
@@ -647,15 +647,15 @@ if __name__ == "__main__":
 2. **任務特定層**：為每個任務保留專門的層
 3. **自適應任務權重**：動態調整任務重要性
 
-### 挑戰 3: 數據不平衡
+### 挑戰 3: 資料不平衡
 
-**問題**：不同任務的數據量差異大
+**問題**：不同任務的資料量差異大
 
 **解決方案**：
 
 1. **溫度採樣**（如前所述）
-2. **分階段訓練**：先訓練數據少的任務
-3. **數據增強**：為數據少的任務生成更多樣本
+2. **分階段訓練**：先訓練資料少的任務
+3. **資料增強**：為資料少的任務生成更多樣本
 
 ### 挑戰 4: 評估複雜性
 
@@ -692,10 +692,10 @@ def evaluate_multi_task_model(model, task_val_datasets):
    - 選擇相關任務進行多任務學習
    - 避免完全不相關的任務組合
 
-2. **數據準備**：
-   - 統一數據格式
-   - 平衡任務數據量
-   - 確保數據質量
+2. **資料準備**：
+   - 統一資料格式
+   - 平衡任務資料量
+   - 確保資料品質
 
 3. **訓練策略**：
    - 使用溫度採樣平衡任務

@@ -1,21 +1,21 @@
-# AI 代碼審查助手
+# AI 程式碼審查助手
 
-基於 LLM 的智能代碼審查系統，提供自動化代碼審查、安全檢查、性能分析和最佳實踐建議。
+基於 LLM 的智能程式碼審查系統，提供自動化程式碼審查、安全檢查、性能分析和最佳實踐建議。
 
 ## ✨ 核心功能
 
-### 🔍 智能代碼審查
-- **全面審查**：代碼質量、安全性、性能、可維護性
+### 🔍 智能程式碼審查
+- **全面審查**：程式碼品質、安全性、性能、可維護性
 - **快速審查**：快速識別主要問題
 - **專項審查**：針對性的安全或性能審查
-- **批量審查**：支持整個代碼庫的批量審查
+- **批量審查**：支持整個程式碼庫的批量審查
 
 ### 🛡️ 安全漏洞檢測
 - **OWASP Top 10** 檢查
 - **SQL 注入**檢測
 - **XSS 攻擊**檢測
 - **命令注入**檢測
-- **敏感信息洩露**掃描（API 密鑰、密碼、Token）
+- **敏感資訊洩露**掃描（API 密鑰、密碼、Token）
 - **路徑遍歷**檢測
 - **CWE 和 OWASP 合規性**報告
 
@@ -26,30 +26,30 @@
 - **優化建議**生成
 - **預期性能提升**估計
 
-### 🔧 代碼重構
+### 🔧 程式碼重構
 - **可讀性**提升
 - **性能優化**建議
 - **可維護性**改進
 - **設計模式**應用建議
 
-### 📊 代碼質量指標
+### 📊 程式碼品質指標
 - **圈複雜度**（Cyclomatic Complexity）
 - **認知複雜度**（Cognitive Complexity）
 - **維護性指數**（Maintainability Index）
-- **代碼覆蓋率**估計
+- **程式碼覆蓋率**估計
 
 ### 🎯 最佳實踐檢查
 - 命名規範
-- 代碼風格
+- 程式碼風格
 - 設計模式使用
 - 錯誤處理
 - 日誌記錄
 - 文檔註釋
 
-### 🤖 代碼生成
+### 🤖 程式碼生成
 - **自動生成單元測試**
 - **自動生成文檔**
-- **代碼補全建議**
+- **程式碼補全建議**
 
 ## 🎨 支持的語言
 
@@ -76,9 +76,9 @@
 │  │ Code         │  │  Security    │  │Performance│  │
 │  │ Analyzer     │  │  Checker     │  │ Analyzer  │  │
 │  │              │  │              │  │           │  │
-│  │ - 代碼審查   │  │ - OWASP檢查  │  │ - 複雜度  │  │
+│  │ - 程式碼審查   │  │ - OWASP檢查  │  │ - 複雜度  │  │
 │  │ - 最佳實踐   │  │ - 漏洞掃描   │  │ - 瓶頸    │  │
-│  │ - 重構建議   │  │ - 敏感信息   │  │ - 優化    │  │
+│  │ - 重構建議   │  │ - 敏感資訊   │  │ - 優化    │  │
 │  └──────────────┘  └──────────────┘  └──────────┘  │
 │         │                  │                │        │
 │         └──────────────────┴────────────────┘        │
@@ -135,7 +135,7 @@ docker-compose down
 
 ## 📚 API 使用示例
 
-### 1. 完整代碼審查
+### 1. 完整程式碼審查
 
 ```bash
 curl -X POST "http://localhost:8002/api/review" \
@@ -164,7 +164,7 @@ curl -X POST "http://localhost:8002/api/review" \
   "suggestions": [
     {
       "category": "performance",
-      "content": "使用 sum() 內置函數會更高效",
+      "content": "使用 sum() 內建函式會更高效",
       "priority": "medium"
     }
   ],
@@ -173,7 +173,7 @@ curl -X POST "http://localhost:8002/api/review" \
     "readability": 8,
     "maintainability": 9
   },
-  "summary": "代碼整體質量良好，建議使用更 Pythonic 的寫法"
+  "summary": "程式碼整體質量良好，建議使用更 Pythonic 的寫法"
 }
 ```
 
@@ -254,7 +254,7 @@ curl -X POST "http://localhost:8002/api/performance/analyze" \
 }
 ```
 
-### 4. 掃描敏感信息
+### 4. 掃描敏感資訊
 
 ```bash
 curl -X POST "http://localhost:8002/api/security/scan-secrets" \
@@ -321,7 +321,7 @@ curl -X POST "http://localhost:8002/api/generate/tests" \
 }
 ```
 
-### 7. 代碼重構建議
+### 7. 程式碼重構建議
 
 ```bash
 curl -X POST "http://localhost:8002/api/refactor" \
@@ -363,7 +363,7 @@ curl -X POST "http://localhost:8002/api/best-practices" \
   }'
 ```
 
-### 10. 代碼複雜度分析
+### 10. 程式碼複雜度分析
 
 ```bash
 curl -X POST "http://localhost:8002/api/complexity" \
@@ -388,7 +388,7 @@ SECURITY_SCORE_THRESHOLD=70
 # 性能評分閾值
 PERFORMANCE_SCORE_THRESHOLD=75
 
-# 默認審查類型
+# 預設審查類型
 DEFAULT_REVIEW_TYPE=full
 
 # 分析深度
@@ -451,11 +451,11 @@ done
 
 ## 🛡️ 安全最佳實踐
 
-1. **永遠不要提交 API 密鑰到代碼庫**
+1. **永遠不要提交 API 密鑰到程式碼庫**
 2. **使用環境變量**存儲敏感配置
 3. **定期更新依賴**以修復安全漏洞
 4. **限制 API 訪問**使用速率限制
-5. **審查日誌**不包含敏感信息
+5. **審查日誌**不包含敏感資訊
 
 ## 🐛 故障排除
 
@@ -471,13 +471,13 @@ done
 **解決方案：**
 - 使用 GPT-4 模型獲得更好的結果
 - 增加分析深度：`analysis_depth=deep`
-- 提供更多上下文信息
+- 提供更多上下文資訊
 
 ### 問題：性能緩慢
 
 **解決方案：**
 - 使用 `review_type=quick` 進行快速審查
-- 啟用緩存：`ENABLE_CACHE=true`
+- 啟用快取：`ENABLE_CACHE=true`
 - 增加並發限制：`MAX_CONCURRENT_REVIEWS=10`
 
 ## 📈 路線圖

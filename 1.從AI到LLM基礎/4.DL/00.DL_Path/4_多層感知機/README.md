@@ -19,7 +19,7 @@
 ```
 第1-2天：理解基礎概念
 ├─ 1_mlp.ipynb                    # MLP 基礎理論
-├─ 激活函數（ReLU、Sigmoid、Tanh）
+├─ 激活函式（ReLU、Sigmoid、Tanh）
 └─ 前向傳播機制
 
 第3-4天：動手實作
@@ -71,7 +71,7 @@
 | 文件 | 難度 | 學習時間 | 主要內容 |
 |------|------|----------|----------|
 | `0_index.ipynb` | ⭐ | 10分鐘 | 章節總覽 |
-| `1_mlp.ipynb` | ⭐⭐ | 2-3小時 | MLP基礎、激活函數 |
+| `1_mlp.ipynb` | ⭐⭐ | 2-3小時 | MLP基礎、激活函式 |
 | `2_mlp-scratch.ipynb` | ⭐⭐⭐ | 3-4小時 | 從零實作MLP |
 | `3_mlp-concise.ipynb` | ⭐⭐ | 1-2小時 | 框架實作MLP |
 | `4_underfit-overfit.ipynb` | ⭐⭐⭐ | 2-3小時 | 模型選擇、過擬合 |
@@ -106,7 +106,7 @@ from torch import nn
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 
-# 1. 準備數據
+# 1. 準備資料
 transform = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize((0.5,), (0.5,))
@@ -245,7 +245,7 @@ def plot_learning_curves(train_losses, val_losses):
 ### 項目4：多標籤分類
 - **難度**：⭐⭐⭐
 - **目標**：處理複雜的分類問題
-- **擴展**：可以使用真實數據集
+- **擴展**：可以使用真實資料集
 
 ---
 
@@ -256,18 +256,18 @@ def plot_learning_curves(train_losses, val_losses):
 #### 1. 概念理解
 ```
 提示詞範例：
-"請用簡單的例子解釋反向傳播算法，包括：
+"請用簡單的例子解釋反向傳播演算法，包括：
 1. 基本原理
 2. 數學推導
-3. 代碼實現
+3. 程式碼實現
 4. 常見誤區"
 ```
 
-#### 2. 代碼調試
+#### 2. 程式碼調試
 ```
 提示詞範例：
-"我的 MLP 模型出現梯度消失問題，以下是我的代碼：
-[貼上代碼]
+"我的 MLP 模型出現梯度消失問題，以下是我的程式碼：
+[貼上程式碼]
 請幫我：
 1. 診斷問題
 2. 提供解決方案
@@ -285,33 +285,33 @@ def plot_learning_curves(train_losses, val_losses):
 3. 解釋為什麼"
 ```
 
-#### 4. 代碼優化
+#### 4. 程式碼優化
 ```
 提示詞範例：
-"請幫我優化以下 MLP 訓練代碼：
-[貼上代碼]
+"請幫我優化以下 MLP 訓練程式碼：
+[貼上程式碼]
 優化方向：
 1. 訓練速度
 2. 記憶體使用
-3. 代碼可讀性
+3. 程式碼可讀性
 4. 最佳實踐"
 ```
 
 ### 使用 GitHub Copilot
 
 ```python
-# 提示：只需要寫註釋，Copilot 會自動生成代碼
+# 提示：只需要寫註釋，Copilot 會自動生成程式碼
 
-# 創建一個包含 Dropout 和 Batch Normalization 的 MLP 模型
+# 建立一個包含 Dropout 和 Batch Normalization 的 MLP 模型
 # 輸入維度：784，隱藏層：[512, 256, 128]，輸出維度：10
-# [Copilot 會自動生成完整代碼]
+# [Copilot 會自動生成完整程式碼]
 ```
 
 ### 使用 Cursor AI
 
-1. **代碼補全**：智能預測下一步要寫的代碼
+1. **程式碼補全**：智能預測下一步要寫的程式碼
 2. **錯誤修復**：自動檢測並修復常見錯誤
-3. **文檔生成**：自動生成代碼註釋和文檔
+3. **文檔生成**：自動生成程式碼註釋和文檔
 
 ---
 
@@ -325,7 +325,7 @@ def plot_learning_curves(train_losses, val_losses):
 # 1. 學習率太大
 optimizer = torch.optim.SGD(model.parameters(), lr=0.01)  # 降低學習率
 
-# 2. 沒有正規化數據
+# 2. 沒有正規化資料
 transform = transforms.Normalize((0.5,), (0.5,))  # 添加正規化
 
 # 3. 權重初始化不當
@@ -398,9 +398,9 @@ for epoch in range(max_epochs):
             print("Early stopping!")
             break
 
-# 4. 數據增強（如果適用）
+# 4. 資料增強（如果適用）
 # 5. 減少模型複雜度
-# 6. 增加訓練數據
+# 6. 增加訓練資料
 ```
 
 ### Q4: 訓練太慢怎麼辦？
@@ -422,7 +422,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 from torch.cuda.amp import autocast, GradScaler
 scaler = GradScaler()
 
-# 5. 數據加載優化
+# 5. 資料加載優化
 train_loader = DataLoader(
     train_data,
     batch_size=256,
@@ -451,7 +451,7 @@ train_loader = DataLoader(
 3. **吳恩達深度學習專項課程** - Coursera
 
 ### 實踐平台
-1. **Kaggle** - 實戰競賽和數據集
+1. **Kaggle** - 實戰競賽和資料集
 2. **Google Colab** - 免費 GPU 訓練環境
 3. **Paperspace Gradient** - 雲端機器學習平台
 
@@ -466,7 +466,7 @@ train_loader = DataLoader(
 
 ### 基礎概念 ✓
 - [ ] 理解 MLP 的基本架構
-- [ ] 掌握常見激活函數（ReLU、Sigmoid、Tanh）
+- [ ] 掌握常見激活函式（ReLU、Sigmoid、Tanh）
 - [ ] 理解前向傳播和反向傳播
 - [ ] 能夠從零實現一個簡單的 MLP
 
@@ -486,7 +486,7 @@ train_loader = DataLoader(
 - [ ] 理解反向傳播的數學原理
 - [ ] 理解不同正則化方法的理論基礎
 - [ ] 能夠分析模型的學習曲線
-- [ ] 理解優化算法的工作原理
+- [ ] 理解優化演算法的工作原理
 
 ---
 

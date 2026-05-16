@@ -114,7 +114,7 @@ class QueryRewriter:
         對話上下文：{context}
 
         請將查詢改寫為更適合檢索的形式：
-        1. 補充必要的背景信息
+        1. 補充必要的背景資訊
         2. 使用更精確的術語
         3. 分解複雜查詢
         4. 保持查詢意圖
@@ -396,7 +396,7 @@ class MultimodalRAG:
         response = self.vision_model.invoke([
             {
                 "type": "text",
-                "text": "詳細描述這張圖片的內容，包括關鍵信息、圖表、示意圖等。"
+                "text": "詳細描述這張圖片的內容，包括關鍵資訊、圖表、示意圖等。"
             },
             {
                 "type": "image_url",
@@ -440,19 +440,19 @@ class MultimodalRAG:
         }
 ```
 
-### 2. 表格數據 RAG
+### 2. 表格資料 RAG
 
 ```python
 import pandas as pd
 
 class TableRAG:
-    """表格數據 RAG"""
+    """表格資料 RAG"""
 
     def __init__(self, llm):
         self.llm = llm
 
     def query_table(self, query: str, df: pd.DataFrame):
-        """查詢表格數據"""
+        """查詢表格資料"""
 
         # 1. 分析查詢意圖
         intent = self.analyze_query_intent(query, df)
@@ -489,7 +489,7 @@ class TableRAG:
         return response.content
 
     def generate_query_code(self, query: str, df: pd.DataFrame, intent: str) -> str:
-        """生成查詢代碼"""
+        """生成查詢程式碼"""
 
         prompt = f"""
         表格結構：
@@ -498,17 +498,17 @@ class TableRAG:
         查詢：{query}
         意圖：{intent}
 
-        生成 Pandas 代碼來回答這個查詢。
-        變量名使用 'df'。只輸出代碼，不要解釋。
+        生成 Pandas 程式碼來回答這個查詢。
+        變量名使用 'df'。只輸出程式碼，不要解釋。
 
-        代碼：
+        程式碼：
         """
 
         response = self.llm.invoke(prompt)
         return response.content
 
     def execute_query(self, code: str, df: pd.DataFrame):
-        """安全執行查詢代碼"""
+        """安全執行查詢程式碼"""
 
         try:
             local_vars = {"df": df, "pd": pd}
@@ -529,7 +529,7 @@ class TableRAG:
 from langchain_community.graphs import Neo4jGraph
 
 class GraphRAG:
-    """圖數據庫 RAG"""
+    """圖資料庫 RAG"""
 
     def __init__(self, neo4j_uri, user, password):
         self.graph = Neo4jGraph(
@@ -539,7 +539,7 @@ class GraphRAG:
         )
 
     def query_graph(self, question: str):
-        """查詢圖數據庫"""
+        """查詢圖資料庫"""
 
         # 1. 將問題轉換為 Cypher 查詢
         cypher_query = self.nl_to_cypher(question)
@@ -556,7 +556,7 @@ class GraphRAG:
         """將自然語言轉換為 Cypher 查詢"""
 
         prompt = f"""
-        圖數據庫架構：
+        圖資料庫架構：
         - 節點類型：Person, Company, Technology
         - 關係：WORKS_AT, KNOWS, USES
 
@@ -571,7 +571,7 @@ class GraphRAG:
 
 ### 2. 時序 RAG (Temporal RAG)
 
-處理時間敏感的信息：
+處理時間敏感的資訊：
 
 ```python
 from datetime import datetime
@@ -586,7 +586,7 @@ class TemporalRAG:
     def retrieve_with_time_context(self, query: str, time_range=None):
         """帶時間上下文的檢索"""
 
-        # 1. 提取查詢中的時間信息
+        # 1. 提取查詢中的時間資訊
         time_info = self.extract_time_from_query(query)
 
         # 2. 過濾文檔
@@ -604,12 +604,12 @@ class TemporalRAG:
         return docs
 
     def extract_time_from_query(self, query: str) -> dict:
-        """從查詢中提取時間信息"""
+        """從查詢中提取時間資訊"""
 
         prompt = f"""
         查詢：{query}
 
-        提取時間相關信息：
+        提取時間相關資訊：
         - 是否提到具體日期？
         - 是否提到時間範圍？
         - 是否暗示「最新」「最近」等？
@@ -618,7 +618,7 @@ class TemporalRAG:
         """
 
         response = self.llm.invoke(prompt)
-        # 解析並返回時間信息
+        # 解析並返回時間資訊
         return eval(response.content)
 ```
 
@@ -646,20 +646,20 @@ class RAG2System:
     def ingest_documents(self, documents: List[str]):
         """攝取文檔"""
 
-        # 1. 文本分割
+        # 1. 文字分割
         text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=1000,
             chunk_overlap=200
         )
         splits = text_splitter.create_documents(documents)
 
-        # 2. 創建向量存儲
+        # 2. 建立向量存儲
         self.vector_store = Chroma.from_documents(
             splits,
             self.embeddings
         )
 
-        # 3. 創建混合檢索器
+        # 3. 建立混合檢索器
         self.hybrid_retriever = HybridRetriever(splits)
 
     def query(self, question: str, use_hyde: bool = True, use_rerank: bool = True):
@@ -727,7 +727,7 @@ class RAG2System:
 
         要求：
         1. 只根據提供的文檔回答
-        2. 如果文檔中沒有相關信息，明確說明
+        2. 如果文檔中沒有相關資訊，明確說明
         3. 引用具體的文檔編號
 
         答案：
@@ -795,7 +795,7 @@ print(f"信心度：{result['confidence']}")
 ```python
 # 根據文檔類型選擇分割策略
 def smart_text_splitter(document_type: str):
-    """智能文本分割"""
+    """智能文字分割"""
 
     if document_type == "code":
         return RecursiveCharacterTextSplitter.from_language(
@@ -819,15 +819,15 @@ def smart_text_splitter(document_type: str):
 ### 2. 性能優化
 
 ```python
-# 使用緩存提升性能
+# 使用快取提升性能
 from functools import lru_cache
 
 class CachedRAG:
-    """帶緩存的 RAG"""
+    """帶快取的 RAG"""
 
     @lru_cache(maxsize=1000)
     def cached_retrieve(self, query: str):
-        """緩存檢索結果"""
+        """快取檢索結果"""
         return self.retriever.retrieve(query)
 ```
 
@@ -889,7 +889,7 @@ RAG 2.0 與多模態 RAG 系統代表了檢索增強生成技術的重要演進�
 - 企業知識庫
 - 技術文檔問答
 - 多語言支持
-- 實時信息檢索
+- 實時資訊檢索
 
 ---
 

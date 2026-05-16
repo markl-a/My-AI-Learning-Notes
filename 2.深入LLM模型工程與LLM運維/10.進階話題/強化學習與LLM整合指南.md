@@ -146,7 +146,7 @@ class EpsilonGreedyPolicy:
 
 ```python
 """
-Q-Learning 算法實現
+Q-Learning 演算法實現
 """
 import numpy as np
 from collections import defaultdict
@@ -286,14 +286,14 @@ import numpy as np
 
 @dataclass
 class PreferenceData:
-    """人類偏好數據"""
+    """人類偏好資料"""
     prompt: str
     chosen: str  # 人類偏好的回應
     rejected: str  # 人類不偏好的回應
 
 
 class PreferenceDataset(Dataset):
-    """偏好數據集"""
+    """偏好資料集"""
 
     def __init__(
         self,
@@ -773,7 +773,7 @@ class PPOTrainer:
 ```python
 """
 DPO（Direct Preference Optimization）實現
-DPO 是 RLHF 的簡化替代方案，直接從偏好數據訓練
+DPO 是 RLHF 的簡化替代方案，直接從偏好資料訓練
 """
 import torch
 import torch.nn as nn
@@ -955,7 +955,7 @@ class DPOTrainer:
 class IPOTrainer(DPOTrainer):
     """
     IPO（Identity Preference Optimization）訓練器
-    IPO 是 DPO 的變體，使用更簡單的損失函數
+    IPO 是 DPO 的變體，使用更簡單的損失函式
     """
 
     def compute_ipo_loss(
@@ -1394,7 +1394,7 @@ def setup_ppo_training():
     # 載入參考模型
     ref_model = AutoModelForCausalLMWithValueHead.from_pretrained(config.model_name)
 
-    # 創建訓練器
+    # 建立訓練器
     ppo_trainer = TRLPPOTrainer(
         config=config,
         model=model,
@@ -1460,11 +1460,11 @@ def setup_dpo_training():
     # 載入參考模型
     ref_model = AutoModelForCausalLM.from_pretrained("gpt2")
 
-    # 載入偏好數據集
+    # 載入偏好資料集
     dataset = load_dataset("Anthropic/hh-rlhf", split="train[:1000]")
 
     def process_sample(sample):
-        """處理數據樣本"""
+        """處理資料樣本"""
         return {
             "prompt": sample["chosen"].split("\n\nAssistant:")[0] + "\n\nAssistant:",
             "chosen": sample["chosen"].split("\n\nAssistant:")[-1],
@@ -1484,7 +1484,7 @@ def setup_dpo_training():
         num_train_epochs=1,
     )
 
-    # 創建訓練器
+    # 建立訓練器
     dpo_trainer = TRLDPOTrainer(
         model=model,
         ref_model=ref_model,
@@ -1692,7 +1692,7 @@ class RLMonitor:
                 self.metrics.entropy_values.append(info["entropy"])
 
     def get_stats(self) -> Dict[str, float]:
-        """獲取統計數據"""
+        """獲取統計資料"""
         stats = {
             "total_episodes": len(self.metrics.episode_rewards),
             "mean_reward": np.mean(self.metrics.episode_rewards[-self.window_size:]),
@@ -1791,17 +1791,17 @@ class RewardShaping:
 ```yaml
 # RLHF 訓練最佳實踐
 
-數據準備:
-  偏好數據:
+資料準備:
+  偏好資料:
     - 確保多樣性（不同主題、風格）
     - 標註一致性（多人標註取共識）
-    - 數據平衡（避免偏見）
-    - 質量檢查（過濾噪聲數據）
+    - 資料平衡（避免偏見）
+    - 質量檢查（過濾噪聲資料）
 
-  數據量建議:
+  資料量建議:
     - 獎勵模型: 10K-100K 偏好對
     - PPO 訓練: 根據任務複雜度調整
-    - DPO 訓練: 通常需要較少數據
+    - DPO 訓練: 通常需要較少資料
 
 獎勵模型訓練:
   架構:
@@ -1835,7 +1835,7 @@ DPO 訓練:
 
   注意事項:
     - beta 參數敏感（通常 0.1-0.5）
-    - 需要高質量偏好數據
+    - 需要高品質偏好資料
     - 參考模型選擇重要
 
 評估:

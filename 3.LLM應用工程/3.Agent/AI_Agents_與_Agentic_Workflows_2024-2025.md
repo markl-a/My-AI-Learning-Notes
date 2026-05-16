@@ -33,14 +33,14 @@
 傳統的 LLM 應用通常是**單次對話**模式：用戶輸入 → 模型生成 → 結束。這種模式有明顯的限制：
 
 - **無法處理複雜任務**：需要多步驟推理的問題難以解決
-- **缺乏工具使用能力**：無法調用外部 API、搜尋引擎、資料庫等
+- **缺乏工具使用能力**：無法呼叫外部 API、搜尋引擎、資料庫等
 - **無記憶與學習**：每次對話獨立，無法累積經驗
 - **不能自主行動**：需要人工介入每個步驟
 
 **AI Agent** 的出現解決了這些問題，它具備：
 
 1. **自主性 (Autonomy)**：能夠自主決策並執行行動
-2. **工具使用 (Tool Use)**：調用各種外部工具和 API
+2. **工具使用 (Tool Use)**：呼叫各種外部工具和 API
 3. **規劃能力 (Planning)**：將複雜任務分解為子任務
 4. **記憶系統 (Memory)**：短期和長期記憶
 5. **反思機制 (Reflection)**：從錯誤中學習並改進
@@ -62,7 +62,7 @@
 **市場趨勢**：
 - **企業採用率**：超過 60% 的企業正在探索 AI Agents
 - **投資熱度**：Agent 基礎設施公司獲得大量融資
-- **應用場景**：從客服、數據分析到軟體開發全面應用
+- **應用場景**：從客服、資料分析到軟體開發全面應用
 
 ### 1.3 本章學習目標
 
@@ -102,7 +102,7 @@
 **核心循環**（Agent Loop）：
 
 ```python
-# 偽代碼
+# 偽程式碼
 while not task_completed:
     # 1. 感知：獲取當前狀態
     observation = perceive(environment)
@@ -110,7 +110,7 @@ while not task_completed:
     # 2. 思考：使用 LLM 規劃下一步
     thought, action = llm.decide(observation, memory, goal)
 
-    # 3. 行動：執行工具調用或生成回應
+    # 3. 行動：執行工具呼叫或生成回應
     result = execute(action)
 
     # 4. 更新：存儲到記憶
@@ -190,14 +190,14 @@ long_term_memory = VectorStoreRetrieverMemory(
 
 #### 2.2.3 工具使用 (Tool Use)
 
-**工具定義**：Agent 可調用的外部功能，包括：
+**工具定義**：Agent 可呼叫的外部功能，包括：
 
 - **搜尋工具**：Google Search, Wikipedia, Arxiv
 - **計算工具**：Python REPL, WolframAlpha, Calculator
 - **資料庫工具**：SQL Query, Vector DB Search
 - **API 工具**：天氣 API, 地圖 API, 電商 API
 - **文件工具**：讀寫檔案, PDF 解析
-- **程式碼工具**：代碼執行器, Git 操作
+- **程式碼工具**：程式碼執行器, Git 操作
 
 **Function Calling**：
 
@@ -233,13 +233,13 @@ tools = [
 ```
 User: 台北明天天氣如何？
   ↓
-LLM: [決策] 需要調用 get_weather 工具
+LLM: [決策] 需要呼叫 get_weather 工具
   ↓
 Tool Call: get_weather(location="台北", date="明天")
   ↓
 Tool Result: {"temp": 25, "condition": "晴天", ...}
   ↓
-LLM: [整合結果] 根據天氣數據生成回應
+LLM: [整合結果] 根據天氣資料生成回應
   ↓
 Response: 台北明天晴天，氣溫約 25 度...
 ```
@@ -248,7 +248,7 @@ Response: 台北明天晴天，氣溫約 25 度...
 
 **行動類型**：
 
-1. **觀察型行動**：獲取信息但不改變狀態
+1. **觀察型行動**：獲取資訊但不改變狀態
    - 搜尋、查詢、讀取
 
 2. **操作型行動**：改變環境狀態
@@ -280,8 +280,8 @@ class Observation(BaseModel):
 | 維度 | 傳統 LLM 應用 | AI Agent |
 |------|--------------|----------|
 | **交互模式** | 單次請求-回應 | 多輪自主循環 |
-| **任務複雜度** | 簡單查詢、文本生成 | 複雜多步驟任務 |
-| **工具使用** | 無或預定義 | 動態選擇和調用 |
+| **任務複雜度** | 簡單查詢、文字生成 | 複雜多步驟任務 |
+| **工具使用** | 無或預定義 | 動態選擇和呼叫 |
 | **規劃能力** | 無 | 任務分解和規劃 |
 | **記憶** | 會話級別 | 持久化長期記憶 |
 | **自主性** | 低（需要人工引導） | 高（自主決策執行） |
@@ -291,13 +291,13 @@ class Observation(BaseModel):
 ### 2.4 Agentic Workflows 的演進
 
 **第一代：單一 Agent (2022-2023)**
-- 簡單的工具調用
+- 簡單的工具呼叫
 - 基於提示工程的決策
 - 代表：ChatGPT Plugins
 
 **第二代：ReAct Agent (2023)**
 - 思考-行動循環
-- 工具鏈調用
+- 工具鏈呼叫
 - 代表：LangChain Agents
 
 **第三代：規劃型 Agent (2023-2024)**
@@ -343,7 +343,7 @@ Action 2: Finish[玉山，海拔3,952公尺]
 
 | 特性 | Chain of Thought | ReAct |
 |------|-----------------|-------|
-| **輸出** | 純推理文本 | 推理 + 行動 |
+| **輸出** | 純推理文字 | 推理 + 行動 |
 | **工具使用** | 無 | 有 |
 | **環境交互** | 無 | 有 |
 | **應用** | 數學推理、邏輯題 | 需要外部資訊的任務 |
@@ -399,7 +399,7 @@ class ReActAgent:
         }
 
     def _create_prompt(self, question: str, scratchpad: str) -> str:
-        """創建 ReAct 提示"""
+        """建立 ReAct 提示"""
         tool_descriptions = "\n".join([
             f"- {name}: {info['description']}"
             for name, info in self.tools.items()
@@ -444,10 +444,10 @@ Question: {question}
         scratchpad = ""
 
         for i in range(self.max_iterations):
-            # 創建提示
+            # 建立提示
             prompt = self._create_prompt(question, scratchpad)
 
-            # 調用 LLM
+            # 呼叫 LLM
             response = openai.ChatCompletion.create(
                 model=self.model,
                 messages=[{"role": "user", "content": prompt}],
@@ -476,7 +476,7 @@ Question: {question}
 # 使用範例
 def search_tool(query: str) -> str:
     """模擬搜尋工具"""
-    # 實際應該調用真實搜尋 API
+    # 實際應該呼叫真實搜尋 API
     mock_results = {
         "台灣最高的山": "玉山，海拔 3,952 公尺，位於台灣中央山脈",
         "台灣人口": "約 2,300 萬人（2024年）"
@@ -511,7 +511,7 @@ def calculator_tool(expression: str) -> str:
         return f"計算錯誤: {str(e)}"
 
 
-# 創建 Agent
+# 建立 Agent
 agent = ReActAgent()
 agent.register_tool("Search", search_tool, "搜尋網路資訊")
 agent.register_tool("Calculator", calculator_tool, "執行數學計算")
@@ -544,14 +544,14 @@ tools = [
     Tool(
         name="Python REPL",
         func=python_repl.run,
-        description="Python shell。用於執行 Python 代碼。輸入應該是有效的 Python 命令。"
+        description="Python shell。用於執行 Python 程式碼。輸入應該是有效的 Python 命令。"
     )
 ]
 
 # 初始化 LLM
 llm = OpenAI(temperature=0, model="gpt-4")
 
-# 創建 ReAct Agent
+# 建立 ReAct Agent
 agent = initialize_agent(
     tools=tools,
     llm=llm,
@@ -661,7 +661,7 @@ import operator
 @tool
 def get_weather(location: str) -> str:
     """獲取天氣資訊"""
-    # 模擬 API 調用
+    # 模擬 API 呼叫
     weather_data = {
         "台北": "晴天，25°C",
         "高雄": "多雲，28°C",
@@ -685,7 +685,7 @@ class AgentState(TypedDict):
 
 # 定義節點函數
 def call_model(state: AgentState):
-    """調用 LLM 決策"""
+    """呼叫 LLM 決策"""
     messages = state["messages"]
 
     llm = ChatOpenAI(model="gpt-4", temperature=0)
@@ -696,7 +696,7 @@ def call_model(state: AgentState):
     return {"messages": [response]}
 
 def call_tools(state: AgentState):
-    """執行工具調用"""
+    """執行工具呼叫"""
     messages = state["messages"]
     last_message = messages[-1]
 
@@ -726,7 +726,7 @@ def should_continue(state: AgentState):
     messages = state["messages"]
     last_message = messages[-1]
 
-    # 如果沒有工具調用，則結束
+    # 如果沒有工具呼叫，則結束
     if not last_message.tool_calls:
         return "end"
     else:
@@ -776,7 +776,7 @@ print(result["messages"][-1].content)
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.prebuilt import create_react_agent
 
-# 創建帶檢查點的 Agent
+# 建立帶檢查點的 Agent
 memory = MemorySaver()
 agent = create_react_agent(
     model=ChatOpenAI(model="gpt-4"),
@@ -812,7 +812,7 @@ result = agent.invoke(
 
 **缺點**：
 - ❌ 學習曲線：概念較多，需要時間學習
-- ❌ 代碼量：相比高階框架代碼較多
+- ❌ 程式碼量：相比高階框架程式碼較多
 - ❌ 調試複雜：圖結構調試較困難
 
 **適用場景**：
@@ -919,7 +919,7 @@ research_task = Task(
     3. 實際應用案例
     4. 未來趨勢
 
-    提供詳細的研究報告，包含具體數據和來源。""",
+    提供詳細的研究報告，包含具體資料和來源。""",
     expected_output="一份結構化的研究報告，包含至少 5 個關鍵發現",
     agent=researcher
 )
@@ -930,11 +930,11 @@ writing_task = Task(
     文章應該：
     1. 有吸引人的標題和引言
     2. 清晰的結構（引言、主體、結論）
-    3. 包含具體例子和代碼示例
+    3. 包含具體例子和程式碼示例
     4. 適合技術背景的讀者
 
     字數約 2000-3000 字。""",
-    expected_output="一篇完整的技術文章，包含標題、章節和代碼範例",
+    expected_output="一篇完整的技術文章，包含標題、章節和程式碼範例",
     agent=writer,
     context=[research_task]  # 依賴研究任務的輸出
 )
@@ -953,7 +953,7 @@ editing_task = Task(
     context=[writing_task]
 )
 
-# 創建團隊
+# 建立團隊
 crew = Crew(
     agents=[researcher, writer, editor],
     tasks=[research_task, writing_task, editing_task],
@@ -1006,7 +1006,7 @@ class CustomSearchTool(BaseTool):
 
     def _run(self, query: str) -> str:
         # 實作搜尋邏輯
-        # 這裡可以調用 Google API, Arxiv API 等
+        # 這裡可以呼叫 Google API, Arxiv API 等
         return f"搜尋結果：{query}"
 
 # 使用自定義工具
@@ -1031,13 +1031,13 @@ researcher = Agent(
 
 **缺點**：
 - ❌ 控制有限：無法精細控制流程
-- ❌ 成本較高：多 Agent 意味著更多 API 調用
+- ❌ 成本較高：多 Agent 意味著更多 API 呼叫
 - ❌ 調試困難：多 Agent 交互調試複雜
 
 **適用場景**：
 - 需要模擬團隊協作的場景
 - 內容創作（研究 → 撰寫 → 編輯）
-- 數據分析（收集 → 分析 → 報告）
+- 資料分析（收集 → 分析 → 報告）
 - 軟體開發（設計 → 編碼 → 測試）
 
 ---
@@ -1181,7 +1181,7 @@ class AutoGPT:
 #### 4.3.5 AutoGPT 的演進
 
 **AutoGPT v0.5+ (2024)**：
-- 改進的規劃算法
+- 改進的規劃演算法
 - 更好的錯誤處理
 - 支援插件系統
 - Web UI 介面
@@ -1207,7 +1207,7 @@ class AutoGPT:
 **Agent 類型**：
 
 1. **AssistantAgent**：使用 LLM 的助手
-2. **UserProxyAgent**：代表用戶，可執行代碼
+2. **UserProxyAgent**：代表用戶，可執行程式碼
 3. **GroupChatManager**：管理多 Agent 對話
 4. **Custom Agent**：自定義 Agent
 
@@ -1244,7 +1244,7 @@ llm_config = {
     "timeout": 120
 }
 
-# 創建 Assistant Agent
+# 建立 Assistant Agent
 assistant = autogen.AssistantAgent(
     name="助理",
     system_message="""你是一個有幫助的 AI 助理。
@@ -1252,7 +1252,7 @@ assistant = autogen.AssistantAgent(
     llm_config=llm_config
 )
 
-# 創建 User Proxy Agent
+# 建立 User Proxy Agent
 user_proxy = autogen.UserProxyAgent(
     name="用戶代理",
     human_input_mode="NEVER",  # 不需要人工輸入
@@ -1421,13 +1421,13 @@ workflow.add_conditional_edges("validate", should_human_review)
 **推薦**：AutoGen
 
 **理由**：
-- 需要執行代碼分析數據
+- 需要執行程式碼分析資料
 - 人機對話式交互
-- 靈活的工具調用
+- 靈活的工具呼叫
 
 **範例**：
 ```python
-# 用戶提問 ↔ Assistant 分析 ↔ 執行代碼 ↔ 展示結果
+# 用戶提問 ↔ Assistant 分析 ↔ 執行程式碼 ↔ 展示結果
 assistant.initiate_chat(user_proxy, message=query)
 ```
 
@@ -1484,12 +1484,12 @@ workflow.add_node("analysis", analysis_node)
 1. 搜尋最新論文和文章
 2. 總結關鍵發現
 3. 生成結構化報告
-4. 包含代碼示例
+4. 包含程式碼示例
 
 **Agent 設計**：
 - **研究員 Agent**：搜尋和收集資料
 - **分析師 Agent**：分析和總結
-- **工程師 Agent**：撰寫代碼示例
+- **工程師 Agent**：撰寫程式碼示例
 - **編輯 Agent**：整合和優化報告
 
 #### 6.1.2 使用 CrewAI 實作
@@ -1510,7 +1510,7 @@ researcher = Agent(
     role='AI 技術研究員',
     goal='深入研究指定的 AI 技術主題，找出最新發展和關鍵論文',
     backstory="""你是一位經驗豐富的 AI 研究員，擅長快速掌握新技術。
-    你知道如何搜尋高質量的技術資源，包括 Arxiv、GitHub、技術博客等。""",
+    你知道如何搜尋高品質的技術資源，包括 Arxiv、GitHub、技術博客等。""",
     tools=[search_tool, web_tool],
     verbose=True,
     llm=llm
@@ -1529,9 +1529,9 @@ analyst = Agent(
 # Agent 3: 工程師
 engineer = Agent(
     role='軟體工程師',
-    goal='撰寫清晰的代碼示例，展示技術實作',
-    backstory="""你是一位經驗豐富的軟體工程師，擅長將技術概念轉化為可運行的代碼。
-    你的代碼清晰、有註釋、遵循最佳實踐。""",
+    goal='撰寫清晰的程式碼示例，展示技術實作',
+    backstory="""你是一位經驗豐富的軟體工程師，擅長將技術概念轉化為可運行的程式碼。
+    你的程式碼清晰、有註釋、遵循最佳實踐。""",
     verbose=True,
     llm=llm
 )
@@ -1539,7 +1539,7 @@ engineer = Agent(
 # Agent 4: 編輯
 editor = Agent(
     role='技術編輯',
-    goal='整合所有內容，生成高質量的技術報告',
+    goal='整合所有內容，生成高品質的技術報告',
     backstory="""你是一位專業的技術編輯，能夠將複雜的技術內容組織成
     易讀的報告。你注重邏輯性、完整性和可讀性。""",
     verbose=True,
@@ -1556,7 +1556,7 @@ def create_research_tasks(topic: str):
         1. 搜尋最新的論文和文章（過去 12 個月）
         2. 找出 3-5 個關鍵資源
         3. 識別主要的技術突破和趨勢
-        4. 記錄重要的數據和統計
+        4. 記錄重要的資料和統計
 
         輸出格式：
         - 資源列表（標題、來源、連結）
@@ -1581,20 +1581,20 @@ def create_research_tasks(topic: str):
     )
 
     task3 = Task(
-        description=f"""基於分析結果，撰寫代碼示例：
+        description=f"""基於分析結果，撰寫程式碼示例：
 
         1. 選擇 2-3 個關鍵概念
-        2. 為每個概念撰寫完整的代碼示例
+        2. 為每個概念撰寫完整的程式碼示例
         3. 添加註釋和說明
-        4. 確保代碼可以運行
+        4. 確保程式碼可以運行
         5. 包含 requirements（依賴套件）
 
-        代碼應該：
+        程式碼應該：
         - 簡潔清晰
         - 遵循 PEP 8 風格
         - 包含錯誤處理
-        - 有完整的文檔字符串""",
-        expected_output="完整的代碼示例，包含註釋和使用說明",
+        - 有完整的文檔字串""",
+        expected_output="完整的程式碼示例，包含註釋和使用說明",
         agent=engineer,
         context=[task2]
     )
@@ -1607,7 +1607,7 @@ def create_research_tasks(topic: str):
         2. 技術背景和動機
         3. 核心概念解析
         4. 實作方法比較
-        5. 代碼示例和說明
+        5. 程式碼示例和說明
         6. 最佳實踐建議
         7. 延伸閱讀
 
@@ -1623,7 +1623,7 @@ def create_research_tasks(topic: str):
 
     return [task1, task2, task3, task4]
 
-# 創建並執行 Crew
+# 建立並執行 Crew
 def research_topic(topic: str):
     tasks = create_research_tasks(topic)
 
@@ -1761,7 +1761,7 @@ def handle_query(state: CustomerServiceState):
 
     response = llm_with_tools.invoke(messages)
 
-    # 如果有工具調用
+    # 如果有工具呼叫
     if response.tool_calls:
         tool_call = response.tool_calls[0]
         if tool_call["name"] == "query_order":
@@ -1945,10 +1945,10 @@ class AgentEvaluator:
         """評估單個任務"""
         self.total_tasks += 1
 
-        # 使用 LLM 評估輸出質量
+        # 使用 LLM 評估輸出品質
         llm = ChatOpenAI(model="gpt-4", temperature=0)
 
-        eval_prompt = f"""評估 AI Agent 的輸出質量：
+        eval_prompt = f"""評估 AI Agent 的輸出品質：
 
 任務描述：{task_description}
 期望輸出：{expected_output}
@@ -2106,7 +2106,7 @@ os.environ["LANGCHAIN_TRACING_V2"] = "true"
 os.environ["LANGCHAIN_API_KEY"] = "your-api-key"
 os.environ["LANGCHAIN_PROJECT"] = "agent-evaluation"
 
-# 創建追蹤器
+# 建立追蹤器
 tracer = LangChainTracer(project_name="agent-evaluation")
 
 # 在 Agent 中使用
@@ -2147,7 +2147,7 @@ search_agent = Agent(
 
 analysis_agent = Agent(
     role="分析師",
-    goal="分析數據並提取洞察"
+    goal="分析資料並提取洞察"
 )
 ```
 
@@ -2307,7 +2307,7 @@ class SecureTool:
         self.allowed_operations = allowed_operations
 
     def execute(self, operation: str, *args, **kwargs):
-        """執行工具調用"""
+        """執行工具呼叫"""
         # 檢查權限
         if operation not in self.allowed_operations:
             raise PermissionError(f"操作 '{operation}' 未被授權")
@@ -2321,7 +2321,7 @@ class SecureTool:
     def _log_audit(self, operation, args, kwargs):
         """記錄審計日誌"""
         import logging
-        logging.info(f"工具調用：{operation}, args={args}, kwargs={kwargs}")
+        logging.info(f"工具呼叫：{operation}, args={args}, kwargs={kwargs}")
 ```
 
 ### 9.4 性能優化
@@ -2346,33 +2346,33 @@ async def parallel_agent_execution(agents: List[Agent], task: str):
 results = asyncio.run(parallel_agent_execution([agent1, agent2, agent3], task))
 ```
 
-#### 9.4.2 緩存機制
+#### 9.4.2 快取機制
 
 ```python
 from functools import lru_cache
 import hashlib
 
 class CachedAgent:
-    """帶緩存的 Agent"""
+    """帶快取的 Agent"""
 
     def __init__(self, agent):
         self.agent = agent
         self.cache = {}
 
     def run(self, task: str) -> str:
-        """執行任務（帶緩存）"""
-        # 生成緩存鍵
+        """執行任務（帶快取）"""
+        # 生成快取鍵
         cache_key = hashlib.md5(task.encode()).hexdigest()
 
-        # 檢查緩存
+        # 檢查快取
         if cache_key in self.cache:
-            print("使用緩存結果")
+            print("使用快取結果")
             return self.cache[cache_key]
 
         # 執行
         result = self.agent.run(task)
 
-        # 保存緩存
+        # 保存快取
         self.cache[cache_key] = result
 
         return result
@@ -2436,11 +2436,11 @@ Agent 將具備：
 
 - 自動文獻綜述
 - 實驗設計和執行
-- 數據分析和可視化
+- 資料分析和可視化
 
 #### 10.2.2 軟體開發
 
-- 全自動代碼生成
+- 全自動程式碼生成
 - 智能測試和調試
 - 架構設計和重構
 

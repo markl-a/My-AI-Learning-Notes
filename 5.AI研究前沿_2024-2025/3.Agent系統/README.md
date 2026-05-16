@@ -1,12 +1,12 @@
 # Agent系統 - 10篇關鍵論文
 
-> 2024-2025年AI Agent的自主決策與工作流編排突破，包含LangGraph、CrewAI、AutoGen等關鍵技術及完整代碼實現
+> 2024-2025年AI Agent的自主決策與工作流編排突破，包含LangGraph、CrewAI、AutoGen等關鍵技術及完整程式碼實現
 
 ---
 
 ## 📋 論文與項目列表
 
-| # | 項目/論文 | 機構 | 發布時間 | 代碼 | 影響力 |
+| # | 項目/論文 | 機構 | 發布時間 | 程式碼 | 影響力 |
 |---|-----------|------|----------|------|--------|
 | 1 | LangGraph | LangChain | 2024 | [GitHub](https://github.com/langchain-ai/langgraph) | ⭐⭐⭐⭐⭐ |
 | 2 | CrewAI | CrewAI Inc | 2024 | [GitHub](https://github.com/joaomdmoura/crewAI) | ⭐⭐⭐⭐⭐ |
@@ -21,7 +21,7 @@
 
 ---
 
-## 核心技術與代碼實現
+## 核心技術與程式碼實現
 
 ### 1. LangGraph - 可控Agent工作流
 
@@ -38,10 +38,10 @@ import operator
 class AgentState(TypedDict):
     messages: Annotated[Sequence, operator.add]
 
-# 創建工具
+# 建立工具
 search = DuckDuckGoSearchRun()
 
-# 創建Agent
+# 建立Agent
 llm = ChatOpenAI(model="gpt-4o-mini")
 agent = create_react_agent(llm, [search])
 
@@ -105,7 +105,7 @@ user_proxy = autogen.UserProxyAgent(
     code_execution_config={"work_dir": "coding"}
 )
 
-user_proxy.initiate_chat(assistant, message="寫一個排序算法")
+user_proxy.initiate_chat(assistant, message="寫一個排序演算法")
 ```
 
 ---

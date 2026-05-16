@@ -20,7 +20,7 @@
 **挑戰**：
 - 低延遲要求（<500ms）
 - 有限的 GPU 資源（單張 RTX 3090 24GB）
-- 需要保持高質量對話
+- 需要保持高品質對話
 
 **優化路徑**：
 1. 基準測試（FP16 模型）
@@ -31,19 +31,19 @@
 
 **詳細內容**：[01_chatbot_optimization.py](./01_chatbot_optimization.py)
 
-### 案例 2: 批次文本處理優化
+### 案例 2: 批次文字處理優化
 
 **場景**：離線批次處理大量文檔（100萬條）
 
 **挑戰**：
 - 最大化吞吐量
 - 有 8 小時時間窗口
-- 保證輸出質量
+- 保證輸出品質
 
 **優化路徑**：
 1. 基準測試（計算處理速度）
 2. 優化批次大小
-3. 實施數據預處理流水線
+3. 實施資料預處理流水線
 4. 多 GPU 並行處理
 5. 監控和調優
 
@@ -225,7 +225,7 @@ test_and_validate()
 ### 3. 保持質量
 
 ```python
-# ✅ 始終驗證輸出質量
+# ✅ 始終驗證輸出品質
 def validate_quality(original_outputs, optimized_outputs):
     similarity = compute_similarity(original_outputs, optimized_outputs)
 
@@ -287,7 +287,7 @@ RuntimeError: CUDA out of memory
 4. 使用 CPU 卸載
 5. 使用更小的模型
 
-**代碼**：
+**程式碼**：
 ```python
 # 降低記憶體使用
 config = {
@@ -312,7 +312,7 @@ P99 延遲 > 2000ms
 4. 檢查是否有 CPU/GPU 瓶頸
 5. 考慮使用更小的模型
 
-**診斷代碼**：
+**診斷程式碼**：
 ```python
 # 延遲分析
 latency_breakdown = profile_latency(model)
@@ -329,16 +329,16 @@ print(f"瓶頸: {bottleneck}")
 
 **症狀**：
 ```
-輸出質量明顯變差
+輸出品質明顯變差
 ```
 
 **解決方案**：
 1. 使用更保守的量化（AWQ > GPTQ > INT8）
 2. 檢查是否誤用了動態量化
-3. 驗證校準數據質量
+3. 驗證校準資料品質
 4. 考慮 QAT（量化感知訓練）
 
-**驗證代碼**：
+**驗證程式碼**：
 ```python
 # 質量對比
 def compare_quality(original_model, optimized_model, test_cases):

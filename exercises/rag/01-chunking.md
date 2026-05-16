@@ -19,7 +19,7 @@
 
 1. **語義完整**：每個 chunk 包含完整的語義單元
 2. **大小適中**：太大增加噪音，太小丟失上下文
-3. **適當重疊**：避免信息在邊界處斷裂
+3. **適當重疊**：避免資訊在邊界處斷裂
 
 ## 練習任務
 
@@ -33,7 +33,7 @@ def fixed_size_chunking(text: str, chunk_size: int = 500, overlap: int = 50) -> 
     固定大小切分
 
     Args:
-        text: 原始文本
+        text: 原始文字
         chunk_size: 每個 chunk 的字符數
         overlap: 重疊字符數
 
@@ -42,7 +42,7 @@ def fixed_size_chunking(text: str, chunk_size: int = 500, overlap: int = 50) -> 
     """
     # TODO: 實現固定大小切分
     chunks = []
-    # 你的代碼
+    # 你的程式碼
     return chunks
 
 def sentence_chunking(text: str, max_sentences: int = 5) -> List[str]:
@@ -50,7 +50,7 @@ def sentence_chunking(text: str, max_sentences: int = 5) -> List[str]:
     按句子切分
 
     Args:
-        text: 原始文本
+        text: 原始文字
         max_sentences: 每個 chunk 的最大句子數
 
     Returns:
@@ -58,7 +58,7 @@ def sentence_chunking(text: str, max_sentences: int = 5) -> List[str]:
     """
     # TODO: 實現句子切分
     chunks = []
-    # 你的代碼
+    # 你的程式碼
     return chunks
 
 def semantic_chunking(text: str, similarity_threshold: float = 0.5) -> List[str]:
@@ -66,7 +66,7 @@ def semantic_chunking(text: str, similarity_threshold: float = 0.5) -> List[str]
     語義切分：在語義變化處分割
 
     Args:
-        text: 原始文本
+        text: 原始文字
         similarity_threshold: 相似度閾值
 
     Returns:
@@ -74,7 +74,7 @@ def semantic_chunking(text: str, similarity_threshold: float = 0.5) -> List[str]
     """
     # TODO: 使用 embedding 實現語義切分
     chunks = []
-    # 你的代碼
+    # 你的程式碼
     return chunks
 ```
 
@@ -86,19 +86,19 @@ def semantic_chunking(text: str, similarity_threshold: float = 0.5) -> List[str]
 test_document = """
 # 機器學習簡介
 
-機器學習是人工智能的一個分支，專注於開發能夠從數據中學習的算法。
+機器學習是人工智能的一個分支，專注於開發能夠從資料中學習的演算法。
 它使計算機能夠在沒有明確編程的情況下執行任務。
 
 ## 監督學習
 
-監督學習使用標記的訓練數據。常見算法包括：
+監督學習使用標記的訓練資料。常見演算法包括：
 - 線性回歸
 - 決策樹
 - 神經網絡
 
 ## 非監督學習
 
-非監督學習處理未標記的數據。主要應用：
+非監督學習處理未標記的資料。主要應用：
 - 聚類分析
 - 降維
 - 異常檢測
@@ -137,7 +137,7 @@ def markdown_chunking(text: str) -> List[dict]:
         [{"content": "...", "header": "標題", "level": 2}, ...]
     """
     # TODO: 實現 Markdown 切分
-    # 提示：按標題層級切分，保留標題信息
+    # 提示：按標題層級切分，保留標題資訊
     pass
 ```
 
@@ -168,7 +168,7 @@ def evaluate_chunking(chunks: List[str], questions: List[str]) -> dict:
 
 - [ ] `fixed_size_chunking` 輸出 chunk 大小一致（±5%）
 - [ ] `sentence_chunking` 每個 chunk 包含完整句子
-- [ ] `markdown_chunking` 正確識別並保留標題信息
+- [ ] `markdown_chunking` 正確識別並保留標題資訊
 - [ ] 評估函數能區分不同切分策略的品質
 
 ## 參考資料

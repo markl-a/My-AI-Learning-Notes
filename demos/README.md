@@ -91,7 +91,7 @@ chainlit run demos/chainlit/agent_demo.py
 
 **使用場景：**
 - AI 聊天助手
-- 代碼輔助工具
+- 程式碼輔助工具
 - 學習輔導系統
 
 ---
@@ -100,7 +100,7 @@ chainlit run demos/chainlit/agent_demo.py
 
 **功能：**
 - 🤖 Agent 工作流
-- 🔧 工具調用（搜尋、計算等）
+- 🔧 工具呼叫（搜尋、計算等）
 - 🧠 推理過程可視化
 - 📝 任務分解和執行
 
@@ -114,7 +114,7 @@ chainlit run demos/chainlit/agent_demo.py
 **使用場景：**
 - 複雜任務自動化
 - 研究助手
-- 數據分析工具
+- 資料分析工具
 
 ---
 
@@ -141,7 +141,7 @@ python demos/gradio/rag_demo.py
 
 ### 自定義配置
 
-每個演示都支持通過環境變量或配置文件自定義：
+每個演示都支持通過環境變量或設定檔自定義：
 
 ```bash
 # .env 文件
@@ -171,7 +171,7 @@ TEMPERATURE=0.7
 
 3. **提問技巧**
    - 明確具體的問題
-   - 可以要求總結、提取信息
+   - 可以要求總結、提取資訊
    - 支援多輪對話
    - 系統會顯示相關文檔片段
 
@@ -212,12 +212,12 @@ TEMPERATURE=0.7
 
 ## 🛠️ 開發指南
 
-### 創建新演示
+### 建立新演示
 
 1. **選擇框架**
    ```bash
    # Gradio - 快速原型
-   # Streamlit - 數據應用
+   # Streamlit - 資料應用
    # Chainlit - Agent 系統
    ```
 
@@ -231,7 +231,7 @@ TEMPERATURE=0.7
    ```
 
 3. **最佳實踐**
-   - 使用環境變量管理敏感信息
+   - 使用環境變量管理敏感資訊
    - 提供清晰的錯誤消息
    - 添加使用說明和示例
    - 實現錯誤處理和日誌記錄
@@ -268,7 +268,7 @@ TEMPERATURE=0.7
 
 4. **ChromaDB 錯誤**
    ```bash
-   # 刪除舊數據庫
+   # 刪除舊資料庫
    rm -rf demos/gradio/chroma_db
 
    # 重新運行應用

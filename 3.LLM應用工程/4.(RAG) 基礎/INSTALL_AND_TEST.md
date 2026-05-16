@@ -32,7 +32,7 @@ python -c "import numpy; print('✓ NumPy')"
 
 ### 3. 語法檢查
 
-在安裝依賴之前，可以先驗證代碼語法：
+在安裝依賴之前，可以先驗證程式碼語法：
 
 ```bash
 # 檢查所有 Python 文件的語法
@@ -93,13 +93,13 @@ chmod +x run_all_examples.sh
 **運行時間**: ~5-10 秒
 
 **輸出內容**:
-- 基礎文本拆分演示
-- 遞歸文本拆分演示
+- 基礎文字拆分演示
+- 遞歸文字拆分演示
 - 文檔載入演示
-- 元數據保留演示
+- 元資料保留演示
 
-**會創建的文件/目錄**:
-- `test_data/` - 測試數據目錄
+**會建立的文件/目錄**:
+- `test_data/` - 測試資料目錄
 
 ### 3. 向量資料庫 (`3_vector_databases.py`)
 
@@ -110,7 +110,7 @@ chmod +x run_all_examples.sh
 - FAISS 向量資料庫演示（如果已安裝）
 - 性能比較
 
-**會創建的文件/目錄**:
+**會建立的文件/目錄**:
 - `test_data/simple_db.pkl` - 持久化的向量資料庫
 
 **可選優化**:
@@ -155,10 +155,10 @@ pip install sentence-transformers
 
 **輸出內容**:
 - 多文檔問答系統完整演示
-- 自動創建測試知識庫
+- 自動建立測試知識庫
 - 多輪問答示例
 
-**會創建的文件/目錄**:
+**會建立的文件/目錄**:
 - `test_data/knowledge_base/` - 測試知識庫目錄
   - `ml_basics.txt`
   - `dl_frameworks.txt`
@@ -185,7 +185,7 @@ pip install sentence-transformers scikit-learn numpy
 
 ### Q3: 首次運行為什麼這麼慢？
 
-**A**: 首次運行需要下載預訓練模型，後續運行會使用緩存的模型，速度會快很多。
+**A**: 首次運行需要下載預訓練模型，後續運行會使用快取的模型，速度會快很多。
 
 ### Q4: 如何使用真實的 LLM API？
 
@@ -195,13 +195,13 @@ pip install sentence-transformers scikit-learn numpy
 # 設置 OpenAI API 密鑰
 export OPENAI_API_KEY="your-api-key"
 
-# 或在代碼中修改
+# 或在程式碼中修改
 llm = OpenAILLM(api_key="your-api-key", model="gpt-4")
 ```
 
 ### Q5: 如何清理生成的文件？
 
-**A**: 運行以下命令清理測試數據：
+**A**: 運行以下命令清理測試資料：
 
 ```bash
 rm -rf test_data/
@@ -246,7 +246,7 @@ curl https://ollama.ai/install.sh | sh
 # 2. 下載模型
 ollama pull llama2
 
-# 3. 在代碼中使用
+# 3. 在程式碼中使用
 # 修改 RAGSystem 使用 Ollama API
 ```
 
@@ -256,7 +256,7 @@ ollama pull llama2
 # 安裝 Gradio
 pip install gradio
 
-# 創建 Web 界面
+# 建立 Web 界面
 # 參考 6_practical_qa_system.py 並添加 Gradio 包裝
 ```
 
@@ -303,7 +303,7 @@ with open(file_path, 'r', encoding='utf-8') as f:
 - [ ] 範例 4 運行成功
 - [ ] 範例 5 運行成功
 - [ ] 範例 6 運行成功
-- [ ] 測試數據已清理
+- [ ] 測試資料已清理
 
 ## 資源
 

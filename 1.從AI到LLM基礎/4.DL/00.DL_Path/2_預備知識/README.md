@@ -9,8 +9,8 @@
 | 模組 | 文件 | 難度 | 預計時間 | 描述 |
 |------|------|------|----------|------|
 | 📖 索引 | [0_index.ipynb](pytorch/0_index.ipynb) | ⭐ | 15分鐘 | 預備知識總覽與學習路線圖 |
-| 🔢 數據操作 | [1_ndarray.ipynb](pytorch/1_ndarray.ipynb) | ⭐⭐ | 2-3小時 | PyTorch 張量基礎操作 |
-| 📊 數據處理 | [2_pandas.ipynb](pytorch/2_pandas.ipynb) | ⭐⭐ | 2-3小時 | 使用 Pandas 進行數據預處理 |
+| 🔢 資料操作 | [1_ndarray.ipynb](pytorch/1_ndarray.ipynb) | ⭐⭐ | 2-3小時 | PyTorch 張量基礎操作 |
+| 📊 資料處理 | [2_pandas.ipynb](pytorch/2_pandas.ipynb) | ⭐⭐ | 2-3小時 | 使用 Pandas 進行資料預處理 |
 | 📐 線性代數 | [3_linear-algebra.ipynb](pytorch/3_linear-algebra.ipynb) | ⭐⭐⭐ | 4-5小時 | 向量、矩陣運算與深度學習應用 |
 | 📈 微積分 | [4_calculus.ipynb](pytorch/4_calculus.ipynb) | ⭐⭐⭐ | 4-5小時 | 導數、偏導數與梯度 |
 | 🤖 自動微分 | [5_autograd.ipynb](pytorch/5_autograd.ipynb) | ⭐⭐⭐ | 3-4小時 | PyTorch 自動微分機制 |
@@ -21,7 +21,7 @@
 
 完成本模組後，你將能夠：
 
-- ✅ 熟練使用 PyTorch 進行張量操作和數據處理
+- ✅ 熟練使用 PyTorch 進行張量操作和資料處理
 - ✅ 理解深度學習中的線性代數核心概念
 - ✅ 掌握自動微分的原理和應用
 - ✅ 具備必要的微積分和概率論基礎
@@ -35,7 +35,7 @@
 
 ```mermaid
 graph LR
-    A[0. 索引] --> B[1. 數據操作]
+    A[0. 索引] --> B[1. 資料操作]
     B --> C[2. Pandas]
     C --> D[7. API查詢]
     D --> E[開始實踐項目]
@@ -44,7 +44,7 @@ graph LR
 **學習順序：**
 1. 閱讀索引，了解整體框架
 2. 學習張量基礎操作（ndarray）
-3. 掌握數據預處理（pandas）
+3. 掌握資料預處理（pandas）
 4. 學習如何查詢 PyTorch API
 5. 完成基礎實踐項目
 
@@ -54,7 +54,7 @@ graph LR
 
 ```mermaid
 graph LR
-    A[1. 數據操作] --> B[3. 線性代數]
+    A[1. 資料操作] --> B[3. 線性代數]
     B --> C[4. 微積分]
     C --> D[5. 自動微分]
     D --> E[6. 概率統計]
@@ -83,7 +83,7 @@ graph LR
 # 安裝 PyTorch
 pip install torch torchvision torchaudio
 
-# 安裝數據處理庫
+# 安裝資料處理庫
 pip install numpy pandas matplotlib seaborn
 
 # 安裝 Jupyter
@@ -107,7 +107,7 @@ jupyter nbextension enable --py widgetsnbextension
 
 ### ✨ 最佳實踐
 
-1. **動手實踐**：每個概念都要親自編寫代碼驗證
+1. **動手實踐**：每個概念都要親自編寫程式碼驗證
 2. **完成練習**：每個 notebook 末尾都有練習題，務必完成
 3. **記錄筆記**：在 notebook 中添加自己的理解和註釋
 4. **定期複習**：利用間隔重複法鞏固記憶
@@ -115,22 +115,22 @@ jupyter nbextension enable --py widgetsnbextension
 
 ### 🎯 學習檢查清單
 
-- [ ] 能夠創建和操作不同維度的張量
+- [ ] 能夠建立和操作不同維度的張量
 - [ ] 理解廣播機制的工作原理
 - [ ] 能夠進行矩陣乘法和向量運算
 - [ ] 理解梯度下降的數學原理
 - [ ] 能夠使用自動微分計算複雜函數的梯度
 - [ ] 理解常見概率分佈的特性
-- [ ] 能夠使用 Pandas 進行數據清洗和轉換
+- [ ] 能夠使用 Pandas 進行資料清洗和轉換
 - [ ] 熟練查閱 PyTorch 官方文檔
 
 ## 🧪 實踐項目
 
 ### 初級項目
 
-1. **手寫數字數據預處理**
-   - 使用 Pandas 和 NumPy 處理 MNIST 數據
-   - 練習張量操作和數據可視化
+1. **手寫數字資料預處理**
+   - 使用 Pandas 和 NumPy 處理 MNIST 資料
+   - 練習張量操作和資料可視化
 
 2. **線性回歸實現**
    - 從零實現線性回歸
@@ -154,7 +154,7 @@ jupyter nbextension enable --py widgetsnbextension
 
 6. **矩陣分解應用**
    - 實現 SVD 和 PCA
-   - 應用於數據降維和推薦系統
+   - 應用於資料降維和推薦系統
 
 ## 🤖 AI 輔助學習工具
 
@@ -240,7 +240,7 @@ Transformer 與預訓練模型 (../14_自然語言處理：預訓練)
 ## 🌟 重要提示
 
 > **學習深度學習的數學基礎不是為了成為數學家，而是為了：**
-> 1. 理解算法的工作原理
+> 1. 理解演算法的工作原理
 > 2. 調試模型時能夠追溯問題根源
 > 3. 閱讀最新研究論文
 > 4. 創新和改進現有方法

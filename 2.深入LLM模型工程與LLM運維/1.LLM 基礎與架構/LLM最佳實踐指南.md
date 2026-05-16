@@ -9,7 +9,7 @@
 - [模型選擇](#模型選擇)
 - [訓練最佳實踐](#訓練最佳實踐)
 - [微調策略](#微調策略)
-- [推理優化](#推理優化)
+- [推論優化](#推論優化)
 - [提示工程](#提示工程)
 - [生產部署](#生產部署)
 - [常見陷阱與解決方案](#常見陷阱與解決方案)
@@ -22,7 +22,7 @@
 
 ```
 問答/對話     → Claude 3.5, GPT-4o, Gemini 2.5
-代碼生成     → Claude 3.5 Sonnet, GPT-4o, DeepSeek-Coder
+程式碼生成     → Claude 3.5 Sonnet, GPT-4o, DeepSeek-Coder
 數學推理     → o1, DeepSeek-R1, Claude 3.5
 長文檔理解   → Gemini 1.5 Pro (2M ctx), Claude 4 (1M ctx)
 多模態      → GPT-4o, Gemini Pro Vision
@@ -53,17 +53,17 @@
 
 ### 預訓練 (Pre-training)
 
-**數據準備:**
+**資料準備:**
 ```python
 # ✅ 好的做法
-- 多樣化數據源 (書籍, 網頁, 代碼, 論文)
-- 高質量過濾 (去重, 有害內容過濾, 語言檢測)
-- 適當的數據混合比例
+- 多樣化資料源 (書籍, 網頁, 程式碼, 論文)
+- 高品質過濾 (去重, 有害內容過濾, 語言檢測)
+- 適當的資料混合比例
 
 # ❌ 避免
-- 單一數據源
-- 低質量/重複數據
-- 忽略數據預處理
+- 單一資料源
+- 低品質/重複資料
+- 忽略資料預處理
 ```
 
 **訓練配置:**
@@ -104,9 +104,9 @@ gradient_accumulation_steps = 8
 ### 何時使用何種方法
 
 ```
-少量數據 (<1K 樣本)    → 提示工程 + Few-shot
-中量數據 (1K-10K)      → LoRA 微調
-大量數據 (>10K)        → 完整微調
+少量資料 (<1K 樣本)    → 提示工程 + Few-shot
+中量資料 (1K-10K)      → LoRA 微調
+大量資料 (>10K)        → 完整微調
 改善對話質量          → RLHF 或 DPO
 領域適配              → 持續預訓練 + 微調
 ```
@@ -137,23 +137,23 @@ lora_config = LoraConfig(
 - target_modules 太少 → 性能受限
 ```
 
-### SFT 數據質量檢查
+### SFT 資料品質檢查
 
 ```python
-# ✅ 高質量 SFT 數據特徵
+# ✅ 高品質 SFT 資料特徵
 good_example = {
     "instruction": "解釋機器學習中的過擬合",  # 清晰具體
     "input": "",
-    "output": "過擬合是指模型在訓練數據上表現很好..."  # 詳細準確
+    "output": "過擬合是指模型在訓練資料上表現很好..."  # 詳細準確
 }
 
 # ❌ 避免
 bad_examples = [
     {"instruction": "解釋過擬合", "output": "就是太擬合了"},  # 太簡短
-    {"instruction": "寫代碼", "output": "def foo():pass"},  # 太模糊
+    {"instruction": "寫程式碼", "output": "def foo():pass"},  # 太模糊
 ]
 
-# 數據質量檢查清單
+# 資料品質檢查清單
 - ✅ 指令清晰明確
 - ✅ 回答詳細準確
 - ✅ 格式一致
@@ -163,7 +163,7 @@ bad_examples = [
 
 ---
 
-## 推理優化
+## 推論優化
 
 ### 優化優先級 (從高到低)
 
@@ -206,7 +206,7 @@ bad_examples = [
    )
    ```
 
-4. **KV 緩存** (必須啟用)
+4. **KV 快取** (必須啟用)
    ```python
    # ✅ 正確使用
    past_key_values = None
@@ -231,7 +231,7 @@ bad_examples = [
 # 減少首token延遲 (TTFT)
 - 使用較小模型
 - 減少提示長度
-- 預填充 KV 緩存
+- 預填充 KV 快取
 
 # 提升吞吐量
 - 增大批次大小
@@ -268,7 +268,7 @@ prompt_template = """<|system|>
 # 示例
 final_prompt = prompt_template.format(
     domain="Python 編程",
-    instruction="解釋以下代碼的作用",
+    instruction="解釋以下程式碼的作用",
     input="def fib(n): return n if n < 2 else fib(n-1) + fib(n-2)"
 )
 ```
@@ -403,7 +403,7 @@ metrics_to_monitor = {
     'gpu_memory_used': 'GPU 內存',
     'cpu_utilization': 'CPU 利用率',
 
-    # 質量指標
+    # 品質指標
     'error_rate': '錯誤率',
     'timeout_rate': '超時率',
 }
@@ -456,7 +456,7 @@ torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
 optimizer = torch.optim.AdamW(params, lr=lr, eps=1e-8)
 ```
 
-### 3. 推理速度慢
+### 3. 推論速度慢
 
 **問題診斷:**
 ```python
@@ -481,17 +481,17 @@ print(f"Decode: {decode_time:.3f}s")
 ```
 
 **優化:**
-- 如果 tokenize 慢 → 批處理, 緩存
+- 如果 tokenize 慢 → 批處理, 快取
 - 如果 generate 慢 → 使用推理框架, 量化, Flash Attention
 - 如果 decode 慢 → 批處理解碼
 
-### 4. 模型輸出質量差
+### 4. 模型輸出品質差
 
 **檢查清單:**
 ```python
-# 1. 檢查訓練數據質量
-- 是否有足夠的高質量樣本?
-- 數據是否平衡?
+# 1. 檢查訓練資料品質
+- 是否有足夠的高品質樣本?
+- 資料是否平衡?
 - 是否有噪聲/錯誤標籤?
 
 # 2. 檢查超參數
@@ -516,8 +516,8 @@ max_new_tokens = 512  # 是否太短?
 
 **解決方案:**
 ```python
-# 1. 增加數據
-- 數據增強
+# 1. 增加資料
+- 資料增強
 - 收集更多樣本
 
 # 2. 正則化
@@ -555,7 +555,7 @@ max_new_tokens = 512  # 是否太短?
 | INT8 量化 | 2-3x | 微小 | 簡單 |
 | INT4 量化 | 3-4x | 小 | 簡單 |
 | Flash Attention | 2-3x | 無 | 簡單 |
-| KV 緩存 | 10x+ | 無 | 必須 |
+| KV 快取 | 10x+ | 無 | 必須 |
 | 投機解碼 | 2-3x | 無 | 中等 |
 
 ---
@@ -575,7 +575,7 @@ max_new_tokens = 512  # 是否太短?
 ```
 1. 定義任務 → 選擇基礎模型
        ↓
-2. 準備數據 → 質量檢查
+2. 準備資料 → 質量檢查
        ↓
 3. 快速原型 → Few-shot / 提示工程
        ↓

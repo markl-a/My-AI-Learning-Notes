@@ -14,7 +14,7 @@
 **參數 (Parameters)**:
 - 模型在訓練過程中學習得到的值
 - 例如：神經網路的權重、線性迴歸的係數
-- 通過訓練數據自動優化
+- 通過訓練資料自動優化
 
 **超參數 (Hyperparameters)**:
 - 在訓練開始前設定的配置值
@@ -33,11 +33,11 @@
 #### 通用超參數
 - **學習率 (Learning Rate)**：控制參數更新的步長
 - **批次大小 (Batch Size)**：每次訓練使用的樣本數量
-- **訓練輪數 (Epochs)**：訓練數據的完整遍歷次數
+- **訓練輪數 (Epochs)**：訓練資料的完整遍歷次數
 - **優化器 (Optimizer)**：SGD、Adam、RMSprop 等
 
 #### 模型特定超參數
-- **神經網路**：層數、每層神經元數、激活函數、Dropout 率
+- **神經網路**：層數、每層神經元數、激活函式、Dropout 率
 - **決策樹**：最大深度、最小分裂樣本數、最小葉子節點樣本數
 - **隨機森林**：樹的數量、最大特徵數
 - **SVM**：核函數、C 值、gamma 值
@@ -112,7 +112,7 @@ param_grid = {
     'min_samples_leaf': [1, 2, 4]
 }
 
-# 創建網格搜索
+# 建立網格搜索
 rf = RandomForestClassifier(random_state=42)
 grid_search = GridSearchCV(
     estimator=rf,
@@ -179,7 +179,7 @@ param_distributions = {
     'max_features': uniform(0.1, 0.9)  # 連續均勻分佈
 }
 
-# 創建隨機搜索
+# 建立隨機搜索
 random_search = RandomizedSearchCV(
     estimator=RandomForestClassifier(random_state=42),
     param_distributions=param_distributions,
@@ -203,7 +203,7 @@ print("最佳分數:", random_search.best_score_)
 **描述**：使用貝葉斯推理建立超參數與性能的概率模型，智能地選擇下一組要嘗試的超參數
 
 **核心概念**：
-1. **代理模型 (Surrogate Model)**：通常使用高斯過程建模目標函數
+1. **代理模型 (Surrogate Model)**：通常使用高斯過程建模目標函式
 2. **採集函數 (Acquisition Function)**：決定下一個要評估的點
    - Expected Improvement (EI)
    - Upper Confidence Bound (UCB)
@@ -223,7 +223,7 @@ print("最佳分數:", random_search.best_score_)
 **適用場景**：
 - 單次訓練成本很高
 - 超參數維度中等（通常 < 20）
-- 需要高質量結果
+- 需要高品質結果
 
 ```python
 from skopt import BayesSearchCV
@@ -240,7 +240,7 @@ search_spaces = {
     'subsample': Real(0.5, 1.0)
 }
 
-# 創建貝葉斯搜索
+# 建立貝葉斯搜索
 bayes_search = BayesSearchCV(
     estimator=GradientBoostingClassifier(random_state=42),
     search_spaces=search_spaces,
@@ -259,9 +259,9 @@ print("最佳參數:", bayes_search.best_params_)
 print("最佳分數:", bayes_search.best_score_)
 ```
 
-### 5. 超帶算法 (Hyperband)
+### 5. 超帶演算法 (Hyperband)
 
-**描述**：自適應資源分配算法，通過提前停止策略快速淘汰表現不佳的配置
+**描述**：自適應資源分配演算法，通過提前停止策略快速淘汰表現不佳的配置
 
 **核心思想**：
 - 用較少資源（如更少的訓練輪數）評估大量配置
@@ -306,7 +306,7 @@ def objective(trial):
 
     return accuracy
 
-# 創建研究
+# 建立研究
 study = optuna.create_study(
     direction='maximize',
     pruner=HyperbandPruner(
@@ -323,23 +323,23 @@ print("最佳參數:", study.best_params)
 print("最佳分數:", study.best_value)
 ```
 
-### 6. 進化算法 (Evolutionary Algorithms)
+### 6. 進化演算法 (Evolutionary Algorithms)
 
 **描述**：模擬生物進化過程，通過選擇、交叉和變異來搜索最優超參數
 
 **優點**：
 - 可以處理複雜的搜索空間
-- 不需要梯度信息
+- 不需要梯度資訊
 - 容易並行化
 
 **缺點**：
 - 收斂速度可能較慢
-- 需要調整算法自身的參數
+- 需要調整演算法自身的參數
 
 ```python
 from tpot import TPOTClassifier
 
-# TPOT 使用遺傳算法自動化機器學習
+# TPOT 使用遺傳演算法自動化機器學習
 tpot = TPOTClassifier(
     generations=10,  # 進化代數
     population_size=50,  # 每代個體數
@@ -353,7 +353,7 @@ tpot = TPOTClassifier(
 tpot.fit(X_train, y_train)
 print("最佳準確率:", tpot.score(X_test, y_test))
 
-# 導出最佳模型的代碼
+# 導出最佳模型的程式碼
 tpot.export('best_pipeline.py')
 ```
 
@@ -397,7 +397,7 @@ def objective(trial):
 
     return accuracy
 
-# 創建研究
+# 建立研究
 study = optuna.create_study(direction='maximize')
 study.optimize(objective, n_trials=100)
 
@@ -423,7 +423,7 @@ vis.plot_parallel_coordinate(study).show()
 **特點**：
 - 支持大規模分散式調優
 - 與 Ray 生態系統集成
-- 支持多種搜索算法
+- 支持多種搜索演算法
 - 適合深度學習場景
 
 **安裝**：
@@ -480,7 +480,7 @@ print("最佳配置:", best_config)
 **特點**：
 - 專門為 Keras/TensorFlow 設計
 - 簡單易用
-- 支持多種調優算法
+- 支持多種調優演算法
 
 **安裝**：
 ```bash
@@ -515,7 +515,7 @@ def build_model(hp):
 
     return model
 
-# 創建調優器
+# 建立調優器
 tuner = kt.Hyperband(
     build_model,
     objective='val_accuracy',
@@ -561,7 +561,7 @@ space = [
     Real(0.0, 0.5, name='dropout')
 ]
 
-# 定義目標函數
+# 定義目標函式
 @use_named_args(space)
 def objective(**params):
     model = build_model(**params)
@@ -592,7 +592,7 @@ from tensorflow import keras
 import mlflow
 import mlflow.keras
 
-# 定義目標函數
+# 定義目標函式
 def objective(trial):
     # 啟動 MLflow run
     with mlflow.start_run(nested=True):
@@ -672,7 +672,7 @@ def objective(trial):
 # 設定 MLflow 實驗
 mlflow.set_experiment("hyperparameter_tuning_demo")
 
-# 創建 Optuna 研究
+# 建立 Optuna 研究
 study = optuna.create_study(
     direction='maximize',
     study_name='mnist_optimization'
@@ -926,7 +926,7 @@ vis.plot_contour(study, params=['learning_rate', 'batch_size']).show()
 1. **選擇合適的方法**：
    - 小規模：網格搜索
    - 中規模：隨機搜索或貝葉斯優化
-   - 大規模/深度學習：Hyperband 或進化算法
+   - 大規模/深度學習：Hyperband 或進化演算法
 
 2. **合理設計搜索空間**：
    - 使用領域知識縮小範圍

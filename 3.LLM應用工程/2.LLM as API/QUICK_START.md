@@ -10,7 +10,7 @@
 ├── requirements.txt          # Python 依賴
 ├── README.md                 # 詳細文檔
 ├── QUICK_START.md           # 快速開始（本文件）
-├── examples/                 # 示例代碼
+├── examples/                 # 示例程式碼
 │   ├── basic_apis/          # 基礎 API 使用
 │   │   ├── 01_openai_basic.py
 │   │   ├── 02_anthropic_basic.py
@@ -185,7 +185,7 @@ docker-compose up -d
 ```python
 from utils.cost_tracker import CostTracker, print_statistics
 
-# 創建追踪器
+# 建立追踪器
 tracker = CostTracker("logs/costs.json")
 
 # 追踪使用
@@ -209,7 +209,7 @@ tracker.export_to_csv("costs_export.csv")
 ```python
 from utils.performance_monitor import PerformanceMonitor, print_performance_report
 
-# 創建監控器
+# 建立監控器
 monitor = PerformanceMonitor("logs/performance.json")
 
 # 記錄指標
@@ -393,7 +393,7 @@ def robust_completion(messages):
 - ✅ 實作 3 個 Streamlit 應用
 - ✅ 建立生產級 FastAPI 服務
 - ✅ 添加 Docker 部署配置
-- ✅ 創建成本追踪和性能監控工具
+- ✅ 建立成本追踪和性能監控工具
 
 ---
 

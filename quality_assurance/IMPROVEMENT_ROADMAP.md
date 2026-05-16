@@ -9,7 +9,7 @@
 ## 🎯 核心目標
 
 1. **準確性** - 確保所有內容在技術上100%正確
-2. **可驗證性** - 所有代碼和公式都可以被驗證
+2. **可驗證性** - 所有程式碼和公式都可以被驗證
 3. **時效性** - 保持內容與最新技術同步
 4. **完整性** - 提供系統化的學習路徑
 5. **可追溯性** - 所有知識點都有可靠來源
@@ -18,13 +18,13 @@
 
 ## 🛠️ 八大改進維度
 
-### 1. 知識質量保證框架 ✅ 已完成
+### 1. 知識品質保證框架 ✅ 已完成
 
 **文檔**: `QUALITY_STANDARDS.md`
 
 **內容**:
 - 📖 內容準確性標準（概念定義、數學公式、引用來源）
-- 💻 代碼質量標準（可運行性、註釋、測試覆蓋率）
+- 💻 程式碼品質標準（可運行性、註釋、測試覆蓋率）
 - 📚 文檔質量標準（結構、圖表、學習體驗）
 - 🔄 技術時效性標準（版本追蹤、內容標記）
 - ✅ 審查流程（三階段：自審、同行審查、自動化檢查）
@@ -36,7 +36,7 @@
 
 ---
 
-### 2. 代碼自動驗證系統 ✅ 已完成
+### 2. 程式碼自動驗證系統 ✅ 已完成
 
 **工具**: `validators/code_validator.py`
 
@@ -61,9 +61,9 @@ python quality_assurance/validators/code_validator.py . -r --report qa_report.tx
 ```
 
 **價值**:
-- 自動發現代碼錯誤
-- 確保代碼可運行性
-- 提高代碼質量標準
+- 自動發現程式碼錯誤
+- 確保程式碼可運行性
+- 提高程式碼品質標準
 
 ---
 
@@ -88,7 +88,7 @@ class LearningPathValidator:
             "反向傳播": ["梯度下降", "鏈式法則"],
             "CNN": ["反向傳播", "卷積運算"],
             "Transformer": ["注意力機制", "殘差連接"],
-            "RAG": ["Transformer", "向量數據庫"],
+            "RAG": ["Transformer", "向量資料庫"],
         }
         return dependencies
 
@@ -161,7 +161,7 @@ class ProgressTracker:
       "label": "梯度下降",
       "category": "optimization",
       "difficulty": 2,
-      "doc_path": "2.深入LLM模型工程/優化算法/gradient_descent.md"
+      "doc_path": "2.深入LLM模型工程/優化演算法/gradient_descent.md"
     },
     {
       "id": "backprop",
@@ -229,7 +229,7 @@ class KnowledgeGraph:
 <body>
     <div id="graph"></div>
     <script>
-        // 使用 D3.js 創建互動式知識圖譜
+        // 使用 D3.js 建立互動式知識圖譜
         // - 點擊節點顯示詳情
         // - 拖拽調整布局
         // - 高亮顯示學習路徑
@@ -265,7 +265,7 @@ class Exercise:
 
 
 class CodeExercise(Exercise):
-    """代碼練習題"""
+    """程式碼練習題"""
 
     def __init__(self, *args, test_cases, **kwargs):
         super().__init__(*args, **kwargs)
@@ -275,7 +275,7 @@ class CodeExercise(Exercise):
         """運行測試用例"""
         results = []
         for test in self.test_cases:
-            # 執行代碼並驗證輸出
+            # 執行程式碼並驗證輸出
             result = self._run_test(code, test)
             results.append(result)
         return all(results)
@@ -346,8 +346,8 @@ class InteractiveQuiz:
                 )
             elif question.type == "code":
                 answer_widget = widgets.Textarea(
-                    description='代碼:',
-                    placeholder='在此輸入代碼...',
+                    description='程式碼:',
+                    placeholder='在此輸入程式碼...',
                     layout=widgets.Layout(width='100%', height='200px')
                 )
 
@@ -377,7 +377,7 @@ class InteractiveQuiz:
 ```markdown
 # 內容審查清單
 
-## 基本信息
+## 基本資訊
 - [ ] 文件路徑: _______________
 - [ ] 主題: _______________
 - [ ] 難度級別: _______________
@@ -402,11 +402,11 @@ class InteractiveQuiz:
 
 **問題記錄**: _______________
 
-### 1.3 代碼準確性
-- [ ] 代碼可以運行
+### 1.3 程式碼準確性
+- [ ] 程式碼可以運行
 - [ ] 輸出結果正確
 - [ ] 無語法錯誤
-- [ ] 註釋與代碼一致
+- [ ] 註釋與程式碼一致
 
 **問題記錄**: _______________
 
@@ -414,7 +414,7 @@ class InteractiveQuiz:
 
 ### 2.1 內容完整性
 - [ ] 包含理論解釋
-- [ ] 包含代碼示例
+- [ ] 包含程式碼示例
 - [ ] 包含可視化（如適用）
 - [ ] 包含練習題
 - [ ] 包含參考資料
@@ -456,7 +456,7 @@ class InteractiveQuiz:
 
 ## 第四部分：技術時效性
 
-### 4.1 版本信息
+### 4.1 版本資訊
 - [ ] 所有依賴版本已標註
 - [ ] 使用最新穩定版本
 - [ ] 過時內容已標記
@@ -464,7 +464,7 @@ class InteractiveQuiz:
 **需要更新**: _______________
 
 ### 4.2 API 兼容性
-- [ ] API 調用正確
+- [ ] API 呼叫正確
 - [ ] 無已棄用的用法
 - [ ] 向後兼容性說明
 
@@ -534,7 +534,7 @@ class ReviewAssistant:
         # 檢查鏈接有效性
         results['links_valid'] = self.check_links()
 
-        # 檢查代碼可運行性
+        # 檢查程式碼可運行性
         results['code_runnable'] = self.check_code()
 
         # 檢查圖片存在性
@@ -556,7 +556,7 @@ class ReviewAssistant:
         自動檢查結果:
         - 文件存在: {'✅' if auto_results['file_exists'] else '❌'}
         - 鏈接有效: {'✅' if auto_results['links_valid'] else '❌'}
-        - 代碼可運行: {'✅' if auto_results['code_runnable'] else '❌'}
+        - 程式碼可運行: {'✅' if auto_results['code_runnable'] else '❌'}
         - 圖片完整: {'✅' if auto_results['images_exist'] else '❌'}
 
         ⚠️ 以下項目需要人工審查：
@@ -840,7 +840,7 @@ print("Softmax 驗證:", validator.verify_with_examples(softmax, test_cases))
 | 階段 | 時間 | 任務 | 狀態 |
 |------|------|------|------|
 | 第一階段 | Week 1-2 | 知識質量標準文檔化 | ✅ 完成 |
-| 第二階段 | Week 3-4 | 代碼自動驗證系統 | ✅ 完成 |
+| 第二階段 | Week 3-4 | 程式碼自動驗證系統 | ✅ 完成 |
 | 第三階段 | Week 5-6 | 學習路徑驗證系統 | 📝 規劃中 |
 | 第四階段 | Week 7-8 | 知識圖譜構建 | 📝 規劃中 |
 | 第五階段 | Week 9-10 | 互動式練習系統 | 📝 規劃中 |
@@ -854,10 +854,10 @@ print("Softmax 驗證:", validator.verify_with_examples(softmax, test_cases))
 
 ### 短期目標 (1-3 個月)
 
-1. **代碼質量**
+1. **程式碼品質**
    - ✅ 90% 的 Python 文件通過自動驗證
    - ✅ 80% 的 Notebooks 可以成功執行
-   - ✅ 代碼測試覆蓋率 > 70%
+   - ✅ 程式碼測試覆蓋率 > 70%
 
 2. **內容質量**
    - ✅ 100% 的新內容通過審查清單
@@ -888,7 +888,7 @@ print("Softmax 驗證:", validator.verify_with_examples(softmax, test_cases))
 
 ### 長期目標 (6-12 個月)
 
-1. **全面質量保證**
+1. **全面品質保證**
    - 🎯 所有 8 個系統全部上線
    - 🎯 自動化檢查覆蓋率 > 90%
    - 🎯 人工審查週期 < 2 週
@@ -905,7 +905,7 @@ print("Softmax 驗證:", validator.verify_with_examples(softmax, test_cases))
 我們歡迎社區參與改進！您可以：
 
 1. **報告問題**
-   - 發現錯誤？創建 Issue
+   - 發現錯誤？建立 Issue
    - 建議改進？提交 Feature Request
 
 2. **貢獻內容**
@@ -933,7 +933,7 @@ print("Softmax 驗證:", validator.verify_with_examples(softmax, test_cases))
 
 ---
 
-**讓我們一起打造最高質量的 AI 學習資源！🚀**
+**讓我們一起打造最高品質的 AI 學習資源！🚀**
 
 ---
 

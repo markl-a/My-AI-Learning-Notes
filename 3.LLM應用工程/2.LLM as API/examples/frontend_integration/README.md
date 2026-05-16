@@ -147,7 +147,7 @@ pip install unstructured markdown  # Markdown 支援
 **使用場景：**
 - 圖片內容理解
 - OCR 文字提取
-- 圖片質量評估
+- 圖片品質評估
 - 藝術作品分析
 - 醫學影像輔助
 - 商品圖片分析
@@ -166,7 +166,7 @@ pip install unstructured markdown  # Markdown 支援
 **程式碼助手：**
 ```
 你是一個專業的 Python 程式設計師。
-- 總是提供完整可運行的代碼
+- 總是提供完整可運行的程式碼
 - 包含詳細的註解
 - 遵循 PEP 8 規範
 - 指出潛在的問題和最佳實踐
@@ -292,7 +292,7 @@ streamlit cache clear
 
 ### 部署到 Streamlit Cloud
 
-1. 將代碼推送到 GitHub
+1. 將程式碼推送到 GitHub
 2. 訪問 [streamlit.io](https://streamlit.io/)
 3. 連接 GitHub repository
 4. 在 Secrets 中設定環境變數
@@ -335,11 +335,11 @@ def load_model():
 
 @st.cache_data
 def process_data(data):
-    # 處理數據
+    # 處理資料
     pass
 ```
 
-### 減少 API 調用
+### 減少 API 呼叫
 
 - 使用會話狀態保存結果
 - 實作本地快取

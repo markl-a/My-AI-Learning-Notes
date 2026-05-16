@@ -7,7 +7,7 @@
 ### 課程目標
 - 掌握文檔載入與處理技術
 - 理解向量嵌入和語意搜尋
-- 學習文本分割的最佳實踐
+- 學習文字分割的最佳實踐
 - 建構完整的 RAG 問答系統
 
 ### 適合對象
@@ -26,7 +26,7 @@
 ├─────────────────────────────────────────┤
 │  1. 文檔載入 (Document Loaders)         │
 │     ↓                                   │
-│  2. 文本分割 (Text Splitters)           │
+│  2. 文字分割 (Text Splitters)           │
 │     ↓                                   │
 │  3. 向量嵌入 (Embeddings)               │
 │     ↓                                   │
@@ -139,14 +139,14 @@ notion_docs = notion_loader.load()
 print(f"Notion 頁面數：{len(notion_docs)}")
 ```
 
-## 2️⃣ 文本分割（Text Splitting）
+## 2️⃣ 文字分割（Text Splitting）
 
-文本分割是 RAG 系統中最重要的步驟之一。
+文字分割是 RAG 系統中最重要的步驟之一。
 
 ### 為什麼需要分割？
 
 1. **模型限制**：LLM 有上下文長度限制
-2. **相關性**：較小的文本塊更容易匹配查詢
+2. **相關性**：較小的文字塊更容易匹配查詢
 3. **成本控制**：減少不必要的 token 使用
 
 ### CharacterTextSplitter
@@ -287,7 +287,7 @@ for split in md_splits:
 
 ## 3️⃣ 向量嵌入（Embeddings）
 
-將文本轉換為向量表示，用於語意搜尋。
+將文字轉換為向量表示，用於語意搜尋。
 
 ### OpenAI Embeddings
 
@@ -300,14 +300,14 @@ embeddings = OpenAIEmbeddings(
     model="text-embedding-3-small"  # 或 text-embedding-3-large
 )
 
-# 嵌入單個文本
+# 嵌入單個文字
 text = "台灣是一個美麗的島嶼"
 vector = embeddings.embed_query(text)
 
 print(f"向量維度：{len(vector)}")
 print(f"向量前 5 個元素：{vector[:5]}")
 
-# 嵌入多個文本
+# 嵌入多個文字
 texts = [
     "台灣的夜市很有名",
     "台北 101 是著名地標",
@@ -315,7 +315,7 @@ texts = [
 ]
 
 vectors = embeddings.embed_documents(texts)
-print(f"\n嵌入了 {len(vectors)} 個文本")
+print(f"\n嵌入了 {len(vectors)} 個文字")
 
 # 計算相似度
 def cosine_similarity(v1, v2):
@@ -330,7 +330,7 @@ for i, text in enumerate(texts):
     print(f"與 '{text}' 的相似度：{similarity:.4f}")
 ```
 
-### HuggingFace Embeddings（免費替代方案）
+### Hugging Face Embeddings（免費替代方案）
 
 ```python
 from langchain_community.embeddings import HuggingFaceEmbeddings
@@ -340,7 +340,7 @@ hf_embeddings = HuggingFaceEmbeddings(
     model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 )
 
-text = "這是一個測試文本"
+text = "這是一個測試文字"
 vector = hf_embeddings.embed_query(text)
 
 print(f"向量維度：{len(vector)}")
@@ -360,7 +360,7 @@ from langchain.text_splitters import RecursiveCharacterTextSplitter
 loader = TextLoader("taiwan_info.txt", encoding='utf-8')
 documents = loader.load()
 
-# 2. 分割文本
+# 2. 分割文字
 text_splitter = RecursiveCharacterTextSplitter(
     chunk_size=500,
     chunk_overlap=50
@@ -398,7 +398,7 @@ vectorstore = Chroma(
 )
 
 # 搜尋
-results = vectorstore.similarity_search("查詢文本", k=5)
+results = vectorstore.similarity_search("查詢文字", k=5)
 ```
 
 ### 相似度搜尋與評分
@@ -505,7 +505,7 @@ threshold_retriever = vectorstore.as_retriever(
     }
 )
 
-docs = threshold_retriever.invoke("查詢文本")
+docs = threshold_retriever.invoke("查詢文字")
 ```
 
 ### 自訂檢索器
@@ -699,7 +699,7 @@ class TaiwanKnowledgeBot:
         documents = loader.load()
         print(f"載入了 {len(documents)} 個文檔")
 
-        # 分割文本
+        # 分割文字
         text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=500,
             chunk_overlap=50,
@@ -800,7 +800,7 @@ if __name__ == "__main__":
 
 ## ✅ 最佳實踐
 
-### 1. 文本分割策略
+### 1. 文字分割策略
 - 使用 RecursiveCharacterTextSplitter
 - chunk_size: 500-1000 字元
 - chunk_overlap: 10-20% 的 chunk_size

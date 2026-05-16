@@ -66,7 +66,7 @@
 - 不同的生成速度
 - 不同的應用場景適配性
 
-選擇合適的解碼策略對於生成高質量、符合需求的文字至關重要。
+選擇合適的解碼策略對於生成高品質、符合需求的文字至關重要。
 
 ---
 
@@ -150,9 +150,9 @@ P("an") = 0.2
 
 #### 適用場景
 - 機器翻譯
-- 文本摘要
+- 文字摘要
 - 圖像描述生成
-- 需要高質量但不需要創意的任務
+- 需要高品質但不需要創意的任務
 
 ---
 
@@ -176,7 +176,7 @@ xₜ₊₁ ~ P(x | x₁, ..., xₜ)
 
 **缺點**：
 - 可能採樣到低機率、不連貫的詞
-- 輸出質量不穩定
+- 輸出品質不穩定
 
 ### 3.2 Temperature Sampling
 
@@ -248,7 +248,7 @@ P = softmax([1.5, 1.0, 0.5]) = [0.506, 0.307, 0.187]
 - **k = vocab_size**：等同於基礎隨機採樣
 
 #### 優點
-- **避免低質量詞**：排除極低機率的詞
+- **避免低品質詞**：排除極低機率的詞
 - **保持多樣性**：允許合理的隨機性
 - **簡單直觀**：易於理解和實現
 
@@ -309,7 +309,7 @@ Top-p 的核心優勢是動態調整候選集大小：
 
 #### 優點
 - **自適應**：根據機率分佈動態調整
-- **避免低質量詞**：自動排除長尾低機率詞
+- **避免低品質詞**：自動排除長尾低機率詞
 - **保持多樣性**：在合理範圍內允許隨機性
 
 #### 缺點
@@ -365,7 +365,7 @@ threshold = max(P(x | context)) / a
 
 #### 原理
 
-結合模型信心度和與已生成文本的差異性：
+結合模型信心度和與已生成文字的差異性：
 
 ```
 xₜ₊₁ = argmax [(1-α) × P(x|context) - α × max_similarity(x, context)]
@@ -382,7 +382,7 @@ xₜ₊₁ = argmax [(1-α) × P(x|context) - α × max_similarity(x, context)]
 - **生成流暢**：平衡創新和合理性
 
 #### 適用場景
-- 長文本生成
+- 長文字生成
 - 開放式對話
 - 需要避免重複的創意寫作
 
@@ -390,22 +390,22 @@ xₜ₊₁ = argmax [(1-α) × P(x|context) - α × max_similarity(x, context)]
 
 #### 原理
 
-選擇"典型"的 token，即信息量接近條件熵的 token：
+選擇"典型"的 token，即資訊量接近條件熵的 token：
 
 ```
 典型性 = |log P(x|context) + H(P)|
 
-選擇典型性最低的 token（最接近期望信息量）
+選擇典型性最低的 token（最接近期望資訊量）
 ```
 
 #### 理論基礎
 
-基於信息論，"典型集"包含最可能的序列，這些序列的信息量接近期望值。
+基於資訊論，"典型集"包含最可能的序列，這些序列的資訊量接近期望值。
 
 #### 優點
-- **理論基礎強**：信息論支撐
+- **理論基礎強**：資訊論支撐
 - **避免極端**：既不太確定也不太隨機
-- **提高連貫性**：生成更自然的文本
+- **提高連貫性**：生成更自然的文字
 
 ### 4.3 Mirostat Sampling
 
@@ -415,13 +415,13 @@ xₜ₊₁ = argmax [(1-α) × P(x|context) - α × max_similarity(x, context)]
 
 ```
 1. 設定目標困惑度 τ
-2. 監控生成文本的實際困惑度
+2. 監控生成文字的實際困惑度
 3. 動態調整溫度或閾值以維持困惑度在目標附近
 ```
 
 #### 優點
-- **自適應**：根據生成質量動態調整
-- **穩定輸出**：維持一致的文本複雜度
+- **自適應**：根據生成品質動態調整
+- **穩定輸出**：維持一致的文字複雜度
 - **理論優雅**：基於困惑度的控制
 
 ### 4.4 Speculative Decoding (推測解碼)
@@ -458,8 +458,8 @@ P_target(x | context) ≥ P_draft(x | context)
 - GPU 記憶體需求：同時載入兩個模型
 
 #### 適用場景
-- 線上推理服務（降低延遲）
-- 需要大模型質量但受限於延遲的應用
+- 線上推論服務（降低延遲）
+- 需要大模型品質但受限於延遲的應用
 - 批次生成任務
 
 ### 4.5 Self-Consistency (自洽性解碼)
@@ -532,7 +532,7 @@ def self_consistency_decoding(prompt, model, tokenizer, num_samples=10, temperat
     return final_answer
 
 def extract_answer(text):
-    """從生成的文本中提取答案（示例）"""
+    """從生成的文字中提取答案（示例）"""
     # 數學題示例：提取最後一個數字
     import re
     numbers = re.findall(r'-?\d+\.?\d*', text)
@@ -563,7 +563,7 @@ logits_guided = logits_uncond + guidance_scale × (logits_cond - logits_uncond)
 #### 優點
 - **更好的提示遵循**：生成更符合 prompt 的內容
 - **控制生成方向**：靈活調整條件影響程度
-- **提高生成質量**：特別是在圖像和音頻生成中表現優異
+- **提高生成品質**：特別是在圖像和音頻生成中表現優異
 
 #### 在 LLM 中的應用
 
@@ -680,7 +680,7 @@ output = model.generate(
 ### 5.1 為什麼需要約束解碼？
 
 在許多實際應用中，我們需要 LLM 生成特定格式的輸出：
-- **結構化數據**：JSON、XML、YAML
+- **結構化資料**：JSON、XML、YAML
 - **程式碼**：符合語法規則的程式碼
 - **特定詞彙**：醫療術語、法律用語
 - **格式限制**：固定長度、特定模式
@@ -773,7 +773,7 @@ print(json.dumps(result, indent=2))
 
 ### 5.3 使用專門函式庫
 
-#### Outlines - 結構化文本生成
+#### Outlines - 結構化文字生成
 
 ```python
 # 安裝: pip install outlines
@@ -934,7 +934,7 @@ def regex_constrained_sampling(
     return tokenizer.decode(generated[0], skip_special_tokens=True)
 
 def is_partial_match(text, regex):
-    """檢查文本是否可能匹配正則表達式（前綴匹配）"""
+    """檢查文字是否可能匹配正則表達式（前綴匹配）"""
     # 簡化實現：檢查是否是某個完整匹配的前綴
     try:
         # 嘗試匹配
@@ -960,7 +960,7 @@ def length_controlled_generation(
     tolerance=5
 ):
     """
-    生成接近目標長度的文本
+    生成接近目標長度的文字
     """
     output = model.generate(
         **tokenizer(prompt, return_tensors="pt"),
@@ -1106,7 +1106,7 @@ if code:
 | Temperature | 可調 | 中 | 低 | 中 | 通用對話 |
 | Top-k | 中 | 中-高 | 低 | 低 | 一般生成 |
 | Top-p | 中-高 | 中 | 低 | 低 | 創意寫作、對話 |
-| Contrastive | 高 | 中 | 中 | 極低 | 長文本生成 |
+| Contrastive | 高 | 中 | 中 | 極低 | 長文字生成 |
 
 ### 6.2 任務導向選擇指南
 
@@ -1146,7 +1146,7 @@ if code:
 - 使用語法約束
 ```
 
-#### 5. **長文本生成**
+#### 5. **長文字生成**
 ```
 推薦：Contrastive Search 或 Top-p
 配置：
@@ -1169,7 +1169,7 @@ repetition_penalty = 1.2
 
 **組合 2：Beam Search + Length Penalty + No Repeat N-gram**
 ```python
-# 結構化任務的高質量輸出
+# 結構化任務的高品質輸出
 beam_size = 5
 length_penalty = 1.2
 no_repeat_ngram_size = 3
@@ -1181,7 +1181,7 @@ no_repeat_ngram_size = 3
 
 ### 7.1 自動評估指標
 
-#### 文本質量指標
+#### 文字品質指標
 
 **1. Perplexity (困惑度)**
 ```python
@@ -1190,8 +1190,8 @@ import torch.nn.functional as F
 
 def calculate_perplexity(model, tokenizer, text):
     """
-    計算生成文本的困惑度
-    困惑度越低，模型對文本的"驚訝程度"越低，表示文本越符合預期
+    計算生成文字的困惑度
+    困惑度越低，模型對文字的"驚訝程度"越低，表示文字越符合預期
     """
     inputs = tokenizer(text, return_tensors="pt")
     with torch.no_grad():
@@ -1209,7 +1209,7 @@ print(f"Perplexity: {ppl:.2f}")
 
 **2. BLEU (Bilingual Evaluation Understudy)**
 - 主要用於機器翻譯
-- 比較生成文本與參考文本的 n-gram 重疊
+- 比較生成文字與參考文字的 n-gram 重疊
 
 ```python
 from nltk.translate.bleu_score import sentence_bleu, corpus_bleu
@@ -1447,7 +1447,7 @@ for name, config in configs.items():
 **原因**：
 - Temperature 太低（接近貪婪）
 - Beam search 的固有問題
-- 訓練數據中有重複模式
+- 訓練資料中有重複模式
 
 **解決方案**：
 
@@ -1496,10 +1496,10 @@ def remove_repetitions(text, max_repeat=2):
     return ' '.join(result)
 ```
 
-#### 問題 2：生成不連貫或無意義的文本
+#### 問題 2：生成不連貫或無意義的文字
 
 **症狀**：
-- 文本語法正確但語義不連貫
+- 文字語法正確但語義不連貫
 - 主題頻繁跳轉
 - 包含不相關的內容
 
@@ -1521,7 +1521,7 @@ output = model.generate(
 )
 
 # 方案 2：增加上下文
-# 確保 prompt 包含足夠的上下文信息
+# 確保 prompt 包含足夠的上下文資訊
 better_prompt = f"""Context: {context}
 Task: {task}
 Requirements: {requirements}
@@ -1540,7 +1540,7 @@ output = model.generate(
 #### 問題 3：生成速度太慢
 
 **症狀**：
-- 推理延遲高
+- 推論延遲高
 - 無法滿足實時要求
 
 **原因**：
@@ -1569,12 +1569,12 @@ output = model.generate(
     do_sample=True
 )
 
-# 方案 3：使用 KV Cache（默認開啟）
+# 方案 3：使用 KV Cache（預設開啟）
 # 確保 use_cache=True
 output = model.generate(
     **inputs,
     max_length=100,
-    use_cache=True,  # 默認 True
+    use_cache=True,  # 預設 True
     do_sample=True
 )
 
@@ -1608,7 +1608,7 @@ model = AutoModelForCausalLM.from_pretrained(
 #### 問題 4：輸出不符合指定格式
 
 **症狀**：
-- 要求 JSON 但生成純文本
+- 要求 JSON 但生成純文字
 - 格式不完整或不正確
 - 包含額外的解釋文字
 
@@ -1645,7 +1645,7 @@ import json
 import re
 
 def extract_json(text):
-    """從文本中提取 JSON"""
+    """從文字中提取 JSON"""
     # 嘗試提取花括號或方括號之間的內容
     json_pattern = r'\{[^{}]*\}|\[[^\[\]]*\]'
     matches = re.findall(json_pattern, text, re.DOTALL)
@@ -1778,7 +1778,7 @@ class LatencyBudgetManager:
     def select_strategy(self, remaining_budget_ms):
         """根據剩餘預算選擇策略"""
         if remaining_budget_ms > 500:
-            # 充足時間，使用高質量策略
+            # 充足時間，使用高品質策略
             return {
                 'num_beams': 5,
                 'do_sample': False,
@@ -2683,8 +2683,8 @@ no_repeat_ngram_size = 3  # 禁止重複的 n-gram 長度
 ```
 
 **經驗法則**：
-- 短文本（<100 tokens）：`repetition_penalty = 1.1-1.2`
-- 長文本（>100 tokens）：`repetition_penalty = 1.2-1.5`
+- 短文字（<100 tokens）：`repetition_penalty = 1.1-1.2`
+- 長文字（>100 tokens）：`repetition_penalty = 1.2-1.5`
 - 對話：`repetition_penalty = 1.2`, `no_repeat_ngram_size = 2-3`
 
 ### 11.4 組合策略建議
@@ -2774,10 +2774,10 @@ generation_config = {
 
 ### 開源工具
 
-- **vLLM**: 高效推理引擎，支援各種採樣策略
+- **vLLM**: 高效推論引擎，支援各種採樣策略
 - **TensorRT-LLM**: NVIDIA 的優化推理框架
 - **llama.cpp**: 輕量級 LLM 推理工具
-- **text-generation-webui**: 互動式文本生成 UI
+- **text-generation-webui**: 互動式文字生成 UI
 
 ---
 
@@ -2851,7 +2851,7 @@ do_sample=False (Greedy), max_new_tokens=50, 或使用 Speculative Decoding
 1. **從簡單開始**：先用 Greedy 或基礎採樣建立 baseline
 2. **理解任務特性**：事實性優先還是創意性優先？
 3. **善用組合策略**：Temperature + Top-p + Repetition Penalty 通常效果最好
-4. **持續實驗**：沒有萬能配置，需要根據具體任務和數據調整
+4. **持續實驗**：沒有萬能配置，需要根據具體任務和資料調整
 5. **監控評估**：結合自動指標和人工評估
 6. **考慮效率**：在質量和速度之間找到平衡點
 7. **使用約束**：需要特定格式時，使用約束解碼而非依賴 prompt

@@ -329,7 +329,7 @@ Connection refused: http://localhost:11434
    from sentence_transformers import SentenceTransformer
 
    model = SentenceTransformer('all-MiniLM-L6-v2')
-   embedding = model.encode("測試文本")
+   embedding = model.encode("測試文字")
    print(f"嵌入維度: {len(embedding)}")
    ```
 
@@ -344,7 +344,7 @@ Connection refused: http://localhost:11434
 
 4. **重建索引**:
    ```bash
-   # 刪除 ChromaDB 數據
+   # 刪除 ChromaDB 資料
    rm -rf ./chroma_db
 
    # 重新索引文檔
@@ -452,7 +452,7 @@ nvidia-smi  # 如果使用 GPU
 
 **解決方案**:
 
-1. **啟用緩存**:
+1. **啟用快取**:
    ```python
    from functools import lru_cache
 
@@ -496,8 +496,8 @@ nvidia-smi  # 如果使用 GPU
 
 1. **搜索現有 Issues**: [GitHub Issues](https://github.com/markl-a/My-AI-Learning-Notes/issues)
 
-2. **創建新 Issue**:
-   - 提供詳細的錯誤信息
+2. **建立新 Issue**:
+   - 提供詳細的錯誤資訊
    - 包含復現步驟
    - 附上相關日誌
 

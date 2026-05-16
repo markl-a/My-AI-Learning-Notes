@@ -1,6 +1,6 @@
 # LLM 基礎與架構速查表 (Quick Reference)
 
-> 快速查閱 LLM 關鍵概念、公式、代碼片段和最佳實踐
+> 快速查閱 LLM 關鍵概念、公式、程式碼片段和最佳實踐
 
 ---
 
@@ -75,7 +75,7 @@ LayerNorm(x) = γ · (x - μ) / √(σ² + ε) + β
 | GPT-3.5 | ~175B | - | 4096 | 2022 |
 | GPT-4 | ~1.8T (MoE) | - | 32K/128K | 2023 |
 | GPT-4o | - | - | 128K | 2024 |
-| GPT-5 | - | - | 1M | 2025 |
+| GPT-5 (preview) | 未公開 | 未公開 | 標稱長 context | 2025/Q4 開始 preview，規格未官方完整發布 |
 
 ### 開源模型對比 (2024-2025)
 
@@ -165,7 +165,7 @@ FP16: 7B × 2 = 14 GB
 INT8: 7B × 1 = 7 GB
 ```
 
-### KV 緩存占用
+### KV 快取占用
 
 ```
 KV_cache = 2 × batch × seq_len × num_layers × d_model × bytes_per_element
@@ -197,15 +197,15 @@ Total = Model (FP16) + Gradients (FP16) + Optimizer States (FP32) + Activations
 
 ## ⚡ 注意力機制對比
 
-| 機制 | 時間復雜度 | 空間復雜度 | KV 緩存 | 推理加速 | 適用場景 |
+| 機制 | 時間復雜度 | 空間復雜度 | KV 快取 | 推理加速 | 適用場景 |
 |------|-----------|-----------|---------|---------|---------|
 | Standard MHA | O(n²d) | O(n²) | 100% | 1.0x | 通用 |
 | Flash Attention 2 | O(n²d) | O(n) | 100% | 5x | 訓練 |
 | Flash Attention 3 | O(n²d) | O(n) | 100% | 9x | H100 訓練 |
-| MQA | O(n²d) | O(n²) | 3% | 1.5x | 推理優化 |
+| MQA | O(n²d) | O(n²) | 3% | 1.5x | 推論優化 |
 | GQA (8組) | O(n²d) | O(n²) | 25% | 1.3x | 平衡 |
 | Sliding Window | O(nWd) | O(nW) | 100% | 1.0x | 長序列 |
-| Paged Attention | O(n²d) | O(n) | 100%* | 1.2x | 推理服務 |
+| Paged Attention | O(n²d) | O(n) | 100%* | 1.2x | 推論服務 |
 
 ---
 
@@ -213,7 +213,7 @@ Total = Model (FP16) + Gradients (FP16) + Optimizer States (FP32) + Activations
 
 ### 主流 Tokenizer
 
-| Tokenizer | 詞彙表大小 | 算法 | 使用模型 | 特點 |
+| Tokenizer | 詞彙表大小 | 演算法 | 使用模型 | 特點 |
 |-----------|-----------|------|---------|------|
 | GPT-2 BPE | 50,257 | BPE | GPT-2/3 | 字節級 BPE |
 | GPT-4 tiktoken | ~100,000 | BPE | GPT-4 | 更高效 |
@@ -234,7 +234,7 @@ Total = Model (FP16) + Gradients (FP16) + Optimizer States (FP32) + Activations
 1 字符 ≈ 1-2 tokens (取決於 tokenizer)
 ```
 
-### 代碼示例
+### 程式碼示例
 
 ```python
 from transformers import AutoTokenizer
@@ -256,7 +256,7 @@ num_tokens = len(tokens)
 
 ---
 
-## 🛠️ 常用代碼片段
+## 🛠️ 常用程式碼片段
 
 ### 加載預訓練模型
 
@@ -275,7 +275,7 @@ model = AutoModelForCausalLM.from_pretrained(
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 ```
 
-### 文本生成
+### 文字生成
 
 ```python
 # 準備輸入
@@ -398,7 +398,7 @@ results = [tokenizer.decode(output, skip_special_tokens=True)
 | Warmup Steps | 1-5% 總步數 | 線性增長 |
 | Weight Decay | 0.1 | AdamW 正則化 |
 | Gradient Clipping | 1.0 | 防止梯度爆炸 |
-| β₁, β₂ | 0.9, 0.95 | AdamW 默認 |
+| β₁, β₂ | 0.9, 0.95 | AdamW 預設 |
 
 ### 監督式微調 (SFT)
 
@@ -431,12 +431,12 @@ results = [tokenizer.decode(output, skip_special_tokens=True)
 
 ---
 
-## 🚀 推理優化技巧
+## 🚀 推論優化技巧
 
-### 1. KV 緩存
+### 1. KV 快取
 
 ```python
-# 啟用 KV 緩存加速自回歸生成
+# 啟用 KV 快取加速自回歸生成
 past_key_values = None
 
 for _ in range(max_new_tokens):
@@ -449,7 +449,7 @@ for _ in range(max_new_tokens):
     # 獲取下一個 token
     next_token = outputs.logits[:, -1, :].argmax(dim=-1, keepdim=True)
 
-    # 更新緩存
+    # 更新快取
     past_key_values = outputs.past_key_values
 
     # 只需要處理新 token
@@ -498,7 +498,7 @@ with torch.no_grad():
 | LLaMA 3 405B | 86.0 | 405B |
 | DeepSeek-V3 | 88.5 | 671B MoE |
 
-### 代碼生成 (HumanEval)
+### 程式碼生成 (HumanEval)
 
 | 模型 | Pass@1 | 參數規模 |
 |------|--------|---------|
@@ -516,7 +516,7 @@ with torch.no_grad():
 | o1-preview | 74.4 | 推理 |
 | o1 | 83.3 | 推理 |
 | Claude 3.5 Sonnet | 71.1 | 通用 |
-| DeepSeek-V3 | 90.2 | 通用 + 推理優化 |
+| DeepSeek-V3 | 90.2 | 通用 + 推論優化 |
 | DeepSeek-R1 | 79.8 | 推理 |
 
 ---
@@ -539,18 +539,18 @@ with torch.no_grad():
 
 | 場景 | 方法 | 成本 |
 |------|------|------|
-| 有大量數據 (>100B tokens) | 預訓練 | 極高 |
+| 有大量資料 (>100B tokens) | 預訓練 | 極高 |
 | 任務適配 (10K-100K 樣本) | SFT | 中 |
 | 領域適配 | LoRA | 低 |
 | 改善對話質量 | RLHF/DPO | 中-高 |
 | 提示工程 | 零樣本/少樣本 | 極低 |
 
-### Q: 如何減少推理延遲?
+### Q: 如何減少推論延遲?
 
 **方法優先級:**
 1. Flash Attention (5-9x)
 2. 量化 INT8/INT4 (2-4x)
-3. KV 緩存 (必須)
+3. KV 快取 (必須)
 4. 批次處理 (提升吞吐量)
 5. 投機解碼 (2-3x)
 6. 使用推理框架 (vLLM, TensorRT-LLM)
@@ -581,7 +581,7 @@ with torch.no_grad():
 1. ✅ 理解 Transformer 架構
 2. ✅ 掌握注意力機制原理
 3. ✅ 學會使用 Hugging Face
-4. ✅ 實現簡單的文本生成
+4. ✅ 實現簡單的文字生成
 5. ✅ 了解 tokenization
 
 ### 進階 (3-6 個月)
@@ -590,14 +590,14 @@ with torch.no_grad():
 2. ✅ 理解訓練流程 (SFT, RLHF)
 3. ✅ 掌握提示工程
 4. ✅ 學習 RAG 技術
-5. ✅ 部署推理服務
+5. ✅ 部署推論服務
 
 ### 專家 (6+ 個月)
 
 1. ✅ 從零預訓練小型模型
 2. ✅ 實現自定義架構改進
 3. ✅ 分佈式訓練優化
-4. ✅ 深入推理優化
+4. ✅ 深入推論優化
 5. ✅ 貢獻開源項目
 
 ---
@@ -624,7 +624,7 @@ with torch.no_grad():
 ### 實用工具
 - **模型下載**: Hugging Face Hub, ModelScope
 - **訓練框架**: Axolotl, TRL, LLaMA-Factory
-- **推理服務**: vLLM, TGI, TensorRT-LLM
+- **推論服務**: vLLM, TGI, TensorRT-LLM
 - **監控工具**: Weights & Biases, TensorBoard
 
 ---
@@ -640,4 +640,4 @@ with torch.no_grad():
 
 **最後更新**: 2025-01
 
-**說明**: 本速查表包含 LLM 領域的核心概念和實用信息,建議收藏備用。
+**說明**: 本速查表包含 LLM 領域的核心概念和實用資訊,建議收藏備用。

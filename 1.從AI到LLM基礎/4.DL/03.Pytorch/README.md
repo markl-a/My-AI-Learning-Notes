@@ -19,7 +19,7 @@ PyTorch 是目前深度學習研究和生產的主流框架之一,以其靈活�
   - 資料處理完整教程
   - 訓練循環示例
 - ✅ **DataLoader 和 Dataset 實戰教程** - 深度解析! 📊
-- ✅ **常用層和損失函數詳解** - 完整參考! 🔧
+- ✅ **常用層和損失函式詳解** - 完整參考! 🔧
 - ✅ **訓練技巧和最佳實踐** - 實用技能! ⚡
 
 **已完成的內容：**
@@ -57,7 +57,7 @@ PyTorch 是目前深度學習研究和生產的主流框架之一,以其靈活�
 **檔案位置：** `0.PyTorch基礎教程/`
 
 #### 0.1 PyTorch 基礎 (PyTorch_Basics.ipynb)
-- ✅ Tensor 創建與初始化
+- ✅ Tensor 建立與初始化
 - ✅ Tensor 運算（加減乘除、矩陣運算）
 - ✅ Tensor 形狀操作（reshape, view, transpose、squeeze、unsqueeze）
 - ✅ 索引與切片
@@ -70,29 +70,29 @@ PyTorch 是目前深度學習研究和生產的主流框架之一,以其靈活�
 
 #### 0.2 DataLoader 和 Dataset 實戰 (DataLoader_Dataset_Tutorial.ipynb)
 - ✅ 自定義 Dataset
-- ✅ TensorDataset 快速創建
+- ✅ TensorDataset 快速建立
 - ✅ 自定義圖像 Dataset
 - ✅ DataLoader 詳解（batch_size、shuffle、num_workers等）
 - ✅ 自定義 collate_fn
 - ✅ 資料增強 (torchvision.transforms)
 - ✅ 自定義變換
 - ✅ MNIST 完整實戰示例
-- ✅ WeightedRandomSampler - 處理不平衡數據
+- ✅ WeightedRandomSampler - 處理不平衡資料
 - ✅ 效能優化技巧
 
-#### 0.3 常用層和損失函數詳解 (Common_Layers_and_Loss_Functions.ipynb)
+#### 0.3 常用層和損失函式詳解 (Common_Layers_and_Loss_Functions.ipynb)
 - ✅ Linear 層
 - ✅ 卷積層（Conv2d、Conv1d、ConvTranspose2d）
 - ✅ 池化層（MaxPool、AvgPool、AdaptiveAvgPool）
 - ✅ 正規化層（BatchNorm、LayerNorm、GroupNorm）
 - ✅ Dropout 層
-- ✅ 激活函數大全（ReLU、GELU、SiLU等）
+- ✅ 激活函式大全（ReLU、GELU、SiLU等）
 - ✅ 循環層（LSTM、GRU）
 - ✅ 注意力機制（MultiheadAttention、Transformer）
 - ✅ 分類損失（CrossEntropyLoss、BCELoss等）
 - ✅ 回歸損失（MSELoss、L1Loss等）
 - ✅ 進階損失（FocalLoss、TripletLoss等）
-- ✅ 損失函數選擇指南
+- ✅ 損失函式選擇指南
 
 #### 0.4 訓練技巧和最佳實踐 (Training_Tips_and_Best_Practices.ipynb)
 - ✅ 標準訓練循環
@@ -155,7 +155,7 @@ PyTorch 是目前深度學習研究和生產的主流框架之一,以其靈活�
 - ⏳ Conv2d（卷積層）
 - ⏳ BatchNorm（批次正規化）
 - ⏳ Dropout
-- ⏳ 激活函數（ReLU, GELU, SiLU）
+- ⏳ 激活函式（ReLU, GELU, SiLU）
 
 #### 4.2 經典架構實作
 - ✅ ResNet（已完成）
@@ -181,11 +181,11 @@ PyTorch 是目前深度學習研究和生產的主流框架之一,以其靈活�
 ### ⚡ 5. 優化模組
 **狀態：規劃中**
 
-#### 5.1 損失函數
+#### 5.1 損失函式
 - ⏳ CrossEntropyLoss
 - ⏳ MSELoss
 - ⏳ BCELoss
-- ⏳ 自定義損失函數
+- ⏳ 自定義損失函式
 
 #### 5.2 優化器
 - ⏳ SGD
@@ -270,7 +270,7 @@ PyTorch 是目前深度學習研究和生產的主流框架之一,以其靈活�
 ### 💬 9. 自然語言處理專案
 **狀態：規劃中**
 
-#### 9.1 文本分類
+#### 9.1 文字分類
 - ⏳ 情感分析
 - ⏳ 新聞分類
 - ⏳ 垃圾郵件檢測
@@ -281,9 +281,9 @@ PyTorch 是目前深度學習研究和生產的主流框架之一,以其靈活�
 - ⏳ 命名實體識別（NER）
 
 #### 9.3 生成任務
-- ⏳ 文本生成
+- ⏳ 文字生成
 - ⏳ 機器翻譯
-- ⏳ 文本摘要
+- ⏳ 文字摘要
 
 ---
 
@@ -301,7 +301,7 @@ PyTorch 是目前深度學習研究和生產的主流框架之一,以其靈活�
 - ⏳ QLoRA（量化 LoRA）
 - ⏳ Adapter 方法
 
-#### 10.3 推理優化
+#### 10.3 推論優化
 - ⏳ 模型量化
 - ⏳ KV Cache 優化
 - ⏳ Flash Attention
@@ -358,7 +358,7 @@ model = MyModel()
 # 2. 編譯模型（PyTorch 2.0+）
 model = torch.compile(model)  # 自動優化！
 
-# 3. 設置優化器和損失函數
+# 3. 設置優化器和損失函式
 optimizer = optim.AdamW(model.parameters(), lr=1e-3)
 criterion = nn.CrossEntropyLoss()
 

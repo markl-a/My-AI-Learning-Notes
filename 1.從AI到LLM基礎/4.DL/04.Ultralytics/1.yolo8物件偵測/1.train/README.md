@@ -9,7 +9,7 @@
 
 ## 📖 簡介
 
-本目錄包含 **YOLO 系列模型**（YOLO11、YOLOv10、YOLOv9、YOLOv8）訓練的完整教學和範例代碼。我們提供兩種訓練方式：
+本目錄包含 **YOLO 系列模型**（YOLO11、YOLOv10、YOLOv9、YOLOv8）訓練的完整教學和範例程式碼。我們提供兩種訓練方式：
 
 1. **手動訓練** - 完全掌控訓練過程，支援所有 YOLO 版本
 2. **AutoDistill 自動訓練** - 使用大模型自動標註並訓練
@@ -138,7 +138,7 @@ results = model.train(
     imgsz=640,
     batch=32,  # 可以用更大的 batch
     amp=True,  # 自動混合精度
-    cache=True  # 快取數據
+    cache=True  # 快取資料
 )
 
 # YOLOv9 - 準確率優化配置
@@ -243,7 +243,7 @@ results = model.train(
     iou=0.7,                # NMS IoU 閾值
     max_det=300,            # 每張圖最大檢測數
 
-    # ===== 損失函數權重 =====
+    # ===== 損失函式權重 =====
     box=7.5,                # box loss gain
     cls=0.5,                # cls loss gain
     dfl=1.5,                # dfl loss gain
@@ -259,7 +259,7 @@ results = model.train(
 
 ### 5. 訓練腳本範例
 
-創建 `train_yolov8.py`：
+建立 `train_yolov8.py`：
 
 ```python
 #!/usr/bin/env python3

@@ -9,11 +9,11 @@
 #### 1. 古詩生成器 (Chinese Poetry Generator)
 **難度**: ⭐⭐
 **技術**: Character-level LSTM
-**數據集**: 唐詩三百首
+**資料集**: 唐詩三百首
 **學習目標**:
 - 字符級語言建模
 - 溫度參數調節
-- 文本預處理
+- 文字預處理
 
 **項目結構**:
 ```
@@ -38,9 +38,9 @@ python generate.py --prefix "春" --length 20
 #### 2. 電影評論情感分析 (Movie Review Sentiment Analysis)
 **難度**: ⭐⭐
 **技術**: BiLSTM + Attention
-**數據集**: IMDb 或自定義中文影評
+**資料集**: IMDb 或自定義中文影評
 **學習目標**:
-- 文本分類
+- 文字分類
 - 詞嵌入使用
 - 類別不平衡處理
 
@@ -67,7 +67,7 @@ sentiment_analysis/
 #### 3. FAQ問答機器人 (FAQ Chatbot)
 **難度**: ⭐⭐⭐
 **技術**: Seq2Seq
-**數據集**: 客服FAQ對話
+**資料集**: 客服FAQ對話
 **學習目標**:
 - 編碼器-解碼器架構
 - 問答匹配
@@ -91,7 +91,7 @@ faq_chatbot/
 #### 4. 新聞摘要生成 (News Summarization)
 **難度**: ⭐⭐⭐⭐
 **技術**: Seq2Seq + Attention
-**數據集**: CNN/DailyMail 或中文新聞
+**資料集**: CNN/DailyMail 或中文新聞
 **學習目標**:
 - 抽象式摘要
 - 注意力機制
@@ -111,7 +111,7 @@ news_summarizer/
 ```
 
 **挑戰**:
-- 處理長文本
+- 處理長文字
 - 避免生成重複
 - 保持摘要連貫性
 
@@ -120,7 +120,7 @@ news_summarizer/
 #### 5. 中文命名實體識別 (Chinese NER)
 **難度**: ⭐⭐⭐⭐
 **技術**: BiLSTM + CRF
-**數據集**: People's Daily NER
+**資料集**: People's Daily NER
 **學習目標**:
 - 序列標註
 - CRF層應用
@@ -150,7 +150,7 @@ chinese_ner/
 #### 6. 多類情感分析 (Multi-class Sentiment)
 **難度**: ⭐⭐⭐
 **技術**: Deep BiLSTM
-**數據集**: 商品評論
+**資料集**: 商品評論
 **學習目標**:
 - 多分類問題
 - 類別權重平衡
@@ -170,7 +170,7 @@ chinese_ner/
 #### 7. 多輪對話系統 (Multi-turn Dialog System)
 **難度**: ⭐⭐⭐⭐⭐
 **技術**: Hierarchical RNN + Attention
-**數據集**: Ubuntu Dialogue Corpus
+**資料集**: Ubuntu Dialogue Corpus
 **學習目標**:
 - 上下文管理
 - 層次化編碼
@@ -200,7 +200,7 @@ dialog_system/
 #### 8. 中英機器翻譯 (Chinese-English Translation)
 **難度**: ⭐⭐⭐⭐⭐
 **技術**: Seq2Seq + Attention + Beam Search
-**數據集**: WMT Chinese-English
+**資料集**: WMT Chinese-English
 **學習目標**:
 - 機器翻譯全流程
 - 注意力機制
@@ -227,17 +227,17 @@ translation/
 
 ---
 
-#### 9. 代碼生成器 (Code Generation)
+#### 9. 程式碼生成器 (Code Generation)
 **難度**: ⭐⭐⭐⭐⭐
 **技術**: Attention-based Seq2Seq
-**數據集**: CodeSearchNet
+**資料集**: CodeSearchNet
 **學習目標**:
-- 從註釋生成代碼
+- 從註釋生成程式碼
 - 結構化輸出
 - 語法約束
 
 **輸入**: 自然語言描述
-**輸出**: Python/Java代碼
+**輸出**: Python/Java程式碼
 
 ---
 
@@ -245,11 +245,11 @@ translation/
 
 ### data_processor.py
 ```python
-# 通用數據預處理工具
-- 文本清洗
+# 通用資料預處理工具
+- 文字清洗
 - 分詞
 - 詞表構建
-- 數據增強
+- 資料增強
 ```
 
 ### trainer.py
@@ -275,7 +275,7 @@ translation/
 
 ### 如果你是初學者...
 從 **古詩生成器** 或 **電影評論情感分析** 開始：
-- 數據量小，訓練快
+- 資料量小，訓練快
 - 概念清晰
 - 容易看到效果
 
@@ -288,7 +288,7 @@ translation/
 ### 如果你想挑戰自己...
 選擇 **多輪對話系統** 或 **機器翻譯**：
 - 需要綜合運用多種技術
-- 數據處理更複雜
+- 資料處理更複雜
 - 有很大優化空間
 
 ---
@@ -300,10 +300,10 @@ translation/
 - 確定輸入輸出格式
 - 選擇評估指標
 
-### 2. 數據準備
-- 收集數據
-- 探索性數據分析(EDA)
-- 數據清洗和預處理
+### 2. 資料準備
+- 收集資料
+- 探索性資料分析(EDA)
+- 資料清洗和預處理
 - 劃分訓練/驗證/測試集
 
 ### 3. 模型設計
@@ -331,11 +331,11 @@ translation/
 
 ## 🤖 AI 輔助開發技巧
 
-### 使用AI幫助代碼開發
+### 使用AI幫助程式碼開發
 ```
 提示詞示例：
 "幫我實現一個BiLSTM情感分析模型的forward函數"
-"這段代碼的時間複雜度是多少？如何優化？"
+"這段程式碼的時間複雜度是多少？如何優化？"
 "為這個NER模型添加CRF層"
 ```
 
@@ -357,14 +357,14 @@ translation/
 
 ## 📊 項目評估標準
 
-### 代碼質量
-- [ ] 代碼結構清晰
+### 程式碼品質
+- [ ] 程式碼結構清晰
 - [ ] 有適當的註釋
 - [ ] 遵循PEP 8規範
 - [ ] 模塊化設計
 
 ### 功能完整性
-- [ ] 數據預處理完整
+- [ ] 資料預處理完整
 - [ ] 訓練流程穩定
 - [ ] 評估方法正確
 - [ ] 可視化清晰
@@ -427,7 +427,7 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 
 ## 🔗 資源鏈接
 
-### 數據集
+### 資料集
 - [唐詩三百首](https://github.com/chinese-poetry/chinese-poetry)
 - [IMDb Reviews](http://ai.stanford.edu/~amaas/data/sentiment/)
 - [People's Daily NER](https://github.com/OYE93/Chinese-NLP-Corpus)
@@ -438,7 +438,7 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 - [GloVe](https://nlp.stanford.edu/projects/glove/)
 
 ### 工具
-- [HuggingFace](https://huggingface.co/)
+- [Hugging Face](https://huggingface.co/)
 - [Weights & Biases](https://wandb.ai/)
 - [TensorBoard](https://www.tensorflow.org/tensorboard)
 

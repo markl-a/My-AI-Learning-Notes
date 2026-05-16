@@ -57,7 +57,7 @@ chmod +x scripts/deploy.sh
 ### 2. 手動設置
 
 ```bash
-# 創建虛擬環境
+# 建立虛擬環境
 python3 -m venv venv
 source venv/bin/activate  # Linux/Mac
 # venv\Scripts\activate   # Windows
@@ -88,7 +88,7 @@ cp .env.example .env
 # 安裝依賴
 pip install -r requirements.txt
 
-# 運行開發服務器
+# 運行開發伺服器
 uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 
 # 訪問 API 文檔
@@ -173,9 +173,9 @@ docker-compose up -d
 
 ## ☸️ Kubernetes 部署
 
-### 準備配置文件
+### 準備設定檔
 
-創建 `k8s/deployment.yaml`:
+建立 `k8s/deployment.yaml`:
 
 ```yaml
 apiVersion: apps/v1
@@ -227,7 +227,7 @@ spec:
 ### 部署到 Kubernetes
 
 ```bash
-# 創建 Secret
+# 建立 Secret
 kubectl create secret generic openai-secret \
   --from-literal=api-key=your_openai_api_key
 
@@ -267,7 +267,7 @@ docker tag rag-chatbot:latest \
 
 docker push your-account.dkr.ecr.us-east-1.amazonaws.com/rag-chatbot:latest
 
-# 2. 創建 ECS 任務定義和服務
+# 2. 建立 ECS 任務定義和服務
 # 使用 AWS 控制台或 Terraform
 ```
 
@@ -444,7 +444,7 @@ kubectl rollout undo deployment/rag-chatbot --to-revision=2
 ### 使用部署腳本回滾
 
 ```bash
-# 部署腳本會自動創建備份
+# 部署腳本會自動建立備份
 # 如果健康檢查失敗，會提示是否回滾
 
 ./scripts/deploy.sh production rag-chatbot
@@ -471,7 +471,7 @@ kubectl autoscale deployment rag-chatbot \
 
 ### 性能優化
 
-1. **啟用緩存**
+1. **啟用快取**
    ```env
    ENABLE_CACHE=true
    CACHE_TTL=3600
@@ -479,7 +479,7 @@ kubectl autoscale deployment rag-chatbot \
 
 2. **使用 CDN**（用於靜態資源）
 
-3. **數據庫優化**
+3. **資料庫優化**
    - 使用持久化卷
    - 定期備份
    - 優化查詢
@@ -490,7 +490,7 @@ kubectl autoscale deployment rag-chatbot \
 
 ## 🔒 安全最佳實踐
 
-1. **永遠不要在代碼中硬編碼密鑰**
+1. **永遠不要在程式碼中硬編碼密鑰**
 2. **使用 Secret 管理服務**（AWS Secrets Manager、Vault等）
 3. **啟用 HTTPS**
 4. **限制 CORS**

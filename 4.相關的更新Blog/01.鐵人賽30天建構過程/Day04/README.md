@@ -15,7 +15,7 @@ LLM通常基於Transformer架構，其中特別採用了僅使用解碼器的設
 - [[1hr Talk] Intro to Large Language Models](https://youtu.be/zjkBMFhNj_g?si=VnNOE1gggtAhxTDn): 大型語言模型的簡介講座。
 
 #### 3. **標記化 Tokenization**
-將原始文本資料轉換為模型可以理解的格式，即token。這過程包括將文本拆分為標記（通常是單字或子單字）。
+將原始文字資料轉換為模型可以理解的格式，即token。這過程包括將文字拆分為標記（通常是單字或子單字）。
 
 **參考資料**：
 - [Let's build the GPT Tokenizer](https://youtu.be/zduSFxRajkE?si=IhIuECg3ZSGHRtWT): 解釋如何構建GPT分詞器。
@@ -27,10 +27,10 @@ LLM通常基於Transformer架構，其中特別採用了僅使用解碼器的設
 - [動手深度學習-注意力機制](https://zh.d2l.ai/chapter_attention-mechanisms/index.html): 詳細介紹注意力機制的理論和實現。
 
 #### 5. **文字生成**
-模型使用不同的策略生成文本輸出。常見策略包括貪婪解碼、波束搜尋、top-k 採樣和核採樣。
+模型使用不同的策略生成文字輸出。常見策略包括貪婪解碼、波束搜尋、top-k 採樣和核採樣。
 
 **參考資料**：
-- [如何生成文本: 通过 Transformers 用不同的解码方法生成文本](https://huggingface.co/blog/zh/how-to-generate): 介紹各種文本生成策略及其實現。
+- [如何生成文字: 通过 Transformers 用不同的解码方法生成文字](https://huggingface.co/blog/zh/how-to-generate): 介紹各種文字生成策略及其實現。
 
 #### 6. **學習資源**
 為了更深入理解LLM的架構和應用，可以參考以下資源：

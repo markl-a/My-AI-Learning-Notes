@@ -1,6 +1,9 @@
 # 推論優化 (Inference Optimization)
 
 > 完整的 LLM 推論優化學習資源，包含理論知識、實作範例和 AI 輔助工具
+>
+> 📌 **硬體底層**請見 [`../../11.AI_Hardware_Compute/`](../../11.AI_Hardware_Compute/README.md)
+> **模型壓縮 / 量化技術詳解**請見 [`../../2.深入LLM模型工程與LLM運維/7.模型壓縮與優化/量化與推論優化技術詳解.md`](../../2.深入LLM模型工程與LLM運維/7.模型壓縮與優化/量化與推論優化技術詳解.md)
 
 ## 📋 目錄
 
@@ -127,7 +130,7 @@ LLM 推論優化是將大型語言模型高效部署到生產環境的關鍵技�
 │   ├── README.md                       # vLLM 完整指南
 │   ├── requirements.txt
 │   ├── 01_vllm_basic.py                # 基礎部署
-│   ├── 02_vllm_api_server.py           # API 服務器
+│   ├── 02_vllm_api_server.py           # API 伺服器
 │   ├── 03_vllm_benchmark.py            # 效能測試
 │   └── 04_vllm_advanced.py             # 進階配置
 ├── 5.效能對比測試/
@@ -242,7 +245,7 @@ LLM 推論優化是將大型語言模型高效部署到生產環境的關鍵技�
 ### Q2: KV Cache 什麼時候應該禁用？
 
 **答**：
-- 短文本生成（<50 tokens）
+- 短文字生成（<50 tokens）
 - 記憶體極度受限時
 - 單次生成場景（無對話上下文）
 
@@ -264,11 +267,11 @@ LLM 推論優化是將大型語言模型高效部署到生產環境的關鍵技�
 ### 推薦工具
 
 - **[vLLM](https://github.com/vllm-project/vllm)**：高性能推論引擎
-- **[Text Generation Inference](https://github.com/huggingface/text-generation-inference)**：HuggingFace 推論服務
+- **[Text Generation Inference](https://github.com/huggingface/text-generation-inference)**：Hugging Face 推論服務
 - **[llama.cpp](https://github.com/ggerganov/llama.cpp)**：CPU 推論優化
 - **[AutoGPTQ](https://github.com/PanQiWei/AutoGPTQ)**：GPTQ 量化
 - **[AutoAWQ](https://github.com/casper-hansen/AutoAWQ)**：AWQ 量化
-- **[Optimum](https://huggingface.co/docs/optimum)**：HuggingFace 優化工具集
+- **[Optimum](https://huggingface.co/docs/optimum)**：Hugging Face 優化工具集
 
 ### 學習資源
 

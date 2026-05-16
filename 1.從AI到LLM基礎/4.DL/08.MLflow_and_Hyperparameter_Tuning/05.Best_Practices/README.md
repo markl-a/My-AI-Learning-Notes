@@ -128,7 +128,7 @@ mlflow.log_params({
 ```python
 # 使用前綴分組相關參數
 mlflow.log_params({
-    # 數據相關
+    # 資料相關
     "data_train_size": 10000,
     "data_val_size": 2000,
     "data_test_size": 2000,
@@ -256,7 +256,7 @@ client.update_model_version(
 )
 ```
 
-### 2. 記錄模型元數據
+### 2. 記錄模型元資料
 
 ```python
 with mlflow.start_run():
@@ -280,7 +280,7 @@ with mlflow.start_run():
     if hasattr(model, 'n_estimators'):
         mlflow.log_param("n_estimators", model.n_estimators)
 
-    # 記錄訓練數據資訊
+    # 記錄訓練資料資訊
     mlflow.log_params({
         "n_training_samples": len(X_train),
         "n_features": X_train.shape[1],
@@ -303,7 +303,7 @@ def compare_models(model_name, versions):
         # 評估模型
         metrics = evaluate_model(model, X_test, y_test)
 
-        # 獲取模型元數據
+        # 獲取模型元資料
         model_version = client.get_model_version(model_name, version)
 
         results.append({
@@ -340,7 +340,7 @@ for i, acc in enumerate(fold_accuracies):
 ### 2. 使用 Autolog
 
 ```python
-# 啟用自動記錄，減少手動代碼
+# 啟用自動記錄，減少手動程式碼
 import mlflow.sklearn
 import mlflow.tensorflow
 import mlflow.pytorch
@@ -464,12 +464,12 @@ template.run_experiment(
 )
 ```
 
-### 3. 代碼審查檢查清單
+### 3. 程式碼審查檢查清單
 
-創建實驗代碼審查檢查清單：
+建立實驗程式碼審查檢查清單：
 
 ```markdown
-## MLflow 實驗代碼審查檢查清單
+## MLflow 實驗程式碼審查檢查清單
 
 ### 必須項
 - [ ] 使用有意義的實驗名稱
@@ -480,7 +480,7 @@ template.run_experiment(
 - [ ] 添加適當的標籤
 
 ### 推薦項
-- [ ] 記錄數據版本/hash
+- [ ] 記錄資料版本/hash
 - [ ] 記錄環境資訊
 - [ ] 使用模型簽名
 - [ ] 添加模型描述
@@ -490,7 +490,7 @@ template.run_experiment(
 ### 高級項
 - [ ] 使用嵌套 runs 組織複雜實驗
 - [ ] 實施錯誤處理
-- [ ] 記錄完整的配置文件
+- [ ] 記錄完整的設定檔
 - [ ] 添加單元測試
 ```
 
@@ -679,17 +679,17 @@ mlflow.set_tag("api_key_source", "env_var")
 mlflow.set_tag("db_host", os.getenv("DB_HOST"))  # 只記錄主機名，不記錄密碼
 ```
 
-### 2. 數據隱私
+### 2. 資料隱私
 
 ```python
-# 記錄數據統計而非原始數據
+# 記錄資料統計而非原始資料
 mlflow.log_params({
     "n_samples": len(data),
     "n_features": data.shape[1],
     "data_hash": hashlib.sha256(str(data).encode()).hexdigest()
 })
 
-# 不要記錄原始數據
+# 不要記錄原始資料
 # mlflow.log_artifact("sensitive_data.csv")  # 錯誤
 ```
 
@@ -701,6 +701,6 @@ mlflow.log_params({
 2. **可重現性**：確保所有實驗都可以完全重現
 3. **協作性**：促進團隊成員之間的協作
 4. **生產就緒**：確保模型可以安全地部署到生產環境
-5. **可維護性**：使代碼和實驗易於維護和擴展
+5. **可維護性**：使程式碼和實驗易於維護和擴展
 
 記住：好的實踐需要時間建立，但長期來看會大大提高工作效率！

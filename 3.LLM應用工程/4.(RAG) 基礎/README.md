@@ -12,15 +12,15 @@
 
 ### 什麼是 RAG？
 
-RAG (Retrieval-Augmented Generation) 是一種結合資訊檢索和文本生成的技術，透過從外部知識庫檢索相關資訊來增強 LLM 的回答能力。
+RAG (Retrieval-Augmented Generation) 是一種結合資訊檢索和文字生成的技術，透過從外部知識庫檢索相關資訊來增強 LLM 的回答能力。
 
 ### 為什麼需要 RAG？
 
 **LLM 的局限性**：
-1. **知識截止**：只能回答訓練數據截止日期前的問題
+1. **知識截止**：只能回答訓練資料截止日期前的問題
 2. **幻覺問題**：可能生成事實錯誤的內容
 3. **缺乏專業知識**：對特定領域的深度知識有限
-4. **無法訪問私有數據**：無法利用公司內部文檔
+4. **無法訪問私有資料**：無法利用公司內部文檔
 
 **RAG 的優勢**：
 1. **實時更新**：可以檢索最新資訊
@@ -45,7 +45,7 @@ RAG (Retrieval-Augmented Generation) 是一種結合資訊檢索和文本生成�
 
 #### 1. Embeddings (嵌入向量)
 
-**定義**：將文本轉換為固定長度的數值向量，語義相似的文本會有相近的向量表示。
+**定義**：將文字轉換為固定長度的數值向量，語義相似的文字會有相近的向量表示。
 
 **常用模型**：
 - **OpenAI Embeddings**：`text-embedding-ada-002`
@@ -60,7 +60,7 @@ RAG (Retrieval-Augmented Generation) 是一種結合資訊檢索和文本生成�
 
 #### 2. 向量資料庫 (Vector Database)
 
-**功能**：高效存儲和檢索向量數據
+**功能**：高效存儲和檢索向量資料
 
 **檢索方法**：
 - **暴力搜索 (Brute Force)**：精確但慢
@@ -94,7 +94,7 @@ RAG (Retrieval-Augmented Generation) 是一種結合資訊檢索和文本生成�
 - HTML
 - JSON
 - CSV
-- 純文本
+- 純文字
 
 **載入工具**：
 - **LangChain Document Loaders**
@@ -102,7 +102,7 @@ RAG (Retrieval-Augmented Generation) 是一種結合資訊檢索和文本生成�
 - **python-docx**：Word 文檔
 - **BeautifulSoup**：HTML 解析
 
-### 文本拆分策略
+### 文字拆分策略
 
 **為什麼需要拆分？**
 - LLM 上下文長度限制
@@ -113,7 +113,7 @@ RAG (Retrieval-Augmented Generation) 是一種結合資訊檢索和文本生成�
 
 1. **固定長度拆分**：
    - 簡單但可能切斷語義
-   - 適合結構簡單的文本
+   - 適合結構簡單的文字
 
 2. **遞歸字符拆分**：
    - 按段落、句子、單詞遞歸拆分
@@ -130,7 +130,7 @@ RAG (Retrieval-Augmented Generation) 是一種結合資訊檢索和文本生成�
 **最佳實踐**：
 - `chunk_size`: 200-1000 tokens
 - `chunk_overlap`: 10-20% of chunk_size
-- 保留文檔元數據（來源、頁碼等）
+- 保留文檔元資料（來源、頁碼等）
 
 ---
 
@@ -152,7 +152,7 @@ RAG (Retrieval-Augmented Generation) 是一種結合資訊檢索和文本生成�
 - **簡單易用**：最小化配置
 - **本地運行**：無需外部服務
 - **持久化**：支持磁盤存儲
-- **查詢靈活**：支持元數據過濾
+- **查詢靈活**：支持元資料過濾
 
 ### Pinecone 特點
 
@@ -181,12 +181,12 @@ import numpy as np
 # 載入模型
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
-# 文本列表
+# 文字列表
 documents = [
     "機器學習是人工智慧的一個分支",
     "深度學習使用多層神經網絡",
     "自然語言處理幫助計算機理解人類語言",
-    "計算機視覺處理圖像和視頻數據"
+    "計算機視覺處理圖像和影片資料"
 ]
 
 # 生成嵌入向量
@@ -227,7 +227,7 @@ pdf_documents = pdf_loader.load()
 print(f"載入了 {len(pdf_documents)} 頁")
 print(f"第一頁內容預覽: {pdf_documents[0].page_content[:200]}...")
 
-# 2. 載入目錄中的所有文本文件
+# 2. 載入目錄中的所有文字文件
 directory_loader = DirectoryLoader(
     "./documents",
     glob="**/*.txt",
@@ -235,9 +235,9 @@ directory_loader = DirectoryLoader(
 )
 txt_documents = directory_loader.load()
 
-print(f"\n載入了 {len(txt_documents)} 個文本文件")
+print(f"\n載入了 {len(txt_documents)} 個文字文件")
 
-# 3. 文本拆分
+# 3. 文字拆分
 text_splitter = RecursiveCharacterTextSplitter(
     chunk_size=500,  # 每塊最大字符數
     chunk_overlap=50,  # 重疊字符數
@@ -251,7 +251,7 @@ chunks = text_splitter.split_documents(pdf_documents + txt_documents)
 print(f"\n拆分後共有 {len(chunks)} 個塊")
 print(f"\n第一個塊:")
 print(f"內容: {chunks[0].page_content[:200]}...")
-print(f"元數據: {chunks[0].metadata}")
+print(f"元資料: {chunks[0].metadata}")
 ```
 
 ### 4.4.3 使用 Chroma 建立向量資料庫
@@ -262,7 +262,7 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.document_loaders import TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
-# 1. 準備數據
+# 1. 準備資料
 loader = TextLoader("knowledge_base.txt")
 documents = loader.load()
 
@@ -277,14 +277,14 @@ embeddings = HuggingFaceEmbeddings(
     model_name="all-MiniLM-L6-v2"
 )
 
-# 3. 創建向量資料庫
+# 3. 建立向量資料庫
 vectorstore = Chroma.from_documents(
     documents=chunks,
     embedding=embeddings,
     persist_directory="./chroma_db"  # 持久化路徑
 )
 
-print(f"向量資料庫已創建，包含 {len(chunks)} 個文檔塊")
+print(f"向量資料庫已建立，包含 {len(chunks)} 個文檔塊")
 
 # 4. 保存資料庫（可選，因為已指定 persist_directory）
 vectorstore.persist()
@@ -304,7 +304,7 @@ print("\n檢索結果:")
 for i, doc in enumerate(results, 1):
     print(f"\n--- 結果 {i} ---")
     print(doc.page_content)
-    print(f"元數據: {doc.metadata}")
+    print(f"元資料: {doc.metadata}")
 
 # 7. 帶分數的相似度搜索
 results_with_scores = vectorstore.similarity_search_with_score(query, k=3)
@@ -331,7 +331,7 @@ vectorstore = Chroma(
     embedding_function=embeddings
 )
 
-# 2. 創建檢索器
+# 2. 建立檢索器
 retriever = vectorstore.as_retriever(
     search_type="similarity",
     search_kwargs={"k": 3}  # 返回前3個最相關的文檔
@@ -351,10 +351,10 @@ QA_PROMPT = PromptTemplate(
     input_variables=["context", "question"]
 )
 
-# 4. 創建 LLM
+# 4. 建立 LLM
 llm = OpenAI(temperature=0)
 
-# 5. 創建 RAG 鏈
+# 5. 建立 RAG 鏈
 qa_chain = RetrievalQA.from_chain_type(
     llm=llm,
     chain_type="stuff",
@@ -393,17 +393,17 @@ documents = loader.load()
 text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
 chunks = text_splitter.split_documents(documents)
 
-# 創建向量存儲
+# 建立向量存儲
 embeddings = HuggingFaceEmbeddings()
 vectorstore = FAISS.from_documents(chunks, embeddings)
 
-# 創建對話記憶
+# 建立對話記憶
 memory = ConversationBufferMemory(
     memory_key="chat_history",
     return_messages=True
 )
 
-# 創建對話 RAG 鏈
+# 建立對話 RAG 鏈
 qa = ConversationalRetrievalChain.from_llm(
     ChatOpenAI(temperature=0),
     vectorstore.as_retriever(),
@@ -443,7 +443,7 @@ class CustomRAG:
             persist_directory="./custom_chroma_db"
         ))
 
-        # 獲取或創建集合
+        # 獲取或建立集合
         self.collection = self.client.get_or_create_collection(
             name=collection_name
         )
@@ -497,7 +497,7 @@ class CustomRAG:
 
 回答:"""
 
-        # 調用 LLM
+        # 呼叫 LLM
         answer = llm_func(prompt)
 
         return {
@@ -511,8 +511,8 @@ rag = CustomRAG()
 
 # 添加知識
 documents = [
-    "機器學習是人工智慧的一個分支，通過數據學習模式。",
-    "深度學習使用多層神經網絡來學習複雜的數據表示。",
+    "機器學習是人工智慧的一個分支，通過資料學習模式。",
+    "深度學習使用多層神經網絡來學習複雜的資料表示。",
     "自然語言處理幫助計算機理解和生成人類語言。"
 ]
 
@@ -537,7 +537,7 @@ from ragas.metrics import (
     context_recall
 )
 
-# 準備評估數據
+# 準備評估資料
 eval_data = {
     "question": ["什麼是機器學習？", "深度學習的應用有哪些？"],
     "answer": ["機器學習是...", "深度學習應用包括..."],
@@ -573,11 +573,11 @@ print(result)
 
 #### 1. 基礎嵌入向量 (`1_basic_embeddings.py`)
 
-展示如何使用 Sentence Transformers 生成文本嵌入向量並計算相似度。
+展示如何使用 Sentence Transformers 生成文字嵌入向量並計算相似度。
 
 **功能**：
 - 載入預訓練嵌入模型
-- 生成文本嵌入向量
+- 生成文字嵌入向量
 - 計算餘弦相似度
 - 語義搜索演示
 - 多語言嵌入向量
@@ -592,9 +592,9 @@ python 1_basic_embeddings.py
 展示如何載入和拆分不同格式的文檔。
 
 **功能**：
-- 文本拆分器（固定長度、遞歸拆分）
+- 文字拆分器（固定長度、遞歸拆分）
 - 多格式文檔載入（TXT, JSON, Markdown）
-- 元數據保留
+- 元資料保留
 - 智能斷句
 
 **運行**：
@@ -628,7 +628,7 @@ python 3_vector_databases.py
 - 文檔自動拆分和向量化
 - 向量存儲和檢索
 - 基於上下文的答案生成
-- 來源引用和元數據
+- 來源引用和元資料
 - 自定義知識庫構建
 
 **運行**：
@@ -660,9 +660,9 @@ python 5_advanced_rag_techniques.py
 - 多格式文檔載入（TXT, JSON, MD）
 - 目錄批量載入
 - 對話記憶功能
-- 元數據過濾
+- 元資料過濾
 - 置信度評分
-- 統計信息
+- 統計資訊
 
 **運行**：
 ```bash
@@ -690,7 +690,7 @@ python <範例文件名>.py
 ### 範例特點
 
 ✅ **完全可運行**：所有範例都經過測試，可以直接運行
-✅ **詳細註釋**：代碼包含詳細的中文註釋
+✅ **詳細註釋**：程式碼包含詳細的中文註釋
 ✅ **逐步演示**：從基礎到進階，循序漸進
 ✅ **實用性強**：可以作為實際項目的起點
 ✅ **AI 輔助**：集成 AI 模型進行智能問答
@@ -715,12 +715,12 @@ python <範例文件名>.py
    - 多輪對話支持
    - 上下文壓縮
    - 自動摘要
-   - 多模態檢索（文本 + 圖像）
+   - 多模態檢索（文字 + 圖像）
 
 4. **優化性能**：
    - 批量處理
    - 異步檢索
-   - 緩存機制
+   - 快取機制
    - 分布式部署
 
 5. **添加用戶界面**：

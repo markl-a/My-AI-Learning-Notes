@@ -6,7 +6,7 @@
 
 1. [情感分析系統](#項目1-情感分析系統)
 2. [問答機器人](#項目2-問答機器人)
-3. [文本摘要應用](#項目3-文本摘要應用)
+3. [文字摘要應用](#項目3-文字摘要應用)
 4. [多語言翻譯工具](#項目4-多語言翻譯工具)
 5. [語音助手](#項目5-語音助手)
 
@@ -15,7 +15,7 @@
 ## 項目 1: 情感分析系統
 
 ### 項目目標
-構建一個能夠分析中文文本情感（正面/負面/中性）的系統。
+構建一個能夠分析中文文字情感（正面/負面/中性）的系統。
 
 ### 技術棧
 - BERT-base-chinese
@@ -25,13 +25,13 @@
 
 ### 實現步驟
 
-#### 1. 數據準備
+#### 1. 資料準備
 
 ```python
 from datasets import load_dataset, Dataset
 import pandas as pd
 
-# 載入或創建數據集
+# 載入或建立資料集
 def load_sentiment_data():
     # 方法 1: 從 Hugging Face Hub
     dataset = load_dataset("tyqiangz/multilingual-sentiments", "chinese")
@@ -60,7 +60,7 @@ model_name = "bert-base-chinese"
 model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=3)
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 
-# 數據預處理
+# 資料預處理
 def preprocess(examples):
     return tokenizer(examples["text"], truncation=True, padding="max_length", max_length=128)
 
@@ -109,10 +109,10 @@ def predict_sentiment(text):
         "信心度": f"{result['score']:.4f}"
     }
 
-# 創建 Gradio 界面
+# 建立 Gradio 界面
 demo = gr.Interface(
     fn=predict_sentiment,
-    inputs=gr.Textbox(label="輸入文本", placeholder="輸入要分析的文本..."),
+    inputs=gr.Textbox(label="輸入文字", placeholder="輸入要分析的文字..."),
     outputs=gr.JSON(label="分析結果"),
     title="中文情感分析系統",
     description="基於 BERT 的中文情感分析",
@@ -136,7 +136,7 @@ demo.launch()
 ### 技術棧
 - LLaMA 3 / Qwen 2.5
 - LangChain
-- FAISS (向量數據庫)
+- FAISS (向量資料庫)
 - Streamlit (UI)
 
 ### 實現步驟
@@ -168,7 +168,7 @@ text_splitter = RecursiveCharacterTextSplitter(
 docs = load_documents(["doc1.pdf", "doc2.txt"])
 splits = text_splitter.split_documents(docs)
 
-# 創建向量數據庫
+# 建立向量資料庫
 embeddings = HuggingFaceEmbeddings(model_name="BAAI/bge-large-zh-v1.5")
 vectorstore = FAISS.from_documents(splits, embeddings)
 vectorstore.save_local("./vectorstore")
@@ -190,7 +190,7 @@ llm_pipeline = pipeline(
 )
 llm = HuggingFacePipeline(pipeline=llm_pipeline)
 
-# 創建問答鏈
+# 建立問答鏈
 qa_chain = RetrievalQA.from_chain_type(
     llm=llm,
     chain_type="stuff",
@@ -249,10 +249,10 @@ if st.button("提問") and question:
 
 ---
 
-## 項目 3: 文本摘要應用
+## 項目 3: 文字摘要應用
 
 ### 項目目標
-自動生成長文本的摘要，支持新聞、文章、報告等。
+自動生成長文字的摘要，支持新聞、文章、報告等。
 
 ### 實現
 
@@ -278,13 +278,13 @@ def summarize_text(text, max_length=150, min_length=50):
 
 # Gradio 界面
 with gr.Blocks() as demo:
-    gr.Markdown("# 📝 智能文本摘要")
+    gr.Markdown("# 📝 智能文字摘要")
 
     with gr.Row():
         with gr.Column():
             input_text = gr.Textbox(
-                label="輸入文本",
-                placeholder="粘貼要摘要的長文本...",
+                label="輸入文字",
+                placeholder="粘貼要摘要的長文字...",
                 lines=15
             )
             max_length = gr.Slider(50, 300, value=150, label="最大長度")
@@ -354,7 +354,7 @@ def translate(text, source_lang, target_lang):
 demo = gr.Interface(
     fn=translate,
     inputs=[
-        gr.Textbox(label="輸入文本", lines=5),
+        gr.Textbox(label="輸入文字", lines=5),
         gr.Dropdown(choices=list(LANGUAGES.keys()), label="源語言"),
         gr.Dropdown(choices=list(LANGUAGES.keys()), label="目標語言"),
     ],
@@ -428,7 +428,7 @@ with gr.Blocks() as demo:
             submit_btn = gr.Button("提交", variant="primary")
 
         with gr.Column():
-            transcription_output = gr.Textbox(label="識別文本")
+            transcription_output = gr.Textbox(label="識別文字")
             response_output = gr.Textbox(label="助手回應")
             audio_output = gr.Audio(label="語音回應")
 
@@ -455,7 +455,7 @@ demo.launch()
 ### 2. 性能優化
 
 - 使用模型量化（GPTQ/AWQ）減少記憶體
-- 使用 vLLM 提高推理速度
+- 使用 vLLM 提高推論速度
 - 實現批次處理
 - 添加快取機制
 

@@ -19,13 +19,13 @@
     - 變異數 (Variance) 與標準差 (Standard Deviation)
     - 協方差 (Covariance) 與相關係數 (Correlation)
     - 向量與矩陣的協方差矩陣
-5. 機率論與信息論
-    - 資訊量 (Information) 與 自信息 (Self-Information)
+5. 機率論與資訊論
+    - 資訊量 (Information) 與 自資訊 (Self-Information)
     - 熵 (Entropy)
     - KL 散度 (Kullback-Leibler Divergence)
-    - 交叉熵 (Cross-Entropy) 與機器學習中常用的損失函數
+    - 交叉熵 (Cross-Entropy) 與機器學習中常用的損失函式
 6. 最大似然估計 (Maximum Likelihood Estimation, MLE) 與貝葉斯推論
-    - Likelihood 函數定義
+    - Likelihood 函式定義
     - MLE 的求解思路與範例（如高斯分佈參數估計）
     - Maximum A Posteriori (MAP) 估計
     - 全貝葉斯 (Full Bayesian) 推論概念
@@ -40,7 +40,7 @@
 8. 在機器學習與深度學習的應用
     - 機率模型在分類、回歸問題中的角色：預測輸出分佈與不確定性衡量
     - 確率性梯度下降 (Stochastic Gradient Descent) 的理論基礎與隨機取樣
-    - 使用最大似然原則來推導損失函數（如 cross-entropy 對應於訓練分類模型時最大化觀測資料的 likelihood）
+    - 使用最大似然原則來推導損失函式（如 cross-entropy 對應於訓練分類模型時最大化觀測資料的 likelihood）
     - 經驗分佈與訓練資料集：從資料估計分佈
     - 正則化 (Regularization) 與先驗分佈的關係
 9. 數值計算與機率計算的注意事項
@@ -55,7 +55,7 @@
 
 在機器學習與深度學習中，我們常面對不確定性。為了表達與處理不確定性，機率論 (Probability Theory) 是最自然的框架。透過機率，我們可以描述資料、模型參數與預測結果的不確定性。
 
-同時，統計學 (Statistics) 提供了從數據中估計模型參數、衡量不確定性並進行推論的工具。無論是簡單的線性回歸模型或是複雜的深度神經網路，機率與統計都是底層的支柱。
+同時，統計學 (Statistics) 提供了從資料中估計模型參數、衡量不確定性並進行推論的工具。無論是簡單的線性回歸模型或是複雜的深度神經網路，機率與統計都是底層的支柱。
 
 本章將回顧機率論與統計的基本概念，介紹常用的分佈模型、資訊理論以及最大似然估計等方法，並深入探討這些概念在機器學習實務中扮演的關鍵角色。
 
@@ -174,7 +174,7 @@ p(x) = (1 / √(2πσ²)) exp(-(x-μ)² / (2σ²))
 **性質**：
 - E[X] = μ
 - Var(X) = σ²
-- 68-95-99.7 法則：約 68% 數據在 μ±σ 範圍內
+- 68-95-99.7 法則：約 68% 資料在 μ±σ 範圍內
 
 **多變量高斯分佈** N(μ, Σ)：
 ```
@@ -236,14 +236,14 @@ p(x) = Σᵢ πᵢ N(x | μᵢ, Σᵢ)
 
 ### 3.6 經驗分佈 (Empirical Distribution)
 
-給定訓練數據 {x₁, x₂, ..., xₙ}，經驗分佈定義為：
+給定訓練資料 {x₁, x₂, ..., xₙ}，經驗分佈定義為：
 ```
 p̂(x) = (1/n) Σᵢ δ(x - xᵢ)
 ```
 
 其中 δ 為 Dirac delta 函數。
 
-**意義**：訓練集可視為真實數據分佈的經驗估計，最小化訓練誤差等價於最小化與經驗分佈的期望損失。
+**意義**：訓練集可視為真實資料分佈的經驗估計，最小化訓練誤差等價於最小化與經驗分佈的期望損失。
 
 ## 4. 數值特徵：期望值、變異數、協方差
 
@@ -340,27 +340,27 @@ Cov(X, Y) = E[(X - E[X])(Y - E[Y])] = E[XY] - E[X]E[Y]
 - 白化 (Whitening) 變換
 - 馬氏距離 (Mahalanobis Distance) 計算
 
-## 5. 機率論與信息論
+## 5. 機率論與資訊論
 
-信息論提供了量化不確定性和信息量的數學框架，在機器學習中扮演核心角色。
+資訊論提供了量化不確定性和資訊量的數學框架，在機器學習中扮演核心角色。
 
-### 5.1 自信息 (Self-Information)
+### 5.1 自資訊 (Self-Information)
 
-事件 x 的自信息定義為：
+事件 x 的自資訊定義為：
 ```
 I(x) = -log P(x) = log(1/P(x))
 ```
 
 **直覺理解**：
-- 概率越小的事件，發生時攜帶的信息量越大
-- P(x) = 1（確定事件）→ I(x) = 0（無信息）
-- P(x) → 0（罕見事件）→ I(x) → ∞（大量信息）
+- 概率越小的事件，發生時攜帶的資訊量越大
+- P(x) = 1（確定事件）→ I(x) = 0（無資訊）
+- P(x) → 0（罕見事件）→ I(x) → ∞（大量資訊）
 
 通常使用 log₂（單位為 bit）或 ln（單位為 nat）。
 
 ### 5.2 熵 (Entropy)
 
-熵是自信息的期望值，衡量隨機變數的平均不確定性：
+熵是自資訊的期望值，衡量隨機變數的平均不確定性：
 
 ```
 H(X) = E[I(X)] = -Σₓ P(x) log P(x) = -E[log P(X)]
@@ -391,9 +391,9 @@ H(X,Y) = -Σₓ,ᵧ P(x,y) log P(x,y)
 H(X,Y) = H(X) + H(Y|X) = H(Y) + H(X|Y)
 ```
 
-### 5.3 互信息 (Mutual Information)
+### 5.3 互資訊 (Mutual Information)
 
-互信息衡量兩個隨機變數的相互依賴程度：
+互資訊衡量兩個隨機變數的相互依賴程度：
 
 ```
 I(X;Y) = H(X) - H(X|Y) = H(Y) - H(Y|X)
@@ -410,7 +410,7 @@ I(X;Y) = DKL(P(X,Y) || P(X)P(Y))
 2. I(X;Y) = 0 當且僅當 X⊥Y
 3. 對稱性：I(X;Y) = I(Y;X)
 
-**應用**：特徵選擇、變分信息瓶頸理論
+**應用**：特徵選擇、變分資訊瓶頸理論
 
 ### 5.4 KL 散度 (Kullback-Leibler Divergence)
 
@@ -480,7 +480,7 @@ min H(P,Q) ⟺ max log P(data|θ)
 
 ### 6.1 似然函數 (Likelihood Function)
 
-給定參數 θ 的模型 p(x|θ)，對觀察數據 D = {x⁽¹⁾, x⁽²⁾, ..., x⁽ⁿ⁾}：
+給定參數 θ 的模型 p(x|θ)，對觀察資料 D = {x⁽¹⁾, x⁽²⁾, ..., x⁽ⁿ⁾}：
 
 **似然函數**：
 ```
@@ -515,7 +515,7 @@ MLE 尋找使似然函數最大的參數：
 
 **範例：高斯分佈的 MLE**
 
-給定數據 D = {x₁, ..., xₙ}，假設 x ~ N(μ, σ²)：
+給定資料 D = {x₁, ..., xₙ}，假設 x ~ N(μ, σ²)：
 
 對數似然：
 ```
@@ -536,7 +536,7 @@ MLE 尋找使似然函數最大的參數：
 
 ### 6.3 最大後驗估計 (MAP)
 
-MAP 將參數視為隨機變數，結合先驗信息：
+MAP 將參數視為隨機變數，結合先驗資訊：
 
 ```
 θ_MAP = argmax_θ p(θ|D) = argmax_θ p(D|θ) p(θ)
@@ -580,7 +580,7 @@ p(D) = ∫ p(D|θ) p(θ) dθ  (邊際似然/證據)
 
 **貝葉斯預測分佈**：
 
-對新數據點 x*：
+對新資料點 x*：
 ```
 p(x*|D) = ∫ p(x*|θ) p(θ|D) dθ
 ```
@@ -612,9 +612,9 @@ p(x*|D) = ∫ p(x*|θ) p(θ|D) dθ
 | 全貝葉斯 | 分佈 p(θ\|D) | 完整 | 需要 | 高 |
 
 **何時使用**：
-- MLE：數據充足，無先驗知識
+- MLE：資料充足，無先驗知識
 - MAP：有先驗知識，需要正則化
-- 全貝葉斯：需要量化不確定性，數據稀少
+- 全貝葉斯：需要量化不確定性，資料稀少
 
 ## 7. 統計推論與取樣方法
 
@@ -662,7 +662,7 @@ lim_{n→∞} P(|θ̂ₙ - θ| > ε) = 0  對所有 ε > 0
 ```
 Var(θ̂) ≥ 1 / I(θ)
 ```
-其中 I(θ) 為 Fisher 信息量
+其中 I(θ) 為 Fisher 資訊量
 
 ### 7.3 大數法則與中心極限定理
 
@@ -714,7 +714,7 @@ E_p[f(X)] = ∫ f(x) p(x) dx = ∫ f(x) (p(x)/q(x)) q(x) dx
 
 當無法直接從複雜分佈 p(x) 採樣時，構造馬可夫鏈使其平穩分佈為 p(x)。
 
-**Metropolis-Hastings 算法**：
+**Metropolis-Hastings 演算法**：
 
 1. 初始化 x₀
 2. 對 t = 1, 2, ..., T：
@@ -766,7 +766,7 @@ q(θ) = ∏ᵢ qᵢ(θᵢ)
 **優點 vs MCMC**：
 - 速度快（優化 vs 採樣）
 - 容易診斷收斂
-- 可擴展到大數據
+- 可擴展到大資料
 
 **缺點**：
 - 可能欠擬合（低估不確定性）
@@ -776,9 +776,9 @@ q(θ) = ∏ᵢ qᵢ(θᵢ)
 
 - **模型不確定性**：以機率模型對預測結果給出不確定性量化。
 
-- **損失函數連結最大似然**：例如交叉熵作為訓練分類模型的損失函數，可視為最大化資料在模型下的對數似然。
+- **損失函式連結最大似然**：例如交叉熵作為訓練分類模型的損失函式，可視為最大化資料在模型下的對數似然。
 
-- **SGD (Stochastic Gradient Descent)**：隨機抽樣小批量 (mini-batch) 訓練，透過資料的邊際分佈估計目標函數的梯度。
+- **SGD (Stochastic Gradient Descent)**：隨機抽樣小批量 (mini-batch) 訓練，透過資料的邊際分佈估計目標函式的梯度。
 
 - **貝葉斯深度學習**：透過先驗與後驗估計，提升模型對新情境的適應，及對不確定性的量化能力。
 
@@ -934,7 +934,7 @@ print("=" * 50)
 distribution_comparison()
 ```
 
-### 10.2 信息論計算
+### 10.2 資訊論計算
 
 ```python
 import numpy as np
@@ -958,9 +958,9 @@ def compute_kl_divergence(p, q):
     return np.sum(rel_entr(p, q)) / np.log(2)  # 轉換為 base-2
 
 def information_theory_demo():
-    """信息論概念演示"""
+    """資訊論概念演示"""
     print("=" * 60)
-    print("信息論計算範例")
+    print("資訊論計算範例")
     print("=" * 60)
 
     # 範例 1: 均勻分佈 vs 不均勻分佈的熵
@@ -1018,14 +1018,14 @@ def information_theory_demo():
     print(f"直接計算 KL(P||Q1) = {kl_pq1:.4f}")
     print(f"差異: {abs(kl_pq1_check - kl_pq1):.6f}")
 
-# 互信息計算
+# 互資訊計算
 def compute_mutual_information(joint_prob):
-    """計算互信息"""
+    """計算互資訊"""
     # 計算邊際分佈
     p_x = joint_prob.sum(axis=1)
     p_y = joint_prob.sum(axis=0)
 
-    # 計算互信息
+    # 計算互資訊
     mi = 0
     for i in range(joint_prob.shape[0]):
         for j in range(joint_prob.shape[1]):
@@ -1036,8 +1036,8 @@ def compute_mutual_information(joint_prob):
     return mi
 
 def mutual_information_demo():
-    """互信息演示"""
-    print("\n4. 互信息計算")
+    """互資訊演示"""
+    print("\n4. 互資訊計算")
     print("-" * 60)
 
     # 獨立情況
@@ -1048,7 +1048,7 @@ def mutual_information_demo():
     mi_independent = compute_mutual_information(joint_independent)
     print("獨立變數的聯合分佈:")
     print(joint_independent)
-    print(f"互信息 I(X;Y) = {mi_independent:.6f} bits")
+    print(f"互資訊 I(X;Y) = {mi_independent:.6f} bits")
 
     # 相依情況
     joint_dependent = np.array([[0.3, 0.1],
@@ -1057,7 +1057,7 @@ def mutual_information_demo():
     mi_dependent = compute_mutual_information(joint_dependent)
     print("\n相依變數的聯合分佈:")
     print(joint_dependent)
-    print(f"互信息 I(X;Y) = {mi_dependent:.4f} bits")
+    print(f"互資訊 I(X;Y) = {mi_dependent:.4f} bits")
 
 # 執行演示
 information_theory_demo()
@@ -1107,7 +1107,7 @@ def mle_gaussian_demo():
     true_mu = 3.0
     true_sigma = 1.5
 
-    # 生成數據
+    # 生成資料
     np.random.seed(42)
     X = np.random.normal(true_mu, true_sigma, size=100)
 
@@ -1162,7 +1162,7 @@ def mle_bernoulli_demo():
     # 真實參數
     true_p = 0.7
 
-    # 生成數據
+    # 生成資料
     np.random.seed(42)
     X = np.random.binomial(1, true_p, size=100)
 
@@ -1196,7 +1196,7 @@ def bayesian_coin_flip():
     alpha_prior = 2
     beta_prior = 2
 
-    # 觀察數據：10 次翻轉，7 次正面
+    # 觀察資料：10 次翻轉，7 次正面
     n_heads = 7
     n_tails = 3
 
@@ -1231,7 +1231,7 @@ def bayesian_coin_flip():
     plt.close()
 
     # 統計量
-    print(f"\n觀察數據: {n_heads} 個正面, {n_tails} 個反面")
+    print(f"\n觀察資料: {n_heads} 個正面, {n_tails} 個反面")
     print(f"MLE 估計: p̂ = {p_mle:.4f}")
     print(f"後驗均值: E[p|D] = {posterior.mean():.4f}")
     print(f"後驗中位數: {posterior.median():.4f}")
@@ -1243,7 +1243,7 @@ def bayesian_linear_regression():
     print("貝葉斯線性回歸範例")
     print("=" * 60)
 
-    # 生成數據
+    # 生成資料
     np.random.seed(42)
     n = 20
     X = np.linspace(0, 10, n)
@@ -1393,7 +1393,7 @@ def metropolis_hastings_demo():
         return (0.3 * stats.norm.pdf(x, -2, 0.5) +
                 0.7 * stats.norm.pdf(x, 3, 1.0))
 
-    # Metropolis-Hastings 算法
+    # Metropolis-Hastings 演算法
     def metropolis_hastings(n_samples, proposal_std=1.0):
         samples = np.zeros(n_samples)
         current = 0.0  # 初始點
@@ -1497,7 +1497,7 @@ import matplotlib.pyplot as plt
 def binary_cross_entropy_demo():
     """二元交叉熵損失演示"""
     print("=" * 60)
-    print("二元交叉熵損失函數")
+    print("二元交叉熵損失函式")
     print("=" * 60)
 
     # 真實標籤 y ∈ {0, 1}
@@ -1532,7 +1532,7 @@ def binary_cross_entropy_demo():
 def categorical_cross_entropy_demo():
     """多類別交叉熵演示"""
     print("\n" + "=" * 60)
-    print("多類別交叉熵損失函數")
+    print("多類別交叉熵損失函式")
     print("=" * 60)
 
     # 真實標籤（one-hot編碼）
@@ -1567,7 +1567,7 @@ print("=" * 60)
 ## 11. 延伸閱讀與資源
 
 - 建議閱讀：《Pattern Recognition and Machine Learning》(Bishop) 中的機率分佈與貝葉斯推論章節。
-- 《Deep Learning》 (Goodfellow, Bengio, Courville) 對機率論與信息論有清晰的介紹，並在深度學習應用上深入探討。
+- 《Deep Learning》 (Goodfellow, Bengio, Courville) 對機率論與資訊論有清晰的介紹，並在深度學習應用上深入探討。
 - 線上資源如 The Matrix Cookbook（對機率與線代部分有助記公式）與統計學入門課程可補充基礎概念。
 - 推薦實作練習：
   - 使用 PyMC3 或 Stan 進行貝葉斯建模

@@ -10,9 +10,9 @@
 快速查找常用數學公式、定理和技巧的完整參考指南。包含：
 - 線性代數公式和矩陣運算
 - 微積分導數和梯度公式
-- 機率統計分佈和信息論
-- 深度學習激活函數和損失函數
-- 優化算法和數值穩定性技巧
+- 機率統計分佈和資訊論
+- 深度學習激活函式和損失函式
+- 優化演算法和數值穩定性技巧
 
 ---
 
@@ -41,12 +41,12 @@
 **實作範例：** 6+ 個範例，包括數值微分、梯度視覺化、從零實現反向傳播、優化器比較等。
 
 ### 3. [機率與統計 (Probability and Statistics)](Probability_and_Statistics.md)
-**為什麼重要：** 機器學習本質上是在處理不確定性，理解機率分佈、貝葉斯推論和信息論是必須的。
+**為什麼重要：** 機器學習本質上是在處理不確定性，理解機率分佈、貝葉斯推論和資訊論是必須的。
 
 **核心內容：**
 - 機率分佈（高斯、伯努利、多項式等）
 - 期望值、變異數、協方差矩陣
-- 信息論：熵、KL 散度、交叉熵
+- 資訊論：熵、KL 散度、交叉熵
 - 最大似然估計 (MLE) 與貝葉斯推論
 - 蒙地卡羅方法與 MCMC 採樣
 - 變分推論 (Variational Inference)
@@ -177,7 +177,7 @@ pip install numpy scipy matplotlib seaborn scikit-learn torch
 1. 先複習高中數學（函數、向量、矩陣基礎）
 2. 觀看 3Blue1Brown 的視覺化課程（線性代數和微積分的本質）
 3. 跟著本目錄的"初學者路徑"學習
-4. 動手實作每個範例代碼
+4. 動手實作每個範例程式碼
 5. 不要急於求成，理解比速度更重要
 
 ### Q5: Python 實作範例執行出錯怎麼辦？
@@ -199,12 +199,12 @@ pip install numpy scipy matplotlib seaborn scikit-learn torch
 - **理解概念**：知道什麼時候用什麼工具
 - **會查閱**：熟練使用 [Math_Cheatsheet.md](Math_Cheatsheet.md)
 - **能推導**：重要公式能從基本原理推導
-- **會應用**：能將數學轉換為代碼實現
+- **會應用**：能將數學轉換為程式碼實現
 
 ## 🎯 學習技巧和建議
 
 ### 1. 主動學習策略
-- ✅ **動手實作**：不要只看代碼，要親自運行和修改
+- ✅ **動手實作**：不要只看程式碼，要親自運行和修改
 - ✅ **視覺化**：利用 matplotlib 將抽象概念可視化
 - ✅ **建立連結**：思考不同數學概念之間的關係
 - ✅ **解決問題**：完成每章的練習題和挑戰
@@ -212,14 +212,14 @@ pip install numpy scipy matplotlib seaborn scikit-learn torch
 ### 2. 避免常見陷阱
 - ❌ **死記硬背**：理解概念比記住公式重要
 - ❌ **跳過基礎**：扎實的基礎是進階學習的前提
-- ❌ **只看不做**：閱讀代碼 ≠ 會寫代碼
+- ❌ **只看不做**：閱讀程式碼 ≠ 會寫程式碼
 - ❌ **孤立學習**：加入社群，與他人討論
 
 ### 3. 高效學習工具
 - **Jupyter Notebook**：互動式學習和實驗
 - **Desmos/GeoGebra**：視覺化數學函數
 - **Anki**：間隔重複記憶重要概念
-- **GitHub**：版本控制你的學習筆記和代碼
+- **GitHub**：版本控制你的學習筆記和程式碼
 
 ### 4. 深入學習資源
 除了本目錄提供的內容，還推薦：
@@ -234,8 +234,8 @@ pip install numpy scipy matplotlib seaborn scikit-learn torch
   - [Distill.pub](https://distill.pub/) - 互動式機器學習文章
 
 - **Practice Platforms**:
-  - [Kaggle](https://www.kaggle.com/) - 實戰數據科學競賽
-  - [LeetCode](https://leetcode.com/problemset/all/?topicSlugs=math) - 數學算法題
+  - [Kaggle](https://www.kaggle.com/) - 實戰資料科學競賽
+  - [LeetCode](https://leetcode.com/problemset/all/?topicSlugs=math) - 數學演算法題
   - [Project Euler](https://projecteuler.net/) - 數學編程挑戰
 
 ## 🔗 與其他主題的連結
@@ -244,8 +244,8 @@ pip install numpy scipy matplotlib seaborn scikit-learn torch
 
 - **神經網路基礎** → 使用線性代數、微積分、優化
 - **深度學習架構** → 應用矩陣運算、反向傳播
-- **自然語言處理** → 使用機率統計、信息論
-- **計算機視覺** → 應用線性代數、優化算法
+- **自然語言處理** → 使用機率統計、資訊論
+- **計算機視覺** → 應用線性代數、優化演算法
 - **強化學習** → 使用機率論、優化理論
 
 ## 🤝 貢獻指南
@@ -253,17 +253,17 @@ pip install numpy scipy matplotlib seaborn scikit-learn torch
 發現錯誤或有改進建議？歡迎貢獻！
 
 1. Fork 本倉庫
-2. 創建你的特性分支 (`git checkout -b feature/AmazingFeature`)
+2. 建立你的特性分支 (`git checkout -b feature/AmazingFeature`)
 3. 提交你的改動 (`git commit -m 'Add some AmazingFeature'`)
 4. 推送到分支 (`git push origin feature/AmazingFeature`)
 5. 開啟一個 Pull Request
 
 **貢獻類型：**
-- 修正錯誤（數學公式、代碼錯誤）
+- 修正錯誤（數學公式、程式碼錯誤）
 - 改進解釋（更清晰的說明）
 - 添加範例（更多應用案例）
 - 翻譯內容（多語言支持）
-- 優化代碼（更高效的實現）
+- 優化程式碼（更高效的實現）
 
 ## 📝 版本更新記錄
 
@@ -278,7 +278,7 @@ pip install numpy scipy matplotlib seaborn scikit-learn torch
 ### v1.0 (2024-12)
 - 📖 完成四大核心主題的內容
 - 💻 提供 50+ 個 Python 實作範例
-- 📊 包含大量視覺化代碼
+- 📊 包含大量視覺化程式碼
 - 🔗 整理推薦學習資源
 
 ## 📬 聯繫方式

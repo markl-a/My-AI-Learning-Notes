@@ -54,13 +54,13 @@ python -m scripts.chat_web
 - **Rotary Embeddings (RoPE)**：相對位置編碼，提升長序列泛化能力
 - **QK Norm**：Query/Key 正規化，穩定訓練
 - **無偏置 Linear**：減少參數量，提升效率
-- **ReLU²**：平方 ReLU 激活函數，簡潔且高效
+- **ReLU²**：平方 ReLU 激活函式，簡潔且高效
 - **權重解綁**：`wte`（token embeddings）與 `lm_head`（輸出層）獨立，提升表達力
 - **可選 MQA/GQA**：Multi-Query/Grouped-Query Attention，加速推論
 
 **設計細節：**
 - 以 `GPTConfig` 統一控制超參數：`n_layer`, `n_head`, `n_kv_head`, `n_embd`, `sequence_len`
-- 預先計算並緩存旋轉位置編碼（`cos/sin` 表），避免重複計算
+- 預先計算並快取旋轉位置編碼（`cos/sin` 表），避免重複計算
 
 ### 推論引擎：高效 KV Cache (`nanochat/engine.py`)
 
@@ -73,7 +73,7 @@ python -m scripts.chat_web
 - **工具整合**：內建安全版「計算機工具」（`use_calculator`）
   - 白名單機制：只允許數學運算
   - 超時保護：防止無限循環
-  - 易於擴充為更多工具（搜尋、代碼執行等）
+  - 易於擴充為更多工具（搜尋、程式碼執行等）
 
 ### 資料流水線：串流 + DDP (`nanochat/dataloader.py` + `dataset.py`)
 
@@ -201,7 +201,7 @@ Tokenizer 是資料前處理的效能熱點：
 | **CORE (常識推理)** | ~35-40% | ~45-55% | 多選題準確率（隨機猜測為 25%） |
 | **ARC-Easy** | ~40-45% | ~55-65% | 基礎科學推理 |
 | **GSM8K (數學)** | ~5-10% | ~15-25% | 小學數學應用題 |
-| **HumanEval** | ~5-8% | ~10-15% | Python 代碼生成（pass@1） |
+| **HumanEval** | ~5-8% | ~10-15% | Python 程式碼生成（pass@1） |
 | **BPB (驗證集)** | ~0.85-0.95 | ~0.75-0.85 | Bits per byte，越低越好 |
 | **訓練速度** | ~4 小時 | ~42 小時 | 單節點完整流程 |
 
@@ -262,7 +262,7 @@ Assistant: 答案是 B) 持續增加。
 ### 推論效率
 - **KVCache** 分層插入與動態擴容，支援單步/塊狀推論
 - `scaled_dot_product_attention` + 自訂 mask，計算圖簡潔
-- 工具調用（calculator）增加延遲，可選擇性啟用
+- 工具呼叫（calculator）增加延遲，可選擇性啟用
 
 ### 評測實務
 - 固定 `eval_bundle` 與 `core_eval` 設定

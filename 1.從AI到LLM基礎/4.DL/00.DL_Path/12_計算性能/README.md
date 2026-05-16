@@ -75,7 +75,7 @@
 8. **模型量化** → `12_quantization.ipynb` ⭐ NEW
    - 訓練後量化（PTQ）
    - 量化感知訓練（QAT）
-   - INT8, INT4 推理優化
+   - INT8, INT4 推論優化
 
 9. **分佈式訓練** → `13_distributed_training.ipynb` ⭐ NEW
    - DataParallel vs DistributedDataParallel
@@ -86,7 +86,7 @@
     - 基礎實現 → `5_multiple-gpus.ipynb`
     - 簡潔實現 → `6_multiple-gpus-concise.ipynb`
     - 自動並行 → `3_auto-parallelism.ipynb`
-    - 參數服務器 → `7_parameterserver.ipynb`
+    - 參數伺服器 → `7_parameterserver.ipynb`
 
 11. **AI 輔助優化** → `14_ai_assisted_optimization.ipynb` ⭐ NEW
     - 使用 AI 自動調整超參數
@@ -108,7 +108,7 @@
 | 4 | 硬件基礎 | `4_hardware.ipynb` | ⭐⭐ | 3 小時 |
 | 5 | 多 GPU 訓練 | `5_multiple-gpus.ipynb` | ⭐⭐⭐ | 3 小時 |
 | 6 | 多 GPU 簡潔版 | `6_multiple-gpus-concise.ipynb` | ⭐⭐⭐ | 2 小時 |
-| 7 | 參數服務器 | `7_parameterserver.ipynb` | ⭐⭐⭐⭐ | 3 小時 |
+| 7 | 參數伺服器 | `7_parameterserver.ipynb` | ⭐⭐⭐⭐ | 3 小時 |
 
 ### **進階篇** (2024-2025 最新技術)
 
@@ -135,10 +135,10 @@
 
 在學習過程中，你可以使用 AI 工具來：
 
-1. **代碼審查與優化建議**
+1. **程式碼審查與優化建議**
    ```python
-   # 將你的訓練代碼貼給 Claude/ChatGPT，詢問：
-   # "請幫我分析這段代碼的性能瓶頸，並提供優化建議"
+   # 將你的訓練程式碼貼給 Claude/ChatGPT，詢問：
+   # "請幫我分析這段程式碼的性能瓶頸，並提供優化建議"
    ```
 
 2. **性能問題診斷**
@@ -169,20 +169,20 @@
 - [ ] 設置合適的 `num_workers` 和 `pin_memory`
 - [ ] 使用梯度累積降低記憶體使用
 - [ ] 啟用 cuDNN benchmark: `torch.backends.cudnn.benchmark = True`
-- [ ] 優化數據加載管道（避免 CPU 瓶頸）
+- [ ] 優化資料加載管道（避免 CPU 瓶頸）
 - [ ] 使用 Profiler 找出性能瓶頸
 - [ ] 檢查 GPU 記憶體碎片化
-- [ ] 使用異步數據預取
+- [ ] 使用異步資料預取
 - [ ] 考慮模型量化（部署時）
 
 ### **常見性能瓶頸診斷**
 
 | 症狀 | 可能原因 | 解決方案 |
 |------|----------|----------|
-| GPU 利用率低 (<50%) | 數據加載慢 | 增加 `num_workers`，使用 `prefetch_factor` |
+| GPU 利用率低 (<50%) | 資料加載慢 | 增加 `num_workers`，使用 `prefetch_factor` |
 | 顯存不足 (OOM) | 批次過大 | 減小 batch size，使用梯度累積 |
 | 訓練速度慢 | 未使用混合精度 | 啟用 AMP，使用 `torch.autocast` |
-| 多卡訓練不平衡 | 數據分佈不均 | 使用 `DistributedSampler` |
+| 多卡訓練不平衡 | 資料分佈不均 | 使用 `DistributedSampler` |
 | 記憶體洩漏 | 梯度未清零 | 正確使用 `optimizer.zero_grad()` |
 
 ---
@@ -306,7 +306,7 @@ results = suite.run_all_tests()
 3. **大規模訓練**
    - 千億參數模型訓練
    - Pipeline Parallelism
-   - 3D Parallelism (數據 + 模型 + 流水線)
+   - 3D Parallelism (資料 + 模型 + 流水線)
 
 4. **效率前沿研究**
    - Flash Attention

@@ -10,7 +10,7 @@
 5. [實作範例](#55-實作範例)
 
 ### 實用工具與資源
-- 📦 [**數據準備工具集**](./data_preparation_tools/) - AI 輔助數據生成、質量檢查、格式轉換
+- 📦 [**資料準備工具集**](./data_preparation_tools/) - AI 輔助資料生成、質量檢查、格式轉換
 - 🎓 [**從入門到熟練學習路徑**](./LEARNING_PATH.md) - 完整的學習路線圖、故障排除、最佳實踐
 - 🚀 [**端到端實戰項目**](./hands_on_project/) - 電商客服機器人完整項目
 - 🧠 [**進階主題**](./advanced_topics/) - 多任務學習、持續學習、災難性遺忘
@@ -21,18 +21,18 @@
 
 ### 什麼是監督微調？
 
-監督微調 (SFT) 是將預訓練的語言模型適配到特定任務或領域的過程。透過在標註數據上進行訓練，模型學習特定的輸入輸出映射關係。
+監督微調 (SFT) 是將預訓練的語言模型適配到特定任務或領域的過程。透過在標註資料上進行訓練，模型學習特定的輸入輸出映射關係。
 
 ### 從預訓練到微調
 
 1. **預訓練階段**：
    - 目標：Next Token Prediction
-   - 數據：大規模無標註文本
+   - 資料：大規模無標註文字
    - 學習：語言的統計規律和通用知識
 
 2. **微調階段**：
    - 目標：特定任務的輸入輸出映射
-   - 數據：高質量的任務相關標註數據
+   - 資料：高品質的任務相關標註資料
    - 學習：任務特定的模式和行為
 
 ### SFT 的訓練目標
@@ -43,7 +43,7 @@
 輸入：指令 + 上下文（可選）
 輸出：期望的回答
 
-損失函數：L = -Σ log P(y_t | x, y_<t)
+損失函式：L = -Σ log P(y_t | x, y_<t)
 ```
 
 只對輸出部分計算損失，輸入部分不參與梯度更新。
@@ -76,7 +76,7 @@
 **適用場景**：
 - 有充足計算資源
 - 需要最佳性能
-- 數據量充足
+- 資料量充足
 
 ### 參數高效微調 (Parameter-Efficient Fine-Tuning, PEFT)
 
@@ -150,9 +150,9 @@ W' = W + ΔW
 
 ## 5.3 微調實務
 
-### 數據準備
+### 資料準備
 
-**數據格式**：
+**資料格式**：
 
 ```json
 {
@@ -162,7 +162,7 @@ W' = W + ΔW
 }
 ```
 
-**數據質量要點**：
+**資料品質要點**：
 1. **多樣性**：涵蓋不同類型的任務
 2. **準確性**：輸出必須正確
 3. **一致性**：格式和風格統一
@@ -296,9 +296,9 @@ if tokenizer.pad_token is None:
     tokenizer.pad_token = tokenizer.eos_token
     model.config.pad_token_id = model.config.eos_token_id
 
-# 準備數據
+# 準備資料
 def preprocess_function(examples):
-    # 假設數據格式為 {"text": "..."}
+    # 假設資料格式為 {"text": "..."}
     return tokenizer(
         examples["text"],
         truncation=True,
@@ -306,7 +306,7 @@ def preprocess_function(examples):
         padding="max_length"
     )
 
-# 載入數據集（這裡使用示例數據集）
+# 載入資料集（這裡使用示例資料集）
 dataset = load_dataset("wikitext", "wikitext-2-raw-v1", split="train[:1000]")
 tokenized_dataset = dataset.map(
     preprocess_function,
@@ -329,13 +329,13 @@ training_args = TrainingArguments(
     report_to="none"
 )
 
-# 數據整理器
+# 資料整理器
 data_collator = DataCollatorForLanguageModeling(
     tokenizer=tokenizer,
     mlm=False  # 因果語言建模
 )
 
-# 創建 Trainer
+# 建立 Trainer
 trainer = Trainer(
     model=model,
     args=training_args,
@@ -385,9 +385,9 @@ lora_config = LoraConfig(
 model = get_peft_model(model, lora_config)
 model.print_trainable_parameters()
 
-# 準備數據
+# 準備資料
 def format_instruction(example):
-    """格式化指令數據"""
+    """格式化指令資料"""
     instruction = example.get("instruction", "")
     input_text = example.get("input", "")
     output = example.get("output", "")
@@ -399,7 +399,7 @@ def format_instruction(example):
 
     return {"text": prompt}
 
-# 載入並處理數據集
+# 載入並處理資料集
 dataset = load_dataset("json", data_files="your_data.json", split="train")
 dataset = dataset.map(format_instruction)
 
@@ -542,13 +542,13 @@ base_model = AutoModelForCausalLM.from_pretrained(
 lora_weights_path = "./lora_weights"
 model = PeftModel.from_pretrained(base_model, lora_weights_path)
 
-# 合併權重（可選，提升推理速度）
+# 合併權重（可選，提升推論速度）
 model = model.merge_and_unload()
 
 # 載入 tokenizer
 tokenizer = AutoTokenizer.from_pretrained(base_model_name)
 
-# 生成文本
+# 生成文字
 prompt = "### Instruction:\n解釋什麼是量子計算\n\n### Response:\n"
 inputs = tokenizer(prompt, return_tensors="pt").to("cuda")
 
@@ -564,13 +564,13 @@ response = tokenizer.decode(outputs[0], skip_special_tokens=True)
 print(response)
 ```
 
-### 5.5.6 數據集準備腳本
+### 5.5.6 資料集準備腳本
 
 ```python
 import json
 
 def create_instruction_dataset(examples):
-    """創建指令微調數據集"""
+    """建立指令微調資料集"""
     dataset = []
 
     for example in examples:
@@ -583,7 +583,7 @@ def create_instruction_dataset(examples):
 
     return dataset
 
-# 示例數據
+# 示例資料
 examples = [
     {
         "instruction": "將以下句子翻譯成英文",
@@ -593,18 +593,18 @@ examples = [
     {
         "instruction": "解釋以下概念",
         "input": "深度學習",
-        "output": "深度學習是機器學習的一個子領域，使用多層神經網絡來學習數據的表示..."
+        "output": "深度學習是機器學習的一個子領域，使用多層神經網絡來學習資料的表示..."
     }
 ]
 
-# 創建數據集
+# 建立資料集
 dataset = create_instruction_dataset(examples)
 
 # 保存為 JSON
 with open("instruction_dataset.json", "w", encoding="utf-8") as f:
     json.dump(dataset, f, ensure_ascii=False, indent=2)
 
-print(f"已創建 {len(dataset)} 條訓練樣本")
+print(f"已建立 {len(dataset)} 條訓練樣本")
 ```
 
 ### 5.5.7 監控訓練過程
@@ -614,7 +614,7 @@ from transformers import TrainerCallback
 import wandb
 
 class CustomCallback(TrainerCallback):
-    """自定義回調函數監控訓練"""
+    """自定義回呼函式監控訓練"""
 
     def on_log(self, args, state, control, logs=None, **kwargs):
         if logs:
@@ -652,7 +652,7 @@ trainer = Trainer(
 
 2. **動手實踐** (3-5 天)
    - 跟隨 [端到端實戰項目](./hands_on_project/) 的快速開始指南
-   - 使用示例數據訓練第一個模型
+   - 使用示例資料訓練第一個模型
 
 3. **系統學習** (2-4 週)
    - 跟隨 [完整學習路徑](./LEARNING_PATH.md)
@@ -663,11 +663,11 @@ trainer = Trainer(
 我們提供了完整的工具集來加速你的 SFT 工作流程：
 
 ```bash
-# 1. 使用 AI 生成訓練數據
+# 1. 使用 AI 生成訓練資料
 cd data_preparation_tools
 python ai_assisted_data_generator.py
 
-# 2. 檢查數據質量
+# 2. 檢查資料品質
 python data_quality_checker.py your_data.json
 
 # 3. 訓練模型

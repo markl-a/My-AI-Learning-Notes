@@ -7,14 +7,14 @@
 - 理解微調的原理和流程
 - 掌握使用 Trainer API 進行微調
 - 學習使用 PEFT 進行高效微調
-- 了解如何準備數據和評估模型
+- 了解如何準備資料和評估模型
 
 ## 目錄
 
 1. [微調基礎](#微調基礎)
 2. [使用 Trainer API](#使用-trainer-api)
 3. [PEFT 高效微調](#peft-高效微調)
-4. [數據準備](#數據準備)
+4. [資料準備](#資料準備)
 5. [模型評估](#模型評估)
 
 ---
@@ -23,25 +23,25 @@
 
 ### 什麼是微調？
 
-微調是在預訓練模型的基礎上，使用特定任務的數據進行進一步訓練，使模型適應新任務。
+微調是在預訓練模型的基礎上，使用特定任務的資料進行進一步訓練，使模型適應新任務。
 
 ### 微調 vs 從頭訓練
 
 | 特徵 | 微調 | 從頭訓練 |
 |------|------|---------|
 | 訓練時間 | 短（小時） | 長（天/週） |
-| 數據需求 | 少（數千） | 多（百萬） |
+| 資料需求 | 少（數千） | 多（百萬） |
 | 計算資源 | 低 | 高 |
-| 效果 | 通常更好 | 視數據量而定 |
+| 效果 | 通常更好 | 視資料量而定 |
 
 ### 微調流程
 
 ```
 1. 選擇預訓練模型
         ↓
-2. 準備任務數據
+2. 準備任務資料
         ↓
-3. 數據預處理
+3. 資料預處理
         ↓
 4. 設定訓練參數
         ↓
@@ -67,11 +67,11 @@ from transformers import (
 )
 from datasets import load_dataset
 
-# 1. 載入數據
+# 1. 載入資料
 dataset = load_dataset("imdb")
 tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
 
-# 2. 數據預處理
+# 2. 資料預處理
 def tokenize_function(examples):
     return tokenizer(examples["text"], padding="max_length", truncation=True)
 
@@ -97,7 +97,7 @@ training_args = TrainingArguments(
     metric_for_best_model="accuracy",
 )
 
-# 5. 創建 Trainer
+# 5. 建立 Trainer
 trainer = Trainer(
     model=model,
     args=training_args,
@@ -157,7 +157,7 @@ training_args = TrainingArguments(
 
     # 其他
     seed=42,                             # 隨機種子
-    dataloader_num_workers=4,            # 數據載入器工作進程數
+    dataloader_num_workers=4,            # 資料載入器工作進程數
 )
 ```
 
@@ -260,9 +260,9 @@ training_args = TrainingArguments(
 
 ---
 
-## 數據準備
+## 資料準備
 
-### 1. 載入數據
+### 1. 載入資料
 
 ```python
 from datasets import load_dataset
@@ -282,7 +282,7 @@ df = pd.read_csv("data.csv")
 dataset = Dataset.from_pandas(df)
 ```
 
-### 2. 數據預處理
+### 2. 資料預處理
 
 ```python
 from transformers import AutoTokenizer
@@ -307,7 +307,7 @@ tokenized_dataset = dataset.map(
 )
 ```
 
-### 3. 數據增強
+### 3. 資料增強
 
 ```python
 import random
@@ -429,14 +429,14 @@ training_args = TrainingArguments(
 
 ## 常見問題
 
-**Q: 微調需要多少數據？**
-A: 通常幾千到幾萬條數據即可，視任務複雜度而定。
+**Q: 微調需要多少資料？**
+A: 通常幾千到幾萬條資料即可，視任務複雜度而定。
 
 **Q: 學習率如何設置？**
 A: 一般使用 1e-5 到 5e-5，比預訓練時小 10-100 倍。
 
 **Q: 如何避免過擬合？**
-A: 使用 dropout、早停、數據增強、減少訓練輪數。
+A: 使用 dropout、早停、資料增強、減少訓練輪數。
 
 **Q: GPU 記憶體不足怎麼辦？**
 A: 減小 batch size、使用梯度累積、使用 FP16、使用 PEFT。
@@ -451,5 +451,5 @@ A: 減小 batch size、使用梯度累積、使用 FP16、使用 PEFT。
 
 ## 下一步
 
-- 查看 [示例代碼](./examples/) 學習完整微調流程
+- 查看 [示例程式碼](./examples/) 學習完整微調流程
 - 前往 [04. 進階主題](../04.進階主題/) 學習更多高級技術

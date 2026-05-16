@@ -230,7 +230,7 @@ E[X] = 1/λ
 Var(X) = 1/λ²
 ```
 
-### 信息論
+### 資訊論
 
 **熵 (Entropy)**
 ```
@@ -248,7 +248,7 @@ D_KL(P||Q) = Σₓ P(x) log(P(x)/Q(x))
             = H(P,Q) - H(P)
 ```
 
-**互信息 (Mutual Information)**
+**互資訊 (Mutual Information)**
 ```
 I(X;Y) = H(X) - H(X|Y) = H(Y) - H(Y|X)
        = D_KL(P(X,Y) || P(X)P(Y))
@@ -335,7 +335,7 @@ hⱼ(x*) = 0
 
 ## 🔥 深度學習特定公式
 
-### 激活函數
+### 激活函式
 
 **Sigmoid**
 ```
@@ -372,7 +372,7 @@ softmax(x)ᵢ = exp(xᵢ) / Σⱼ exp(xⱼ)
 softmax(x)ᵢ = exp(xᵢ - max(x)) / Σⱼ exp(xⱼ - max(x))  (數值穩定版)
 ```
 
-### 損失函數
+### 損失函式
 
 **均方誤差 (MSE)**
 ```
@@ -519,14 +519,14 @@ f(E[X]) ≤ E[f(X)]  (f 為凸函數)
 | Batch Normalization | 深度學習特定公式 |
 | Bayes 定理 | 機率與統計 → 基本概念 |
 | Eigendecomposition | 線性代數 → 重要分解 |
-| Entropy | 機率與統計 → 信息論 |
+| Entropy | 機率與統計 → 資訊論 |
 | Gradient | 微積分 → 多變數微積分 |
 | Hessian | 微積分 → 多變數微積分 |
-| KL Divergence | 機率與統計 → 信息論 |
+| KL Divergence | 機率與統計 → 資訊論 |
 | Layer Normalization | 深度學習特定公式 |
 | MLE/MAP | 機率與統計 → 估計 |
-| ReLU | 深度學習特定公式 → 激活函數 |
-| Softmax | 深度學習特定公式 → 激活函數 |
+| ReLU | 深度學習特定公式 → 激活函式 |
+| Softmax | 深度學習特定公式 → 激活函式 |
 | SVD | 線性代數 → 重要分解 |
 | Taylor 展開 | 微積分 → Taylor 展開 |
 

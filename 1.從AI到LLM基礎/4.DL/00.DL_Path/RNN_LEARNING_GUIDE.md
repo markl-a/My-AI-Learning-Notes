@@ -20,7 +20,7 @@
 │   ├── README.md                 # 學習指南
 │   ├── 0_index.ipynb             # 章節概述
 │   ├── 1_sequence.ipynb          # 序列模型
-│   ├── 2_text_preprocessing.ipynb # 文本預處理
+│   ├── 2_text_preprocessing.ipynb # 文字預處理
 │   ├── 3_language_models_and_dataset.ipynb
 │   ├── 4_rnn.ipynb               # RNN 理論
 │   ├── 5_rnn-scratch.ipynb       # 從零實現
@@ -41,7 +41,7 @@
 ├── 10_RNN實戰項目/                # 實戰應用
 │   ├── README.md
 │   ├── 1_sentiment_analysis.ipynb      # 情感分析
-│   └── 2_text_generation.ipynb         # 文本生成
+│   └── 2_text_generation.ipynb         # 文字生成
 │
 ├── 11_RNN_vs_Transformer.md      # 架構對比
 └── RNN_LEARNING_GUIDE.md         # 本文檔
@@ -58,7 +58,7 @@
 - [ ] 安裝 PyTorch 和相關庫
 - [ ] 複習 Python/NumPy 基礎
 - [ ] 複習深度學習基礎（MLP、反向傳播）
-- [ ] 了解序列數據的特性
+- [ ] 了解序列資料的特性
 
 **推薦資源**:
 - [PyTorch 官方教程](https://pytorch.org/tutorials/)
@@ -71,9 +71,9 @@
 **學習內容**: `8_循環神經網路/`
 
 **Day 1-2: 序列模型基礎**
-- 學習 `1_sequence.ipynb` - 理解序列數據
-- 學習 `2_text_preprocessing.ipynb` - 文本處理
-- 練習: 實現簡單的文本分詞器
+- 學習 `1_sequence.ipynb` - 理解序列資料
+- 學習 `2_text_preprocessing.ipynb` - 文字處理
+- 練習: 實現簡單的文字分詞器
 
 **Day 3-4: RNN 核心概念**
 - 學習 `4_rnn.ipynb` - RNN 原理
@@ -160,11 +160,11 @@ for name, model in models.items():
 - 對比性能
 - 部署模型
 
-**Week 2: 文本生成**
+**Week 2: 文字生成**
 - 完成 `2_text_generation.ipynb`
 - 實現字符級/詞級生成
 - 實驗不同採樣策略
-- 評估生成質量
+- 評估生成品質
 
 **Week 3: 自選項目**
 
@@ -172,7 +172,7 @@ for name, model in models.items():
 
 1. **NLP 方向**
    - 命名實體識別
-   - 文本摘要
+   - 文字摘要
    - 問答系統
 
 2. **時序分析方向**
@@ -181,7 +181,7 @@ for name, model in models.items():
    - 異常檢測
 
 3. **多模態方向**
-   - 視頻字幕生成
+   - 影片字幕生成
    - 圖像描述生成
 
 **檢查點**:
@@ -239,7 +239,7 @@ def compare_architectures(task, dataset):
 
 #### 實作技能
 - [ ] PyTorch 模型構建
-- [ ] 數據預處理
+- [ ] 資料預處理
 - [ ] 模型訓練和調優
 - [ ] 超參數調整
 - [ ] 模型評估
@@ -256,7 +256,7 @@ def compare_architectures(task, dataset):
 - ✅ 解釋 RNN 的工作原理
 - ✅ 使用 PyTorch 實現簡單的 RNN
 - ✅ 理解 LSTM 和 GRU 的區別
-- ✅ 完成簡單的文本分類任務
+- ✅ 完成簡單的文字分類任務
 
 ### 中級目標（2 個月）
 
@@ -264,7 +264,7 @@ def compare_architectures(task, dataset):
 - ✅ 從零實現 LSTM 和 GRU
 - ✅ 構建雙向深度 RNN
 - ✅ 實現 Seq2Seq 模型
-- ✅ 完成情感分析和文本生成項目
+- ✅ 完成情感分析和文字生成項目
 
 ### 高級目標（3 個月）
 
@@ -294,18 +294,18 @@ def compare_architectures(task, dataset):
 我的背景：[你的背景]
 ```
 
-#### 2. 代碼調試
+#### 2. 程式碼調試
 
 **提示詞模板**:
 ```
 我的 RNN 模型出現以下問題：
 [描述問題]
 
-代碼：
-[粘貼相關代碼]
+程式碼：
+[粘貼相關程式碼]
 
-錯誤信息：
-[粘貼錯誤信息]
+錯誤資訊：
+[粘貼錯誤資訊]
 
 請幫我：
 1. 診斷問題原因
@@ -322,7 +322,7 @@ def compare_architectures(task, dataset):
 需求：
 - 輸入: [輸入描述]
 - 輸出: [輸出描述]
-- 數據量: [數據規模]
+- 資料量: [資料規模]
 - 資源限制: [硬件限制]
 
 請建議：
@@ -369,7 +369,7 @@ class SimpleRNN(nn.Module):
     """從零實現最簡單的 RNN"""
     # 完成這個類
 
-# Day 3-4: 文本處理
+# Day 3-4: 文字處理
 def build_vocab(texts):
     """構建詞表"""
     # 實現這個函數
@@ -398,7 +398,7 @@ class BiLSTM(nn.Module):
 
 #### Week 5-6: 項目實踐
 - 完成情感分析項目
-- 完成文本生成項目
+- 完成文字生成項目
 - 嘗試改進模型性能
 
 ---
@@ -407,15 +407,15 @@ class BiLSTM(nn.Module):
 
 ### 你應該達到的性能
 
-| 任務 | 數據集 | 基準性能 | 優秀性能 |
+| 任務 | 資料集 | 基準性能 | 優秀性能 |
 |------|--------|---------|---------|
 | 情感分析 | IMDB | 85% | 90%+ |
-| 文本生成 | Shakespeare | Perplexity < 2.0 | < 1.5 |
+| 文字生成 | Shakespeare | Perplexity < 2.0 | < 1.5 |
 | 命名實體識別 | CoNLL-2003 | F1 > 85% | > 90% |
 
 ### 訓練效率基準
 
-| 模型 | 數據集大小 | 訓練時間 (GPU) | 可接受範圍 |
+| 模型 | 資料集大小 | 訓練時間 (GPU) | 可接受範圍 |
 |------|-----------|---------------|-----------|
 | Simple LSTM | 10K 樣本 | 5-10 min | < 15 min |
 | Bi-LSTM | 50K 樣本 | 20-30 min | < 45 min |
@@ -431,7 +431,7 @@ class BiLSTM(nn.Module):
 
 **檢查清單**:
 ```python
-# 1. 檢查數據
+# 1. 檢查資料
 print(f"Training samples: {len(train_data)}")
 print(f"Sample input: {train_data[0]}")
 
@@ -454,7 +454,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=0.0001)
 # 1. 添加 Dropout
 model = nn.LSTM(..., dropout=0.5)
 
-# 2. 數據增強
+# 2. 資料增強
 def augment_text(text):
     # 同義詞替換、隨機刪除等
 
@@ -522,7 +522,7 @@ scaler = GradScaler()
 完成學習後，建議：
 
 1. **GitHub 項目**
-   - 上傳你的項目代碼
+   - 上傳你的項目程式碼
    - 寫詳細的 README
    - 包含訓練曲線和結果
 
@@ -534,7 +534,7 @@ scaler = GradScaler()
 3. **參與競賽**
    - Kaggle NLP 競賽
    - 天池比賽
-   - 其他數據科學競賽
+   - 其他資料科學競賽
 
 ---
 
@@ -545,7 +545,7 @@ scaler = GradScaler()
 遇到問題時：
 
 1. **搜索**
-   - Google 錯誤信息
+   - Google 錯誤資訊
    - Stack Overflow
    - GitHub Issues
 
@@ -576,7 +576,7 @@ scaler = GradScaler()
 #### 編程技能
 - [ ] 從零實現 RNN/LSTM
 - [ ] 使用 PyTorch 構建複雜模型
-- [ ] 處理實際數據集
+- [ ] 處理實際資料集
 - [ ] 調試和優化模型
 
 #### 項目經驗
@@ -604,7 +604,7 @@ scaler = GradScaler()
 2. **專精領域**
    - NLP: 問答、摘要、翻譯
    - 時序: 預測、異常檢測
-   - 多模態: 圖文、視頻
+   - 多模態: 圖文、影片
 
 3. **工程實踐**
    - 模型壓縮和加速
@@ -621,7 +621,7 @@ scaler = GradScaler()
 ## 📝 更新日誌
 
 ### v2.0 (2025-01-18)
-- ✨ 創建完整學習路徑
+- ✨ 建立完整學習路徑
 - 📚 添加詳細的資源指南
 - 🤖 集成 AI 輔助學習
 - 💻 新增實戰項目

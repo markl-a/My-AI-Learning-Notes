@@ -119,7 +119,7 @@ class TokenCounter:
         max_tokens: int,
         truncate_from: str = "end"
     ) -> str:
-        """截斷文本到指定 token 數"""
+        """截斷文字到指定 token 數"""
         tokens = self.encoder.encode(text)
 
         if len(tokens) <= max_tokens:
@@ -503,8 +503,8 @@ cached_response = cache.get(
 if cached_response:
     print(f"快取命中: {cached_response}")
 else:
-    # 調用 API
-    response = "機器學習是..."  # 實際 API 調用
+    # 呼叫 API
+    response = "機器學習是..."  # 實際 API 呼叫
 
     # 儲存快取
     cache.set(
@@ -846,7 +846,7 @@ class ModelFallback:
         *args,
         **kwargs
     ):
-        """帶降級的調用"""
+        """帶降級的呼叫"""
         models_to_try = [self.primary_model] + self.fallback_chain
 
         last_error = None
@@ -924,7 +924,7 @@ def with_model_fallback(
 # 使用範例
 @with_model_fallback(primary_model="gpt-4o")
 def call_llm(prompt: str, model: str = "gpt-4o"):
-    # 實際的 API 調用
+    # 實際的 API 呼叫
     from openai import OpenAI
     client = OpenAI()
 
@@ -935,7 +935,7 @@ def call_llm(prompt: str, model: str = "gpt-4o"):
 
     return response.choices[0].message.content
 
-# 調用時自動處理降級
+# 呼叫時自動處理降級
 result = call_llm("你好")
 ```
 

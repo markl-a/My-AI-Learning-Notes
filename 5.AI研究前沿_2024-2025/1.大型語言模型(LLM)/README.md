@@ -6,7 +6,7 @@
 
 ## 📋 論文列表總覽
 
-| # | 論文 | 機構 | 發布時間 | 代碼 | 影響力 |
+| # | 論文 | 機構 | 發布時間 | 程式碼 | 影響力 |
 |---|------|------|----------|------|--------|
 | 1 | Llama 3.1 | Meta | 2024.07 | [GitHub](https://github.com/meta-llama/llama3) | ⭐⭐⭐⭐⭐ |
 | 2 | GPT-4o System Card | OpenAI | 2024.05 | 閉源 | ⭐⭐⭐⭐⭐ |
@@ -23,19 +23,19 @@
 
 ## 1. Llama 3.1 - Meta的405B開源旗艦
 
-### 📄 論文信息
+### 📄 論文資訊
 - **標題**: The Llama 3 Herd of Models
 - **作者**: Meta AI Team
 - **發布**: 2024年7月
 - **鏈接**: [Hugging Face](https://huggingface.co/meta-llama/Meta-Llama-3.1-405B)
-- **代碼**: [GitHub](https://github.com/meta-llama/llama3)
+- **程式碼**: [GitHub](https://github.com/meta-llama/llama3)
 
 ### 🎯 核心貢獻
 
 1. **規模突破**: 405B參數，當時最大的開源模型
 2. **長上下文**: 支持128K tokens上下文窗口
 3. **多語言**: 顯著提升非英語語言性能
-4. **工具調用**: 原生支持函數調用
+4. **工具呼叫**: 原生支持函式呼叫
 
 ### 📊 性能指標
 
@@ -46,7 +46,7 @@
 | GSM8K | 96.8 | 92.0 | 95.0 |
 | MATH | 73.8 | 52.9 | 60.1 |
 
-### 💻 代碼實現
+### 💻 程式碼實現
 
 #### 基本使用
 
@@ -90,7 +90,7 @@ response = tokenizer.decode(outputs[0][input_ids.shape[-1]:], skip_special_token
 print(response)
 ```
 
-#### 函數調用 (Function Calling)
+#### 函式呼叫 (Function Calling)
 
 ```python
 import json
@@ -127,12 +127,12 @@ messages = [
     {"role": "user", "content": "What's the weather in Tokyo?"}
 ]
 
-# 生成函數調用
+# 生成函式呼叫
 input_ids = tokenizer.apply_chat_template(messages, add_generation_prompt=True, return_tensors="pt").to(model.device)
 outputs = model.generate(input_ids, max_new_tokens=128, temperature=0.1)
 response = tokenizer.decode(outputs[0][input_ids.shape[-1]:], skip_special_tokens=True)
 
-# 解析函數調用
+# 解析函式呼叫
 try:
     function_call = json.loads(response)
     print(f"Tool: {function_call['tool']}")
@@ -175,23 +175,23 @@ for output in outputs:
 
 ### 🔬 技術創新
 
-1. **Grouped Query Attention (GQA)**: 減少KV緩存，提升推理效率
+1. **Grouped Query Attention (GQA)**: 減少KV快取，提升推理效率
 2. **RoPE擴展**: 支持128K上下文的旋轉位置編碼
 3. **改進分詞器**: 128K詞表，提升多語言效率
 
 ### 🎯 應用場景
 
 - ✅ 企業級聊天機器人
-- ✅ 代碼生成與分析
+- ✅ 程式碼生成與分析
 - ✅ 長文檔理解與摘要
 - ✅ 多輪對話系統
-- ✅ Agent工具調用
+- ✅ Agent工具呼叫
 
 ---
 
 ## 2. GPT-4o - 端到端多模態優化
 
-### 📄 論文信息
+### 📄 論文資訊
 - **標題**: GPT-4o System Card
 - **作者**: OpenAI Team
 - **發布**: 2024年5月
@@ -199,10 +199,10 @@ for output in outputs:
 
 ### 🎯 核心貢獻
 
-1. **原生多模態**: 單一模型處理文本、圖像、音頻
+1. **原生多模態**: 單一模型處理文字、圖像、音頻
 2. **實時響應**: 音頻延遲低至232ms
 3. **成本優化**: 相比GPT-4降低50%成本
-4. **性能提升**: 文本與視覺任務全面領先
+4. **性能提升**: 文字與視覺任務全面領先
 
 ### 📊 性能指標
 
@@ -213,7 +213,7 @@ for output in outputs:
 | MathVista | 63.8 | 58.1 | 50.5 |
 | HumanEval | 90.2 | 87.6 | 84.9 |
 
-### 💻 代碼實現
+### 💻 程式碼實現
 
 ```python
 from openai import OpenAI
@@ -221,7 +221,7 @@ import base64
 
 client = OpenAI()
 
-# 文本生成
+# 文字生成
 response = client.chat.completions.create(
     model="gpt-4o",
     messages=[
@@ -257,7 +257,7 @@ response = client.chat.completions.create(
 )
 print(response.choices[0].message.content)
 
-# 函數調用
+# 函式呼叫
 tools = [
     {
         "type": "function",
@@ -292,7 +292,7 @@ if response.choices[0].message.tool_calls:
 
 ## 3. Claude 3.5 Sonnet - 編碼與分析新標桿
 
-### 📄 論文信息
+### 📄 論文資訊
 - **標題**: Claude 3.5 Sonnet Model Card
 - **作者**: Anthropic Team
 - **發布**: 2024年6月
@@ -301,11 +301,11 @@ if response.choices[0].message.tool_calls:
 ### 🎯 核心貢獻
 
 1. **編碼能力**: HumanEval達92%，超越GPT-4o
-2. **長文檔處理**: 200K上下文，優秀的信息檢索
+2. **長文檔處理**: 200K上下文，優秀的資訊檢索
 3. **視覺理解**: 圖表、圖像理解大幅提升
 4. **思維鏈**: 內建推理能力
 
-### 💻 代碼實現
+### 💻 程式碼實現
 
 ```python
 import anthropic
@@ -380,7 +380,7 @@ print(message.content[0].text)
 
 ## 4. Gemini 1.5 - 極限長上下文
 
-### 📄 論文信息
+### 📄 論文資訊
 - **標題**: Gemini 1.5: Unlocking multimodal understanding across millions of tokens
 - **作者**: Google DeepMind
 - **發布**: 2024年2月
@@ -390,10 +390,10 @@ print(message.content[0].text)
 
 1. **超長上下文**: 1M tokens（Pro版本可達2M）
 2. **MoE架構**: 混合專家提升效率
-3. **多模態原生**: 文本、圖像、音頻、視頻統一處理
+3. **多模態原生**: 文字、圖像、音頻、影片統一處理
 4. **In-Context Learning**: 極致的少樣本學習
 
-### 💻 代碼實現
+### 💻 程式碼實現
 
 ```python
 import google.generativeai as genai
@@ -417,7 +417,7 @@ response = model.generate_content([
 ])
 print(response.text)
 
-# 視頻理解
+# 影片理解
 import PIL.Image
 
 video_file = genai.upload_file("video.mp4")
@@ -443,17 +443,17 @@ print(response.text)
 
 ## 5. Phi-4 - 小型高效模型新標桿
 
-### 📄 論文信息
+### 📄 論文資訊
 - **標題**: Phi-4 Technical Report
 - **作者**: Microsoft Research
 - **發布**: 2024年12月
-- **代碼**: [GitHub](https://github.com/microsoft/Phi-3)
+- **程式碼**: [GitHub](https://github.com/microsoft/Phi-3)
 
 ### 🎯 核心貢獻
 
 1. **參數效率**: 14B參數達到接近70B模型性能
 2. **數學推理**: 在MATH基準上超越多數大模型
-3. **合成數據**: 大量使用高質量合成訓練數據
+3. **合成資料**: 大量使用高品質合成訓練資料
 4. **部署友好**: 可在消費級GPU運行
 
 ### 📊 性能指標
@@ -465,7 +465,7 @@ print(response.text)
 | HumanEval | 82.5 | 80.5 | 86.0 |
 | GSM8K | 91.0 | 95.1 | 95.8 |
 
-### 💻 代碼實現
+### 💻 程式碼實現
 
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -494,7 +494,7 @@ outputs = model.generate(**inputs, max_new_tokens=512, temperature=0.1)
 solution = tokenizer.decode(outputs[0], skip_special_tokens=True)
 print(solution)
 
-# 代碼生成
+# 程式碼生成
 code_prompt = """
 Write a Python function that:
 1. Takes a list of numbers
@@ -544,7 +544,7 @@ print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 - 128K上下文
 - 開源友好授權
 
-**代碼**: [GitHub](https://github.com/QwenLM/Qwen2.5)
+**程式碼**: [GitHub](https://github.com/QwenLM/Qwen2.5)
 
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -576,19 +576,19 @@ print(response)
 - MLA (Multi-head Latent Attention)
 - DeepSeekMoE架構
 - 訓練成本降低42.5%
-- 推理速度提升5.76倍
+- 推論速度提升5.76倍
 
-**代碼**: [GitHub](https://github.com/deepseek-ai/DeepSeek-V2)
+**程式碼**: [GitHub](https://github.com/deepseek-ai/DeepSeek-V2)
 
 ### 8. Mistral Large 2 - 開源企業級
 
 **核心特點**:
 - 123B參數
 - 128K上下文
-- 原生函數調用
+- 原生函式呼叫
 - Apache 2.0授權
 
-**代碼**: [Hugging Face](https://huggingface.co/mistralai/Mistral-Large-2)
+**程式碼**: [Hugging Face](https://huggingface.co/mistralai/Mistral-Large-2)
 
 ### 9. Chain-of-Thought Hub - 推理技術集成
 
@@ -619,7 +619,7 @@ print(response)
 | 使用場景 | 推薦模型 | 理由 |
 |---------|---------|------|
 | 通用對話 | GPT-4o, Claude 3.5 | 綜合能力最強 |
-| 編碼任務 | Claude 3.5, Llama 3.1 | 代碼理解優秀 |
+| 編碼任務 | Claude 3.5, Llama 3.1 | 程式碼理解優秀 |
 | 數學推理 | Phi-4, o1 | 推理能力突出 |
 | 中文應用 | Qwen2.5, GLM-4 | 中文優化 |
 | 長文檔 | Gemini 1.5, Claude 3.5 | 長上下文處理 |

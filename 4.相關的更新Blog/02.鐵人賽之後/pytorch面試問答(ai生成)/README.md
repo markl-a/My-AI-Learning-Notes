@@ -5,7 +5,7 @@
 ### 1. **基礎知識問題**
    - **PyTorch 是什麼？與 TensorFlow 相比有什麼優勢？**
    - **Tensor、Variable、Module、DataLoader 等基本概念是什麼？**
-   - **如何在 PyTorch 中創建和操作張量？舉例說明如何創建一個 3x3 的隨機張量。**
+   - **如何在 PyTorch 中建立和操作張量？舉例說明如何建立一個 3x3 的隨機張量。**
    - **PyTorch 中的自動微分 (autograd) 是如何工作的？為什麼它對深度學習很重要？**
 
 ### 2. **模型建構與訓練**
@@ -17,9 +17,9 @@
    - **如何實現 Early Stopping 和學習率調度 (learning rate scheduling)？**
 
 ### 3. **資料處理與增強**
-   - **如何使用 DataLoader 和 Dataset API 來處理數據？**
+   - **如何使用 DataLoader 和 Dataset API 來處理資料？**
    - **如何進行資料增強（data augmentation）以提高模型的泛化能力？**
-   - **你如何處理不平衡的數據集？**
+   - **你如何處理不平衡的資料集？**
 
 ### 4. **模型評估與調試**
    - **如何在 PyTorch 中計算模型的準確率 (accuracy)、F1-score 等評估指標？**

@@ -11,10 +11,10 @@
 | 任務類型 | 推薦指標 | 備選指標 | 不推薦 |
 |---------|---------|---------|--------|
 | **機器翻譯** | BLEU, COMET | METEOR, chrF | Perplexity |
-| **文本摘要** | ROUGE-L | BERTScore | BLEU |
+| **文字摘要** | ROUGE-L | BERTScore | BLEU |
 | **問答系統** | Exact Match, F1 | BERTScore | ROUGE |
 | **對話系統** | 人類評估, Elo | LLM-as-Judge | BLEU |
-| **代碼生成** | Pass@k | 功能測試 | BLEU |
+| **程式碼生成** | Pass@k | 功能測試 | BLEU |
 | **創意寫作** | 人類評估 | LLM-as-Judge | 自動化指標 |
 | **分類任務** | Accuracy, F1 | Precision, Recall | Perplexity |
 | **語言建模** | Perplexity | - | BLEU |
@@ -37,7 +37,7 @@
 
 ### 通用基準
 
-| 基準 | 任務數 | 難度 | 更新頻率 | 數據洩漏風險 | 適用模型 |
+| 基準 | 任務數 | 難度 | 更新頻率 | 資料洩漏風險 | 適用模型 |
 |------|--------|------|---------|-------------|---------|
 | **MMLU** | 57 | ★★★★☆ | 靜態 | 中 | 通用 LLM |
 | **BIG-Bench** | 200+ | ★★★★★ | 靜態 | 中 | 通用 LLM |
@@ -52,7 +52,7 @@
 | 基準 | 任務 | 樣本數 | 評估指標 | 典型分數範圍 |
 |------|------|--------|---------|-------------|
 | **SQuAD 2.0** | 閱讀理解 | 150K | EM, F1 | 60-90% |
-| **HumanEval** | 代碼生成 | 164 | Pass@k | 20-70% |
+| **HumanEval** | 程式碼生成 | 164 | Pass@k | 20-70% |
 | **GSM8K** | 數學推理 | 8.5K | Accuracy | 10-90% |
 | **CNN/DM** | 摘要 | 300K | ROUGE | R-L: 35-45 |
 | **WMT** | 翻譯 | 數百萬 | BLEU | 20-40 |
@@ -187,11 +187,11 @@ def llm_judge(question, answer):
 
 ## ⚠️ 常見陷阱檢查清單
 
-### 數據問題
+### 資料問題
 
 - [ ] 測試集與訓練集完全分離
 - [ ] 測試集已去重
-- [ ] 沒有時間洩漏（測試數據來自未來）
+- [ ] 沒有時間洩漏（測試資料來自未來）
 - [ ] 測試集分布與實際應用一致
 
 ### 評估設計問題
@@ -203,7 +203,7 @@ def llm_judge(question, answer):
 
 ### 實施問題
 
-- [ ] 評估代碼經過驗證
+- [ ] 評估程式碼經過驗證
 - [ ] 記錄了所有超參數
 - [ ] 多次運行確認穩定性
 - [ ] 保存了詳細的評估日誌
@@ -236,7 +236,7 @@ def llm_judge(question, answer):
 - 5 維度評分（相關、準確、有用、安全、流暢）
 ```
 
-### 場景 2：代碼助手
+### 場景 2：程式碼助手
 
 ```
 第一層：功能測試
@@ -321,7 +321,7 @@ def llm_judge(question, answer):
 - [Big Code Models](https://huggingface.co/spaces/bigcode/bigcode-models-leaderboard)
 - [C-Eval](https://cevalbenchmark.com/)
 
-### 數據集
+### 資料集
 - [Hugging Face Datasets](https://huggingface.co/datasets)
 - [Papers with Code](https://paperswithcode.com/datasets)
 - [Google Dataset Search](https://datasetsearch.research.google.com/)
@@ -333,7 +333,7 @@ def llm_judge(question, answer):
 ```markdown
 # 模型評估報告
 
-## 基本信息
+## 基本資訊
 - 模型名稱：[MODEL_NAME]
 - 評估日期：[DATE]
 - 評估者：[NAME]

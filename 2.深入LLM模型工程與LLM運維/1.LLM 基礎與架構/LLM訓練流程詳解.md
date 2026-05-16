@@ -32,7 +32,7 @@
 
 ### 訓練階段對比
 
-| 階段 | 目標 | 數據量 | 訓練時間 | 成本 |
+| 階段 | 目標 | 資料量 | 訓練時間 | 成本 |
 |------|------|--------|---------|------|
 | 預訓練 | 學習語言基礎 | 數 TB (數兆 tokens) | 數週到數月 | 極高 ($數百萬) |
 | SFT | 任務適配 | 10K-100K 樣本 | 數小時到數天 | 中等 ($數千) |
@@ -45,7 +45,7 @@
 
 ### 核心概念
 
-預訓練是 LLM 訓練的基礎階段,模型在海量文本數據上學習語言的統計規律。
+預訓練是 LLM 訓練的基礎階段,模型在海量文字資料上學習語言的統計規律。
 
 **訓練目標:**
 ```
@@ -57,7 +57,7 @@
 ### 預訓練流程
 
 ```python
-# 概念性預訓練代碼
+# 概念性預訓練程式碼
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
@@ -174,11 +174,11 @@ config = {
 # trained_model = trainer.train()
 ```
 
-### 預訓練數據處理
+### 預訓練資料處理
 
 ```python
 class TextDataset:
-    """預訓練文本數據集"""
+    """預訓練文字資料集"""
 
     def __init__(self, data_paths, tokenizer, max_length=2048):
         self.tokenizer = tokenizer
@@ -223,21 +223,21 @@ class TextDataset:
 
 ### 預訓練關鍵技術
 
-#### 1. 數據混合 (Data Mixing)
+#### 1. 資料混合 (Data Mixing)
 
 ```python
-# 不同來源數據的混合策略
+# 不同來源資料的混合策略
 data_sources = {
-    'common_crawl': 0.60,      # 60% 網頁數據
+    'common_crawl': 0.60,      # 60% 網頁資料
     'books': 0.15,             # 15% 書籍
     'wikipedia': 0.10,         # 10% 維基百科
-    'github': 0.10,            # 10% 代碼
+    'github': 0.10,            # 10% 程式碼
     'papers': 0.05             # 5% 學術論文
 }
 
-# 高質量過濾
+# 高品質過濾
 def quality_filter(text):
-    """數據質量過濾"""
+    """資料品質過濾"""
 
     # 1. 長度過濾
     if len(text.split()) < 50:
@@ -321,12 +321,12 @@ def train_with_mixed_precision(model, dataloader):
 
 ### 核心概念
 
-SFT 將預訓練模型適配到特定任務,使用高質量的指令-回應對進行訓練。
+SFT 將預訓練模型適配到特定任務,使用高品質的指令-回應對進行訓練。
 
-### SFT 數據格式
+### SFT 資料格式
 
 ```python
-# 典型的 SFT 數據格式
+# 典型的 SFT 資料格式
 sft_data = [
     {
         "instruction": "解釋什麼是量子糾纏",
@@ -334,12 +334,12 @@ sft_data = [
         "output": "量子糾纏是一種量子力學現象,當兩個或多個粒子以某種方式相互作用後..."
     },
     {
-        "instruction": "將以下文本翻譯成英文",
+        "instruction": "將以下文字翻譯成英文",
         "input": "你好,世界!",
         "output": "Hello, World!"
     },
     {
-        "instruction": "寫一個 Python 函數來計算斐波那契數列",
+        "instruction": "寫一個 Python 函式來計算斐波那契數列",
         "input": "n=10",
         "output": "def fibonacci(n):\n    if n <= 1:\n        return n\n    return fibonacci(n-1) + fibonacci(n-2)"
     }
@@ -359,11 +359,11 @@ class SFTTrainer:
         self.model = AutoModelForCausalLM.from_pretrained(model_name)
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
 
-        # 準備數據集
+        # 準備資料集
         self.dataset = self.prepare_dataset(sft_data)
 
     def prepare_dataset(self, sft_data):
-        """準備 SFT 數據集"""
+        """準備 SFT 資料集"""
 
         formatted_data = []
 
@@ -374,7 +374,7 @@ class SFTTrainer:
             else:
                 prompt = f"### Instruction:\n{example['instruction']}\n\n### Response:\n"
 
-            # 完整文本
+            # 完整文字
             full_text = prompt + example['output']
 
             # Tokenize
@@ -474,7 +474,7 @@ RLHF 使用強化學習將模型與人類偏好對齊,是 ChatGPT 成功的關�
 ### RLHF 三步流程
 
 ```
-1. 收集人類反饋數據
+1. 收集人類反饋資料
    ↓
 2. 訓練獎勵模型 (Reward Model)
    ↓
@@ -674,7 +674,7 @@ def rlhf_pipeline(sft_model, comparison_data, prompts):
     reward_model = RewardModelTrainer(sft_model, comparison_data)
     reward_model.train()
 
-    # 步驟 2: 創建參考模型
+    # 步驟 2: 建立參考模型
     ref_model = copy.deepcopy(sft_model)
 
     # 步驟 3: PPO 訓練
@@ -705,7 +705,7 @@ DPO 是 RLHF 的簡化替代方案,無需訓練獎勵模型和使用 RL。
 **關鍵思想:**
 直接優化策略,使其更傾向於人類偏好的回應。
 
-### DPO 損失函數
+### DPO 損失函式
 
 ```
 L_DPO = -E[log σ(β log π_θ(y_w|x)/π_ref(y_w|x) - β log π_θ(y_l|x)/π_ref(y_l|x))]
@@ -767,7 +767,7 @@ class DPOTrainer:
     def dpo_loss(self, batch):
         """計算 DPO 損失"""
 
-        # 提取 chosen 和 rejected 數據
+        # 提取 chosen 和 rejected 資料
         chosen_input_ids = batch['chosen_input_ids']
         chosen_labels = batch['chosen_labels']
         rejected_input_ids = batch['rejected_input_ids']
@@ -823,10 +823,10 @@ class DPOTrainer:
 def train_with_dpo(sft_model, preference_data):
     """使用 DPO 訓練"""
 
-    # 創建參考模型
+    # 建立參考模型
     ref_model = copy.deepcopy(sft_model)
 
-    # 創建 DPO 訓練器
+    # 建立 DPO 訓練器
     dpo_trainer = DPOTrainer(sft_model, ref_model, beta=0.1)
 
     # 訓練循環
@@ -956,13 +956,13 @@ for batch in dataloader:
     model_engine.step()
 ```
 
-### 4. 數據並行與模型並行
+### 4. 資料並行與模型並行
 
 ```python
-# 數據並行 (DP)
+# 資料並行 (DP)
 model = nn.DataParallel(model, device_ids=[0, 1, 2, 3])
 
-# 分佈式數據並行 (DDP) - 推薦
+# 分佈式資料並行 (DDP) - 推薦
 import torch.distributed as dist
 from torch.nn.parallel import DistributedDataParallel as DDP
 
@@ -1015,7 +1015,7 @@ def complete_finetuning_pipeline():
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     tokenizer.pad_token = tokenizer.eos_token
 
-    # 2. 準備數據
+    # 2. 準備資料
     dataset = load_dataset("your_dataset")
 
     def tokenize_function(examples):
@@ -1032,7 +1032,7 @@ def complete_finetuning_pipeline():
         remove_columns=dataset["train"].column_names
     )
 
-    # 3. 數據整理器
+    # 3. 資料整理器
     data_collator = DataCollatorForLanguageModeling(
         tokenizer=tokenizer,
         mlm=False  # Causal LM
@@ -1060,7 +1060,7 @@ def complete_finetuning_pipeline():
         metric_for_best_model="eval_loss",
     )
 
-    # 5. 創建訓練器
+    # 5. 建立訓練器
     trainer = Trainer(
         model=model,
         args=training_args,
@@ -1136,7 +1136,7 @@ print(f"預估成本: ${cost['total_cost_usd']:,.0f}")
 
 ### 不同模型規模的訓練成本
 
-| 模型規模 | 訓練數據 | GPU (A100) | 時間 | 估算成本 |
+| 模型規模 | 訓練資料 | GPU (A100) | 時間 | 估算成本 |
 |---------|---------|------------|------|---------|
 | 125M | 300B tokens | 8 | 3 天 | $1,200 |
 | 1.3B | 300B tokens | 64 | 4 天 | $12,000 |
@@ -1163,8 +1163,8 @@ print(f"預估成本: ${cost['total_cost_usd']:,.0f}")
 
 ### 關鍵要點
 
-✅ **預訓練**: 海量數據 + 長時間 + 高成本
-✅ **SFT**: 高質量樣本 + 快速適配
+✅ **預訓練**: 海量資料 + 長時間 + 高成本
+✅ **SFT**: 高品質樣本 + 快速適配
 ✅ **RLHF**: 人類反饋 + 最佳對齊
 ✅ **DPO**: 簡化 RLHF + 更穩定
 ✅ **LoRA**: 高效微調 + 低成本

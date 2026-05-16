@@ -77,7 +77,7 @@ chcp
 # 檢查設定檔是否存在
 Test-Path $PROFILE
 
-# 如果不存在，創建它
+# 如果不存在，建立它
 if (!(Test-Path $PROFILE)) {
     New-Item -Type File -Path $PROFILE -Force
 }
@@ -149,7 +149,7 @@ chcp 65001
 ### 步驟 4: Clone Repository
 
 ```powershell
-# 創建工作目錄
+# 建立工作目錄
 cd C:\
 mkdir ROCm
 cd ROCm
@@ -187,7 +187,7 @@ python ./build_tools/fetch_sources.py
 ### 步驟 7: 配置 CMake
 
 ```powershell
-# 創建 build 目錄
+# 建立 build 目錄
 mkdir build
 cd build
 
@@ -241,7 +241,7 @@ amdgpu-arch
 
 ### 步驟 11: 編寫測試程式
 
-創建一個簡單的 HIP 程式 `test_hip.cpp`:
+建立一個簡單的 HIP 程式 `test_hip.cpp`:
 
 ```cpp
 #include <hip/hip_runtime.h>
@@ -308,7 +308,7 @@ cmake .. -G "Ninja" ^
 
 **錯誤訊息**: `Unsupported GPU architecture`
 
-**解決方案**: 檢查您的 GPU 型號並使用正確的 gfx 代碼：
+**解決方案**: 檢查您的 GPU 型號並使用正確的 gfx 程式碼：
 
 ```powershell
 # 查詢 GPU 資訊
@@ -629,7 +629,7 @@ except Exception as e:
 
 預期效能：
 - **Stable Diffusion**: 512x512 圖像生成約 5-10 秒
-- **LLaMA 7B**: 推理速度約 20-30 tokens/秒
+- **LLaMA 7B**: 推論速度約 20-30 tokens/秒
 - **PyTorch 訓練**: 比 CPU 快 10-50 倍
 - **矩陣運算**: FP32 效能約 10-15 TFLOPS
 

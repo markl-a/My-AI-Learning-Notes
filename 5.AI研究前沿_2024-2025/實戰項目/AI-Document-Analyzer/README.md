@@ -8,7 +8,7 @@
 - **多格式支持**：PDF、DOCX、TXT、Markdown、HTML
 - **智能分塊**：自動將長文檔分塊處理
 - **向量化存儲**：使用 ChromaDB 進行語義搜索
-- **元數據管理**：完整的文檔元數據追蹤
+- **元資料管理**：完整的文檔元資料追蹤
 
 ### 🔍 智能分析
 1. **文檔摘要** - 生成不同長度的文檔摘要（短/中/長）
@@ -46,7 +46,7 @@
 │  │                  │         │   (LLM-based)     │    │
 │  │ - PDF 解析       │         │                   │    │
 │  │ - DOCX 解析      │         │ - 摘要生成        │    │
-│  │ - 文本分塊       │         │ - 實體提取        │    │
+│  │ - 文字分塊       │         │ - 實體提取        │    │
 │  │ - 向量化         │         │ - 關鍵詞提取      │    │
 │  └──────────────────┘         │ - 主題建模        │    │
 │           │                    │ - 情感分析        │    │
@@ -78,7 +78,7 @@
 # 進入項目目錄
 cd AI-Document-Analyzer
 
-# 創建虛擬環境
+# 建立虛擬環境
 python -m venv venv
 source venv/bin/activate  # Linux/Mac
 # venv\Scripts\activate  # Windows
@@ -90,7 +90,7 @@ pip install -r requirements.txt
 2. **配置環境變量**
 
 ```bash
-# 複製配置文件
+# 複製設定檔
 cp .env.example .env
 
 # 編輯 .env，填入 OpenAI API 密鑰
@@ -296,7 +296,7 @@ overlap = 50          # 重疊單詞數
 # 輕量級（快速，英文）
 EMBEDDING_MODEL=all-MiniLM-L6-v2
 
-# 高質量（較慢，英文）
+# 高品質（較慢，英文）
 EMBEDDING_MODEL=all-mpnet-base-v2
 
 # 多語言支持
@@ -309,14 +309,14 @@ EMBEDDING_MODEL=paraphrase-multilingual-MiniLM-L12-v2
 
 ```env
 # 在 .env 中配置
-OPENAI_MODEL=gpt-4  # 更高質量但較慢
+OPENAI_MODEL=gpt-4  # 更高品質但較慢
 # 或
 OPENAI_MODEL=gpt-3.5-turbo  # 平衡性能和成本
 ```
 
-### 2. 啟用分析緩存
+### 2. 啟用分析快取
 
-分析結果會自動緩存，避免重複計算。
+分析結果會自動快取，避免重複計算。
 
 ### 3. 批處理文檔
 
@@ -367,16 +367,16 @@ tail -f logs/analyzer.log
 Docker Compose 已包含監控服務：
 
 - Prometheus: http://localhost:9090
-- Grafana: http://localhost:3000（默認密碼：admin/admin）
+- Grafana: http://localhost:3000（預設密碼：admin/admin）
 
 ## 🛡️ 安全注意事項
 
 1. **API 密鑰保護**
    - 永遠不要將 `.env` 文件提交到 Git
-   - 使用環境變量管理敏感信息
+   - 使用環境變量管理敏感資訊
 
 2. **文件上傳限制**
-   - 設置最大文件大小（默認 10MB）
+   - 設置最大文件大小（預設 10MB）
    - 驗證文件類型
 
 3. **CORS 配置**

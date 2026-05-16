@@ -1,12 +1,12 @@
 # 訓練與優化 - 10篇關鍵論文
 
-> 2024-2025年模型訓練與推理優化的重大進展：FlashAttention 3、vLLM、QLoRA等關鍵技術
+> 2024-2025年模型訓練與推論優化的重大進展：FlashAttention 3、vLLM、QLoRA等關鍵技術
 
 ---
 
 ## 📋 論文列表
 
-| # | 論文/項目 | 機構 | 發布時間 | 代碼 | 影響力 |
+| # | 論文/項目 | 機構 | 發布時間 | 程式碼 | 影響力 |
 |---|-----------|------|----------|------|--------|
 | 1 | FlashAttention 3 | Stanford | 2024.07 | [GitHub](https://github.com/Dao-AILab/flash-attention) | ⭐⭐⭐⭐⭐ |
 | 2 | vLLM | UC Berkeley | 2024 | [GitHub](https://github.com/vllm-project/vllm) | ⭐⭐⭐⭐⭐ |
@@ -21,7 +21,7 @@
 
 ---
 
-## 核心技術與代碼實現
+## 核心技術與程式碼實現
 
 ### 1. FlashAttention 3 - 注意力計算革命
 
@@ -64,7 +64,7 @@ print(f"FlashAttention: {time_flash:.2f}s")
 print(f"Speedup: {time_eager/time_flash:.2f}x")
 ```
 
-### 2. vLLM - 高吞吐推理引擎
+### 2. vLLM - 高吞吐推論引擎
 
 ```python
 from vllm import LLM, SamplingParams
@@ -201,7 +201,7 @@ quant_path = "llama-3.1-8b-awq"
 model = AutoAWQForCausalLM.from_pretrained(model_path)
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 
-# 準備校準數據
+# 準備校準資料
 quant_config = {
     "zero_point": True,
     "q_group_size": 128,
@@ -355,7 +355,7 @@ for batch in train_dataloader:
 
 **DoRA**: LoRA改進版本，分解權重更新
 **GPTQ**: 後訓練量化技術
-**TensorRT-LLM**: NVIDIA推理優化框架
+**TensorRT-LLM**: NVIDIA推論優化框架
 
 ```python
 # TensorRT-LLM示例
@@ -388,7 +388,7 @@ print(outputs[0].outputs[0].text)
 
 ## 🔬 選擇指南
 
-**推理優化**: vLLM (生產) / TensorRT-LLM (NVIDIA GPU)
+**推論優化**: vLLM (生產) / TensorRT-LLM (NVIDIA GPU)
 **微調**: QLoRA (記憶體受限) / LoRA (性能優先)
 **量化**: AWQ (平衡) / GPTQ (極致壓縮)
 **分布式訓練**: DeepSpeed ZeRO++ (大規模) / FSDP (PyTorch原生)

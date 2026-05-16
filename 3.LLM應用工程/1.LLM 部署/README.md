@@ -9,7 +9,7 @@
 ├── README.md                 # 本文件 - 理論知識和概念
 ├── requirements.txt          # Python 依賴
 ├── .env.example             # 環境變數模板
-├── configs/                 # 配置文件
+├── configs/                 # 設定檔
 │   └── models.yaml          # 模型配置
 ├── examples/                # 📚 基礎示例（6個）
 │   ├── 01_ollama_basic.py           # Ollama 本地部署
@@ -34,7 +34,7 @@
 
 ## 🚀 快速開始
 
-### 方式一：運行示例代碼
+### 方式一：運行示例程式碼
 
 ```bash
 # 1. 安裝依賴
@@ -93,14 +93,14 @@ docker-compose down
 4. ✅ 學習 AI 輔助功能的實現
 
 ### 專業路徑
-1. ✅ 深入研究 FastAPI 項目代碼
+1. ✅ 深入研究 FastAPI 項目程式碼
 2. ✅ 使用 Docker 容器化部署
 3. ✅ 實現自定義 AI 輔助功能
 4. ✅ 優化性能和成本
 
 ## 📚 內容概覽
 
-### 示例代碼 (`examples/`)
+### 示例程式碼 (`examples/`)
 
 六個完整的可運行示例，每個都有詳細註釋：
 
@@ -198,7 +198,7 @@ docker-compose down
 **成本估算**（2025年1月）：
 | 模型 | 輸入（每百萬 tokens） | 輸出（每百萬 tokens） | 適用場景 |
 |------|---------------------|---------------------|---------|
-| GPT-4o | $2.50 | $10.00 | 複雜推理、長文本 |
+| GPT-4o | $2.50 | $10.00 | 複雜推理、長文字 |
 | GPT-4o-mini | $0.15 | $0.60 | 一般任務、高頻呼叫 |
 | Claude 3.5 Sonnet | $3.00 | $15.00 | 程式碼生成、分析 |
 | Gemini 1.5 Pro | $1.25 | $5.00 | 多模態、長上下文 |
@@ -422,7 +422,7 @@ bash start_linux.sh  # 或 start_windows.bat, start_macos.sh
 #### OpenAI 系列
 - **GPT-4o**：最新旗艦模型，多模態
 - **GPT-4o-mini**：小型高效版本
-- **O1 系列**：推理優化模型
+- **O1 系列**：推論優化模型
 
 **特點**：
 - 頂尖性能
@@ -455,7 +455,7 @@ bash start_linux.sh  # 或 start_windows.bat, start_macos.sh
 |------|-----------|------|---------|
 | GPT-4o | 128K | 多模態、通用 | 高 |
 | Claude 3.5 Sonnet | 200K | 程式碼、分析 | 中高 |
-| Gemini 1.5 Pro | 1M | 長文本、多模態 | 中 |
+| Gemini 1.5 Pro | 1M | 長文字、多模態 | 中 |
 
 ---
 
@@ -641,7 +641,7 @@ ollama rm llama3.1:8b
 # 啟動 API 服務（預設在 11434 埠）
 ollama serve
 
-# 從 Modelfile 創建自訂模型
+# 從 Modelfile 建立自訂模型
 ollama create my-model -f Modelfile
 ```
 
@@ -668,7 +668,7 @@ import ollama
 response = ollama.chat(model='llama3.1:8b', messages=[
     {
         'role': 'user',
-        'content': '寫一個 Python 函數計算斐波那契數列',
+        'content': '寫一個 Python 函式計算斐波那契數列',
     },
 ])
 print(response['message']['content'])
@@ -707,7 +707,7 @@ make
 make LLAMA_CUDA=1
 
 # 下載模型（GGUF 格式）
-# 從 HuggingFace 下載，例如：
+# 從 Hugging Face 下載，例如：
 # https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF
 
 # 運行推論
@@ -763,7 +763,7 @@ def generate_response(message, history):
     )
     return response[0]['generated_text']
 
-# 創建 Gradio 介面
+# 建立 Gradio 介面
 demo = gr.ChatInterface(
     generate_response,
     title="Llama 2 Chat",
@@ -775,8 +775,8 @@ if __name__ == "__main__":
 ```
 
 **部署步驟**：
-1. 創建 Hugging Face 帳號
-2. 創建新的 Space
+1. 建立 Hugging Face 帳號
+2. 建立新的 Space
 3. 上傳 `app.py` 和 `requirements.txt`
 4. 自動部署並獲得公開 URL
 
@@ -886,7 +886,7 @@ model = AutoModelForCausalLM.from_pretrained(
     trust_remote_code=True
 )
 
-# 創建對話管線
+# 建立對話管線
 chat_pipeline = pipeline(
     "text-generation",
     model=model,

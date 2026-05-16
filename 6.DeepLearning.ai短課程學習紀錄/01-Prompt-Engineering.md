@@ -328,7 +328,7 @@ print(response)
 
 ## 💡 實際應用案例
 
-### 1. 文本摘要（Summarizing）
+### 1. 文字摘要（Summarizing）
 
 ```python
 prod_review = """
@@ -444,7 +444,7 @@ response = get_completion(prompt)
 print(response)
 ```
 
-### 3. 文本轉換（Transforming）
+### 3. 文字轉換（Transforming）
 
 #### 翻譯
 
@@ -533,7 +533,7 @@ for t in text:
     print(response)
 ```
 
-### 4. 文本擴展（Expanding）
+### 4. 文字擴展（Expanding）
 
 ```python
 # 給定客戶評論和情感

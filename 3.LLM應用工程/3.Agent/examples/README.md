@@ -1,6 +1,6 @@
 # AI Agent 實戰範例
 
-本目錄包含各種 AI Agent 框架的完整實戰範例，所有代碼都經過測試並可以運行。
+本目錄包含各種 AI Agent 框架的完整實戰範例，所有程式碼都經過測試並可以運行。
 
 ## 📁 目錄結構
 
@@ -11,7 +11,7 @@ examples/
 ├── 03_crewai_multi_agent/    # CrewAI 多 Agent 協作
 ├── 04_autogen_conversational/# AutoGen 對話式 Agent
 ├── 05_ai_research_assistant/ # 完整實戰項目：AI 研究助手
-├── utils/                    # 共用工具和輔助函數
+├── utils/                    # 共用工具和輔助函式
 └── requirements.txt          # 依賴套件列表
 ```
 
@@ -20,7 +20,7 @@ examples/
 ### 1. 環境設置
 
 ```bash
-# 創建虛擬環境
+# 建立虛擬環境
 python -m venv venv
 
 # 啟動虛擬環境
@@ -35,7 +35,7 @@ pip install -r requirements.txt
 
 ### 2. API 金鑰配置
 
-創建 `.env` 文件並添加你的 API 金鑰：
+建立 `.env` 文件並添加你的 API 金鑰：
 
 ```bash
 # OpenAI
@@ -78,13 +78,13 @@ python langgraph_basic.py
 展示 ReAct (Reasoning + Acting) 模式的 Agent 實作：
 
 - `react_agent_basic.py` - 基礎 ReAct Agent
-- `react_with_tools.py` - 帶工具調用的 ReAct Agent
+- `react_with_tools.py` - 帶工具呼叫的 ReAct Agent
 - `react_custom_prompt.py` - 自定義提示的 ReAct Agent
 - `README.md` - 詳細說明文檔
 
 **學習目標**：
 - 理解 ReAct 循環（思考-行動-觀察）
-- 學習工具定義和調用
+- 學習工具定義和呼叫
 - 掌握提示工程技巧
 
 ### 02. LangGraph Agent
@@ -122,14 +122,14 @@ python langgraph_basic.py
 展示 AutoGen 的對話式 AI 系統：
 
 - `autogen_basic.py` - 基礎對話 Agent
-- `autogen_code_execution.py` - 代碼執行 Agent
+- `autogen_code_execution.py` - 程式碼執行 Agent
 - `autogen_group_chat.py` - 多 Agent 群聊
 - `autogen_teaching_assistant.py` - 教學助手範例
 - `README.md` - 詳細說明文檔
 
 **學習目標**：
 - 理解對話式 AI 架構
-- 學習代碼執行和驗證
+- 學習程式碼執行和驗證
 - 掌握群聊和角色分配
 
 ### 05. AI 研究助手（完整實戰項目）
@@ -140,24 +140,24 @@ python langgraph_basic.py
 - `agents/` - Agent 定義
 - `tools/` - 工具實作
 - `workflows/` - 工作流編排
-- `config/` - 配置文件
-- `tests/` - 測試代碼
+- `config/` - 設定檔
+- `tests/` - 測試程式碼
 - `README.md` - 項目文檔
 
 **功能特性**：
 - 自動搜尋和收集技術資料
 - 智能分析和總結
 - 生成結構化技術報告
-- 代碼示例生成
+- 程式碼示例生成
 - 成本追蹤和監控
 - 完整的測試覆蓋
 
-## 🛠 工具和輔助函數
+## 🛠 工具和輔助函式
 
 `utils/` 目錄包含可重用的工具：
 
 - `agent_utils.py` - Agent 相關工具函數
-- `llm_utils.py` - LLM 調用輔助函數
+- `llm_utils.py` - LLM 呼叫輔助函式
 - `prompt_templates.py` - 提示模板集合
 - `cost_tracker.py` - 成本追蹤器
 - `evaluator.py` - Agent 評估器
@@ -174,11 +174,11 @@ python langgraph_basic.py
 | CrewAI Research Team | ~45s | $0.50 | 88% |
 | AutoGen Code Execution | ~12s | $0.08 | 90% |
 
-*注意：結果基於 gpt-4-turbo，實際數據可能因任務複雜度而異*
+*注意：結果基於 gpt-4-turbo，實際資料可能因任務複雜度而異*
 
 ## 🧪 測試
 
-每個範例都包含測試代碼：
+每個範例都包含測試程式碼：
 
 ```bash
 # 運行所有測試
@@ -211,9 +211,9 @@ pytest --cov=. --cov-report=html
    - 提供有意義的錯誤訊息
    - 記錄失敗案例供分析
 
-4. **代碼品質**
+4. **程式碼品質**
    - 遵循 PEP 8 風格指南
-   - 編寫完整的文檔字符串
+   - 編寫完整的文檔字串
    - 包含類型註解
 
 ## 🤝 貢獻指南
@@ -221,8 +221,8 @@ pytest --cov=. --cov-report=html
 歡迎提交 Issue 和 Pull Request！
 
 在提交之前，請確保：
-- 代碼通過所有測試
-- 遵循現有的代碼風格
+- 程式碼通過所有測試
+- 遵循現有的程式碼風格
 - 更新相關文檔
 - 添加必要的測試
 
@@ -244,7 +244,7 @@ A: 基礎範例通常 < $0.10，複雜範例可能 $0.50-$2.00。建議先使用
 **Q: 如何選擇合適的框架？**
 A: 參考主文檔的「框架比較與選擇指南」章節，根據你的需求選擇。
 
-**Q: 代碼無法運行怎麼辦？**
+**Q: 程式碼無法運行怎麼辦？**
 A:
 1. 檢查依賴是否正確安裝
 2. 確認 API 金鑰配置正確

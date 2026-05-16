@@ -8,7 +8,7 @@
 - 圖像描述與標籤生成
 - 視覺問答 (VQA)
 - 文件/發票 OCR 分析
-- 圖表數據提取
+- 圖表資料提取
 - 多圖像比較分析
 
 ## 🎯 學習目標
@@ -28,7 +28,7 @@
 ├─────────────────────────────────────────────────────────────┤
 │  輸入層                                                      │
 │  ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐        │
-│  │ 單張圖像 │  │ 多張圖像 │  │ PDF文件 │  │ 視頻幀  │        │
+│  │ 單張圖像 │  │ 多張圖像 │  │ PDF文件 │  │ 影片幀  │        │
 │  └────┬────┘  └────┬────┘  └────┬────┘  └────┬────┘        │
 │       └────────────┴────────────┴────────────┘             │
 │                           ↓                                 │
@@ -69,7 +69,7 @@ VLM-Image-Analyzer/
 │   │   ├── __init__.py
 │   │   ├── image_captioner.py  # 圖像描述
 │   │   ├── document_analyzer.py # 文件分析
-│   │   ├── chart_extractor.py  # 圖表數據提取
+│   │   ├── chart_extractor.py  # 圖表資料提取
 │   │   └── vqa_engine.py       # 視覺問答
 │   ├── api/
 │   │   ├── __init__.py
@@ -542,7 +542,7 @@ class DocumentAnalyzer:
         return results
 ```
 
-### 圖表數據提取
+### 圖表資料提取
 
 ```python
 # src/analyzers/chart_extractor.py
@@ -554,7 +554,7 @@ from ..core.vlm_client import VLMClient
 
 @dataclass
 class ChartData:
-    """圖表數據"""
+    """圖表資料"""
     chart_type: str
     title: Optional[str]
     x_axis: Optional[str]
@@ -563,7 +563,7 @@ class ChartData:
     summary: str
 
 class ChartExtractor:
-    """圖表數據提取器"""
+    """圖表資料提取器"""
 
     CHART_TYPES = [
         "bar", "line", "pie", "scatter",
@@ -574,15 +574,15 @@ class ChartExtractor:
         self.client = vlm_client
 
     def extract(self, image_path: str) -> ChartData:
-        """從圖表圖像提取數據"""
+        """從圖表圖像提取資料"""
         prompt = """
-        分析這張圖表圖像，提取所有可見的數據。
+        分析這張圖表圖像，提取所有可見的資料。
 
         請提供：
         1. 圖表類型（如：折線圖、長條圖、圓餅圖等）
         2. 標題（如果有）
         3. X 軸和 Y 軸標籤
-        4. 所有可讀取的數據點
+        4. 所有可讀取的資料點
         5. 圖表的主要發現或趨勢總結
 
         以 JSON 格式回覆：
@@ -614,7 +614,7 @@ class ChartExtractor:
         prompt = """
         比較這些圖表，分析它們之間的關係和差異。
 
-        對於每張圖表，提取關鍵數據點。
+        對於每張圖表，提取關鍵資料點。
         然後進行比較分析：
         1. 相同之處
         2. 差異之處

@@ -60,7 +60,7 @@ model.export(
 
 **輸出檔案：**
 - `best.mlpackage/` - Core ML 模型包
-- 包含模型、元數據、預覽
+- 包含模型、元資料、預覽
 
 **不同版本的建議：**
 
@@ -376,7 +376,7 @@ model.export(format='coreml', int8=True)
 model = YOLO('yolov8n.pt')  # nano 版本
 ```
 
-### 2. 推理優化
+### 2. 推論優化
 
 ```swift
 // 降低相機解析度
@@ -451,7 +451,7 @@ func startDisplayLink() {
 - 確認模型檔案已添加到 Target
 - 清理專案：Product → Clean Build Folder
 
-### Q: 推理速度慢？
+### Q: 推論速度慢？
 
 **A:**
 - 使用 YOLOv8n（最小模型）

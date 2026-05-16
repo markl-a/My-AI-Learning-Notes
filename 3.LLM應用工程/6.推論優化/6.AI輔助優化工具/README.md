@@ -22,7 +22,7 @@
 - 分析硬體配置（GPU/CPU、記憶體）
 - 理解使用場景（對話、批次處理、實時）
 - 推薦量化方法、KV Cache 配置
-- 生成可執行的優化代碼
+- 生成可執行的優化程式碼
 
 **使用示例**：
 ```python
@@ -87,10 +87,10 @@ for model in models:
 
 [03_performance_analyzer.py](./03_performance_analyzer.py)
 
-使用 AI 分析效能數據，識別瓶頸並提供優化建議。
+使用 AI 分析效能資料，識別瓶頸並提供優化建議。
 
 **功能**：
-- 自動效能數據收集
+- 自動效能資料收集
 - AI 驅動的瓶頸識別
 - 根因分析
 - 優先級排序的優化建議
@@ -139,7 +139,7 @@ for bottleneck in insights['bottlenecks']:
    └─ 硬體分配
         ↓
 4. 自動執行
-   ├─ 代碼生成
+   ├─ 程式碼生成
    ├─ 配置更新
    └─ 測試驗證
         ↓
@@ -237,7 +237,7 @@ AI 建議:
 """
 ```
 
-### 場景 2: 批次文本處理
+### 場景 2: 批次文字處理
 
 ```python
 scenario = {
@@ -385,7 +385,7 @@ optimizer = ContinuousOptimizer(
 optimizer.start_monitoring()
 
 # AI 會自動:
-# - 收集性能數據
+# - 收集性能資料
 # - 識別異常和瓶頸
 # - 提供實時優化建議
 # - 自動調整配置（如果啟用）
@@ -491,7 +491,7 @@ results_v2 = apply_and_test(plan_v2)
 - 定期輪換 API Key
 
 ⚠️ **成本控制**：
-- AI API 調用有費用
+- AI API 呼叫有費用
 - 實施請求限流和快取
 - 監控 API 使用量
 

@@ -14,7 +14,7 @@
 
 ## 🎯 簡介
 
-**GAN (Generative Adversarial Network)** 是深度學習歷史上最具創造性的想法之一，由 Ian Goodfellow 於 2014 年提出。GAN 通過**兩個神經網絡的對抗訓練**，實現了高質量的數據生成，開創了生成模型的新時代。
+**GAN (Generative Adversarial Network)** 是深度學習歷史上最具創造性的想法之一，由 Ian Goodfellow 於 2014 年提出。GAN 通過**兩個神經網絡的對抗訓練**，實現了高品質的資料生成，開創了生成模型的新時代。
 
 Yann LeCun 曾評價 GAN 為："**近十年機器學習領域最有趣的想法**"。
 
@@ -26,12 +26,12 @@ Yann LeCun 曾評價 GAN 為："**近十年機器學習領域最有趣的想法*
 就像 "造假者" 和 "鑑定師" 的博弈：
 
 造假者 (G):
-- 目標: 生成逼真的假數據
+- 目標: 生成逼真的假資料
 - 希望: 騙過鑑定師
 
 鑑定師 (D):
-- 目標: 區分真假數據
-- 希望: 識別所有假數據
+- 目標: 區分真假資料
+- 希望: 識別所有假資料
 
 通過不斷對抗，造假者越來越專業！
 ```
@@ -45,17 +45,17 @@ Yann LeCun 曾評價 GAN 為："**近十年機器學習領域最有趣的想法*
 **兩個網絡的零和博弈**:
 
 ```python
-# GAN 訓練偽代碼
+# GAN 訓練偽程式碼
 for epoch in epochs:
     for real_data in dataloader:
         # 1. 訓練判別器 D
         # 目標: max log(D(x)) + log(1 - D(G(z)))
 
-        # 真實數據
+        # 真實資料
         real_output = D(real_data)
         d_loss_real = -log(real_output)  # 希望 D(x) = 1
 
-        # 生成假數據
+        # 生成假資料
         noise = random_noise()
         fake_data = G(noise)
         fake_output = D(fake_data.detach())
@@ -76,13 +76,13 @@ for epoch in epochs:
 
 ### 2. 數學原理
 
-**目標函數**:
+**目標函式**:
 ```
 min_G max_D V(D,G) = E_x[log D(x)] + E_z[log(1 - D(G(z)))]
 
 其中:
-- D(x): 判別器對真實數據的輸出（希望接近 1）
-- D(G(z)): 判別器對生成數據的輸出（D 希望接近 0，G 希望接近 1）
+- D(x): 判別器對真實資料的輸出（希望接近 1）
+- D(G(z)): 判別器對生成資料的輸出（D 希望接近 0，G 希望接近 1）
 - z: 隨機噪聲
 ```
 
@@ -262,12 +262,12 @@ class DCGenerator(nn.Module):
 | 2014 | **GAN** | 對抗訓練框架 |
 | 2015 | **DCGAN** | 深度卷積架構 |
 | 2016 | **Pix2Pix** | 條件 GAN，圖像到圖像轉換 |
-| 2017 | **CycleGAN** | 無配對數據的圖像轉換 |
+| 2017 | **CycleGAN** | 無配對資料的圖像轉換 |
 | 2017 | **WGAN** | Wasserstein 距離，穩定訓練 |
 | 2017 | **ProGAN** | 漸進式增長，高分辨率生成 |
 | 2018 | **BigGAN** | 大規模訓練，ImageNet 生成 |
-| 2018 | **StyleGAN** | 樣式遷移，高質量人臉生成 |
-| 2019 | **StyleGAN2** | 改進的生成質量 |
+| 2018 | **StyleGAN** | 樣式遷移，高品質人臉生成 |
+| 2019 | **StyleGAN2** | 改進的生成品質 |
 | 2020 | **StyleGAN3** | 更好的平移等變性 |
 
 ---
@@ -313,10 +313,10 @@ zebra_image = cyclegan_model(horse_image)
 - 超分辨率（SRGAN）
 - 黑白照片上色
 
-### 3. 數據增強
+### 3. 資料增強
 
 ```python
-# 生成訓練數據
+# 生成訓練資料
 for i in range(1000):
     z = torch.randn(1, latent_dim)
     synthetic_data = generator(z)
@@ -349,7 +349,7 @@ anomaly_score = ||image - reconstruction||
 
 ### 2. 評估困難
 
-**問題**: 如何量化生成質量？
+**問題**: 如何量化生成品質？
 
 **指標**:
 - **Inception Score (IS)**
@@ -387,7 +387,7 @@ fid = fid_score.calculate_fid_given_paths(
 3. **WGAN** (2017): [arXiv:1701.07875](https://arxiv.org/abs/1701.07875)
 4. **StyleGAN** (2019): [arXiv:1812.04948](https://arxiv.org/abs/1812.04948)
 
-### 代碼實現
+### 程式碼實現
 
 - 🔥 **PyTorch GAN 集合**: [eriklindernoren/PyTorch-GAN](https://github.com/eriklindernoren/PyTorch-GAN)
 - 🎨 **StyleGAN2**: [NVlabs/stylegan2](https://github.com/NVlabs/stylegan2)

@@ -161,7 +161,7 @@ class SlidingWindowMemory:
 
     def _generate_summary(self, messages: list[Message]) -> str:
         """生成訊息總結（應使用 LLM）"""
-        # 簡化版本，實際應該調用 LLM
+        # 簡化版本，實際應該呼叫 LLM
         contents = [f"{m.role}: {m.content[:50]}..." for m in messages]
         return f"[總結] 討論了: {'; '.join(contents)}"
 
@@ -667,7 +667,7 @@ sql_memory = SQLMemory()
 sql_memory.store_conversation(
     session_id="session_001",
     role="user",
-    content="幫我寫一個 Python 函數"
+    content="幫我寫一個 Python 函式"
 )
 
 # 設定偏好
@@ -1188,7 +1188,7 @@ class MemoryCompressor:
             messages=[
                 {
                     "role": "system",
-                    "content": """從文本中擷取關鍵事實，以 JSON 格式輸出：
+                    "content": """從文字中擷取關鍵事實，以 JSON 格式輸出：
 [{"subject": "主詞", "predicate": "謂詞", "object": "受詞"}]"""
                 },
                 {

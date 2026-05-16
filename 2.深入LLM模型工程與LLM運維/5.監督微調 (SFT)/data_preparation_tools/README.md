@@ -1,25 +1,25 @@
-# 數據準備工具集
+# 資料準備工具集
 
-這個工具集提供了一套完整的 SFT 數據準備工具，包括 AI 輔助數據生成、質量檢查和格式轉換。
+這個工具集提供了一套完整的 SFT 資料準備工具，包括 AI 輔助資料生成、質量檢查和格式轉換。
 
 ## 目錄
 
-1. [AI 輔助數據生成器](#ai-輔助數據生成器)
-2. [數據質量檢查器](#數據質量檢查器)
-3. [數據格式轉換器](#數據格式轉換器)
+1. [AI 輔助資料生成器](#ai-輔助資料生成器)
+2. [資料品質檢查器](#資料品質檢查器)
+3. [資料格式轉換器](#資料格式轉換器)
 
 ---
 
-## AI 輔助數據生成器
+## AI 輔助資料生成器
 
 ### 功能
 
-`ai_assisted_data_generator.py` 使用 LLM API (Claude/GPT) 自動生成高質量的訓練數據。
+`ai_assisted_data_generator.py` 使用 LLM API (Claude/GPT) 自動生成高品質的訓練資料。
 
 ### 主要特性
 
-- **自動生成訓練樣本**：根據主題和任務類型生成多樣化的訓練數據
-- **樣本變體生成**：為現有樣本生成變體，增加數據多樣性
+- **自動生成訓練樣本**：根據主題和任務類型生成多樣化的訓練資料
+- **樣本變體生成**：為現有樣本生成變體，增加資料多樣性
 - **支持多種 API**：支持 Anthropic Claude 和 OpenAI GPT
 - **可自定義**：靈活配置生成的樣本類型和數量
 
@@ -49,14 +49,14 @@ from ai_assisted_data_generator import AIDataGenerator, save_examples
 # 初始化生成器
 generator = AIDataGenerator(provider="anthropic")
 
-# 生成客服對話數據
+# 生成客服對話資料
 examples = generator.generate_examples_from_topic(
     topic="電商客服對話",
     num_examples=20,
     example_types=["退換貨諮詢", "物流查詢", "產品問題"]
 )
 
-# 保存數據
+# 保存資料
 save_examples(examples, "customer_service_data.json")
 ```
 
@@ -74,12 +74,12 @@ save_examples(variations, "variations.json")
 
 ### 應用場景
 
-1. **快速構建原型數據集**：快速生成初始訓練數據
-2. **數據增強**：為現有數據集生成變體
-3. **多領域數據生成**：生成不同領域的訓練數據
-4. **Few-shot 引導**：基於少量示例生成更多類似數據
+1. **快速構建原型資料集**：快速生成初始訓練資料
+2. **資料增強**：為現有資料集生成變體
+3. **多領域資料生成**：生成不同領域的訓練資料
+4. **Few-shot 引導**：基於少量示例生成更多類似資料
 
-### 生成數據示例
+### 生成資料示例
 
 ```json
 [
@@ -97,19 +97,19 @@ save_examples(variations, "variations.json")
 
 ---
 
-## 數據質量檢查器
+## 資料品質檢查器
 
 ### 功能
 
-`data_quality_checker.py` 對訓練數據進行全面的質量檢查，確保數據質量。
+`data_quality_checker.py` 對訓練資料進行全面的質量檢查，確保資料品質。
 
 ### 主要特性
 
 - **重複檢測**：識別重複的訓練樣本
-- **格式驗證**：檢查必需字段和數據類型
+- **格式驗證**：檢查必需字段和資料類型
 - **長度分析**：檢測異常長度的樣本
 - **空值檢查**：識別空字段
-- **多樣性分析**：分析數據的多樣性
+- **多樣性分析**：分析資料的多樣性
 - **質量評分**：提供 0-100 的質量分數
 - **改進建議**：給出具體的改進建議
 
@@ -121,12 +121,12 @@ save_examples(variations, "variations.json")
 python data_quality_checker.py your_data.json
 ```
 
-#### Python 代碼使用
+#### Python 程式碼使用
 
 ```python
 from data_quality_checker import DataQualityChecker, print_report
 
-# 創建檢查器
+# 建立檢查器
 checker = DataQualityChecker("your_data.json")
 
 # 執行所有檢查
@@ -142,7 +142,7 @@ print_report(report)
 ### 輸出示例
 
 ```
-檢查數據文件: customer_service_data.json
+檢查資料文件: customer_service_data.json
 總樣本數: 100
 ------------------------------------------------------------
 
@@ -160,7 +160,7 @@ print_report(report)
 檢查空字段...
 發現 1 個空字段
 
-分析數據多樣性...
+分析資料多樣性...
 
 最常見的指令開頭 (前 10):
   請問如何: 15 次 (15.0%)
@@ -168,7 +168,7 @@ print_report(report)
   ...
 
 ============================================================
-數據質量報告
+資料品質報告
 ============================================================
 
 總樣本數: 100
@@ -181,8 +181,8 @@ print_report(report)
   空字段: 1 個
 
 改進建議:
-  1. 發現 2 對重複樣本，建議移除以提高數據多樣性
-  2. 發現 3 個長度異常，建議檢查是否為數據錯誤
+  1. 發現 2 對重複樣本，建議移除以提高資料多樣性
+  2. 發現 3 個長度異常，建議檢查是否為資料錯誤
   3. 發現 1 個空字段，建議填充或移除這些樣本
 
 ============================================================
@@ -190,18 +190,18 @@ print_report(report)
 
 ### 質量評分標準
 
-- **100 分**：完美數據，無任何問題
-- **80-99 分**：高質量，有少量可改進之處
+- **100 分**：完美資料，無任何問題
+- **80-99 分**：高品質，有少量可改進之處
 - **60-79 分**：中等質量，需要一些清理
-- **< 60 分**：低質量，需要大量改進
+- **< 60 分**：低品質，需要大量改進
 
 ---
 
-## 數據格式轉換器
+## 資料格式轉換器
 
 ### 功能
 
-`data_formatter.py` 提供多種 SFT 數據格式之間的轉換功能。
+`data_formatter.py` 提供多種 SFT 資料格式之間的轉換功能。
 
 ### 支持的格式
 
@@ -213,10 +213,10 @@ print_report(report)
 
 - **格式轉換**：在不同格式間轉換
 - **應用模板**：應用 Alpaca/Vicuna/ChatML 等模板
-- **數據分割**：分割訓練集和驗證集
-- **數據合併**：合併多個數據集
+- **資料分割**：分割訓練集和驗證集
+- **資料合併**：合併多個資料集
 - **長度過濾**：根據長度過濾樣本
-- **數據平衡**：平衡類別分佈
+- **資料平衡**：平衡類別分佈
 
 ### 使用方法
 
@@ -249,7 +249,7 @@ templated_data = formatter.apply_chat_template(
 # 支持的模板：alpaca, vicuna, chatml
 ```
 
-#### 3. 分割數據集
+#### 3. 分割資料集
 
 ```python
 # 分割訓練集和驗證集
@@ -272,7 +272,7 @@ filtered_data = formatter.filter_by_length(
 )
 ```
 
-#### 5. 數據平衡
+#### 5. 資料平衡
 
 ```python
 # 平衡類別分佈
@@ -332,7 +332,7 @@ ASSISTANT: 機器學習是人工智慧的一個分支...
 
 ## 完整工作流程示例
 
-### 場景：構建客服機器人訓練數據
+### 場景：構建客服機器人訓練資料
 
 ```python
 from ai_assisted_data_generator import AIDataGenerator, save_examples
@@ -340,8 +340,8 @@ from data_quality_checker import DataQualityChecker, print_report
 from data_formatter import DataFormatter
 import json
 
-# 步驟 1: 使用 AI 生成初始數據
-print("步驟 1: 生成訓練數據...")
+# 步驟 1: 使用 AI 生成初始資料
+print("步驟 1: 生成訓練資料...")
 generator = AIDataGenerator(provider="anthropic")
 
 customer_service_data = generator.generate_examples_from_topic(
@@ -353,21 +353,21 @@ customer_service_data = generator.generate_examples_from_topic(
 save_examples(customer_service_data, "raw_data.json")
 
 # 步驟 2: 質量檢查
-print("\n步驟 2: 檢查數據質量...")
+print("\n步驟 2: 檢查資料品質...")
 checker = DataQualityChecker("raw_data.json")
 report = checker.check_all()
 print_report(report)
 
-# 步驟 3: 清理數據（移除重複和異常）
-print("\n步驟 3: 清理數據...")
+# 步驟 3: 清理資料（移除重複和異常）
+print("\n步驟 3: 清理資料...")
 with open("raw_data.json", "r", encoding="utf-8") as f:
     data = json.load(f)
 
 # 移除重複樣本（根據報告中的索引）
 # ... 清理邏輯 ...
 
-# 步驟 4: 格式轉換和數據分割
-print("\n步驟 4: 格式化和分割數據...")
+# 步驟 4: 格式轉換和資料分割
+print("\n步驟 4: 格式化和分割資料...")
 formatter = DataFormatter()
 
 # 分割訓練集和驗證集
@@ -377,7 +377,7 @@ train_data, val_data = formatter.split_train_val(data, val_ratio=0.1)
 train_templated = formatter.apply_chat_template(train_data, template_name="alpaca")
 val_templated = formatter.apply_chat_template(val_data, template_name="alpaca")
 
-# 保存最終數據
+# 保存最終資料
 with open("train_data.json", "w", encoding="utf-8") as f:
     json.dump(train_templated, f, ensure_ascii=False, indent=2)
 
@@ -391,19 +391,19 @@ print(f"\n完成！訓練集: {len(train_data)} 樣本, 驗證集: {len(val_data
 
 ## 最佳實踐
 
-### 數據生成
+### 資料生成
 
-1. **分批生成**：分批生成數據，而不是一次生成大量數據
-2. **人工審核**：AI 生成的數據需要人工審核
-3. **混合來源**：結合 AI 生成和人工標註的數據
-4. **迭代改進**：根據模型表現持續改進數據質量
+1. **分批生成**：分批生成資料，而不是一次生成大量資料
+2. **人工審核**：AI 生成的資料需要人工審核
+3. **混合來源**：結合 AI 生成和人工標註的資料
+4. **迭代改進**：根據模型表現持續改進資料品質
 
-### 質量控制
+### 品質控制
 
 1. **定期檢查**：定期運行質量檢查工具
 2. **設置閾值**：質量分數低於 80 分時需要改進
 3. **人工抽查**：隨機抽查樣本進行人工評估
-4. **版本控制**：使用 Git 管理數據集版本
+4. **版本控制**：使用 Git 管理資料集版本
 
 ### 格式選擇
 
@@ -417,17 +417,17 @@ print(f"\n完成！訓練集: {len(train_data)} 樣本, 驗證集: {len(val_data
 
 ### 常見問題
 
-**Q: AI 生成的數據質量不高？**
+**Q: AI 生成的資料品質不高？**
 
 A:
 - 改進提示詞，提供更具體的要求
 - 使用更強大的模型（如 GPT-4 或 Claude Opus）
-- 提供示例數據作為參考
+- 提供示例資料作為參考
 
-**Q: 數據格式轉換後出現錯誤？**
+**Q: 資料格式轉換後出現錯誤？**
 
 A:
-- 檢查輸入數據是否符合預期格式
+- 檢查輸入資料是否符合預期格式
 - 使用質量檢查工具驗證格式
 - 查看錯誤日志定位問題
 

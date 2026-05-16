@@ -53,7 +53,7 @@ i18n/
 ### 3. 提交翻譯
 
 ```bash
-# 創建翻譯分支
+# 建立翻譯分支
 git checkout -b i18n/en-readme
 
 # 翻譯完成後提交
@@ -61,7 +61,7 @@ git add i18n/en/
 git commit -m "i18n(en): translate README.md"
 git push origin i18n/en-readme
 
-# 創建 Pull Request
+# 建立 Pull Request
 ```
 
 ## 術語一致性

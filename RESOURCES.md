@@ -1,6 +1,6 @@
 # 📚 資源索引與工具清單
 
-> 精選AI學習資源、工具、數據集、社群的完整索引
+> 精選AI學習資源、工具、資料集、社群的完整索引
 
 ---
 
@@ -11,8 +11,8 @@
 |------|------|------|------|
 | **Hugging Face Transformers** | 模型庫 | [Docs](https://huggingface.co/docs/transformers) | 最全面的預訓練模型庫 |
 | **LangChain** | 應用框架 | [Docs](https://python.langchain.com/) | LLM應用開發框架 |
-| **LlamaIndex** | RAG框架 | [Docs](https://docs.llamaindex.ai/) | 數據索引與檢索 |
-| **vLLM** | 推理引擎 | [Docs](https://docs.vllm.ai/) | 高性能LLM推理 |
+| **LlamaIndex** | RAG框架 | [Docs](https://docs.llamaindex.ai/) | 資料索引與檢索 |
+| **vLLM** | 推論引擎 | [Docs](https://docs.vllm.ai/) | 高性能LLM推理 |
 | **DeepSpeed** | 訓練框架 | [Docs](https://www.deepspeed.ai/) | 大規模分布式訓練 |
 | **PyTorch** | 深度學習 | [Docs](https://pytorch.org/docs/) | 主流深度學習框架 |
 | **TensorFlow** | 深度學習 | [Docs](https://www.tensorflow.org/) | Google深度學習框架 |
@@ -31,7 +31,7 @@
 
 ## 🛠️ 開發工具
 
-### 向量數據庫
+### 向量資料庫
 
 | 名稱 | 類型 | 特點 | 適用場景 |
 |------|------|------|----------|
@@ -51,7 +51,7 @@
 | **VS Code** | IDE | [官網](https://code.visualstudio.com/) |
 | **PyCharm** | Python IDE | [官網](https://www.jetbrains.com/pycharm/) |
 | **Cursor** | AI編碼助手 | [官網](https://cursor.sh/) |
-| **GitHub Copilot** | AI代碼補全 | [官網](https://github.com/features/copilot) |
+| **GitHub Copilot** | AI程式碼補全 | [官網](https://github.com/features/copilot) |
 
 ### 實驗追蹤
 
@@ -65,20 +65,20 @@
 
 ---
 
-## 📊 數據集資源
+## 📊 資料集資源
 
-### 通用數據集平台
+### 通用資料集平台
 
 | 平台 | 說明 | 鏈接 |
 |------|------|------|
-| **Hugging Face Datasets** | 最全面的數據集庫 | [Hub](https://huggingface.co/datasets) |
-| **Kaggle** | 競賽與數據集 | [Datasets](https://www.kaggle.com/datasets) |
-| **Papers with Code** | 論文配套數據集 | [Datasets](https://paperswithcode.com/datasets) |
-| **Google Dataset Search** | Google數據集搜索 | [Search](https://datasetsearch.research.google.com/) |
+| **Hugging Face Datasets** | 最全面的資料集庫 | [Hub](https://huggingface.co/datasets) |
+| **Kaggle** | 競賽與資料集 | [Datasets](https://www.kaggle.com/datasets) |
+| **Papers with Code** | 論文配套資料集 | [Datasets](https://paperswithcode.com/datasets) |
+| **Google Dataset Search** | Google資料集搜索 | [Search](https://datasetsearch.research.google.com/) |
 
-### NLP數據集
+### NLP資料集
 
-| 數據集 | 任務 | 規模 | 鏈接 |
+| 資料集 | 任務 | 規模 | 鏈接 |
 |--------|------|------|------|
 | **GLUE** | 通用語言理解 | 9個任務 | [官網](https://gluebenchmark.com/) |
 | **SuperGLUE** | 進階語言理解 | 8個任務 | [官網](https://super.gluebenchmark.com/) |
@@ -87,9 +87,9 @@
 | **SST-2** | 情感分析 | 70K | [HF](https://huggingface.co/datasets/sst2) |
 | **CoNLL** | 命名實體識別 | 多種 | [官網](https://www.conll.org/) |
 
-### 多模態數據集
+### 多模態資料集
 
-| 數據集 | 類型 | 說明 | 鏈接 |
+| 資料集 | 類型 | 說明 | 鏈接 |
 |--------|------|------|------|
 | **COCO** | 圖像標註 | 物體檢測、分割 | [官網](https://cocodataset.org/) |
 | **ImageNet** | 圖像分類 | 1400萬圖像 | [官網](https://www.image-net.org/) |
@@ -149,7 +149,7 @@
 | 資源 | 說明 | 更新頻率 |
 |------|------|----------|
 | **arXiv** | 最新預印本 | 每日 |
-| **Papers with Code** | 論文+代碼 | 每日 |
+| **Papers with Code** | 論文+程式碼 | 每日 |
 | **Hugging Face Papers** | 每日精選 | 每日 |
 | **Arxiv Sanity** | 個性化推薦 | 實時 |
 
@@ -163,7 +163,7 @@
 |------|------|------|
 | **PromptPerfect** | Prompt優化 | [官網](https://promptperfect.jina.ai/) |
 | **LangSmith** | Prompt測試 | [官網](https://smith.langchain.com/) |
-| **Snorkel** | 數據標註 | [官網](https://snorkel.ai/) |
+| **Snorkel** | 資料標註 | [官網](https://snorkel.ai/) |
 
 ### 模型評估
 
@@ -187,7 +187,7 @@
 
 ## 💻 開源項目
 
-### 推理優化
+### 推論優化
 
 | 項目 | 說明 | Star | 鏈接 |
 |------|------|------|------|
@@ -286,7 +286,7 @@ Agent開發
 ├─ 工具: vLLM, Docker, K8s
 ├─ 項目內容: 3.LLM應用工程/7.部署/
 ├─ 監控: LangSmith, Arize, Prometheus
-└─ 優化: 量化、緩存、並發
+└─ 優化: 量化、快取、並發
 ```
 
 ---
@@ -320,7 +320,7 @@ Agent開發
 → `3.LLM應用工程/4.RAG基礎/`
 → `5.AI研究前沿_2024-2025/4.RAG與檢索/`
 
-**"如何生成圖片/視頻？"**
+**"如何生成圖片/影片？"**
 → `3.LLM應用工程/10.多模態生成/`
 → `5.AI研究前沿_2024-2025/2.多模態模型/`
 
@@ -341,7 +341,7 @@ Agent開發
 
 ### 碎片時間利用
 
-- 通勤: 聽播客、看技術視頻
+- 通勤: 聽播客、看技術影片
 - 排隊: 刷論文摘要、技術文章
 - 休息: 解LeetCode、看GitHub
 
@@ -386,7 +386,7 @@ pip install -r requirements.txt
 docker-compose up -d
 ```
 
-### 常用代碼片段
+### 常用程式碼片段
 
 **位置**: 參考各模塊的README快速開始部分
 

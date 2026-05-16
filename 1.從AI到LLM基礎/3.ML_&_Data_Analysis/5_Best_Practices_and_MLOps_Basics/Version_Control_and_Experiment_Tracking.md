@@ -33,7 +33,7 @@
 ### 1.2 Git 進階操作
 - **分支管理策略**
   ```bash
-  # 創建特性分支
+  # 建立特性分支
   git checkout -b feature/new-model
 
   # 臨時保存修改
@@ -85,7 +85,7 @@
   fix: 錯誤修復
   docs: 文檔更改
   style: 格式調整
-  refactor: 重構代碼
+  refactor: 重構程式碼
   test: 添加測試
   chore: 構建過程或輔助工具的變動
   ```
@@ -200,7 +200,7 @@ stages:
 ### 3.1 MLflow 架構
 - **MLflow Tracking Server**
   ```python
-  # 啟動追蹤服務器
+  # 啟動追蹤伺服器
   mlflow server \
       --backend-store-uri postgresql://user:pass@localhost/mlflow \
       --default-artifact-root s3://bucket/path \
@@ -208,9 +208,9 @@ stages:
       --port 5000
   ```
 
-- **數據庫配置**
+- **資料庫配置**
   ```python
-  # SQLAlchemy 數據庫 URI
+  # SQLAlchemy 資料庫 URI
   mlflow.set_tracking_uri('postgresql://user:pass@localhost/mlflow')
   ```
 
@@ -308,7 +308,7 @@ entry_points:
 
 - **資料集版本控制**
   ```python
-  # 創建資料集工件
+  # 建立資料集工件
   artifact = wandb.Artifact('dataset', type='dataset')
   artifact.add_dir('data/processed')
   run.log_artifact(artifact)
@@ -535,5 +535,5 @@ def log_event(event_type, details):
 #!/bin/bash
 # backup_script.sh
 
-# 備份 MLflow 數據庫
+# 備份 MLflow 資料庫
 pg_dump mlflow > mlflow_backup_$(date

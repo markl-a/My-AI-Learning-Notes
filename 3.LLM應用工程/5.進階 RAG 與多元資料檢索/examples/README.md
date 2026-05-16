@@ -96,7 +96,7 @@ python test_query_rewriting.py
 - ✅ 智能查詢路由（自動判斷 SQL/向量/混合）
 - ✅ 自然語言轉 SQL (NL2SQL)
 - ✅ 安全 SQL 執行（防注入）
-- ✅ 結果融合（結構化 + 非結構化數據）
+- ✅ 結果融合（結構化 + 非結構化資料）
 - ✅ 示例資料庫自動生成
 
 **核心類別**:
@@ -174,7 +174,7 @@ agent.ingest_documents(documents)
 agent.setup_tools()
 agent.create_agent()
 
-result = agent.query("Python 是誰創建的？")
+result = agent.query("Python 是誰建立的？")
 print(result['answer'])
 ```
 
@@ -235,8 +235,8 @@ python ai_assistant.py generate-tests --module query_rewriting_hyde
 
 ```python
 # 調整 top_k 參數
-# - 小數據集: top_k=3-5
-# - 大數據集: top_k=5-10
+# - 小資料集: top_k=3-5
+# - 大資料集: top_k=5-10
 result = rag.query(query, top_k=5)
 
 # 調整 chunk_size

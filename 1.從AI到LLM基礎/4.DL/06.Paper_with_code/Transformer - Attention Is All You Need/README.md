@@ -8,7 +8,7 @@
 >
 > **論文鏈接**: [arXiv:1706.03762](https://arxiv.org/abs/1706.03762)
 >
-> **官方代碼**: [tensorflow/tensor2tensor](https://github.com/tensorflow/tensor2tensor)
+> **官方程式碼**: [tensorflow/tensor2tensor](https://github.com/tensorflow/tensor2tensor)
 
 ---
 
@@ -36,11 +36,11 @@
 **RNN/LSTM/GRU 的問題**:
 - ❌ **序列依賴**: 必須按順序處理，無法並行化
 - ❌ **長距離依賴**: 梯度消失，難以捕捉長程關係
-- ❌ **計算效率**: 訓練和推理速度慢
+- ❌ **計算效率**: 訓練和推論速度慢
 
 **CNN 的問題**:
-- ❌ **固定感受野**: 需要堆疊多層才能捕捉全局信息
-- ❌ **位置信息**: 難以建模遠距離位置關係
+- ❌ **固定感受野**: 需要堆疊多層才能捕捉全局資訊
+- ❌ **位置資訊**: 難以建模遠距離位置關係
 
 ### Transformer 的革命性突破
 
@@ -54,12 +54,12 @@
 Transformer:
 - 自注意力機制: 直接建模任意位置之間的關係
 - 完全並行化: 所有位置同時處理
-- 多頭注意力: 從多個角度捕捉信息
+- 多頭注意力: 從多個角度捕捉資訊
 ```
 
 **關鍵優勢**:
 - ✅ **並行化**: 訓練速度提升 10-100 倍
-- ✅ **長距離依賴**: O(1) 複雜度捕捉全局信息
+- ✅ **長距離依賴**: O(1) 複雜度捕捉全局資訊
 - ✅ **可解釋性**: 注意力權重可視化
 - ✅ **可擴展性**: 易於擴展到超大規模模型
 
@@ -110,8 +110,8 @@ Attention(Q, K, V) = softmax(QK^T / √d_k) V
 
 **直觀理解**:
 1. **Query**: "我想找什麼？"
-2. **Key**: "我能提供什麼信息？"
-3. **Value**: "具體的信息內容"
+2. **Key**: "我能提供什麼資訊？"
+3. **Value**: "具體的資訊內容"
 4. **Attention**: Query 和 Key 的相似度決定了對 Value 的加權
 
 ### 2. 多頭注意力 (Multi-Head Attention)
@@ -166,7 +166,7 @@ MultiHead(Q, K, V) = Concat(head_1, ..., head_h) W^O
 
 ### 3. 位置編碼 (Positional Encoding)
 
-**問題**: 注意力機制本身沒有位置信息（置換不變性）
+**問題**: 注意力機制本身沒有位置資訊（置換不變性）
 
 **解決方案**: 添加位置編碼到輸入嵌入
 
@@ -175,7 +175,7 @@ class PositionalEncoding(nn.Module):
     def __init__(self, d_model, max_len=5000):
         super().__init__()
 
-        # 創建位置編碼矩陣
+        # 建立位置編碼矩陣
         pe = torch.zeros(max_len, d_model)
         position = torch.arange(0, max_len).unsqueeze(1).float()
         div_term = torch.exp(torch.arange(0, d_model, 2).float() *
@@ -405,7 +405,7 @@ from transformers import AutoModel, AutoTokenizer
 model = AutoModel.from_pretrained('bert-base-uncased')
 tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased')
 
-# 編碼文本
+# 編碼文字
 text = "Attention is all you need!"
 inputs = tokenizer(text, return_tensors='pt')
 
@@ -487,7 +487,7 @@ outputs = model.generate(**inputs)
 print(tokenizer.decode(outputs[0]))  # "Wie geht es dir?"
 ```
 
-### 2. 文本生成 (GPT 系列)
+### 2. 文字生成 (GPT 系列)
 
 **Decoder-only Transformer**:
 ```python
@@ -496,14 +496,14 @@ from transformers import GPT2LMHeadModel, GPT2Tokenizer
 model = GPT2LMHeadModel.from_pretrained('gpt2')
 tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
 
-# 文本生成
+# 文字生成
 prompt = "Artificial intelligence will"
 inputs = tokenizer(prompt, return_tensors='pt')
 outputs = model.generate(**inputs, max_length=50)
 print(tokenizer.decode(outputs[0]))
 ```
 
-### 3. 文本理解 (BERT 系列)
+### 3. 文字理解 (BERT 系列)
 
 **Encoder-only Transformer**:
 ```python
@@ -512,7 +512,7 @@ from transformers import BertForSequenceClassification, BertTokenizer
 model = BertForSequenceClassification.from_pretrained('bert-base-uncased')
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 
-# 文本分類
+# 文字分類
 text = "This movie is amazing!"
 inputs = tokenizer(text, return_tensors='pt')
 outputs = model(**inputs)
@@ -574,7 +574,7 @@ processor = CLIPProcessor.from_pretrained('openai/clip-vit-base-patch32')
 ### 4. 統一架構
 
 **一個架構統治所有任務**:
-- 文本、視覺、語音、多模態
+- 文字、視覺、語音、多模態
 - 理解、生成、翻譯、推理
 - 少樣本學習、零樣本學習
 
@@ -582,7 +582,7 @@ processor = CLIPProcessor.from_pretrained('openai/clip-vit-base-patch32')
 
 ## 📚 參考資源
 
-### 論文與代碼
+### 論文與程式碼
 
 - 📄 **原始論文**: [Attention Is All You Need](https://arxiv.org/abs/1706.03762)
 - 💻 **官方實現**: [tensor2tensor](https://github.com/tensorflow/tensor2tensor)
@@ -643,13 +643,13 @@ model = nn.Transformer(
 - 自注意力複雜度: O(n²·d)
 - 長序列時內存和計算開銷大
 
-**2. 位置信息**:
-- 需要顯式編碼位置信息
+**2. 位置資訊**:
+- 需要顯式編碼位置資訊
 - 對於超長序列的外推能力有限
 
-**3. 數據需求**:
-- 需要大量數據才能發揮優勢
-- 小數據集上可能不如 RNN/CNN
+**3. 資料需求**:
+- 需要大量資料才能發揮優勢
+- 小資料集上可能不如 RNN/CNN
 
 ### 改進方向
 
@@ -684,7 +684,7 @@ model = nn.Transformer(
 
 ## 🏆 影響力
 
-**統計數據** (截至 2024):
+**統計資料** (截至 2024):
 - 📄 **引用次數**: 100,000+
 - ⭐ **GitHub Stars**: 200,000+ (所有實現總和)
 - 🏅 **獎項**: Test of Time Award (候選)

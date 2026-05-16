@@ -17,7 +17,7 @@
 
 ### 什麼是向量嵌入（Embeddings）？
 
-向量嵌入是將文本、圖像等資料轉換為數值向量的過程，使電腦能夠理解語意相似性。
+向量嵌入是將文字、圖像等資料轉換為數值向量的過程，使電腦能夠理解語意相似性。
 
 ```python
 from openai import OpenAI
@@ -26,7 +26,7 @@ import numpy as np
 client = OpenAI()
 
 def get_embedding(text, model="text-embedding-3-small"):
-    """獲取文本的向量嵌入"""
+    """獲取文字的向量嵌入"""
     response = client.embeddings.create(
         input=text,
         model=model
@@ -112,7 +112,7 @@ results = index.query(
 
 for match in results.matches:
     print(f"分數：{match.score:.4f}")
-    print(f"文本：{match.metadata['text']}\n")
+    print(f"文字：{match.metadata['text']}\n")
 ```
 
 ### 2. Chroma（本地資料庫）
@@ -240,7 +240,7 @@ distances, indices = index.search(query_vector, k)
 
 print("\n搜尋結果：")
 for i, (dist, idx) in enumerate(zip(distances[0], indices[0])):
-    print(f"{i+1}. 文本：{texts[idx]}")
+    print(f"{i+1}. 文字：{texts[idx]}")
     print(f"   距離：{dist:.4f}\n")
 
 # 儲存索引
@@ -443,7 +443,7 @@ class RecommendationSystem:
         print(f"✅ 已新增 {len(items)} 個物品")
 
     def _get_embedding(self, text: str):
-        """獲取文本嵌入"""
+        """獲取文字嵌入"""
         response = self.openai_client.embeddings.create(
             input=text,
             model="text-embedding-3-small"

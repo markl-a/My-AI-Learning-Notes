@@ -5,10 +5,10 @@
 這是一個完整的生產級 LLM 應用部署方案，涵蓋從開發到生產的完整 MLOps 流程。包括：
 
 - **容器化部署**：Docker + Kubernetes
-- **基礎設施即代碼**：Terraform + Ansible
+- **基礎設施即程式碼**：Terraform + Ansible
 - **CI/CD 流水線**：自動化構建、測試、部署
 - **監控和告警**：Prometheus + Grafana + ELK Stack
-- **性能優化**：緩存、負載均衡、自動擴展
+- **性能優化**：快取、負載均衡、自動擴展
 - **A/B 測試**：模型版本對比和漸進式發布
 - **成本優化**：資源管理和成本追蹤
 
@@ -74,9 +74,9 @@
 
 ```yaml
 階段：
-1. 代碼提交 → Git Hook
+1. 程式碼提交 → Git Hook
 2. 自動測試 → 單元測試、集成測試
-3. 代碼審查 → AI 代碼審查
+3. 程式碼審查 → AI 程式碼審查
 4. 構建鏡像 → Docker Build + Push
 5. 安全掃描 → Container Scan
 6. 部署到 Staging
@@ -95,7 +95,7 @@
   - 響應時間 (P50, P95, P99)
   - 錯誤率
   - LLM Token 使用量
-  - 緩存命中率
+  - 快取命中率
 - **業務指標**：
   - 用戶活躍度
   - 查詢成功率
@@ -113,10 +113,10 @@
 
 ### 4. 性能優化
 
-- **多級緩存**：
-  - L1: 本地內存緩存 (LRU)
-  - L2: Redis 分佈式緩存
-  - L3: CDN 緩存
+- **多級快取**：
+  - L1: 本地內存快取 (LRU)
+  - L2: Redis 分佈式快取
+  - L3: CDN 快取
 
 - **負載均衡**：
   - Nginx Ingress
@@ -221,7 +221,7 @@ gh workflow run deploy-production.yml
 - DOCKER_REGISTRY_TOKEN
 - OPENAI_API_KEY
 
-# 推送代碼觸發自動部署
+# 推送程式碼觸發自動部署
 git push origin main
 ```
 
@@ -233,7 +233,7 @@ kubectl port-forward -n monitoring svc/grafana 3000:80
 
 # 瀏覽器訪問
 # http://localhost:3000
-# 默認登錄: admin / admin
+# 預設登錄: admin / admin
 
 # 導入預設儀表板
 # dashboards/llm-service-dashboard.json
@@ -346,7 +346,7 @@ kubectl port-forward -n monitoring svc/grafana 3000:80
 ### 3. 滾動更新 (Rolling Update)
 
 ```yaml
-# Kubernetes 默認策略
+# Kubernetes 預設策略
 strategy:
   type: RollingUpdate
   rollingUpdate:
@@ -429,7 +429,7 @@ groups:
 
 ## 性能優化實踐
 
-### 1. LLM 推理優化
+### 1. LLM 推論優化
 
 ```python
 # 批處理
@@ -448,14 +448,14 @@ model = load_model("gpt-4", quantization="int8")
 cache = KVCache(max_size=1000)
 ```
 
-### 2. 緩存策略
+### 2. 快取策略
 
 ```python
-# 多級緩存
+# 多級快取
 class CacheManager:
     def __init__(self):
-        self.l1_cache = LRUCache(maxsize=100)    # 本地緩存
-        self.l2_cache = RedisCache()              # 分佈式緩存
+        self.l1_cache = LRUCache(maxsize=100)    # 本地快取
+        self.l2_cache = RedisCache()              # 分佈式快取
 
     def get(self, key):
         # L1
@@ -507,7 +507,7 @@ max_tokens = 500
 # 使用更便宜的模型
 model = "gpt-3.5-turbo"  # 而不是 gpt-4
 
-# 緩存常見查詢
+# 快取常見查詢
 if query in cache:
     return cache[query]
 ```
@@ -582,7 +582,7 @@ spec:
 ### 備份策略
 
 ```bash
-# 數據庫備份
+# 資料庫備份
 ./scripts/backup.sh --type database --retention 30d
 
 # 配置備份

@@ -1,14 +1,14 @@
 # 影片生成 (Video Generation)
 
-本章節將深入探討AI影片生成技術，從圖片到視頻的擴展，涵蓋最新的視頻生成模型和技術。
+本章節將深入探討AI影片生成技術，從圖片到影片的擴展，涵蓋最新的影片生成模型和技術。
 
 ## 📋 目錄
 
-1. [視頻生成基礎](#視頻生成基礎)
+1. [影片生成基礎](#影片生成基礎)
 2. [Stable Video Diffusion](#stable-video-diffusion)
 3. [AnimateDiff](#animatediff)
 4. [Text-to-Video](#text-to-video)
-5. [視頻編輯與處理](#視頻編輯與處理)
+5. [影片編輯與處理](#影片編輯與處理)
 6. [實戰案例](#實戰案例)
 
 ---
@@ -17,40 +17,40 @@
 
 完成本章節後，你將能夠：
 
-- ✅ 理解視頻生成的基本原理
-- ✅ 使用Stable Video Diffusion生成流暢視頻
-- ✅ 運用AnimateDiff創建動畫
-- ✅ 實現文本到視頻的生成
-- ✅ 編輯和後處理生成的視頻
-- ✅ 構建視頻生成應用
+- ✅ 理解影片生成的基本原理
+- ✅ 使用Stable Video Diffusion生成流暢影片
+- ✅ 運用AnimateDiff建立動畫
+- ✅ 實現文字到影片的生成
+- ✅ 編輯和後處理生成的影片
+- ✅ 構建影片生成應用
 
 ---
 
-## 📚 視頻生成基礎
+## 📚 影片生成基礎
 
-### 視頻生成的挑戰
+### 影片生成的挑戰
 
-與圖片生成相比，視頻生成面臨更多挑戰：
+與圖片生成相比，影片生成面臨更多挑戰：
 
 1. **時間一致性** - 幀與幀之間需要保持連貫
 2. **運動合理性** - 物體運動需符合物理規律
 3. **計算成本** - 需要生成多幀圖片
-4. **記憶體需求** - 同時處理多幀數據
+4. **記憶體需求** - 同時處理多幀資料
 
 ### 主要技術方案
 
 ```
-視頻生成技術路線
-├── Image-to-Video (圖片到視頻)
+影片生成技術路線
+├── Image-to-Video (圖片到影片)
 │   ├── Stable Video Diffusion (SVD)
 │   └── DynamiCrafter
 │
-├── Text-to-Video (文本到視頻)
+├── Text-to-Video (文字到影片)
 │   ├── ModelScope
 │   ├── ZeroScope
 │   └── AnimateDiff
 │
-└── Video-to-Video (視頻到視頻)
+└── Video-to-Video (影片到影片)
     ├── Runway Gen-2
     └── Pika Labs
 ```
@@ -61,11 +61,11 @@
 
 ### 什麼是SVD？
 
-Stable Video Diffusion (SVD) 是Stability AI推出的圖片到視頻模型，基於Stable Diffusion架構，專門針對視頻生成進行優化。
+Stable Video Diffusion (SVD) 是Stability AI推出的圖片到影片模型，基於Stable Diffusion架構，專門針對影片生成進行優化。
 
 ### 核心特點
 
-- ✅ **高質量輸出** - 生成流暢自然的視頻
+- ✅ **高品質輸出** - 生成流暢自然的影片
 - ✅ **可控性強** - 可控制運動幅度和方向
 - ✅ **多分辨率** - 支持不同分辨率輸出
 - ✅ **開源免費** - 可本地部署
@@ -104,7 +104,7 @@ pipe.enable_vae_slicing()
 image = load_image("input_image.jpg")
 image = image.resize((1024, 576))  # SVD推薦的寬高比
 
-# 生成視頻（默認25幀）
+# 生成影片（預設25幀）
 frames = pipe(
     image=image,
     num_frames=25,
@@ -115,7 +115,7 @@ frames = pipe(
     noise_aug_strength=0.02  # 噪聲增強強度
 ).frames[0]
 
-# 導出視頻
+# 導出影片
 export_to_video(frames, "output_video.mp4", fps=7)
 print("Video generated successfully!")
 ```
@@ -129,7 +129,7 @@ print("Video generated successfully!")
 motion_levels = {
     "subtle": 20,      # 微妙的運動
     "gentle": 60,      # 溫和的運動
-    "moderate": 127,   # 中等運動（默認）
+    "moderate": 127,   # 中等運動（預設）
     "strong": 180,     # 強烈運動
     "extreme": 255     # 極度運動
 }
@@ -144,7 +144,7 @@ for name, motion_id in motion_levels.items():
     export_to_video(frames, f"video_{name}_motion.mp4", fps=7)
 ```
 
-#### 調整視頻長度和幀率
+#### 調整影片長度和幀率
 
 ```python
 def generate_custom_video(
@@ -154,18 +154,18 @@ def generate_custom_video(
     motion_strength=127
 ):
     """
-    生成自定義時長和幀率的視頻
+    生成自定義時長和幀率的影片
 
     Args:
         image_path: 輸入圖片路徑
-        duration_seconds: 視頻時長（秒）
+        duration_seconds: 影片時長（秒）
         fps: 幀率
         motion_strength: 運動強度 (0-255)
     """
     # 計算需要的幀數
     num_frames = duration_seconds * fps
 
-    # SVD-XT最多支持25幀，需要分段生成長視頻
+    # SVD-XT最多支持25幀，需要分段生成長影片
     max_frames_per_segment = 25
 
     pipe = StableVideoDiffusionPipeline.from_pretrained(
@@ -207,7 +207,7 @@ def generate_custom_video(
     export_to_video(frames, "custom_video.mp4", fps=fps)
     return frames
 
-# 使用示例：生成10秒、30fps的視頻
+# 使用示例：生成10秒、30fps的影片
 frames = generate_custom_video(
     "input.jpg",
     duration_seconds=10,
@@ -218,7 +218,7 @@ frames = generate_custom_video(
 
 ### 進階控制技巧
 
-#### 1. 條件引導視頻生成
+#### 1. 條件引導影片生成
 
 ```python
 from PIL import Image
@@ -230,7 +230,7 @@ def generate_with_motion_control(
     camera_motion="zoom_in"
 ):
     """
-    帶運動控制的視頻生成
+    帶運動控制的影片生成
 
     Args:
         image_path: 輸入圖片
@@ -265,12 +265,12 @@ def generate_with_motion_control(
     export_to_video(frames, f"video_{camera_motion}.mp4", fps=7)
     return frames
 
-# 生成不同相機運動的視頻
+# 生成不同相機運動的影片
 for motion in ["zoom_in", "pan_left", "static"]:
     generate_with_motion_control("landscape.jpg", camera_motion=motion)
 ```
 
-#### 2. 批量圖片到視頻轉換
+#### 2. 批量圖片到影片轉換
 
 ```python
 import os
@@ -282,7 +282,7 @@ def batch_image_to_video(
     motion_strength=127,
     fps=7
 ):
-    """批量將圖片轉換為視頻"""
+    """批量將圖片轉換為影片"""
 
     os.makedirs(output_folder, exist_ok=True)
 
@@ -337,7 +337,7 @@ batch_image_to_video(
 
 ### 什麼是AnimateDiff？
 
-AnimateDiff是一個將任何Stable Diffusion模型變成視頻生成模型的插件，通過添加時間層來實現動畫生成。
+AnimateDiff是一個將任何Stable Diffusion模型變成影片生成模型的插件，通過添加時間層來實現動畫生成。
 
 ### 核心優勢
 
@@ -365,7 +365,7 @@ adapter = MotionAdapter.from_pretrained(
     torch_dtype=torch.float16
 )
 
-# 創建AnimateDiff Pipeline
+# 建立AnimateDiff Pipeline
 pipe = AnimateDiffPipeline.from_pretrained(
     "runwayml/stable-diffusion-v1-5",
     motion_adapter=adapter,
@@ -422,7 +422,7 @@ pipe.load_lora_weights(
     adapter_name="zoom_in"
 )
 
-# 生成帶特定運動的視頻
+# 生成帶特定運動的影片
 frames = pipe(
     prompt="a beautiful landscape, mountains and lake",
     num_frames=16,
@@ -511,7 +511,7 @@ pipe = pipe.to("cuda")
 pipe.enable_model_cpu_offload()
 pipe.enable_vae_slicing()
 
-# 生成視頻
+# 生成影片
 prompt = "a panda eating bamboo in a bamboo forest"
 
 video_frames = pipe(
@@ -522,11 +522,11 @@ video_frames = pipe(
     width=576
 ).frames[0]
 
-# 導出視頻
+# 導出影片
 export_to_video(video_frames, "panda_video.mp4", fps=8)
 ```
 
-### 進階：長視頻生成
+### 進階：長影片生成
 
 ```python
 def generate_long_video(
@@ -536,7 +536,7 @@ def generate_long_video(
     overlap_frames=4
 ):
     """
-    生成長視頻（通過分段生成並平滑過渡）
+    生成長影片（通過分段生成並平滑過渡）
 
     Args:
         prompt: 提示詞
@@ -576,7 +576,7 @@ def generate_long_video(
     export_to_video(all_frames, "long_video.mp4", fps=8)
     return all_frames
 
-# 生成64幀的長視頻
+# 生成64幀的長影片
 frames = generate_long_video(
     prompt="a beautiful sunset over the ocean, waves gently rolling",
     total_frames=64,
@@ -587,9 +587,9 @@ frames = generate_long_video(
 
 ---
 
-## 🛠️ 視頻編輯與處理
+## 🛠️ 影片編輯與處理
 
-### 視頻插幀（提高幀率）
+### 影片插幀（提高幀率）
 
 ```python
 import cv2
@@ -598,14 +598,14 @@ from PIL import Image
 
 def interpolate_frames(video_path, output_path, target_fps=30):
     """
-    使用光流法進行視頻插幀
+    使用光流法進行影片插幀
 
     Args:
-        video_path: 輸入視頻路徑
-        output_path: 輸出視頻路徑
+        video_path: 輸入影片路徑
+        output_path: 輸出影片路徑
         target_fps: 目標幀率
     """
-    # 讀取視頻
+    # 讀取影片
     cap = cv2.VideoCapture(video_path)
     source_fps = cap.get(cv2.CAP_PROP_FPS)
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -614,7 +614,7 @@ def interpolate_frames(video_path, output_path, target_fps=30):
     # 計算插值倍數
     interpolation_factor = target_fps / source_fps
 
-    # 創建視頻寫入器
+    # 建立影片寫入器
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
     out = cv2.VideoWriter(output_path, fourcc, target_fps, (width, height))
 
@@ -633,7 +633,7 @@ def interpolate_frames(video_path, output_path, target_fps=30):
         # 計算需要插入的幀數
         num_interpolated = int(interpolation_factor) - 1
 
-        # 簡單線性插值（可以使用更高級的光流算法）
+        # 簡單線性插值（可以使用更高級的光流演算法）
         for i in range(1, num_interpolated + 1):
             alpha = i / (num_interpolated + 1)
             interpolated = cv2.addWeighted(
@@ -654,16 +654,16 @@ def interpolate_frames(video_path, output_path, target_fps=30):
 interpolate_frames("input.mp4", "output_30fps.mp4", target_fps=30)
 ```
 
-### 視頻穩定化
+### 影片穩定化
 
 ```python
 def stabilize_video(input_path, output_path):
-    """使用OpenCV穩定視頻"""
+    """使用OpenCV穩定影片"""
     import cv2
 
     cap = cv2.VideoCapture(input_path)
 
-    # 獲取視頻信息
+    # 獲取影片資訊
     n_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     fps = cap.get(cv2.CAP_PROP_FPS)
     w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -775,22 +775,22 @@ def add_audio_to_video(
     audio_volume=1.0
 ):
     """
-    為視頻添加音頻
+    為影片添加音頻
 
     Args:
-        video_path: 視頻文件路徑
+        video_path: 影片文件路徑
         audio_path: 音頻文件路徑
         output_path: 輸出路徑
         audio_start: 音頻開始時間（秒）
         audio_volume: 音頻音量 (0-1)
     """
-    # 加載視頻
+    # 加載影片
     video = VideoFileClip(video_path)
 
     # 加載音頻
     audio = AudioFileClip(audio_path)
 
-    # 調整音頻長度匹配視頻
+    # 調整音頻長度匹配影片
     if audio.duration > video.duration:
         audio = audio.subclip(0, video.duration)
     elif audio.duration < video.duration:
@@ -830,7 +830,7 @@ add_audio_to_video(
 
 ## 🚀 實戰案例
 
-### 案例1：短視頻自動生成系統
+### 案例1：短影片自動生成系統
 
 ```python
 # short_video_generator.py
@@ -840,7 +840,7 @@ from PIL import Image, ImageDraw, ImageFont
 import torch
 
 class ShortVideoGenerator:
-    """短視頻自動生成系統"""
+    """短影片自動生成系統"""
 
     def __init__(self):
         self.pipe = StableVideoDiffusionPipeline.from_pretrained(
@@ -891,20 +891,20 @@ class ShortVideoGenerator:
         fps=15
     ):
         """
-        生成帶標題的短視頻
+        生成帶標題的短影片
 
         Args:
             image_path: 輸入圖片路徑
             title_text: 標題文字
             output_path: 輸出路徑
-            duration: 視頻時長（秒）
+            duration: 影片時長（秒）
             fps: 幀率
         """
         # 加載圖片
         image = Image.open(image_path).convert("RGB")
         image = image.resize((1024, 576))
 
-        # 生成視頻幀
+        # 生成影片幀
         num_frames = min(25, duration * fps)  # SVD限制
 
         frames = self.pipe(
@@ -943,7 +943,7 @@ generator.generate_short_video(
 )
 ```
 
-### 案例2：故事視頻生成器
+### 案例2：故事影片生成器
 
 ```python
 # story_video_generator.py
@@ -953,7 +953,7 @@ from moviepy.editor import VideoFileClip, concatenate_videoclips
 import torch
 
 class StoryVideoGenerator:
-    """基於故事腳本的視頻生成器"""
+    """基於故事腳本的影片生成器"""
 
     def __init__(self):
         adapter = MotionAdapter.from_pretrained(
@@ -989,7 +989,7 @@ class StoryVideoGenerator:
         fps=8
     ):
         """
-        根據故事腳本生成視頻
+        根據故事腳本生成影片
 
         Args:
             story_script: 故事腳本列表
@@ -1009,7 +1009,7 @@ class StoryVideoGenerator:
             # 生成場景
             frames = self.generate_scene(prompt, num_frames=min(16, num_frames))
 
-            # 保存為臨時視頻
+            # 保存為臨時影片
             temp_path = f"temp_scene_{i}.mp4"
             export_to_video(frames, temp_path, fps=fps)
             temp_clips.append(temp_path)
@@ -1079,15 +1079,15 @@ generator.generate_story_video(
 
 完成本章節後，你應該能夠：
 
-- [ ] 理解視頻生成的核心挑戰
-- [ ] 使用Stable Video Diffusion生成流暢視頻
-- [ ] 調節運動強度和視頻參數
-- [ ] 使用AnimateDiff創建動畫
+- [ ] 理解影片生成的核心挑戰
+- [ ] 使用Stable Video Diffusion生成流暢影片
+- [ ] 調節運動強度和影片參數
+- [ ] 使用AnimateDiff建立動畫
 - [ ] 組合風格和運動LoRA
-- [ ] 實現文本到視頻生成
-- [ ] 進行視頻插幀和穩定化
+- [ ] 實現文字到影片生成
+- [ ] 進行影片插幀和穩定化
 - [ ] 添加音頻和文字覆蓋
-- [ ] 構建完整的視頻生成應用
+- [ ] 構建完整的影片生成應用
 
 ---
 
@@ -1095,7 +1095,7 @@ generator.generate_story_video(
 
 完成影片生成後，建議繼續學習：
 
-1. **音樂生成** - 為你的視頻添加自動生成的背景音樂
+1. **音樂生成** - 為你的影片添加自動生成的背景音樂
 2. **實戰項目** - 構建端到端的多模態內容生成系統
 
 ---

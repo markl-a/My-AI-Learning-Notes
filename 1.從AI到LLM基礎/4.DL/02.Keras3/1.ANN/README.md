@@ -10,19 +10,19 @@
 
 ### ✅ 已完成的主題
 
-1. **MNIST 數據集探索**
+1. **MNIST 資料集探索**
    - 載入和可視化手寫數字
-   - 理解數據集結構
+   - 理解資料集結構
    - ASCII 藝術視覺化
 
 2. **基本神經網路實作**
    - Sequential API 的使用
    - 簡單的分類模型
-   - 使用不同的損失函數
+   - 使用不同的損失函式
 
 3. **模型優化技巧**
    - 添加隱藏層
-   - 使用不同的激活函數
+   - 使用不同的激活函式
    - 正規化處理
 
 4. **二維分類器**
@@ -31,7 +31,7 @@
    - 理解模型容量
 
 5. **實際應用：心臟病預測**
-   - 處理真實世界數據
+   - 處理真實世界資料
    - 比較多種機器學習演算法
    - 模型性能評估
 
@@ -61,14 +61,14 @@ y = f(w₁x₁ + w₂x₂ + ... + wₙxₙ + b)
 - `x₁, x₂, ..., xₙ` 是輸入
 - `w₁, w₂, ..., wₙ` 是權重
 - `b` 是偏差（bias）
-- `f` 是激活函數
+- `f` 是激活函式
 - `y` 是輸出
 
-#### 2. 激活函數（Activation Functions）
+#### 2. 激活函式（Activation Functions）
 
-**常見激活函數比較：**
+**常見激活函式比較：**
 
-| 激活函數 | 公式 | 用途 | 優點 | 缺點 |
+| 激活函式 | 公式 | 用途 | 優點 | 缺點 |
 |---------|------|------|------|------|
 | **Sigmoid** | σ(x) = 1/(1+e⁻ˣ) | 二元分類輸出層 | 輸出範圍 [0,1] | 梯度消失 |
 | **ReLU** | f(x) = max(0,x) | 隱藏層（最常用） | 計算快速 | Dead ReLU |
@@ -81,21 +81,21 @@ y = f(w₁x₁ + w₂x₂ + ... + wₙxₙ + b)
 import keras
 from keras import layers
 
-# ReLU 激活函數（隱藏層）
+# ReLU 激活函式（隱藏層）
 model.add(layers.Dense(64, activation='relu'))
 
-# Sigmoid 激活函數（二元分類）
+# Sigmoid 激活函式（二元分類）
 model.add(layers.Dense(1, activation='sigmoid'))
 
-# Softmax 激活函數（多類別分類）
+# Softmax 激活函式（多類別分類）
 model.add(layers.Dense(10, activation='softmax'))
 ```
 
-#### 3. 損失函數（Loss Functions）
+#### 3. 損失函式（Loss Functions）
 
-**常見損失函數：**
+**常見損失函式：**
 
-| 損失函數 | 適用場景 | Keras 代碼 |
+| 損失函式 | 適用場景 | Keras 程式碼 |
 |---------|---------|-----------|
 | **Binary Crossentropy** | 二元分類 | `'binary_crossentropy'` |
 | **Categorical Crossentropy** | 多類別分類（one-hot） | `'categorical_crossentropy'` |
@@ -111,8 +111,8 @@ model.add(layers.Dense(10, activation='softmax'))
 |-------|------|---------|----------|
 | **SGD** | 基礎梯度下降 | 簡單問題 | 0.01 - 0.1 |
 | **Adam** | 自適應學習率 | 大多數問題（推薦） | 0.001 |
-| **RMSprop** | 適合 RNN | 序列數據 | 0.001 |
-| **AdaGrad** | 稀疏數據 | NLP 任務 | 0.01 |
+| **RMSprop** | 適合 RNN | 序列資料 | 0.001 |
+| **AdaGrad** | 稀疏資料 | NLP 任務 | 0.01 |
 
 ```python
 # Adam 優化器（最常用）
@@ -166,7 +166,7 @@ x = layers.Dense(128, activation='relu')(x)
 x = layers.Dropout(0.2)(x)
 outputs = layers.Dense(10, activation='softmax')(x)
 
-# 創建模型
+# 建立模型
 model = keras.Model(inputs=inputs, outputs=outputs)
 ```
 
@@ -192,9 +192,9 @@ model = MyModel()
 
 ---
 
-## 📊 數據預處理最佳實踐
+## 📊 資料預處理最佳實踐
 
-### 1. 數據正規化
+### 1. 資料正規化
 
 ```python
 # 方法 1：Min-Max 正規化（縮放到 [0, 1]）
@@ -224,7 +224,7 @@ y_test = to_categorical(y_test, num_classes=10)
 ```python
 from sklearn.model_selection import train_test_split
 
-# 分割數據：70% 訓練，15% 驗證，15% 測試
+# 分割資料：70% 訓練，15% 驗證，15% 測試
 X_train, X_temp, y_train, y_temp = train_test_split(
     X, y, test_size=0.3, random_state=42
 )
@@ -374,8 +374,8 @@ print(classification_report(y_true, y_pred_classes))
 
 這個 Jupyter Notebook 包含以下範例：
 
-1. **範例 0：MNIST 數據集探索**
-   - 理解數據集結構
+1. **範例 0：MNIST 資料集探索**
+   - 理解資料集結構
    - 視覺化手寫數字
 
 2. **範例 1：簡易神經網路（使用 MSE）**
@@ -383,12 +383,12 @@ print(classification_report(y_true, y_pred_classes))
    - 基本的 Sequential 模型
 
 3. **範例 2：改進的神經網路（使用 Softmax）**
-   - 更適合分類的損失函數
+   - 更適合分類的損失函式
    - 模型性能比較
 
 4. **範例 3：添加隱藏層**
    - 增加模型複雜度
-   - 數據正規化
+   - 資料正規化
 
 5. **範例 4：二維分類器**
    - 視覺化決策邊界
@@ -400,7 +400,7 @@ print(classification_report(y_true, y_pred_classes))
 
 ### `heart.csv`
 
-心臟病數據集，包含以下特徵：
+心臟病資料集，包含以下特徵：
 - **age**：年齡
 - **sex**：性別
 - **cp**：胸痛類型
@@ -422,7 +422,7 @@ print(classification_report(y_true, y_pred_classes))
 
 ### 初級練習
 
-1. **修改激活函數**
+1. **修改激活函式**
    - 將 ReLU 改為 tanh，觀察性能變化
    - 嘗試使用 LeakyReLU
 
@@ -443,16 +443,16 @@ print(classification_report(y_true, y_pred_classes))
    - 實作學習率衰減
    - 使用 ReduceLROnPlateau
 
-6. **數據增強**
-   - 對 MNIST 數據進行旋轉、平移
+6. **資料增強**
+   - 對 MNIST 資料進行旋轉、平移
    - 觀察模型泛化能力的變化
 
 ### 進階練習
 
-7. **自定義損失函數**
+7. **自定義損失函式**
    ```python
    def custom_loss(y_true, y_pred):
-       # 實作你的損失函數
+       # 實作你的損失函式
        pass
    ```
 
@@ -472,20 +472,20 @@ print(classification_report(y_true, y_pred_classes))
 
 **可能原因：**
 - 學習率過大或過小
-- 損失函數選擇錯誤
-- 數據沒有正規化
+- 損失函式選擇錯誤
+- 資料沒有正規化
 - 標籤編碼問題
 
 **解決方案：**
 ```python
-# 檢查數據範圍
+# 檢查資料範圍
 print("X range:", x_train.min(), x_train.max())
 print("y shape:", y_train.shape)
 
-# 正規化數據
+# 正規化資料
 x_train = x_train / 255.0
 
-# 檢查損失函數和標籤的匹配
+# 檢查損失函式和標籤的匹配
 # sparse_categorical_crossentropy → 整數標籤
 # categorical_crossentropy → one-hot 標籤
 ```
@@ -498,8 +498,8 @@ x_train = x_train / 255.0
 1. 添加 Dropout 層
 2. 使用 L1/L2 正則化
 3. 減少模型複雜度
-4. 增加訓練數據
-5. 使用數據增強
+4. 增加訓練資料
+5. 使用資料增強
 
 ### Q3: 訓練速度太慢？
 
@@ -544,8 +544,8 @@ keras.mixed_precision.set_global_policy('mixed_float16')
 
 - [ ] 解釋 ANN 的基本原理和組成
 - [ ] 使用 Keras Sequential API 建立模型
-- [ ] 選擇合適的激活函數和損失函數
-- [ ] 正確地預處理數據（正規化、編碼）
+- [ ] 選擇合適的激活函式和損失函式
+- [ ] 正確地預處理資料（正規化、編碼）
 - [ ] 訓練模型並監控性能
 - [ ] 使用 callbacks 優化訓練過程
 - [ ] 評估模型並視覺化結果
@@ -563,4 +563,4 @@ keras.mixed_precision.set_global_policy('mixed_float16')
 
 **Happy Learning! 🚀**
 
-> 💡 **學習建議：** 不要只是閱讀代碼，親手實作每個範例，並嘗試修改參數觀察變化！
+> 💡 **學習建議：** 不要只是閱讀程式碼，親手實作每個範例，並嘗試修改參數觀察變化！

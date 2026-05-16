@@ -31,7 +31,7 @@ pip install -r requirements.txt
 
 ### 2. 設定環境變數
 
-創建 `.env` 文件：
+建立 `.env` 文件：
 
 ```env
 # API Keys
@@ -140,7 +140,7 @@ curl -X POST http://localhost:8000/api/chat \
   -H "Content-Type: application/json" \
   -d '{
     "messages": [
-      {"role": "user", "content": "寫一個 Python 函數"}
+      {"role": "user", "content": "寫一個 Python 函式"}
     ],
     "provider": "openai",
     "stream": true

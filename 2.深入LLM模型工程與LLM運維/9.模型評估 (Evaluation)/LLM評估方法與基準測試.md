@@ -93,7 +93,7 @@ print(f"Perplexity: {ppl:.2f}")
 - 可比較不同模型
 
 **缺點**：
-- 與生成質量相關性弱
+- 與生成品質相關性弱
 - 不反映實用性
 
 ### 2.2 BLEU (機器翻譯)
@@ -123,7 +123,7 @@ score = calculate_bleu(references, candidate)
 print(f"BLEU: {score:.4f}")
 ```
 
-### 2.3 ROUGE (文本摘要)
+### 2.3 ROUGE (文字摘要)
 
 **定義**：召回率導向的 n-gram 重疊
 
@@ -288,23 +288,23 @@ def evaluate_qa(predictions, references):
     }
 ```
 
-### 4.2 代碼生成
+### 4.2 程式碼生成
 
 **HumanEval 基準**：
 
 ```python
-# 評估代碼生成
+# 評估程式碼生成
 from human_eval.data import write_jsonl, read_problems
 from human_eval.evaluation import evaluate_functional_correctness
 
 def generate_code_solutions(model, problems):
-    """生成代碼解決方案"""
+    """生成程式碼解決方案"""
     solutions = []
 
     for task_id, problem in problems.items():
         prompt = problem['prompt']
 
-        # 生成代碼
+        # 生成程式碼
         generated = model.generate(prompt, max_tokens=512)
 
         solutions.append({
@@ -326,7 +326,7 @@ print(f"Pass@1: {results['pass@1']:.2%}")
 print(f"Pass@10: {results['pass@10']:.2%}")
 ```
 
-### 4.3 長文本理解
+### 4.3 長文字理解
 
 **LongBench 評估**：
 
@@ -344,7 +344,7 @@ def evaluate_long_context(model, max_length=32000):
     results = {}
 
     for task_name, task_desc in tasks.items():
-        # 載入數據
+        # 載入資料
         dataset = load_dataset(f"longbench/{task_name}")
 
         correct = 0
@@ -380,7 +380,7 @@ def evaluate_long_context(model, max_length=32000):
 import random
 
 def create_comparison_task(prompt, response_a, response_b):
-    """創建比較任務"""
+    """建立比較任務"""
     # 隨機順序避免位置偏見
     if random.random() < 0.5:
         response_a, response_b = response_b, response_a
@@ -438,7 +438,7 @@ evaluation_criteria = {
         }
     },
     'accuracy': {
-        'description': '信息的準確性',
+        'description': '資訊的準確性',
         'scale': '1-5'
     },
     'clarity': {
@@ -527,7 +527,7 @@ class LLMEvaluator:
         return ppl
 
     def evaluate_generation_quality(self, prompts, references):
-        """評估生成質量"""
+        """評估生成品質"""
         from rouge import Rouge
 
         rouge = Rouge()
@@ -584,10 +584,10 @@ class LLMEvaluator:
         results = {}
 
         # 1. 困惑度
-        test_texts = [...]  # 你的測試數據
+        test_texts = [...]  # 你的測試資料
         results['perplexity'] = self.evaluate_perplexity(test_texts)
 
-        # 2. 生成質量
+        # 2. 生成品質
         prompts = [...]
         references = [...]
         results['generation'] = self.evaluate_generation_quality(prompts, references)

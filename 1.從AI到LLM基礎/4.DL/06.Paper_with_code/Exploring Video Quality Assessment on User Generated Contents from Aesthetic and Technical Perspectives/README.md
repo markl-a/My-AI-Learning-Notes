@@ -1,10 +1,10 @@
-# DOVER - 用戶生成內容視頻質量評估
+# DOVER - 用戶生成內容影片品質評估
 
 > **論文**: Exploring Video Quality Assessment on User Generated Contents from Aesthetic and Technical Perspectives
 > **作者**: Wu et al.
 > **發表**: CVPR 2023
 > **論文鏈接**: [arXiv:2211.04894](https://arxiv.org/pdf/2211.04894v3)
-> **官方代碼**: [GitHub - DOVER](https://github.com/VQAssessment/DOVER)
+> **官方程式碼**: [GitHub - DOVER](https://github.com/VQAssessment/DOVER)
 
 ---
 
@@ -23,26 +23,26 @@
 
 ## 🎯 簡介
 
-DOVER (Disentangled Objective Video quality EvaluatoR) 是一個創新的視頻質量評估框架，專門針對用戶生成內容（UGC）設計。與傳統方法不同，DOVER 將視頻質量評估分解為**美學**和**技術**兩個獨立的維度，更準確地反映人類對視頻質量的真實感知。
+DOVER (Disentangled Objective Video quality EvaluatoR) 是一個創新的影片品質評估框架，專門針對用戶生成內容（UGC）設計。與傳統方法不同，DOVER 將影片品質評估分解為**美學**和**技術**兩個獨立的維度，更準確地反映人類對影片品質的真實感知。
 
 ### 為什麼需要 DOVER？
 
-在 YouTube、TikTok、Instagram 等平台上，每天有數億用戶上傳視頻。這些 UGC 視頻的質量差異巨大：
-- 有些視頻技術質量很高（清晰、流暢），但內容平淡無趣
-- 有些視頻內容精彩、構圖優美，但畫質較差
-- 傳統的質量評估方法無法區分這兩個維度
+在 YouTube、TikTok、Instagram 等平台上，每天有數億用戶上傳影片。這些 UGC 影片的質量差異巨大：
+- 有些影片技術質量很高（清晰、流暢），但內容平淡無趣
+- 有些影片內容精彩、構圖優美，但畫質較差
+- 傳統的品質評估方法無法區分這兩個維度
 
-DOVER 通過將質量評估分解為美學和技術兩個角度，解決了這個問題。
+DOVER 通過將品質評估分解為美學和技術兩個角度，解決了這個問題。
 
 ---
 
 ## 💡 核心創新
 
-### 1. DIVIDE-3k 數據集
+### 1. DIVIDE-3k 資料集
 
-- **首個雙維度標註的 UGC-VQA 數據集**
-- 包含 **3,590** 個視頻樣本
-- 每個視頻都有三個評分：
+- **首個雙維度標註的 UGC-VQA 資料集**
+- 包含 **3,590** 個影片樣本
+- 每個影片都有三個評分：
   - 🎨 **美學評分** (Aesthetic Score)
   - 🔧 **技術評分** (Technical Score)
   - ⭐ **整體評分** (Overall Score)
@@ -53,7 +53,7 @@ DOVER 通過將質量評估分解為美學和技術兩個角度，解決了這�
 DOVER 採用**雙分支架構**：
 
 ```
-                    輸入視頻
+                    輸入影片
                        |
         ┌──────────────┴──────────────┐
         ▼                             ▼
@@ -80,7 +80,7 @@ DOVER 採用**雙分支架構**：
 ### 3. DOVER++
 
 DOVER++ 進一步擴展了 DOVER，支持：
-- 🎯 **個性化質量評估**：根據用戶偏好調整權重
+- 🎯 **個性化品質評估**：根據用戶偏好調整權重
 - 📊 **單維度質量預測**：僅從美學或技術角度評估
 - 🔄 **靈活的應用場景適配**
 
@@ -94,7 +94,7 @@ DOVER++ 進一步擴展了 DOVER，支持：
 **論文詳細解說**，包含：
 - 📖 論文各章節的深入分析
 - 🔬 技術實現細節
-- 💻 實作指南和代碼示例
+- 💻 實作指南和程式碼示例
 - 📚 相關資源和延伸閱讀
 - 🚀 未來研究方向
 
@@ -104,10 +104,10 @@ DOVER++ 進一步擴展了 DOVER，支持：
 **完整的實作教程**，包含：
 - 🛠️ 環境設置和依賴安裝
 - 🏗️ DOVER 模型架構實現
-- 🎬 視頻預處理工具
+- 🎬 影片預處理工具
 - 📊 結果視覺化
 - 🔄 批量評估功能
-- 🎯 個性化質量評估
+- 🎯 個性化品質評估
 
 **適合對象**：想要動手實踐的開發者
 
@@ -146,7 +146,7 @@ model.eval()
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = model.to(device)
 
-# 2. 評估視頻
+# 2. 評估影片
 video_path = "sample_video.mp4"
 aesthetic_score, technical_score, overall_score = model.evaluate(video_path)
 
@@ -173,7 +173,7 @@ professional_score = 0.3 * aesthetic_score + 0.7 * technical_score
 
 ### 美學分支 (Aesthetic Branch)
 
-**目標**：評估視頻的語義內容、構圖、色彩等美學因素
+**目標**：評估影片的語義內容、構圖、色彩等美學因素
 
 **技術特點**：
 - 📐 **空間下採樣**：降低到 128×128 訓練，224×224 推理
@@ -188,7 +188,7 @@ professional_score = 0.3 * aesthetic_score + 0.7 * technical_score
 
 ### 技術分支 (Technical Branch)
 
-**目標**：評估視頻的失真程度、清晰度等技術指標
+**目標**：評估影片的失真程度、清晰度等技術指標
 
 **技術特點**：
 - 📐 **保持分辨率**：使用原始或較高分辨率 (224×224)
@@ -209,20 +209,20 @@ professional_score = 0.3 * aesthetic_score + 0.7 * technical_score
 整體評分 = 0.428 × 美學評分 + 0.572 × 技術評分
 ```
 
-這個權重比例是通過大規模人類主觀評估實驗得出的，反映了人們對 UGC 視頻質量的真實感知。
+這個權重比例是通過大規模人類主觀評估實驗得出的，反映了人們對 UGC 影片品質的真實感知。
 
 ---
 
 ## 📊 實驗結果
 
-### 在主要數據集上的性能
+### 在主要資料集上的性能
 
-| 數據集 | SRCC | PLCC | 說明 |
+| 資料集 | SRCC | PLCC | 說明 |
 |--------|------|------|------|
 | **LSVQ** | 0.876 | 0.894 | 大規模測試集（最具挑戰性） |
-| **KoNViD-1k** | 0.895 | 0.907 | 中等規模數據集 |
+| **KoNViD-1k** | 0.895 | 0.907 | 中等規模資料集 |
 | **YouTube-UGC** | 0.812 | 0.826 | 跨平台泛化能力 |
-| **DIVIDE-3k** | 0.912 | 0.921 | 新提出的數據集 |
+| **DIVIDE-3k** | 0.912 | 0.921 | 新提出的資料集 |
 
 > **SRCC** (Spearman Rank Correlation Coefficient): 斯皮爾曼等級相關係數
 > **PLCC** (Pearson Linear Correlation Coefficient): 皮爾遜線性相關係數
@@ -237,7 +237,7 @@ DOVER 在所有主要 UGC-VQA 基準測試中均達到了 **最先進 (SOTA)** �
 
 ### 計算效率
 
-- ⚡ **推理速度**：約 0.5 秒/視頻（使用單個 GPU）
+- ⚡ **推論速度**：約 0.5 秒/影片（使用單個 GPU）
 - 💾 **模型大小**：約 56M 參數（兩個分支各 28M）
 - 🔋 **記憶體需求**：約 2GB GPU 記憶體
 
@@ -245,22 +245,22 @@ DOVER 在所有主要 UGC-VQA 基準測試中均達到了 **最先進 (SOTA)** �
 
 ## 🎯 應用場景
 
-### 1. 視頻平台質量控制
+### 1. 影片平台品質控制
 **場景**：YouTube、TikTok 等平台需要評估用戶上傳內容
 
 **應用方式**：
 ```python
-# 評估上傳視頻
+# 評估上傳影片
 if overall_score < threshold:
-    # 提示用戶提升視頻質量
+    # 提示用戶提升影片品質
     if aesthetic_score < technical_score:
-        suggest("改善視頻構圖和內容呈現")
+        suggest("改善影片構圖和內容呈現")
     else:
-        suggest("提高視頻拍攝或編碼質量")
+        suggest("提高影片拍攝或編碼質量")
 ```
 
 ### 2. 個性化內容推薦
-**場景**：根據用戶偏好推薦視頻
+**場景**：根據用戶偏好推薦影片
 
 **應用方式**：
 ```python
@@ -271,7 +271,7 @@ else:
     score = 0.3 * aesthetic_score + 0.7 * technical_score
 ```
 
-### 3. 視頻壓縮優化
+### 3. 影片壓縮優化
 **場景**：評估不同壓縮參數對質量的影響
 
 **應用方式**：
@@ -287,18 +287,18 @@ for compression_level in [high, medium, low]:
 ```
 
 ### 4. 內容創作輔助
-**場景**：為視頻創作者提供質量反饋
+**場景**：為影片創作者提供質量反饋
 
 **應用方式**：
 ```python
-# 分析視頻並提供改進建議
+# 分析影片並提供改進建議
 aesthetic_score, technical_score, _ = model.evaluate(user_video)
 
 feedback = []
 if aesthetic_score < 3.5:
     feedback.append("🎨 建議：改善構圖和色彩搭配")
 if technical_score < 3.5:
-    feedback.append("🔧 建議：提高視頻清晰度和穩定性")
+    feedback.append("🔧 建議：提高影片清晰度和穩定性")
 
 return feedback
 ```
@@ -307,22 +307,22 @@ return feedback
 **場景**：評估廣告素材質量，優化投放策略
 
 **應用方式**：
-- 僅投放高質量廣告（overall_score > 4.0）
+- 僅投放高品質廣告（overall_score > 4.0）
 - 根據平台特性調整權重（專業平台強調技術，社交平台強調美學）
 
 ---
 
 ## 📚 參考資源
 
-### 論文與代碼
+### 論文與程式碼
 
 - 📄 **原始論文**: [arXiv:2211.04894](https://arxiv.org/pdf/2211.04894v3)
-- 💻 **官方代碼**: [GitHub - VQAssessment/DOVER](https://github.com/VQAssessment/DOVER)
+- 💻 **官方程式碼**: [GitHub - VQAssessment/DOVER](https://github.com/VQAssessment/DOVER)
 - 🏆 **Papers with Code**: [DOVER on Papers with Code](https://paperswithcode.com/paper/exploring-video-quality-assessment-on-user)
 
-### 數據集
+### 資料集
 
-- **DIVIDE-3k**: 本論文提出的新數據集（需聯繫作者獲取）
+- **DIVIDE-3k**: 本論文提出的新資料集（需聯繫作者獲取）
 - **LSVQ**: [Large-Scale Video Quality Database](https://github.com/baidut/PatchVQ)
 - **KoNViD-1k**: [KoNViD-1k Dataset](http://database.mmsp-kn.de/konvid-1k-database.html)
 - **YouTube-UGC**: [YouTube UGC Dataset](https://media.withyoutube.com/)
@@ -343,7 +343,7 @@ return feedback
 
 ### 學習資源
 
-- 📺 **視頻質量評估綜述**: [Video Quality Assessment: A Survey](https://arxiv.org/abs/2207.02595)
+- 📺 **影片品質評估綜述**: [Video Quality Assessment: A Survey](https://arxiv.org/abs/2207.02595)
 - 🎨 **圖像美學評估**: [Deep Learning for Image Aesthetics Assessment](https://arxiv.org/abs/1907.11985)
 - 🔍 **失真檢測技術**: [Blind Image Quality Assessment: A Survey](https://arxiv.org/abs/1907.02665)
 
@@ -378,7 +378,7 @@ return feedback
 
 ## 📄 授權
 
-本教程遵循原論文和官方代碼的授權協議。請遵守相關的使用條款。
+本教程遵循原論文和官方程式碼的授權協議。請遵守相關的使用條款。
 
 ---
 

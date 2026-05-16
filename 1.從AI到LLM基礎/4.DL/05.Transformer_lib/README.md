@@ -27,7 +27,7 @@ Hugging Face 提供了多個開源庫，專注於深度學習、自然語言處�
 - **多框架支援**：支援 PyTorch、TensorFlow 和 JAX 框架
 - **豐富的模型庫**：提供 100,000+ 種預訓練模型（如 BERT、GPT、T5、LLaMA、Mistral）
 - **多任務支援**：
-  - NLP：文本分類、生成、翻譯、問答、命名實體識別
+  - NLP：文字分類、生成、翻譯、問答、命名實體識別
   - Computer Vision：圖像分類、目標檢測、圖像分割
   - Audio：語音識別、音頻分類
   - Multimodal：視覺問答、圖像標註
@@ -35,10 +35,10 @@ Hugging Face 提供了多個開源庫，專注於深度學習、自然語言處�
 #### 常用模型類型
 | 任務類型 | 推薦模型（2025 最新） | 用途 | 參數規模 |
 |---------|---------|------|---------|
-| 文本生成 | **LLaMA 3.3**, **Qwen 2.5**, **Mistral 3**, Gemma 2, GPT-2 | 對話、創作、程式碼生成、推理 | 1B-405B |
-| 文本理解 | DeBERTa v3, RoBERTa-large, **XLM-RoBERTa-XL** | 分類、情感分析、NER | 125M-10B |
-| 程式碼生成 | **DeepSeek-Coder V2**, **CodeLLaMA**, StarCoder 2 | 代碼補全、調試、解釋 | 1B-236B |
-| 翻譯/摘要 | **NLLB-200**, mBART-50, T5-XXL, **Seamless M4T v2** | 多語言翻譯、文本摘要 | 600M-11B |
+| 文字生成 | **LLaMA 3.3**, **Qwen 2.5**, **Mistral 3**, Gemma 2, GPT-2 | 對話、創作、程式碼生成、推理 | 1B-405B |
+| 文字理解 | DeBERTa v3, RoBERTa-large, **XLM-RoBERTa-XL** | 分類、情感分析、NER | 125M-10B |
+| 程式碼生成 | **DeepSeek-Coder V2**, **CodeLLaMA**, StarCoder 2 | 程式碼補全、調試、解釋 | 1B-236B |
+| 翻譯/摘要 | **NLLB-200**, mBART-50, T5-XXL, **Seamless M4T v2** | 多語言翻譯、文字摘要 | 600M-11B |
 | 圖像處理 | **ViT-G**, **DINOv2**, CLIP, **Florence-2** | 圖像分類、檢測、分割、多模態 | 300M-3B |
 | 語音處理 | **Whisper V3**, **MMS**, Wav2Vec2-BERT | 語音識別、翻譯、合成 | 244M-1.5B |
 | 多模態 | **LLaVA 1.6**, **Qwen-VL**, **CogVLM**, BLIP-2 | 視覺問答、圖像理解 | 7B-34B |
@@ -49,29 +49,29 @@ Hugging Face 提供了多個開源庫，專注於深度學習、自然語言處�
 ### 2. Datasets
 
 #### 簡介
-[Datasets](https://github.com/huggingface/datasets) 提供超過 10,000 種數據集，適用於 NLP、計算機視覺、音頻等。
+[Datasets](https://github.com/huggingface/datasets) 提供超過 10,000 種資料集，適用於 NLP、計算機視覺、音頻等。
 
 #### 核心功能
-- **海量數據集**：快速下載、清洗、處理超過 50,000 個公開數據集
-- **記憶體優化**：使用 Apache Arrow 進行零拷貝讀取，支援處理超過 RAM 大小的數據集
+- **海量資料集**：快速下載、清洗、處理超過 50,000 個公開資料集
+- **記憶體優化**：使用 Apache Arrow 進行零拷貝讀取，支援處理超過 RAM 大小的資料集
 - **無縫整合**：與 Transformers、PyTorch、TensorFlow 完美配合
-- **數據處理**：內建 map、filter、shuffle 等高效批次處理操作
+- **資料處理**：內建 map、filter、shuffle 等高效批次處理操作
 - **多格式支援**：CSV、JSON、Parquet、圖像、音頻等多種格式
 
-#### 常用數據集範例
+#### 常用資料集範例
 ```python
 from datasets import load_dataset
 
-# 載入文本分類數據集
+# 載入文字分類資料集
 dataset = load_dataset("imdb")
 
-# 載入問答數據集
+# 載入問答資料集
 dataset = load_dataset("squad")
 
-# 載入圖像分類數據集
+# 載入圖像分類資料集
 dataset = load_dataset("cifar10")
 
-# 載入語音數據集
+# 載入語音資料集
 dataset = load_dataset("common_voice", "zh-TW")
 ```
 
@@ -80,11 +80,11 @@ dataset = load_dataset("common_voice", "zh-TW")
 ### 3. Tokenizers
 
 #### 簡介
-[Tokenizers](https://github.com/huggingface/tokenizers) 是一個高效的文本預處理工具，專注於 NLP 分詞。
+[Tokenizers](https://github.com/huggingface/tokenizers) 是一個高效的文字預處理工具，專注於 NLP 分詞。
 
 #### 核心功能
-- **極速處理**：使用 Rust 開發，每秒可處理 GB 級文本
-- **多種算法**：支援 BPE、WordPiece、Unigram、SentencePiece 等
+- **極速處理**：使用 Rust 開發，每秒可處理 GB 級文字
+- **多種演算法**：支援 BPE、WordPiece、Unigram、SentencePiece 等
 - **完整流程**：包含 normalization、pre-tokenization、model、post-processing
 - **訓練支援**：可從頭訓練自定義 tokenizer
 
@@ -99,7 +99,7 @@ dataset = load_dataset("common_voice", "zh-TW")
 - **跨設備訓練**：支援 CPU、單/多 GPU、TPU、Apple Silicon
 - **混合精度**：自動處理 FP16/BF16 訓練
 - **大模型支援**：DeepSpeed、FSDP 整合
-- **簡單遷移**：最小化代碼修改即可從單機擴展到分布式
+- **簡單遷移**：最小化程式碼修改即可從單機擴展到分布式
 
 ---
 
@@ -119,11 +119,11 @@ dataset = load_dataset("common_voice", "zh-TW")
 ### 6. Hugging Face Hub
 
 #### 簡介
-[Hugging Face Hub](https://huggingface.co) 是一個集中倉庫，提供模型、數據集和應用。
+[Hugging Face Hub](https://huggingface.co) 是一個集中倉庫，提供模型、資料集和應用。
 
 #### 核心功能
 - **模型託管**：超過 500,000 個預訓練模型
-- **數據集共享**：超過 100,000 個公開數據集
+- **資料集共享**：超過 100,000 個公開資料集
 - **Spaces 應用**：部署和分享 ML 演示應用
 - **版本控制**：基於 Git 的完整版本管理
 - **協作功能**：團隊管理、討論區、Pull Requests
@@ -213,14 +213,14 @@ dataset = load_dataset("common_voice", "zh-TW")
 ### 11. AutoTrain
 
 #### 簡介
-[AutoTrain](https://github.com/huggingface/autotrain-advanced) 是一個無代碼/低代碼的自動化訓練工具。
+[AutoTrain](https://github.com/huggingface/autotrain-advanced) 是一個無程式碼/低程式碼的自動化訓練工具。
 
 #### 核心功能
-- **自動化流程**：數據處理、模型選擇、超參數調優
+- **自動化流程**：資料處理、模型選擇、超參數調優
 - **多任務支援**：
-  - 文本分類、NER、問答、摘要
+  - 文字分類、NER、問答、摘要
   - 圖像分類、目標檢測
-  - 表格數據分類/回歸
+  - 表格資料分類/回歸
   - LLM 微調
 - **簡單界面**：Web UI 或 CLI
 - **雲端整合**：支援各種雲平台部署
@@ -230,7 +230,7 @@ dataset = load_dataset("common_voice", "zh-TW")
 ### 12. Inference Endpoints 與 Text Generation Inference (TGI)
 
 #### Text Generation Inference
-[TGI](https://github.com/huggingface/text-generation-inference) 是一個用於部署大語言模型的高性能推理服務器。
+[TGI](https://github.com/huggingface/text-generation-inference) 是一個用於部署大語言模型的高性能推理伺服器。
 
 #### 核心功能
 - **極致性能**：
@@ -255,7 +255,7 @@ dataset = load_dataset("common_voice", "zh-TW")
 [Safetensors](https://github.com/huggingface/safetensors) 是一個安全、快速的模型序列化格式。
 
 #### 核心功能
-- **安全性**：避免 pickle 的任意代碼執行風險
+- **安全性**：避免 pickle 的任意程式碼執行風險
 - **速度**：比 PyTorch 原生格式快 10-100 倍
 - **跨框架**：支援 PyTorch、TensorFlow、JAX、Flax
 - **懶加載**：無需載入整個模型即可查看結構
@@ -268,7 +268,7 @@ dataset = load_dataset("common_voice", "zh-TW")
 ```
 ┌──────────────────────────────────────────────────────────────────┐
 │                      Hugging Face Hub                            │
-│     (模型、數據集、應用中心化倉庫 - 500K+ 模型)                    │
+│     (模型、資料集、應用中心化倉庫 - 500K+ 模型)                    │
 │         Safetensors 格式 | Git LFS | 模型卡 | Spaces              │
 └──────────────────────────────────────────────────────────────────┘
                                   ↑ ↓
@@ -298,9 +298,9 @@ dataset = load_dataset("common_voice", "zh-TW")
 ```
 
 ### 組件互動關係
-1. **Hub** 作為中央儲存庫，提供模型和數據集
+1. **Hub** 作為中央儲存庫，提供模型和資料集
 2. **Transformers** 是核心庫，整合其他組件
-3. **Datasets** 提供數據，**Tokenizers** 處理文本
+3. **Datasets** 提供資料，**Tokenizers** 處理文字
 4. **Accelerate** 處理訓練加速，**PEFT** 提供高效微調
 5. **Evaluate** 和 **Optimum** 提供評估和優化支援
 
@@ -313,11 +313,11 @@ dataset = load_dataset("common_voice", "zh-TW")
 ```python
 from transformers import pipeline
 
-# 文本分類
+# 文字分類
 classifier = pipeline("text-classification")
 result = classifier("這個產品非常好用！")
 
-# 文本生成
+# 文字生成
 generator = pipeline("text-generation", model="gpt2")
 text = generator("從前有座山", max_length=50)
 
@@ -332,7 +332,7 @@ answer = qa(question="誰發明了transformer?", context="Transformer 由 Google
 from transformers import AutoModelForSequenceClassification, Trainer, TrainingArguments
 from datasets import load_dataset
 
-# 載入模型和數據
+# 載入模型和資料
 model = AutoModelForSequenceClassification.from_pretrained("bert-base-chinese", num_labels=2)
 dataset = load_dataset("your_dataset")
 
@@ -529,8 +529,8 @@ optimizer.optimize(save_dir="optimized_model", optimization_config=optimization_
 model = ORTModelForSequenceClassification.from_pretrained("optimized_model")
 tokenizer = AutoTokenizer.from_pretrained("bert-base-chinese")
 
-# 推理速度提升 2-4 倍
-inputs = tokenizer("測試文本", return_tensors="pt")
+# 推論速度提升 2-4 倍
+inputs = tokenizer("測試文字", return_tensors="pt")
 outputs = model(**inputs)
 ```
 
@@ -587,7 +587,7 @@ print(output)
 
 #### 方法五：使用 Text Generation Inference (TGI) 部署
 ```bash
-# 使用 Docker 部署高性能推理服務
+# 使用 Docker 部署高性能推論服務
 docker run --gpus all --shm-size 1g -p 8080:80 \
     -v $PWD/models:/data \
     ghcr.io/huggingface/text-generation-inference:latest \
@@ -599,7 +599,7 @@ docker run --gpus all --shm-size 1g -p 8080:80 \
 ```
 
 ```python
-# Python 客戶端調用
+# Python 客戶端呼叫
 from huggingface_hub import InferenceClient
 
 client = InferenceClient(model="http://localhost:8080")
@@ -633,13 +633,13 @@ model.save_quantized("./llama3-8b-gptq")
 model = AutoGPTQForCausalLM.from_quantized("./llama3-8b-gptq", device="cuda:0")
 ```
 
-#### 推理優化技術對比（2025）
+#### 推論優化技術對比（2025）
 
 | 方法 | 速度提升 | 記憶體節省 | 準確度損失 | 適用場景 |
 |------|---------|-----------|-----------|---------|
 | Flash Attention 2 | 2-8x | 50% | 無 | 訓練與推理 |
 | ONNX Runtime | 2-4x | 20% | 極小 | CPU/GPU 部署 |
-| vLLM | 10-20x | 50% | 無 | 批次推理服務 |
+| vLLM | 10-20x | 50% | 無 | 批次推論服務 |
 | TensorRT-LLM | 3-6x | 40% | 極小 | NVIDIA GPU 生產環境 |
 | TGI | 5-15x | 40% | 無 | 生產部署 |
 | GPTQ (4-bit) | 2-4x | 75% | < 1% | 資源受限環境 |
@@ -659,8 +659,8 @@ model = AutoGPTQForCausalLM.from_quantized("./llama3-8b-gptq", device="cuda:0")
 | 多 GPU / 集群 (>40GB) | XL/XXL (>1B params) | T5-11B, GPT-3, LLaMA-7B/13B |
 
 #### 根據任務選擇模型類型
-- **文本分類/NER**：BERT, RoBERTa, DeBERTa
-- **文本生成**：GPT-2, GPT-Neo, LLaMA, Mistral
+- **文字分類/NER**：BERT, RoBERTa, DeBERTa
+- **文字生成**：GPT-2, GPT-Neo, LLaMA, Mistral
 - **翻譯/摘要**：T5, BART, mBART, MarianMT
 - **多語言**：XLM-RoBERTa, mBERT, mT5
 - **中文專用**：BERT-wwm-Chinese, MacBERT, ChatGLM
@@ -692,9 +692,9 @@ training_args = TrainingArguments(
 )
 ```
 
-### 3. 數據處理最佳實踐
+### 3. 資料處理最佳實踐
 
-#### 高效數據預處理
+#### 高效資料預處理
 ```python
 from datasets import load_dataset
 
@@ -712,7 +712,7 @@ tokenized_dataset = dataset.map(
 )
 ```
 
-#### 數據快取
+#### 資料快取
 ```python
 # 首次處理後會自動快取
 tokenized_dataset = dataset.map(
@@ -722,7 +722,7 @@ tokenized_dataset = dataset.map(
 )
 ```
 
-### 4. 推理優化
+### 4. 推論優化
 
 #### 批次推理
 ```python
@@ -822,13 +822,13 @@ class CustomTrainer(Trainer):
         outputs = model(**inputs)
         logits = outputs.logits
 
-        # 自定義損失函數
+        # 自定義損失函式
         loss = custom_loss_function(logits, labels)
 
         return (loss, outputs) if return_outputs else loss
 ```
 
-### 3. 回調函數 (Callbacks)
+### 3. 回呼函式 (Callbacks)
 ```python
 from transformers import TrainerCallback
 
@@ -1053,7 +1053,7 @@ from transformers import pipeline
 classifier = pipeline("sentiment-analysis")
 print(classifier("I love using Transformers!"))
 
-# 2. 文本生成
+# 2. 文字生成
 generator = pipeline("text-generation")
 print(generator("Once upon a time", max_length=50))
 
@@ -1079,7 +1079,7 @@ print(result)
 - [官方教程](https://huggingface.co/course)：免費的完整課程
 - [Hugging Face Course](https://huggingface.co/learn)：互動式學習平台
 - [模型庫](https://huggingface.co/models)：瀏覽和測試模型
-- [數據集庫](https://huggingface.co/datasets)：探索公開數據集
+- [資料集庫](https://huggingface.co/datasets)：探索公開資料集
 
 ---
 
@@ -1093,20 +1093,20 @@ print(result)
 
 ### 貢獻方式
 1. **報告問題**：在 GitHub Issues 回報 bug
-2. **提交 PR**：改進代碼或文檔
+2. **提交 PR**：改進程式碼或文檔
 3. **分享模型**：上傳訓練好的模型到 Hub
 4. **撰寫教程**：分享使用經驗和最佳實踐
 
 ### 商業支援
 - **Hugging Face Pro**：專業版帳戶，提供更多資源
 - **Hugging Face Enterprise**：企業級解決方案
-- **Inference Endpoints**：託管推理服務
+- **Inference Endpoints**：託管推論服務
 
 ---
 
 ## 總結
 
-Hugging Face 生態系統提供了從數據處理、模型訓練、評估到部署的完整工具鏈：
+Hugging Face 生態系統提供了從資料處理、模型訓練、評估到部署的完整工具鏈：
 
 1. **入門友好**：Pipeline API 讓新手快速上手
 2. **靈活強大**：支援自定義模型和訓練流程

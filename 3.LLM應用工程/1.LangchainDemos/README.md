@@ -11,7 +11,7 @@
 ### 1. 程式開發 💻
 - ✅ API 呼叫生成程式碼
 - ✅ 自動編譯與修復程式碼
-- ✅ 調用本地程式庫撰寫函數
+- ✅ 呼叫本地程式庫撰寫函數
 - ✅ 程式碼理解與分析
 - ✅ 單元測試自動生成
 
@@ -23,7 +23,7 @@
 
 ### 3. AI Agents 🤖
 - ✅ ReAct Agent（推理+行動）
-- ✅ Tool-Calling Agent（工具調用）
+- ✅ Tool-Calling Agent（工具呼叫）
 - ✅ Search Agent（網路搜尋）
 - ✅ Conversational Agent（對話記憶）
 
@@ -238,7 +238,7 @@ SERPER_API_KEY=your_serper_api_key_here
 - [ ] 增加多模態範例（圖像+文字）
 - [ ] 建立完整的專案範本
 - [ ] 加入效能優化指南
-- [ ] 製作視頻教學
+- [ ] 製作影片教學
 
 ## ⚠️ 注意事項
 

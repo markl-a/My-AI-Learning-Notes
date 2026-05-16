@@ -12,7 +12,7 @@
 - 多任務學習的優勢和挑戰
 - 任務混合和採樣策略
 - 溫度採樣和任務提示
-- 數據準備和平衡技術
+- 資料準備和平衡技術
 - 完整實作範例
 - 任務衝突和負遷移的解決方案
 
@@ -83,7 +83,7 @@
 
 **注意事項：**
 - 選擇合適的防遺忘策略
-- 保存少量歷史數據用於重放
+- 保存少量歷史資料用於重放
 - 定期評估所有歷史任務
 
 ---
@@ -144,7 +144,7 @@ task_weights = adjust_by_performance(task_losses)
 
 ### 3. 使用 AI 輔助
 
-利用 AI 生成重放數據：
+利用 AI 生成重放資料：
 
 ```python
 from data_preparation_tools.ai_assisted_data_generator import AIDataGenerator
@@ -172,7 +172,7 @@ pseudo_samples = generator.generate_examples_from_topic(
 **推薦決策樹：**
 
 ```
-能保存歷史數據？
+能保存歷史資料？
 ├─ 是 → Replay + EWC（推薦）
 └─ 否 → EWC + LwF
 
@@ -218,16 +218,16 @@ learner = MultiTaskLearner(temperature=0.7)
 learner.train(task_datasets)
 ```
 
-### 案例 2: 持續更新的代碼助手
+### 案例 2: 持續更新的程式碼助手
 
 ```python
-# 初始：Python 代碼生成
+# 初始：Python 程式碼生成
 learner.train_task(python_data, "python")
 
 # 添加：JavaScript 支持
 learner.train_task(javascript_data, "javascript")
 
-# 添加：代碼審查
+# 添加：程式碼審查
 learner.train_task(review_data, "review")
 
 # 評估所有任務

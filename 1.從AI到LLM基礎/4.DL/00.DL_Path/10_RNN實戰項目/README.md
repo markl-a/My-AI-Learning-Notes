@@ -2,7 +2,7 @@
 
 > **完整的端到端 RNN 應用項目**
 >
-> 從數據準備到模型部署的完整實踐
+> 從資料準備到模型部署的完整實踐
 
 ## 📚 項目概覽
 
@@ -11,7 +11,7 @@
 | 項目 | 難度 | 時間 | 主要技術 | 應用場景 |
 |------|------|------|---------|---------|
 | 1. 情感分析 | ⭐⭐⭐ | 2-3h | Bi-LSTM, Attention | NLP |
-| 2. 文本生成 | ⭐⭐⭐ | 2-3h | Char-LSTM, 溫度採樣 | 創意 AI |
+| 2. 文字生成 | ⭐⭐⭐ | 2-3h | Char-LSTM, 溫度採樣 | 創意 AI |
 | 3. 時間序列預測 | ⭐⭐⭐⭐ | 3-4h | LSTM, Seq2Seq | 金融/IoT |
 
 ---
@@ -21,7 +21,7 @@
 完成這些項目後，你將能夠：
 
 - ✅ 端到端構建 RNN 應用
-- ✅ 處理真實世界的數據
+- ✅ 處理真實世界的資料
 - ✅ 調試和優化模型
 - ✅ 部署模型到生產環境
 - ✅ 使用 AI 工具輔助開發
@@ -35,7 +35,7 @@
 **任務**: 對電影評論進行正負面情感分類
 
 **亮點**:
-- 完整的文本預處理流程
+- 完整的文字預處理流程
 - 三種模型架構對比（Simple LSTM, Bi-LSTM, Attention）
 - 注意力權重可視化
 - 模型解釋和部署
@@ -48,7 +48,7 @@ class AttentionBiLSTM(nn.Module):
         self.attention = nn.Linear(hidden_dim * 2, 1)
 ```
 
-**數據集**: IMDB 電影評論 (50k 樣本)
+**資料集**: IMDB 電影評論 (50k 樣本)
 
 **性能指標**:
 - 準確率: ~90%
@@ -56,15 +56,15 @@ class AttentionBiLSTM(nn.Module):
 
 ---
 
-### 2. 文本生成 (text_generation.ipynb)
+### 2. 文字生成 (text_generation.ipynb)
 
-**任務**: 生成莎士比亞風格的文本
+**任務**: 生成莎士比亞風格的文字
 
 **亮點**:
 - 字符級語言模型
 - 溫度採樣實驗
 - Top-K 採樣對比
-- 生成質量評估
+- 生成品質評估
 
 **核心技術**:
 ```python
@@ -75,7 +75,7 @@ def generate_text(model, seed, temperature=1.0):
     next_char = torch.multinomial(probs, 1)
 ```
 
-**數據集**: 莎士比亞全集
+**資料集**: 莎士比亞全集
 
 **生成示例**:
 ```
@@ -109,7 +109,7 @@ class Seq2SeqForecaster(nn.Module):
         predictions = self.decoder(h, steps=future_steps)
 ```
 
-**數據集**: 股票價格（S&P 500）或能源消耗數據
+**資料集**: 股票價格（S&P 500）或能源消耗資料
 
 **性能指標**:
 - MAE: < 5%
@@ -122,7 +122,7 @@ class Seq2SeqForecaster(nn.Module):
 ### 環境配置
 
 ```bash
-# 創建虛擬環境
+# 建立虛擬環境
 conda create -n rnn-projects python=3.8
 conda activate rnn-projects
 
@@ -150,18 +150,18 @@ jupyter notebook
 10_RNN實戰項目/
 ├── README.md                          # 本文件
 ├── 1_sentiment_analysis.ipynb         # 情感分析
-├── 2_text_generation.ipynb            # 文本生成
+├── 2_text_generation.ipynb            # 文字生成
 ├── 3_time_series_forecasting.ipynb    # 時間序列預測
-├── data/                              # 數據資料夾
-│   ├── imdb/                          # IMDB 數據
-│   ├── shakespeare/                   # 莎士比亞文本
-│   └── stocks/                        # 股票數據
+├── data/                              # 資料資料夾
+│   ├── imdb/                          # IMDB 資料
+│   ├── shakespeare/                   # 莎士比亞文字
+│   └── stocks/                        # 股票資料
 ├── models/                            # 保存的模型
 │   ├── sentiment_model.pth
 │   ├── text_gen_model.pth
 │   └── forecasting_model.pth
 └── utils/                             # 工具函數
-    ├── data_utils.py                  # 數據處理
+    ├── data_utils.py                  # 資料處理
     ├── model_utils.py                 # 模型工具
     └── visualization.py               # 可視化
 ```
@@ -174,7 +174,7 @@ jupyter notebook
 
 ```mermaid
 graph LR
-    A[情感分析] --> B[文本生成]
+    A[情感分析] --> B[文字生成]
     B --> C[時間序列預測]
 ```
 
@@ -183,7 +183,7 @@ graph LR
 ### 進階路徑
 
 根據興趣選擇：
-- **NLP 方向**: 情感分析 → 文本生成
+- **NLP 方向**: 情感分析 → 文字生成
 - **時序分析**: 時間序列預測
 - **全棧 AI**: 完成所有項目
 
@@ -198,7 +198,7 @@ graph LR
 **提示詞**:
 ```
 我的 LSTM 模型訓練時出現以下錯誤：
-[粘貼錯誤信息和相關代碼]
+[粘貼錯誤資訊和相關程式碼]
 
 可能的原因和解決方案是什麼？
 ```
@@ -209,21 +209,21 @@ graph LR
 ```
 我的情感分析模型準確率只有 75%，配置如下：
 - 模型: Bi-LSTM
-- 數據量: 5000 條
+- 資料量: 5000 條
 - 超參數: [列出超參數]
 
 如何提高性能？請提供具體的改進建議。
 ```
 
-#### 3. 代碼改進
+#### 3. 程式碼改進
 
 **提示詞**:
 ```
-請審查以下代碼並建議改進：
-[粘貼代碼]
+請審查以下程式碼並建議改進：
+[粘貼程式碼]
 
 關注點：
-1. 代碼效率
+1. 程式碼效率
 2. 最佳實踐
 3. 潛在的bug
 ```
@@ -233,7 +233,7 @@ graph LR
 **提示詞**:
 ```
 我想構建一個時間序列預測模型，預測未來 24 小時的電力需求。
-輸入：過去 168 小時的數據（7天）
+輸入：過去 168 小時的資料（7天）
 輸出：未來 24 小時的預測
 
 請建議：
@@ -285,7 +285,7 @@ if val_loss > best_val_loss:
     if patience_counter >= patience:
         break
 
-# 4. 數據增強
+# 4. 資料增強
 # - 同義詞替換
 # - 回譯
 # - 隨機刪除
@@ -293,7 +293,7 @@ if val_loss > best_val_loss:
 
 ---
 
-### Q3: 如何評估生成質量？
+### Q3: 如何評估生成品質？
 
 **A**: 多維度評估：
 
@@ -301,7 +301,7 @@ if val_loss > best_val_loss:
 # 1. 困惑度（Perplexity）
 perplexity = torch.exp(loss)
 
-# 2. BLEU 分數（與參考文本比較）
+# 2. BLEU 分數（與參考文字比較）
 from nltk.translate.bleu_score import sentence_bleu
 score = sentence_bleu([reference], generated)
 
@@ -337,7 +337,7 @@ scripted_model.save("model_scripted.pt")
 # 3. 轉換為 ONNX
 torch.onnx.export(model, dummy_input, "model.onnx")
 
-# 4. 創建 API（Flask/FastAPI）
+# 4. 建立 API（Flask/FastAPI）
 from fastapi import FastAPI
 app = FastAPI()
 
@@ -354,7 +354,7 @@ def predict(text: str):
 
 ### 硬件配置對比
 
-| 配置 | 情感分析 | 文本生成 | 時序預測 |
+| 配置 | 情感分析 | 文字生成 | 時序預測 |
 |------|---------|---------|---------|
 | CPU (i5) | ~10 min | ~15 min | ~20 min |
 | GPU (GTX 1060) | ~2 min | ~3 min | ~4 min |
@@ -362,10 +362,10 @@ def predict(text: str):
 
 ### 模型大小
 
-| 項目 | 參數量 | 模型大小 | 推理速度 |
+| 項目 | 參數量 | 模型大小 | 推論速度 |
 |------|-------|---------|---------|
 | 情感分析 | ~500K | ~2 MB | ~5 ms |
-| 文本生成 | ~1M | ~4 MB | ~10 ms |
+| 文字生成 | ~1M | ~4 MB | ~10 ms |
 | 時序預測 | ~800K | ~3 MB | ~3 ms |
 
 ---
@@ -390,8 +390,8 @@ def predict(text: str):
 - 可解釋性分析
 
 ### Challenge 4: 多模態學習
-- 結合文本和圖像
-- 視頻字幕生成
+- 結合文字和圖像
+- 影片字幕生成
 - 圖像描述生成
 
 ---
@@ -419,7 +419,7 @@ def predict(text: str):
 發現問題或有改進建議？
 
 1. Fork 本倉庫
-2. 創建功能分支
+2. 建立功能分支
 3. 提交 Pull Request
 
 ---

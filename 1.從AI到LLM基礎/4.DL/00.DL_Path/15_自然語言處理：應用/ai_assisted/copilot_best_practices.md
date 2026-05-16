@@ -14,10 +14,10 @@
 ## 什麼是 GitHub Copilot
 
 GitHub Copilot 是一個 AI 程式設計助手，由 OpenAI Codex 驅動，可以：
-- 📝 自動補全代碼
+- 📝 自動補全程式碼
 - 🧪 生成測試用例
 - 📖 撰寫文檔
-- 🐛 解釋代碼
+- 🐛 解釋程式碼
 - 🔄 重構建議
 
 ## 基礎使用
@@ -79,7 +79,7 @@ class BERTSentimentAnalyzer:
         return predictions
 ```
 
-### 3. 數據處理
+### 3. 資料處理
 
 ```python
 # Function to clean text: lowercase, remove URLs, remove HTML tags, remove extra spaces
@@ -110,7 +110,7 @@ def clean_text(text):
 
 ### 1. 上下文感知
 
-Copilot 會根據你已有的代碼提供更相關的建議。
+Copilot 會根據你已有的程式碼提供更相關的建議。
 
 **示例:**
 
@@ -168,7 +168,7 @@ def test_calculate_f1_score_zero_recall():
     assert calculate_f1_score(0.5, 0) == 0.0
 ```
 
-### 3. 文檔字符串生成
+### 3. 文檔字串生成
 
 **技巧:** 定義函數後，在函數內輸入三個引號，Copilot 會自動生成文檔
 
@@ -213,7 +213,7 @@ Copilot 可能會提供多個不同的實現方案，你可以選擇最合適的
 
 ## 實際案例
 
-### 案例 1: 快速構建文本分類器
+### 案例 1: 快速構建文字分類器
 
 ```python
 # Build a complete text classification pipeline with the following steps:
@@ -284,7 +284,7 @@ class TextClassificationPipeline:
         return accuracy
 ```
 
-### 案例 2: 數據增強函數
+### 案例 2: 資料增強函數
 
 ```python
 # Function to augment text data using:
@@ -374,7 +374,7 @@ Copilot 能更好地理解你的意圖：
 from typing import List, Dict, Tuple
 
 def process_batch(texts: List[str], labels: List[int]) -> Dict[str, torch.Tensor]:
-    # Copilot 知道返回類型，會生成相應的代碼
+    # Copilot 知道返回類型，會生成相應的程式碼
 ```
 
 ### 3. 使用示例驅動
@@ -397,20 +397,20 @@ def process_batch(texts: List[str], labels: List[int]) -> Dict[str, torch.Tensor
 ### 5. 結合其他工具
 
 ```python
-# 使用 Copilot 生成代碼框架
+# 使用 Copilot 生成程式碼框架
 # 使用 ChatGPT/Claude 解釋複雜邏輯
 # 使用 IDE 調試工具優化性能
 ```
 
 ## 常見問題
 
-### Q1: Copilot 生成的代碼總是正確的嗎？
+### Q1: Copilot 生成的程式碼總是正確的嗎？
 
 **A:** 不一定。Copilot 是輔助工具，需要人工審查：
 - ✅ 檢查邏輯正確性
 - ✅ 驗證邊界情況
 - ✅ 測試異常處理
-- ✅ 確保代碼安全性
+- ✅ 確保程式碼安全性
 
 ### Q2: 如何提高 Copilot 建議質量？
 
@@ -418,7 +418,7 @@ def process_batch(texts: List[str], labels: List[int]) -> Dict[str, torch.Tensor
 1. 提供清晰的上下文
 2. 使用描述性的變量名
 3. 添加類型提示
-4. 參考現有代碼風格
+4. 參考現有程式碼風格
 5. 給出具體示例
 
 ### Q3: Copilot 能幫助學習嗎？
@@ -427,14 +427,14 @@ def process_batch(texts: List[str], labels: List[int]) -> Dict[str, torch.Tensor
 - 📚 學習常見模式
 - 🔍 發現新的庫和方法
 - 💡 獲得實現思路
-- 但要理解代碼而不是盲目複製
+- 但要理解程式碼而不是盲目複製
 
 ### Q4: 什麼情況不適合用 Copilot？
 
 **A:**
-- 需要深入理解的算法
+- 需要深入理解的演算法
 - 關鍵的業務邏輯
-- 安全敏感的代碼
+- 安全敏感的程式碼
 - 需要創新性的解決方案
 
 ## 快捷鍵
@@ -484,14 +484,14 @@ def load_model(model_path):
 GitHub Copilot 是強大的生產力工具，但需要正確使用：
 
 ✅ **做:**
-- 用於生成樣板代碼
+- 用於生成樣板程式碼
 - 輔助學習新技術
 - 加速原型開發
 - 生成測試和文檔
 
 ❌ **不要:**
 - 盲目信任建議
-- 跳過代碼審查
+- 跳過程式碼審查
 - 忽視安全考慮
 - 放棄思考
 

@@ -538,7 +538,7 @@ analyze_dataset('labels/train', ['cat', 'dog', 'bird'])
 
 ## 🔗 相關資源
 
-- [YOLOv8 數據格式文檔](https://docs.ultralytics.com/datasets/)
+- [YOLOv8 資料格式文檔](https://docs.ultralytics.com/datasets/)
 - [Roboflow 公開資料集](https://universe.roboflow.com/)
 - [COCO 資料集](https://cocodataset.org/)
 - [Open Images 資料集](https://storage.googleapis.com/openimages/web/index.html)

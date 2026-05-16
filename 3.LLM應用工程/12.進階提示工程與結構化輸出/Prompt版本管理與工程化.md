@@ -100,7 +100,7 @@ class PromptVersion:
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "PromptVersion":
-        """從字典創建"""
+        """從字典建立"""
         data["status"] = PromptStatus(data["status"])
         data["created_at"] = datetime.fromisoformat(data["created_at"])
         data["updated_at"] = datetime.fromisoformat(data["updated_at"])
@@ -344,7 +344,7 @@ class PromptFile:
 
     @classmethod
     def from_yaml(cls, content: str) -> "PromptFile":
-        """從 YAML 創建"""
+        """從 YAML 建立"""
         data = yaml.safe_load(content)
         return cls(**data)
 
@@ -358,7 +358,7 @@ class GitPromptManager:
 
     def save_prompt(self, prompt: PromptFile, commit: bool = True) -> str:
         """保存 Prompt 到文件"""
-        # 創建目錄結構: prompts/{name}/{version}.yaml
+        # 建立目錄結構: prompts/{name}/{version}.yaml
         prompt_dir = self.repo_path / prompt.name
         prompt_dir.mkdir(parents=True, exist_ok=True)
 
@@ -576,7 +576,7 @@ class ABTestManager:
         variant_prompt_ids: List[str],
         weights: Optional[List[float]] = None
     ) -> ABTest:
-        """創建 A/B 測試"""
+        """建立 A/B 測試"""
         test_id = hashlib.sha256(
             f"{name}:{datetime.now().isoformat()}".encode()
         ).hexdigest()[:12]
@@ -1550,7 +1550,7 @@ def set_status(name: str, version: str, status: str):
 
 @cli.command()
 @click.argument("name")
-@click.option("--hours", "-h", default=24, help="查看多少小時的數據")
+@click.option("--hours", "-h", default=24, help="查看多少小時的資料")
 def metrics(name: str, hours: int):
     """查看 Prompt 指標"""
     from prompt_manager import PromptMonitor, PromptRegistry

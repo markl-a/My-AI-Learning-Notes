@@ -10,7 +10,7 @@
 2. [如何貢獻](#如何貢獻)
 3. [開發環境設置](#開發環境設置)
 4. [開發流程](#開發流程)
-5. [代碼規範](#代碼規範)
+5. [程式碼規範](#程式碼規範)
 6. [提交規範](#提交規範)
 7. [Pull Request 流程](#pull-request-流程)
 8. [測試指南](#測試指南)
@@ -36,7 +36,7 @@
 - 使用性化的語言或圖像
 - 侮辱性/貶損性評論和人身攻擊
 - 公開或私下騷擾
-- 未經許可發布他人的私人信息
+- 未經許可發布他人的私人資訊
 - 其他在專業環境中被認為不適當的行為
 
 ---
@@ -50,8 +50,8 @@
 #### 1. 報告 Bug 🐛
 - 使用 GitHub Issues
 - 提供詳細的重現步驟
-- 包含系統信息（OS、Python 版本等）
-- 附上錯誤信息和日誌
+- 包含系統資訊（OS、Python 版本等）
+- 附上錯誤資訊和日誌
 
 #### 2. 建議功能 💡
 - 清楚描述功能需求
@@ -64,11 +64,11 @@
 - 添加範例
 - 翻譯文檔
 
-#### 4. 提交代碼 💻
+#### 4. 提交程式碼 💻
 - 修復 Bug
 - 實現新功能
 - 優化性能
-- 重構代碼
+- 重構程式碼
 
 #### 5. 分享學習筆記 📚
 - 添加新的學習材料
@@ -97,7 +97,7 @@ cd My-AI-Learning-Notes
 git remote add upstream https://github.com/markl-a/My-AI-Learning-Notes.git
 ```
 
-### 4. 創建虛擬環境
+### 4. 建立虛擬環境
 
 ```bash
 # 使用 venv
@@ -138,14 +138,14 @@ git checkout main
 git merge upstream/main
 ```
 
-### 2. 創建功能分支
+### 2. 建立功能分支
 
 ```bash
 # 功能分支命名規範：
 # - feature/功能名稱 (新功能)
 # - fix/問題描述 (修復 Bug)
 # - docs/文檔主題 (文檔更新)
-# - refactor/重構範圍 (代碼重構)
+# - refactor/重構範圍 (程式碼重構)
 
 git checkout -b feature/your-feature-name
 ```
@@ -153,7 +153,7 @@ git checkout -b feature/your-feature-name
 ### 3. 開發你的更改
 
 ```bash
-# 編寫代碼
+# 編寫程式碼
 # 添加測試
 # 更新文檔
 ```
@@ -171,19 +171,19 @@ git commit -m "type: 簡短描述"
 git push origin feature/your-feature-name
 ```
 
-### 6. 創建 Pull Request
+### 6. 建立 Pull Request
 
-在 GitHub 上創建 PR，詳見 [Pull Request 流程](#pull-request-流程)
+在 GitHub 上建立 PR，詳見 [Pull Request 流程](#pull-request-流程)
 
 ---
 
-## 📏 代碼規範
+## 📏 程式碼規範
 
-### Python 代碼風格
+### Python 程式碼風格
 
 我們遵循 PEP 8 和以下工具的配置：
 
-#### Black（代碼格式化）
+#### Black（程式碼格式化）
 
 ```python
 # 配置：pyproject.toml
@@ -214,10 +214,10 @@ ruff check --fix .
 mypy . --ignore-missing-imports
 ```
 
-### 代碼風格示例
+### 程式碼風格示例
 
 ```python
-"""模塊文檔字符串
+"""模塊文檔字串
 
 詳細描述模塊功能。
 """
@@ -228,7 +228,7 @@ from langchain_openai import OpenAI
 
 
 class ExampleClass:
-    """類文檔字符串
+    """類文檔字串
 
     Args:
         param1: 參數描述
@@ -246,10 +246,10 @@ class ExampleClass:
         self.param2 = param2 or 10
 
     def method(self, input_data: List[str]) -> Dict[str, any]:
-        """方法文檔字符串
+        """方法文檔字串
 
         Args:
-            input_data: 輸入數據列表
+            input_data: 輸入資料列表
 
         Returns:
             處理結果字典
@@ -265,14 +265,14 @@ class ExampleClass:
 
 
 def example_function(param1: str, param2: int = 5) -> str:
-    """函數文檔字符串
+    """函數文檔字串
 
     Args:
         param1: 第一個參數
-        param2: 第二個參數，默認為 5
+        param2: 第二個參數，預設為 5
 
     Returns:
-        處理後的字符串
+        處理後的字串
     """
     return f"{param1} - {param2}"
 ```
@@ -298,10 +298,10 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# 2. 數據加載
+# 2. 資料加載
 # ...
 
-# 3. 數據處理
+# 3. 資料處理
 # ...
 
 # 4. 可視化
@@ -332,8 +332,8 @@ import matplotlib.pyplot as plt
 - `feat`: 新功能
 - `fix`: Bug 修復
 - `docs`: 文檔更新
-- `style`: 代碼格式（不影響功能）
-- `refactor`: 代碼重構
+- `style`: 程式碼格式（不影響功能）
+- `refactor`: 程式碼重構
 - `perf`: 性能優化
 - `test`: 測試相關
 - `chore`: 構建/工具相關
@@ -349,7 +349,7 @@ feat: 添加 RAG 多模態支援
 feat(rag): 添加圖像檢索功能
 
 實現了基於 CLIP 的圖像嵌入和檢索功能，
-支持文本到圖像的跨模態搜索。
+支持文字到圖像的跨模態搜索。
 
 Closes #123
 ```
@@ -360,7 +360,7 @@ Closes #123
 
 ```
 feat(llm): 添加 Anthropic Claude API 支援
-fix(rag): 修復向量數據庫連接超時問題
+fix(rag): 修復向量資料庫連接超時問題
 docs(readme): 更新安裝指南
 test(agent): 添加 ReAct 模式單元測試
 ```
@@ -405,7 +405,7 @@ Fixes #456
 - [ ] 新功能 (feat)
 - [ ] Bug 修復 (fix)
 - [ ] 文檔更新 (docs)
-- [ ] 代碼重構 (refactor)
+- [ ] 程式碼重構 (refactor)
 - [ ] 性能優化 (perf)
 - [ ] 測試 (test)
 
@@ -414,7 +414,7 @@ Fixes #456
 - [ ] 我已經測試了這些更改
 - [ ] 我添加了新的測試
 - [ ] 所有現有測試通過
-- [ ] 代碼符合項目的代碼規範
+- [ ] 程式碼符合項目的程式碼規範
 
 ## 📸 截圖（如適用）
 
@@ -423,23 +423,23 @@ Fixes #456
 ## 📚 文檔
 
 - [ ] 我已更新相關文檔
-- [ ] 我添加了代碼註釋
+- [ ] 我添加了程式碼註釋
 - [ ] 我更新了 README（如需要）
 
-## 💡 其他信息
+## 💡 其他資訊
 
-添加任何其他相關信息。
+添加任何其他相關資訊。
 ```
 
 ### 3. PR 審查流程
 
 1. **自動檢查**
    - CI/CD 自動運行
-   - 代碼質量檢查
+   - 程式碼品質檢查
    - 測試執行
    - 安全掃描
 
-2. **代碼審查**
+2. **程式碼審查**
    - 至少一位維護者審查
    - 回應審查意見
    - 進行必要的修改
@@ -513,7 +513,7 @@ class TestYourFunction:
 # Fixtures
 @pytest.fixture
 def sample_data():
-    """提供測試數據"""
+    """提供測試資料"""
     return {"key": "value"}
 
 
@@ -536,10 +536,10 @@ def test_with_fixture(sample_data):
 2. **學習筆記**
    - Markdown 文件
    - Jupyter Notebooks
-   - 代碼示例
+   - 程式碼示例
 
 3. **API 文檔**
-   - 函數/類文檔字符串
+   - 函數/類文檔字串
    - 自動生成的 API 文檔
 
 4. **指南和教程**
@@ -562,10 +562,10 @@ def test_with_fixture(sample_data):
 
 **粗體** 用於強調
 *斜體* 用於術語
-`代碼` 用於代碼片段
+`程式碼` 用於程式碼片段
 
 ​```python
-# 代碼塊使用三個反引號
+# 程式碼塊使用三個反引號
 def example():
     pass
 ​```
@@ -587,9 +587,9 @@ def example():
 
 ### Q2: 我發現了一個 Bug，但不知道如何修復
 
-**A:** 沒關係！創建一個 Issue 詳細描述問題即可。提供重現步驟和錯誤信息會很有幫助。
+**A:** 沒關係！建立一個 Issue 詳細描述問題即可。提供重現步驟和錯誤資訊會很有幫助。
 
-### Q3: 我可以貢獻非代碼內容嗎？
+### Q3: 我可以貢獻非程式碼內容嗎？
 
 **A:** 當然可以！文檔改進、學習筆記分享、問題回答都是非常有價值的貢獻。
 
@@ -603,7 +603,7 @@ def example():
 
 ### Q6: 我需要簽署 CLA 嗎？
 
-**A:** 目前不需要。我們使用 MIT 許可證，貢獻即表示您同意以該許可證發布您的代碼。
+**A:** 目前不需要。我們使用 MIT 許可證，貢獻即表示您同意以該許可證發布您的程式碼。
 
 ### Q7: 如何同步我的 Fork 與上游？
 

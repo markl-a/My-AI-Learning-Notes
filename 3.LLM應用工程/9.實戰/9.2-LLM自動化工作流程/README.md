@@ -1,27 +1,27 @@
-# 9.2 將 LLM 融入自動化工作流程：AI 代碼審查助手
+# 9.2 將 LLM 融入自動化工作流程：AI 程式碼審查助手
 
 ## 項目概述
 
-這是一個完整的 AI 驅動的代碼審查自動化系統，展示如何將 LLM 深度集成到軟件開發工作流程中。系統能夠：
+這是一個完整的 AI 驅動的程式碼審查自動化系統，展示如何將 LLM 深度集成到軟件開發工作流程中。系統能夠：
 
-- **自動代碼審查**：分析代碼質量、安全性、性能問題
-- **智能建議生成**：提供具體的改進建議和代碼示例
-- **自動測試生成**：基於代碼自動生成單元測試
-- **文檔生成**：自動生成代碼文檔和註釋
+- **自動程式碼審查**：分析程式碼品質、安全性、性能問題
+- **智能建議生成**：提供具體的改進建議和程式碼示例
+- **自動測試生成**：基於程式碼自動生成單元測試
+- **文檔生成**：自動生成程式碼文檔和註釋
 - **CI/CD 集成**：無縫集成到 GitHub Actions、GitLab CI 等
 - **IDE 插件**：直接在 VS Code 中使用
 
 ## 系統架構
 
 ```
-Git Push/PR 創建
+Git Push/PR 建立
     ↓
 CI/CD 觸發
     ↓
-AI 代碼審查系統
+AI 程式碼審查系統
     ↓
 ┌─────────────┬──────────────┬────────────┬──────────────┐
-│  代碼分析    │  安全掃描     │  測試生成   │  文檔生成     │
+│  程式碼分析    │  安全掃描     │  測試生成   │  文檔生成     │
 └─────────────┴──────────────┴────────────┴──────────────┘
     ↓
 LLM 處理和建議
@@ -35,33 +35,33 @@ LLM 處理和建議
 
 ## 核心功能
 
-### 1. 智能代碼審查
+### 1. 智能程式碼審查
 
 - **語法和風格檢查**：遵循最佳實踐
 - **邏輯錯誤檢測**：發現潛在的 bug
 - **性能優化建議**：識別性能瓶頸
 - **安全漏洞掃描**：OWASP Top 10 等安全問題
-- **代碼重複檢測**：識別可以重構的代碼
+- **程式碼重複檢測**：識別可以重構的程式碼
 
 ### 2. AI 輔助功能
 
 - **上下文理解**：理解整個項目結構和依賴
 - **智能重構建議**：基於設計模式的重構建議
-- **複雜度分析**：評估代碼複雜度並提供簡化建議
+- **複雜度分析**：評估程式碼複雜度並提供簡化建議
 - **命名建議**：提供更好的變量和函數命名
 - **註釋生成**：自動生成有意義的註釋
 
 ### 3. 自動化工作流程
 
-- **PR 自動審查**：Pull Request 創建時自動審查
-- **持續監控**：代碼庫持續質量監控
+- **PR 自動審查**：Pull Request 建立時自動審查
+- **持續監控**：程式碼庫持續質量監控
 - **增量分析**：只分析變更的部分
 - **批量處理**：支持批量分析多個文件
 - **結果追蹤**：追蹤問題修復狀態
 
 ### 4. IDE 集成
 
-- **VS Code 擴展**：實時代碼建議
+- **VS Code 擴展**：實時程式碼建議
 - **內聯提示**：在編輯器中直接顯示建議
 - **一鍵修復**：快速應用建議的修改
 - **快捷命令**：便捷的命令面板操作
@@ -171,7 +171,7 @@ reviewer = AICodeReviewer(
     temperature=0.3
 )
 
-# 審查代碼
+# 審查程式碼
 code = """
 def calculate_total(items):
     total = 0
@@ -197,7 +197,7 @@ for issue in review_result.issues:
 ### 審查報告示例
 
 ```
-📊 代碼審查報告
+📊 程式碼審查報告
 文件: calculate.py
 語言: Python
 審查時間: 2024-01-15 10:30:00
@@ -208,7 +208,7 @@ for issue in review_result.issues:
 
 1. [性能] 低優先級
    位置: 第 3-5 行
-   問題: 使用字符串拼接累加，可以使用內建函數優化
+   問題: 使用字串拼接累加，可以使用內建函式優化
    建議:
    ```python
    def calculate_total(items):
@@ -224,21 +224,21 @@ for issue in review_result.issues:
    ```
 
 3. [命名] 低優先級
-   問題: 函數名可以更具描述性
+   問題: 函式名可以更具描述性
    建議: 考慮重命名為 `calculate_items_total_price`
 
 📈 複雜度指標:
 - 圈複雜度: 2 (簡單)
-- 代碼行數: 5
+- 程式碼行數: 5
 - 建議重構: 否
 
 💡 改進建議:
-1. 使用列表推導式和 sum() 簡化代碼
+1. 使用列表推導式和 sum() 簡化程式碼
 2. 添加類型提示
-3. 添加文檔字符串
+3. 添加文檔字串
 4. 添加輸入驗證
 
-📝 優化後的代碼:
+📝 優化後的程式碼:
 ```python
 from typing import List, Dict, Union
 
@@ -247,7 +247,7 @@ def calculate_items_total_price(items: List[Dict[str, Union[int, float]]]) -> fl
     計算商品列表的總價格
 
     Args:
-        items: 包含價格信息的商品列表
+        items: 包含價格資訊的商品列表
 
     Returns:
         所有商品的總價格
@@ -279,16 +279,16 @@ def calculate_items_total_price(items: List[Dict[str, Union[int, float]]]) -> fl
 │   ├── __init__.py
 │   ├── cli.py                  # 命令行接口
 │   ├── code_reviewer.py        # 核心審查器
-│   ├── code_analyzer.py        # 代碼分析器
+│   ├── code_analyzer.py        # 程式碼分析器
 │   ├── llm_client.py           # LLM 客戶端
 │   ├── test_generator.py       # 測試生成器
 │   ├── doc_generator.py        # 文檔生成器
 │   ├── github_integration.py   # GitHub 集成
 │   ├── gitlab_integration.py   # GitLab 集成
-│   ├── models.py               # 數據模型
+│   ├── models.py               # 資料模型
 │   └── utils.py                # 工具函數
 ├── examples/
-│   ├── sample_code.py          # 示例代碼
+│   ├── sample_code.py          # 示例程式碼
 │   ├── review_example.py       # 審查示例
 │   └── workflow_example.py     # 工作流程示例
 ├── tests/
@@ -310,7 +310,7 @@ def calculate_items_total_price(items: List[Dict[str, Union[int, float]]]) -> fl
 ### review_config.yaml
 
 ```yaml
-# 代碼審查配置
+# 程式碼審查配置
 review:
   # 審查級別
   severity_levels:
@@ -318,7 +318,7 @@ review:
     - high        # 強烈建議修復
     - medium      # 建議修復
     - low         # 可選修復
-    - info        # 信息性
+    - info        # 資訊性
 
   # 檢查項目
   checks:
@@ -374,7 +374,7 @@ output:
 
 ### 1. 自定義規則
 
-創建自定義審查規則：
+建立自定義審查規則：
 
 ```python
 from src.code_reviewer import Rule, Severity
@@ -427,7 +427,7 @@ from src.monitor import CodeQualityMonitor
 
 monitor = CodeQualityMonitor(reviewer)
 
-# 監控代碼庫變更
+# 監控程式碼庫變更
 monitor.watch_repository(
     repo_path="./",
     on_change=lambda files: monitor.review_files(files),
@@ -439,7 +439,7 @@ monitor.watch_repository(
 
 ### CodeReviewer
 
-主要的代碼審查類。
+主要的程式碼審查類。
 
 ```python
 class CodeReviewer:
@@ -451,13 +451,13 @@ class CodeReviewer:
         context: Optional[Dict] = None
     ) -> ReviewResult:
         """
-        審查代碼
+        審查程式碼
 
         Args:
-            code: 要審查的代碼
+            code: 要審查的程式碼
             language: 編程語言
             filename: 文件名（可選）
-            context: 額外的上下文信息
+            context: 額外的上下文資訊
 
         Returns:
             ReviewResult: 審查結果
@@ -480,27 +480,27 @@ class TestGenerator:
         生成單元測試
 
         Args:
-            code: 要測試的代碼
+            code: 要測試的程式碼
             language: 編程語言
             test_framework: 測試框架
 
         Returns:
-            生成的測試代碼
+            生成的測試程式碼
         """
 ```
 
 ## 性能優化
 
-- **緩存機制**：相同代碼的審查結果會被緩存
+- **快取機制**：相同程式碼的審查結果會被快取
 - **並行處理**：支持多文件並行審查
-- **增量分析**：只分析變更的代碼
-- **智能過濾**：跳過生成的代碼和第三方庫
+- **增量分析**：只分析變更的程式碼
+- **智能過濾**：跳過生成的程式碼和第三方庫
 
 ## 隱私和安全
 
 - **本地處理**：支持使用本地 LLM 模型
-- **代碼脫敏**：可選的敏感信息過濾
-- **數據不留存**：不保存審查的代碼
+- **程式碼脫敏**：可選的敏感資訊過濾
+- **資料不留存**：不保存審查的程式碼
 - **權限控制**：基於角色的訪問控制
 
 ## 擴展開發
@@ -538,7 +538,7 @@ reviewer.set_formatter(MyCustomFormatter())
 ### 1. 如何提高審查準確性？
 
 - 使用更強大的模型（如 GPT-4）
-- 提供更多的上下文信息
+- 提供更多的上下文資訊
 - 調整 temperature 參數
 - 使用自定義規則
 
@@ -557,19 +557,19 @@ reviewer.set_chunk_size(1000)  # 設置塊大小
 
 ## 實際案例
 
-### 案例 1：開源項目代碼質量提升
+### 案例 1：開源項目程式碼品質提升
 
-某開源項目接入 AI 代碼審查後：
-- 代碼審查時間減少 60%
+某開源項目接入 AI 程式碼審查後：
+- 程式碼審查時間減少 60%
 - Bug 發現率提高 40%
-- 代碼質量分數提升 25%
+- 程式碼品質分數提升 25%
 
 ### 案例 2：企業內部開發流程優化
 
 某科技公司使用 AI 審查系統：
 - 減少人工審查工作量 70%
-- 新人代碼質量提升明顯
-- 團隊代碼風格統一性提高
+- 新人程式碼品質提升明顯
+- 團隊程式碼風格統一性提高
 
 ## 貢獻指南
 
@@ -584,4 +584,4 @@ MIT License
 - [OpenAI API 文檔](https://platform.openai.com/docs)
 - [GitHub Actions 文檔](https://docs.github.com/en/actions)
 - [AST 解析工具](https://docs.python.org/3/library/ast.html)
-- [代碼審查最佳實踐](https://google.github.io/eng-practices/review/)
+- [程式碼審查最佳實踐](https://google.github.io/eng-practices/review/)

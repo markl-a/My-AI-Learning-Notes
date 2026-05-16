@@ -88,10 +88,10 @@
 2. **專注於行為，而非僅是實作**
    ```
    ❌ 「寫一個函數」
-   ✅ 「創建一個驗證用戶電子郵件的函數，需要處理無效格式和已存在的情況」
+   ✅ 「建立一個驗證用戶電子郵件的函數，需要處理無效格式和已存在的情況」
    ```
 
-3. **使用偽代碼來引導複雜邏輯**
+3. **使用偽程式碼來引導複雜邏輯**
    ```
    // 步驟 1: 獲取用戶輸入
    // 步驟 2: 驗證格式
@@ -173,7 +173,7 @@
 
 #### V7 新功能
 - **文字渲染**：使用引號指定要生成的文字
-- **短影片生成**：`--video` 參數創建 3-5 秒短片
+- **短影片生成**：`--video` 參數建立 3-5 秒短片
 
 ### 2.3 Stable Diffusion 入門
 
@@ -367,8 +367,8 @@ flickering, cinematic sci-fi atmosphere"
 
 **國內陣營**：
 - Kling（快手）
-- 百度文心視頻
-- 騰訊混元視頻
+- 百度文心影片
+- 騰訊混元影片
 - 阿里通義影像
 - 智谱 AI
 
@@ -463,7 +463,7 @@ flickering, cinematic sci-fi atmosphere"
 | Sora 實戰教學 | [econtrol.com.tw](https://www.econtrol.com.tw/blogs/life/sora-ai-影片生成-教學) |
 | AI 影片工具比較 | [vocus.cc](https://vocus.cc/article/68ed9a88fd89780001353cbe) |
 | 2025 工具對比 | [help.apiyi.com](https://help.apiyi.com/best-ai-teaching-video-tools-2025.html) |
-| 視頻生成前沿 | [csdn.net](https://blog.csdn.net/2501_93876579/article/details/153698537) |
+| 影片生成前沿 | [csdn.net](https://blog.csdn.net/2501_93876579/article/details/153698537) |
 | 圖片轉影片推薦 | [zaiwork.com](https://zaiwork.com/ai-video-generation-tools/) |
 
 ### 6.5 綜合學習資源
@@ -480,7 +480,7 @@ flickering, cinematic sci-fi atmosphere"
 ## 附錄：常見問題 FAQ
 
 ### Q1: 完全沒有程式基礎可以學 Vibe Coding 嗎？
-**A**: 可以！Vibe Coding 的核心就是讓非程式背景的人也能創建應用程式。建議從 v0 by Vercel 或 Google AI Studio 開始。
+**A**: 可以！Vibe Coding 的核心就是讓非程式背景的人也能建立應用程式。建議從 v0 by Vercel 或 Google AI Studio 開始。
 
 ### Q2: 用 AI 生成的圖片有版權問題嗎？
 **A**: 各平台政策不同。DALL-E 生成的圖片可自由使用；Midjourney 需付費訂閱才有商用權；Stable Diffusion 開源可自由使用。

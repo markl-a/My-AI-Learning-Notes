@@ -42,12 +42,12 @@
 - **`02_simple_ml_examples.ipynb`** - 簡單機器學習實例
   - 線性回歸入門
   - 分類問題演示
-  - 數據預處理基礎
+  - 資料預處理基礎
 
 ### 3. AI 輔助工具
 - **`ai_learning_assistant.py`** - AI 學習助手
   - 概念解釋生成器
-  - 代碼示例生成器
+  - 程式碼示例生成器
   - 學習路徑規劃器
 
 - **`quiz_generator.py`** - 智能測驗生成器
@@ -82,7 +82,7 @@ jupyter notebook
 #### 📖 第一步：理論學習（1-2 小時）
 1. 閱讀 `index.ipynb` 的理論內容
 2. 理解關鍵術語和概念
-3. 觀看推薦的視頻資源（見 `resources.md`）
+3. 觀看推薦的影片資源（見 `resources.md`）
 
 #### 💻 第二步：動手實踐（2-3 小時）
 1. 運行 `01_ml_concepts_demo.ipynb` 中的示例
@@ -107,12 +107,12 @@ jupyter notebook
 
 | 術語 | 定義 | 舉例 |
 |------|------|------|
-| **機器學習 (ML)** | 從數據中學習規律，無需明確編程 | 垃圾郵件過濾 |
+| **機器學習 (ML)** | 從資料中學習規律，無需明確編程 | 垃圾郵件過濾 |
 | **深度學習 (DL)** | 使用多層神經網絡的機器學習方法 | 圖像識別、語音識別 |
 | **模型 (Model)** | 參數化的函數，將輸入映射到輸出 | y = wx + b |
 | **參數 (Parameter)** | 模型中可調整的變量 | 權重 w、偏置 b |
 | **訓練 (Training)** | 調整參數以優化模型性能的過程 | 梯度下降 |
-| **數據集 (Dataset)** | 用於訓練和評估的數據集合 | MNIST 手寫數字 |
+| **資料集 (Dataset)** | 用於訓練和評估的資料集合 | MNIST 手寫數字 |
 | **特徵 (Feature)** | 描述樣本的屬性 | 圖像的像素值 |
 | **標籤 (Label)** | 樣本的目標輸出 | 圖像的類別 |
 
@@ -124,7 +124,7 @@ jupyter notebook
 │   ├── 分類 (Classification) - 預測離散標籤
 │   └── 回歸 (Regression) - 預測連續值
 ├── 無監督學習 (Unsupervised Learning)
-│   ├── 聚類 (Clustering) - 數據分組
+│   ├── 聚類 (Clustering) - 資料分組
 │   └── 降維 (Dimensionality Reduction)
 ├── 半監督學習 (Semi-supervised Learning)
 ├── 強化學習 (Reinforcement Learning)
@@ -141,7 +141,7 @@ jupyter notebook
 # 使用 AI 學習助手獲取概念解釋
 python ai_learning_assistant.py --mode explain --concept "機器學習"
 
-# 生成代碼示例
+# 生成程式碼示例
 python ai_learning_assistant.py --mode code --task "線性回歸"
 
 # 獲取學習建議
@@ -167,13 +167,13 @@ python quiz_generator.py --interactive
 1. **循序漸進**：先理解概念，再動手實踐
 2. **多做筆記**：記錄理解和疑問
 3. **主動思考**：思考「為什麼」而不僅是「是什麼」
-4. **實踐為主**：運行每個代碼示例，嘗試修改參數
+4. **實踐為主**：運行每個程式碼示例，嘗試修改參數
 5. **利用 AI**：使用 AI 工具輔助理解困難概念
 6. **定期複習**：使用間隔重複法鞏固記憶
 
 ### ⚠️ 常見陷阱
 
-- ❌ 跳過理論直接寫代碼
+- ❌ 跳過理論直接寫程式碼
 - ❌ 不理解概念就死記硬背
 - ❌ 忽視數學基礎（將在第二章詳細學習）
 - ❌ 孤立學習，不尋求幫助
@@ -187,7 +187,7 @@ python quiz_generator.py --interactive
 - [ ] 區分監督學習和無監督學習
 - [ ] 描述模型訓練的基本流程
 - [ ] 理解參數和超參數的區別
-- [ ] 運行並修改簡單的機器學習代碼
+- [ ] 運行並修改簡單的機器學習程式碼
 
 ---
 
@@ -235,7 +235,7 @@ python quiz_generator.py --interactive
 ### v3.0 (2025-11-18)
 - ✨ 新增 AI 輔助學習工具
 - ✨ 添加交互式概念演示
-- ✨ 創建詳細的學習路徑指南
+- ✨ 建立詳細的學習路徑指南
 - 📚 更新至 2025 年最新深度學習趨勢
 - 🎯 優化學習流程和實踐項目
 

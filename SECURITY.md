@@ -40,7 +40,7 @@ We take the security of this project seriously. If you discover a security vulne
 
 ## 安全最佳實踐 / Security Best Practices
 
-使用本專案的代碼時，請注意以下安全事項：
+使用本專案的程式碼時，請注意以下安全事項：
 
 When using code from this project, please note the following:
 
@@ -50,7 +50,7 @@ When using code from this project, please note the following:
 # 正確做法：使用環境變數
 export OPENAI_API_KEY="your-key-here"
 
-# 錯誤做法：硬編碼在代碼中
+# 錯誤做法：硬編碼在程式碼中
 # api_key = "sk-xxxxx"  # 永遠不要這樣做！
 ```
 
@@ -70,15 +70,15 @@ safety check
 
 ## 已知安全考量 / Known Security Considerations
 
-### 本專案中的代碼示例
+### 本專案中的程式碼示例
 
-- 示例代碼主要用於**教育目的**
+- 示例程式碼主要用於**教育目的**
 - 在生產環境中使用前，請進行適當的安全審查
-- 特別注意 API 調用、文件操作和用戶輸入處理
+- 特別注意 API 呼叫、文件操作和用戶輸入處理
 
 ### LLM 應用安全
 
-使用 LLM 相關代碼時，請注意：
+使用 LLM 相關程式碼時，請注意：
 
 - **Prompt Injection**：驗證和清理用戶輸入
 - **敏感資料**：避免在 prompt 中包含敏感資訊

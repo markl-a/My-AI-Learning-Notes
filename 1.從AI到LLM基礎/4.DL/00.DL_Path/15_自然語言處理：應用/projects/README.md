@@ -19,7 +19,7 @@
 ### 📝 項目描述
 
 構建一個生產級別的情感分析 REST API，支持：
-- 單條和批量文本分類
+- 單條和批量文字分類
 - 實時推理（延遲 <100ms）
 - Docker 容器化部署
 - API 文檔和監控
@@ -30,7 +30,7 @@
 - ✅ BERT 模型微調和優化
 - ✅ RESTful API 設計
 - ✅ Docker 容器化
-- ✅ 性能優化（批處理、緩存）
+- ✅ 性能優化（批處理、快取）
 - ✅ 日誌和監控
 
 ### 🏗️ 項目結構
@@ -44,11 +44,11 @@ sentiment_api/
 ├── app/
 │   ├── __init__.py
 │   ├── main.py             # FastAPI 主程序
-│   ├── models.py           # 數據模型
+│   ├── models.py           # 資料模型
 │   ├── ml/
 │   │   ├── __init__.py
 │   │   ├── model.py        # ML 模型加載和推理
-│   │   └── preprocessing.py # 文本預處理
+│   │   └── preprocessing.py # 文字預處理
 │   └── utils/
 │       ├── __init__.py
 │       └── logger.py       # 日誌配置
@@ -177,7 +177,7 @@ chatbot/
 ├── credentials.yml         # 憑證配置
 ├── endpoints.yml           # 端點配置
 ├── data/
-│   ├── nlu.yml            # NLU 訓練數據
+│   ├── nlu.yml            # NLU 訓練資料
 │   ├── stories.yml        # 對話故事
 │   └── rules.yml          # 對話規則
 ├── actions/
@@ -199,7 +199,7 @@ pip install rasa
 # 2. 訓練模型
 rasa train
 
-# 3. 啟動 Rasa 服務器
+# 3. 啟動 Rasa 伺服器
 rasa run --enable-api
 
 # 4. 啟動 Action Server（另一個終端）
@@ -306,7 +306,7 @@ class ActionCheckAvailability(Action):
 
 - ✅ RAG 架構設計
 - ✅ 文檔解析和分塊
-- ✅ 向量數據庫（FAISS/ChromaDB）
+- ✅ 向量資料庫（FAISS/ChromaDB）
 - ✅ Embedding 模型使用
 - ✅ LLM 集成（OpenAI/本地模型）
 - ✅ LangChain 框架
@@ -328,9 +328,9 @@ doc_qa/
 │   └── qa_chain.py       # QA 鏈
 ├── data/
 │   ├── documents/        # 原始文檔
-│   └── vector_db/        # 向量數據庫
+│   └── vector_db/        # 向量資料庫
 ├── notebooks/
-│   └── exploration.ipynb # 數據探索
+│   └── exploration.ipynb # 資料探索
 └── tests/
     └── test_qa.py
 ```
@@ -458,7 +458,7 @@ for doc in result['sources']:
 - Python 異步編程
 - Docker 和容器化
 - RESTful API 設計
-- 數據庫操作
+- 資料庫操作
 - 前端基礎（Streamlit）
 
 ### 延伸項目

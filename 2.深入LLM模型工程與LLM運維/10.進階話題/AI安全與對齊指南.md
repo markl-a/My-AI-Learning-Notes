@@ -509,7 +509,7 @@ class DataAnonymizer:
         text: str,
         preserve_format: bool = True
     ) -> AnonymizationResult:
-        """匿名化文本"""
+        """匿名化文字"""
         anonymized = text
         mapping = {}
         pii_count = 0
@@ -826,7 +826,7 @@ class BiasDetector:
         self.client = OpenAI()
 
     def analyze(self, text: str) -> BiasAnalysis:
-        """分析文本偏見"""
+        """分析文字偏見"""
         import re
 
         flagged_phrases = []
@@ -874,7 +874,7 @@ class BiasDetector:
             messages=[
                 {
                     "role": "system",
-                    "content": """分析文本中的潛在偏見。檢查以下類別：
+                    "content": """分析文字中的潛在偏見。檢查以下類別：
 - gender: 性別偏見
 - race: 種族偏見
 - age: 年齡偏見
@@ -935,15 +935,15 @@ class BiasDetector:
         return recommendations
 
     def debias_text(self, text: str) -> str:
-        """移除或減輕文本偏見"""
+        """移除或減輕文字偏見"""
         response = self.client.chat.completions.create(
             model="gpt-4o",
             messages=[
                 {
                     "role": "system",
-                    "content": """重寫以下文本，移除或減輕任何偏見、刻板印象或歧視性語言。
+                    "content": """重寫以下文字，移除或減輕任何偏見、刻板印象或歧視性語言。
 保持原意，但使用更包容、中立的措詞。
-只輸出重寫後的文本。"""
+只輸出重寫後的文字。"""
                 },
                 {
                     "role": "user",
@@ -1219,3 +1219,9 @@ print(json.dumps(report, indent=2, ensure_ascii=False))
 - [OpenAI Safety Best Practices](https://platform.openai.com/docs/guides/safety-best-practices)
 - [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework)
 - [EU AI Act](https://artificialintelligenceact.eu/)
+
+### 站內延伸閱讀
+- [15.Privacy_Confidential_AI](../../../15.Privacy_Confidential_AI/README.md) — 隱私運算
+- [16.AI_Content_Authenticity](../../../16.AI_Content_Authenticity/README.md) — Provenance
+- [21.AI_Forecasting_Economics](../../../21.AI_Forecasting_Economics/README.md) — RSP / 能力預測
+- [22.Self_Improving_AI](../../../22.Self_Improving_AI/README.md) — RSI 風險

@@ -19,7 +19,7 @@
     - 常見的向量與矩陣微分公式速查
     - Matrix Cookbook 作為參考資源
 6. 深度學習中的應用
-    - 損失函數對權重、偏置的梯度求解
+    - 損失函式對權重、偏置的梯度求解
     - 反向傳播 (Backpropagation) 演算法的數學推導
     - 自動微分 (Automatic Differentiation) 的概念
 7. 最優化與學習率選擇
@@ -34,7 +34,7 @@
 
 ## 1. 前言
 
-微積分是機器學習與深度學習的基石之一。在神經網路訓練中，我們需要透過優化演算法對網路參數 (weights, biases) 進行調整，而這些調整的方向與幅度端賴對「目標函數 (如損失函數)」的梯度資訊。
+微積分是機器學習與深度學習的基石之一。在神經網路訓練中，我們需要透過優化演算法對網路參數 (weights, biases) 進行調整，而這些調整的方向與幅度端賴對「目標函式 (如損失函式)」的梯度資訊。
 
 本章將從基礎導數、偏導數、梯度開始講起，介紹計算多變數函數導數的基本概念，並深入探討鏈式法則及其在神經網路反向傳播中的核心地位。我們也將討論自動微分工具的概念，以協助在實作上快速且精確地取得梯度。
 
@@ -55,7 +55,7 @@
 
 - **Hessian 矩陣**：包含所有二階偏導數的矩陣，用於分析函數曲率 (Curvature)。
 
-- 對高維度輸入，微分提供有用的線索來了解函數在局部的性質。機器學習中，理解 Hessian 有助於分析代價函數的優化性質和收斂行為。
+- 對高維度輸入，微分提供有用的線索來了解函數在局部的性質。機器學習中，理解 Hessian 有助於分析代價函式的優化性質和收斂行為。
 
 ## 4. 鏈式法則 (Chain Rule)
 
@@ -68,7 +68,7 @@
 
 ## 5. 向量與矩陣微分
 
-- **向量函數對向量求導**：常見於線性代數與機器學習的損失函數，如 L2 損失 L = ∥Ax - b∥²。求解 ∂L/∂x 時需用到向量/矩陣微分法則。
+- **向量函數對向量求導**：常見於線性代數與機器學習的損失函式，如 L2 損失 L = ∥Ax - b∥²。求解 ∂L/∂x 時需用到向量/矩陣微分法則。
 
 - 常用結果範例：  
   - 若 f(x) = a^T x，則 ∇_x f(x) = a。  
@@ -79,15 +79,15 @@
 
 ## 6. 深度學習中的應用
 
-- **損失函數對參數的梯度計算**：訓練神經網路時，我們必須計算權重 W 與偏置 b 對損失 L 的梯度，然後更新 W、b。
+- **損失函式對參數的梯度計算**：訓練神經網路時，我們必須計算權重 W 與偏置 b 對損失 L 的梯度，然後更新 W、b。
 
-- **反向傳播 (Backpropagation)**：由輸出層開始，往回計算梯度的一種高效算法。透過鏈式法則，可將整個網路梯度計算分解為多個「局部偏導數」的連乘，極大化效率。
+- **反向傳播 (Backpropagation)**：由輸出層開始，往回計算梯度的一種高效演算法。透過鏈式法則，可將整個網路梯度計算分解為多個「局部偏導數」的連乘，極大化效率。
 
 - **自動微分 (Automatic Differentiation)**：數值工具（例如 TensorFlow、PyTorch）可自動生成梯度，而無需手動推導公式。自動微分本質上是利用鏈式法則的程式實作。
 
 ## 7. 最優化與學習率選擇
 
-- 利用梯度資訊，我們可以進行梯度下降 (Gradient Descent) 來最小化損失函數。
+- 利用梯度資訊，我們可以進行梯度下降 (Gradient Descent) 來最小化損失函式。
 
 - **學習率 (Learning Rate)**：決定每次更新步伐大小。若步伐過大，可能不穩定；太小，則收斂太慢。
 
@@ -177,7 +177,7 @@ def numerical_gradient(f, x, y, h=1e-5):
     df_dy = (f(x, y + h) - f(x, y - h)) / (2 * h)
     return np.array([df_dx, df_dy])
 
-# 創建網格
+# 建立網格
 x = np.linspace(-3, 3, 50)
 y = np.linspace(-3, 3, 50)
 X, Y = np.meshgrid(x, y)
@@ -243,15 +243,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def f(x):
-    """目標函數"""
+    """目標函式"""
     return x**4 - 3*x**3 + 2
 
 def df(x):
-    """目標函數的導數"""
+    """目標函式的導數"""
     return 4*x**3 - 9*x**2
 
 def gradient_descent(start_x, learning_rate, num_iterations):
-    """梯度下降算法"""
+    """梯度下降演算法"""
     x = start_x
     history = [x]
 
@@ -308,7 +308,7 @@ class SimpleNeuralNetwork:
         self.b2 = np.zeros((1, output_size))
 
     def sigmoid(self, z):
-        """Sigmoid 激活函數"""
+        """Sigmoid 激活函式"""
         return 1 / (1 + np.exp(-z))
 
     def sigmoid_derivative(self, z):
@@ -351,7 +351,7 @@ class SimpleNeuralNetwork:
                        (1 - y_true) * np.log(1 - y_pred + 1e-8)) / m
         return loss
 
-# 生成簡單數據集（XOR 問題）
+# 生成簡單資料集（XOR 問題）
 np.random.seed(42)
 X = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
 y = np.array([[0], [1], [1], [0]])
@@ -429,12 +429,12 @@ class SimpleModel(nn.Module):
         x = self.sigmoid(self.fc2(x))
         return x
 
-# 創建模型和訓練數據
+# 建立模型和訓練資料
 model = SimpleModel()
 X = torch.tensor([[0., 0.], [0., 1.], [1., 0.], [1., 1.]])
 y = torch.tensor([[0.], [1.], [1.], [0.]])
 
-# 定義損失函數和優化器
+# 定義損失函式和優化器
 criterion = nn.BCELoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=0.5)
 

@@ -21,7 +21,7 @@
 ```
 階段一：基礎入門 (1-2週)
     ↓
-理解 SFT 概念、預訓練vs微調、基本數據格式
+理解 SFT 概念、預訓練vs微調、基本資料格式
 
 階段二：實踐應用 (2-3週)
     ↓
@@ -84,15 +84,15 @@ expected_output = "Hello"
 - [ ] 理解為什麼需要微調
 - [ ] 知道 instruction tuning 的基本格式
 
-### 第 2-3 天：數據格式和準備
+### 第 2-3 天：資料格式和準備
 
 **學習內容**：
-1. 學習常見數據格式
+1. 學習常見資料格式
    - Alpaca 格式
    - ShareGPT 格式
    - OpenAI 格式
 
-2. 閱讀 [數據準備工具文檔](./data_preparation_tools/README.md)
+2. 閱讀 [資料準備工具文檔](./data_preparation_tools/README.md)
 
 **動手練習**：
 ```bash
@@ -100,7 +100,7 @@ expected_output = "Hello"
 cd data_preparation_tools
 pip install -r requirements.txt
 
-# 運行數據質量檢查
+# 運行資料品質檢查
 python data_quality_checker.py sample_data.json
 
 # 練習格式轉換
@@ -108,8 +108,8 @@ python data_formatter.py
 ```
 
 **檢查點**：
-- [ ] 能夠準備標準格式的訓練數據
-- [ ] 知道如何檢查數據質量
+- [ ] 能夠準備標準格式的訓練資料
+- [ ] 知道如何檢查資料品質
 - [ ] 理解不同格式的優缺點
 
 ### 第 4-5 天：第一次微調體驗
@@ -120,10 +120,10 @@ python data_formatter.py
 
 **動手練習**：
 ```bash
-# 使用示例數據訓練
+# 使用示例資料訓練
 cd hands_on_project
 
-# 生成小規模數據
+# 生成小規模資料
 python scripts/1_generate_data.py --num_examples 100
 
 # 訓練模型（在 CPU 上也能運行）
@@ -180,7 +180,7 @@ print(tokenizer.decode(outputs[0]))
 5. 撰寫簡單的項目報告
 
 **評估標準**：
-- 數據質量分數 > 80
+- 資料品質分數 > 80
 - 模型能生成合理的回答
 - 完成完整的訓練-評估流程
 
@@ -217,16 +217,16 @@ python scripts/3_train_model.py \
 - [ ] 實驗不同的 LoRA 秩 (r=8, 16, 32, 64)
 - [ ] 記錄性能和資源使用的權衡
 
-### 第 2 週：數據工程
+### 第 2 週：資料工程
 
 **學習內容**：
-1. 使用 AI 輔助生成數據
-2. 數據質量控制
-3. 數據增強技術
+1. 使用 AI 輔助生成資料
+2. 資料品質控制
+3. 資料增強技術
 
 **動手練習**：
 ```python
-# 使用 AI 生成高質量數據
+# 使用 AI 生成高品質資料
 from data_preparation_tools.ai_assisted_data_generator import AIDataGenerator
 
 generator = AIDataGenerator(provider="anthropic")
@@ -244,33 +244,33 @@ from data_preparation_tools.data_quality_checker import DataQualityChecker
 checker = DataQualityChecker("your_data.json")
 report = checker.check_all()
 
-# 根據報告改進數據
+# 根據報告改進資料
 ```
 
 **任務**：
-- [ ] 生成高質量的訓練數據（質量分數 > 85）
-- [ ] 實踐數據增強技術
-- [ ] 建立數據版本控制
+- [ ] 生成高品質的訓練資料（質量分數 > 85）
+- [ ] 實踐資料增強技術
+- [ ] 建立資料版本控制
 
 ### 第 3 週：端到端項目
 
 **學習內容**：
 1. 完成[實戰項目](./hands_on_project/)的所有步驟
-2. 從數據準備到模型部署
+2. 從資料準備到模型部署
 
 **項目要求**：
 選擇一個實際場景（例如）：
 - 客服機器人
-- 代碼生成助手
-- 文本摘要工具
+- 程式碼生成助手
+- 文字摘要工具
 - 翻譯模型
 
 **完整流程**：
 ```bash
-# 1. 數據生成
+# 1. 資料生成
 python scripts/1_generate_data.py --num_examples 2000
 
-# 2. 數據準備
+# 2. 資料準備
 python scripts/2_prepare_data.py --val_ratio 0.1
 
 # 3. 訓練
@@ -306,7 +306,7 @@ python scripts/5_deploy_model.py --port 8000
 ```python
 from advanced_topics.multi_task_learning import MultiTaskDataset, train_multi_task_model
 
-# 準備多個任務的數據
+# 準備多個任務的資料
 task_datasets = {
     "qa": qa_data,
     "summarization": summary_data,
@@ -400,7 +400,7 @@ deepspeed_config = {
 
 **學習內容**：
 1. 模型量化
-2. 推理優化
+2. 推論優化
 3. API 開發
 
 **動手練習**：
@@ -426,9 +426,9 @@ async def generate(request: GenerateRequest):
 ```
 
 **任務**：
-- [ ] 優化推理速度
+- [ ] 優化推論速度
 - [ ] 實現批量推理
-- [ ] 創建 REST API
+- [ ] 建立 REST API
 
 ### 第 2 週：監控和維護
 
@@ -469,7 +469,7 @@ async def generate(request):
 1. A/B 測試
 2. 模型版本管理
 3. 自動重訓
-4. 數據飛輪
+4. 資料飛輪
 
 **動手練習**：
 ```python
@@ -492,7 +492,7 @@ def scheduled_retrain():
 **任務**：
 - [ ] 實施 A/B 測試
 - [ ] 建立自動化重訓管道
-- [ ] 從生產數據中學習
+- [ ] 從生產資料中學習
 
 ---
 
@@ -524,7 +524,7 @@ def scheduled_retrain():
 
 **參與方式**：
 1. 貢獻到 Hugging Face Transformers
-2. 創建有用的工具和腳本
+2. 建立有用的工具和腳本
 3. 分享最佳實踐
 
 **任務**：
@@ -621,8 +621,8 @@ max_seq_length = 256  # 從 512 減小到 256
 
 **診斷**：
 ```python
-# 檢查數據
-print(train_data[0])  # 確保數據正確
+# 檢查資料
+print(train_data[0])  # 確保資料正確
 
 # 檢查學習率
 print(f"Learning rate: {training_args.learning_rate}")
@@ -641,7 +641,7 @@ learning_rate = 1e-5  # 從 2e-4 降低
 # 2. 增加 warmup
 warmup_ratio = 0.1
 
-# 3. 檢查數據質量
+# 3. 檢查資料品質
 from data_quality_checker import DataQualityChecker
 checker = DataQualityChecker("train.json")
 report = checker.check_all()
@@ -658,8 +658,8 @@ max_grad_norm = 1.0
 
 **解決方案**：
 ```python
-# 1. 增加數據量
-# 使用數據增強或生成更多數據
+# 1. 增加資料量
+# 使用資料增強或生成更多資料
 
 # 2. 早停
 training_args.load_best_model_at_end = True
@@ -675,7 +675,7 @@ num_train_epochs = 2  # 從 5 減少到 2
 
 ### 推理問題
 
-#### 問題 4: 生成質量差
+#### 問題 4: 生成品質差
 
 **症狀**：
 - 生成重複內容
@@ -712,7 +712,7 @@ class CustomLogitsProcessor(LogitsProcessor):
         return scores
 ```
 
-#### 問題 5: 推理速度慢
+#### 問題 5: 推論速度慢
 
 **症狀**：
 - 單個請求需要很長時間
@@ -740,19 +740,19 @@ def batch_generate(prompts, batch_size=8):
 # 3. 使用 KV cache
 outputs = model.generate(
     **inputs,
-    use_cache=True  # 默認就是 True
+    use_cache=True  # 預設就是 True
 )
 
 # 4. 減小最大生成長度
 max_new_tokens = 128  # 從 512 減小
 ```
 
-### 數據問題
+### 資料問題
 
-#### 問題 6: 數據質量差
+#### 問題 6: 資料品質差
 
 **症狀**：
-- 數據質量檢查分數低
+- 資料品質檢查分數低
 - 模型學不到有用的模式
 
 **解決方案**：
@@ -767,7 +767,7 @@ report = checker.check_all()
 duplicates = report.duplicates
 # 移除重複樣本
 
-# 3. 過濾低質量樣本
+# 3. 過濾低品質樣本
 def filter_quality(data):
     filtered = []
     for item in data:
@@ -791,15 +791,15 @@ improved = generator.generate_variations(low_quality_example)
 
 ## 最佳實踐清單
 
-### 數據準備
+### 資料準備
 
-- [ ] 數據質量分數 > 80
+- [ ] 資料品質分數 > 80
 - [ ] 訓練集至少 1000 個樣本（簡單任務）或 10000+ 個樣本（複雜任務）
 - [ ] 驗證集佔 10-20%
-- [ ] 數據格式統一且正確
+- [ ] 資料格式統一且正確
 - [ ] 移除重複樣本
-- [ ] 平衡不同類別/任務的數據
-- [ ] 人工抽查至少 10% 的數據
+- [ ] 平衡不同類別/任務的資料
+- [ ] 人工抽查至少 10% 的資料
 
 ### 訓練配置
 
@@ -833,7 +833,7 @@ improved = generator.generate_variations(low_quality_example)
 ### 部署
 
 - [ ] 模型量化（8-bit 或 4-bit）
-- [ ] 實現請求緩存
+- [ ] 實現請求快取
 - [ ] 批量推理
 - [ ] 設置超時
 - [ ] 日誌記錄
@@ -846,18 +846,18 @@ improved = generator.generate_variations(low_quality_example)
 - [ ] 過濾敏感輸入
 - [ ] 檢測並阻止有害輸出
 - [ ] 實現頻率限制
-- [ ] 不記錄敏感信息
+- [ ] 不記錄敏感資訊
 - [ ] 定期安全審計
 - [ ] 用戶反饋機制
 
 ### 持續改進
 
-- [ ] 收集生產數據
+- [ ] 收集生產資料
 - [ ] 分析失敗案例
 - [ ] 定期重訓（每週/每月）
 - [ ] 跟踪性能指標趨勢
 - [ ] 用戶滿意度調查
-- [ ] 保持數據版本控制
+- [ ] 保持資料版本控制
 - [ ] 保持模型版本控制
 
 ---
@@ -867,14 +867,14 @@ improved = generator.generate_variations(low_quality_example)
 ### 基礎級別（1-2 週後）
 
 - [ ] 理解 SFT 的基本概念
-- [ ] 能夠準備訓練數據
+- [ ] 能夠準備訓練資料
 - [ ] 完成第一次模型訓練
 - [ ] 能夠評估模型性能
 
 ### 中級（1-2 月後）
 
 - [ ] 熟練使用 LoRA/QLoRA
-- [ ] 能夠處理數據質量問題
+- [ ] 能夠處理資料品質問題
 - [ ] 完成端到端項目
 - [ ] 能夠部署簡單的服務
 

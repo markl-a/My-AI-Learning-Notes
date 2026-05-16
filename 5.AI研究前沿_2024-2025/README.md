@@ -1,6 +1,6 @@
 # AI研究前沿 2024-2025
 
-> 深入探討2024-2025年AI領域的重大突破、50篇關鍵論文及其代碼實現
+> 深入探討2024-2025年AI領域的重大突破、50篇關鍵論文及其程式碼實現
 
 ---
 
@@ -35,19 +35,19 @@
 | 1 | **長上下文理解** | Gemini 1.5 (1M-2M tokens) | ⭐⭐⭐⭐⭐ |
 | 2 | **推理能力提升** | OpenAI o1, o3 系列 | ⭐⭐⭐⭐⭐ |
 | 3 | **多模態融合** | GPT-4o, Gemini 2.0 | ⭐⭐⭐⭐⭐ |
-| 4 | **視頻生成突破** | Sora, Kling AI, Pika 2.0 | ⭐⭐⭐⭐⭐ |
+| 4 | **影片生成突破** | Sora, Kling AI, Pika 2.0 | ⭐⭐⭐⭐⭐ |
 | 5 | **Agent 工作流** | LangGraph, CrewAI, AutoGen | ⭐⭐⭐⭐ |
 | 6 | **RAG 2.0 演進** | GraphRAG, HyDE, Reranking | ⭐⭐⭐⭐ |
 | 7 | **推理加速** | vLLM 0.6, SGLang, Medusa | ⭐⭐⭐⭐ |
 | 8 | **小型化高效** | Phi-4, Qwen2.5, MiniCPM | ⭐⭐⭐⭐ |
-| 9 | **工具調用協議** | Model Context Protocol | ⭐⭐⭐ |
+| 9 | **工具呼叫協議** | Model Context Protocol | ⭐⭐⭐ |
 | 10 | **安全對齊** | Constitutional AI, RLHF++ | ⭐⭐⭐ |
 
 ### 市場與應用趨勢
 
 #### 企業採用率
 - **2024**: 65% 企業已部署或試點AI項目（+35% YoY）
-- **重點領域**: 客服自動化、代碼輔助、內容生成、數據分析
+- **重點領域**: 客服自動化、程式碼輔助、內容生成、資料分析
 - **投資熱點**: AI Agents、企業RAG、垂直領域模型
 
 #### 開源vs閉源
@@ -92,29 +92,29 @@
 [**📚 查看詳細論文列表**](./2.多模態模型/README.md)
 
 **關鍵進展**:
-- **視頻理解**: 從靜態圖片 → 長視頻理解
-- **視頻生成**: Sora引領文本到視頻革命
+- **影片理解**: 從靜態圖片 → 長影片理解
+- **影片生成**: Sora引領文字到影片革命
 - **音頻融合**: 語音、音樂、音效一體化
 - **3D感知**: NeRF、3D Gaussian Splatting
 
 **代表論文** (10篇):
-1. **Sora** - OpenAI視頻生成突破
+1. **Sora** - OpenAI影片生成突破
 2. **GPT-4V** - 視覺理解新標準
 3. **Gemini 1.5 Pro** - 原生多模態架構
 4. **FLUX.1** - 開源圖像生成新王者
-5. **Stable Video Diffusion** - 視頻生成民主化
+5. **Stable Video Diffusion** - 影片生成民主化
 6. **Whisper V3** - 語音識別極致優化
 7. **VALL-E X** - 跨語言語音克隆
-8. **AudioLDM 2** - 文本到音頻生成
+8. **AudioLDM 2** - 文字到音頻生成
 9. **LLaVA-NeXT** - 開源視覺語言模型
-10. **Video-LLaMA** - 視頻理解與對話
+10. **Video-LLaMA** - 影片理解與對話
 
 ### 3. Agent 系統
 [**📚 查看詳細論文列表**](./3.Agent系統/README.md)
 
 **關鍵進展**:
 - **工作流編排**: LangGraph、CrewAI多Agent協作
-- **工具調用**: Function Calling → MCP協議
+- **工具呼叫**: Function Calling → MCP協議
 - **自主決策**: ReAct → Plan-and-Execute → 自我修正
 - **長期記憶**: Vector DB + Graph DB混合
 
@@ -124,7 +124,7 @@
 3. **CrewAI** - 多Agent協作框架
 4. **ReAct** - 推理與行動結合
 5. **Reflexion** - 自我反思Agent
-6. **Model Context Protocol** - 工具調用標準化
+6. **Model Context Protocol** - 工具呼叫標準化
 7. **ToolFormer** - 工具使用訓練
 8. **AgentBench** - Agent評測標準
 9. **MetaGPT** - 軟件開發Agent
@@ -162,7 +162,7 @@
 
 **代表論文** (10篇):
 1. **FlashAttention 3** - 注意力計算革命
-2. **vLLM** - 高吞吐推理引擎
+2. **vLLM** - 高吞吐推論引擎
 3. **QLoRA** - 量化低秩微調
 4. **AWQ** - 激活感知量化
 5. **SGLang** - 結構化生成優化
@@ -170,7 +170,7 @@
 7. **DeepSpeed ZeRO++** - 分布式訓練優化
 8. **DoRA** - LoRA改進版本
 9. **GPTQ** - 後訓練量化
-10. **TensorRT-LLM** - NVIDIA推理優化
+10. **TensorRT-LLM** - NVIDIA推論優化
 
 ---
 
@@ -178,17 +178,17 @@
 
 ### 按領域分類
 
-| 領域 | 論文數 | 代碼可用 | 核心突破 |
+| 領域 | 論文數 | 程式碼可用 | 核心突破 |
 |------|--------|----------|----------|
 | 大型語言模型 | 10篇 | 8/10 | 長上下文、推理能力 |
-| 多模態模型 | 10篇 | 7/10 | 視頻生成、跨模態理解 |
+| 多模態模型 | 10篇 | 7/10 | 影片生成、跨模態理解 |
 | Agent系統 | 10篇 | 9/10 | 自主決策、多Agent協作 |
 | RAG與檢索 | 10篇 | 10/10 | Graph RAG、混合檢索 |
 | 訓練與優化 | 10篇 | 10/10 | 高效微調、推理加速 |
 
 ### 按影響力排序 (Top 20)
 
-1. **Sora** (OpenAI, 2024.02) - 視頻生成革命性突破
+1. **Sora** (OpenAI, 2024.02) - 影片生成革命性突破
 2. **GPT-4o** (OpenAI, 2024.05) - 端到端多模態優化
 3. **Llama 3.1** (Meta, 2024.07) - 405B開源旗艦
 4. **o1** (OpenAI, 2024.09) - 推理能力新高度
@@ -196,16 +196,16 @@
 6. **Claude 3.5 Sonnet** (Anthropic, 2024.06) - 編碼與分析標桿
 7. **Gemini 1.5** (Google, 2024.02) - 2M上下文突破
 8. **FlashAttention 3** (2024.07) - 注意力計算極限優化
-9. **vLLM 0.4+** (2024) - 生產級推理引擎
+9. **vLLM 0.4+** (2024) - 生產級推論引擎
 10. **FLUX.1** (Black Forest Labs, 2024.08) - 開源圖像生成巨頭
 11. **LangGraph** (LangChain, 2024) - Agent工作流標準
 12. **Phi-4** (Microsoft, 2024.12) - 小型模型新標桿
 13. **Qwen2.5** (Alibaba, 2024.09) - 中文領域突破
-14. **Model Context Protocol** (Anthropic, 2024.11) - 工具調用協議
+14. **Model Context Protocol** (Anthropic, 2024.11) - 工具呼叫協議
 15. **QLoRA** (2024) - 民主化大模型微調
 16. **AutoGen v0.3** (Microsoft, 2024) - 多Agent框架升級
 17. **HyDE** (2024) - 檢索範式創新
-18. **Stable Video Diffusion** (Stability AI, 2024) - 開源視頻生成
+18. **Stable Video Diffusion** (Stability AI, 2024) - 開源影片生成
 19. **DeepSeek-V2** (2024.05) - MoE架構創新
 20. **Whisper V3** (OpenAI, 2024) - 語音識別極致
 
@@ -214,7 +214,7 @@
 **2024 Q1**
 - Gemini 1.5 Pro (2M context)
 - Claude 3 (Opus/Sonnet/Haiku)
-- Sora (視頻生成)
+- Sora (影片生成)
 - DBRX (開源MoE)
 
 **2024 Q2**
@@ -260,7 +260,7 @@
 - Week 7-8: Agent開發 (LangGraph, AutoGen)
 
 **Month 3: 優化部署**
-- Week 9-10: 推理優化 (vLLM, FlashAttention)
+- Week 9-10: 推論優化 (vLLM, FlashAttention)
 - Week 11-12: 實戰項目部署
 
 ### 研究者路徑 (6個月)
@@ -372,14 +372,14 @@ from langchain_community.document_loaders import DirectoryLoader
 loader = DirectoryLoader("./docs", glob="**/*.md")
 documents = loader.load()
 
-# 2. 分割文本
+# 2. 分割文字
 text_splitter = RecursiveCharacterTextSplitter(
     chunk_size=1000,
     chunk_overlap=200
 )
 splits = text_splitter.split_documents(documents)
 
-# 3. 創建向量存儲
+# 3. 建立向量存儲
 embeddings = HuggingFaceEmbeddings(model_name="BAAI/bge-large-en-v1.5")
 vectorstore = Chroma.from_documents(splits, embeddings)
 
@@ -401,7 +401,7 @@ response = qa_chain.invoke({"query": "What are the key features of Llama 3.1?"})
 print(response["result"])
 ```
 
-#### 3. 創建Agent
+#### 3. 建立Agent
 
 ```python
 from langgraph.prebuilt import create_react_agent
@@ -437,7 +437,7 @@ def calculator(expression: str) -> str:
     except:
         return "Invalid expression"
 
-# 創建Agent
+# 建立Agent
 llm = ChatOpenAI(model="gpt-4o-mini")
 agent = create_react_agent(
     llm,
@@ -549,7 +549,7 @@ for output in outputs:
 ### 2025年關鍵趨勢
 
 1. **推理模型普及** - o1類推理能力成為標配
-2. **多模態融合** - 文本+視覺+音頻+3D無縫整合
+2. **多模態融合** - 文字+視覺+音頻+3D無縫整合
 3. **Agent生態成熟** - 企業級Agent編排平台湧現
 4. **邊緣AI突破** - 手機、瀏覽器運行70B級模型
 5. **開源趕超** - 開源模型在多數任務達到閉源水平
@@ -568,7 +568,7 @@ for output in outputs:
 
 歡迎提交PR補充：
 - 遺漏的重要論文
-- 代碼實現範例
+- 程式碼實現範例
 - 實踐經驗分享
 - 錯誤修正
 

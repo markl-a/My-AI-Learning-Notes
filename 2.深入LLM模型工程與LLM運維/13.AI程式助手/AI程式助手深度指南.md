@@ -268,7 +268,7 @@ def process_csv_file(file_path: str) -> dict:
 # 2. Cmd+K 輸入：
 """
 重構這段程式碼：
-1. 提取重複邏輯到輔助函數
+1. 提取重複邏輯到輔助函式
 2. 添加適當的錯誤處理
 3. 改善變數命名
 4. 添加類型提示
@@ -447,11 +447,11 @@ EOF
 
 ```python
 # 糟糕的提示
-# "寫一個函數處理數據"
+# "寫一個函數處理資料"
 
 # 好的提示
 """
-寫一個 Python 函數處理 CSV 銷售數據：
+寫一個 Python 函式處理 CSV 銷售資料：
 
 輸入：
 - file_path: str - CSV 檔案路徑
@@ -472,7 +472,7 @@ EOF
 
 def process_sales_data(file_path: str) -> dict:
     """
-    處理銷售 CSV 數據並生成統計報告。
+    處理銷售 CSV 資料並生成統計報告。
 
     Args:
         file_path: CSV 檔案路徑
@@ -486,10 +486,10 @@ def process_sales_data(file_path: str) -> dict:
     """
     import pandas as pd
 
-    # 讀取數據
+    # 讀取資料
     df = pd.read_csv(file_path)
 
-    # 清理數據
+    # 清理資料
     df = df.dropna(subset=['quantity', 'price'])
     df['quantity'] = pd.to_numeric(df['quantity'], errors='coerce')
     df['price'] = pd.to_numeric(df['price'], errors='coerce')

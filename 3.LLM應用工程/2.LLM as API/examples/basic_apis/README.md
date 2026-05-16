@@ -1,6 +1,6 @@
 # 基礎 LLM API 使用示例
 
-本目錄包含多個主流 LLM API 的完整使用示例，所有代碼都經過測試並可直接運行。
+本目錄包含多個主流 LLM API 的完整使用示例，所有程式碼都經過測試並可直接運行。
 
 ## 📁 文件說明
 
@@ -64,7 +64,7 @@ python examples/basic_apis/04_api_comparison.py
 **使用場景：**
 - 一般對話應用
 - 需要函數呼叫的智能助理
-- 需要結構化數據輸出
+- 需要結構化資料輸出
 - 多模態應用（文字+圖像）
 
 ### Anthropic Claude API (`02_anthropic_basic.py`)
@@ -74,7 +74,7 @@ python examples/basic_apis/04_api_comparison.py
 ✅ 系統提示（System Prompt）
 ✅ 多輪對話
 ✅ 視覺理解
-✅ 長文本處理（200K tokens）
+✅ 長文字處理（200K tokens）
 ✅ 結構化輸出
 ✅ 批次處理
 
@@ -110,7 +110,7 @@ python examples/basic_apis/04_api_comparison.py
 ✅ 批次測試
 ✅ 場景測試（程式碼生成、摘要、翻譯等）
 
-## 💡 代碼示例
+## 💡 程式碼示例
 
 ### OpenAI 基本對話
 

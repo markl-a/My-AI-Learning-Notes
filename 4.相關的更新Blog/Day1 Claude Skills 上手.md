@@ -34,22 +34,22 @@ youtube 影片參考連結 https://youtu.be/X_YtuTeUf-4?si=-FGH3ElEX04Zdc-R
 
 這是每個 Skill 中**最核心、必須存在**的檔案，它定義了 Skill 的一切。它由兩個主要部分組成：
 
-  - **元數據 (Metadata)：**
+  - **元資料 (Metadata)：**
       - 位於檔案的最頂部，用 `---` 包圍。
       - **`name` (名稱):** (必填) Skill 的唯一識別名稱。
       - **`description` (描述):** (必填) 用簡潔的語言描述這個 Skill 的功能。Claude 會根據這個描述來判斷何時該使用您的 Skill。
       - **`version` (版本):** (選填) 方便您管理 Skill 的更新迭代。
       - **`dependencies` (依賴):** (選填) 如果您的 Skill 依賴其他 Skill，可以在這裡聲明。
   - **指令 (Instructions)：**
-      - 位於元數據下方。
+      - 位於元資料下方。
       - 這是您給 Claude 的詳細步驟說明，告訴他「如何」完成這個 Skill 所定義的任務。
       - **關鍵點：** Claude 並不會一開始就加載所有指令。他會先讀取所有已啟用 Skill 的 `metadata`，當您的需求觸發了某個 Skill 的 `description` 時，他才會去加載對應的 `instructions` 來執行。
 
 -----
 
-## **第二章：手把手，創建您的第一個 Skill**
+## **第二章：手把手，建立您的第一個 Skill**
 
-我們以影片中的「個人化寫作風格」為例，一步步創建一個實用的 Skill。
+我們以影片中的「個人化寫作風格」為例，一步步建立一個實用的 Skill。
 
 ### **步驟一：定義目標 (The Goal)**
 
@@ -66,7 +66,7 @@ youtube 影片參考連結 https://youtu.be/X_YtuTeUf-4?si=-FGH3ElEX04Zdc-R
 這一步是影片的精華所在。您不需要自己從零開始寫指令，而是**讓 Claude 成為您開發 Skill 的夥伴**。
 
 1.  **提供背景知識：** 將官方的 Agent Skills 開發文檔連結或內容丟給 Claude，讓他先「學習」如何開發 Skill。
-2.  **描述您的目標：** 用自然語言告訴 Claude 您想創建一個什麼樣的 Skill，以及您的具體需求（參考步驟一）。
+2.  **描述您的目標：** 用自然語言告訴 Claude 您想建立一個什麼樣的 Skill，以及您的具體需求（參考步驟一）。
 3.  **回答 Claude 的提問：** Claude 會像一個需求分析師一樣，向您提問以釐清細節。例如：「您偏好的文章結構是什麼樣的？」、「您希望在轉述時如何處理人稱？」您回答得越詳細，最終生成的指令就越精準。
 4.  **讓 Claude 生成 `skill.md`：** 經過幾輪的溝通，Claude 就能完全理解您的意圖，並為您生成一份高品質的 `skill.md` 檔案內容。
 
@@ -74,7 +74,7 @@ youtube 影片參考連結 https://youtu.be/X_YtuTeUf-4?si=-FGH3ElEX04Zdc-R
 
 這是最容易出錯的一步，請務必遵循正確的結構。
 
-1.  創建一個資料夾，例如 `personal_writing_style`。
+1.  建立一個資料夾，例如 `personal_writing_style`。
 2.  將 Claude 生成的 `skill.md` 檔案放入這個資料夾。
 3.  **將 `personal_writing_style` 這個資料夾本身** 壓縮成 `.zip` 檔案。
 
@@ -103,10 +103,10 @@ personal_writing_style.zip
 
 ### **1. 整合腳本 (Python/Node.js)**
 
-如果您的任務需要數據處理、API 調用或複雜的邏輯運算，可以在 Skill 中加入腳本。
+如果您的任務需要資料處理、API 呼叫或複雜的邏輯運算，可以在 Skill 中加入腳本。
 
-  - **結構：** 在您的技能目錄中創建一個 `scripts` 資料夾，將 `.py` 或 `.js` 檔案放入其中。
-  - **調用：** 在 `skill.md` 的指令中，使用 Bash 命令來執行您的腳本，例如：
+  - **結構：** 在您的技能目錄中建立一個 `scripts` 資料夾，將 `.py` 或 `.js` 檔案放入其中。
+  - **呼叫：** 在 `skill.md` 的指令中，使用 Bash 命令來執行您的腳本，例如：
     ````markdown
     To analyze the data, run the following script and report the results:
     ````
@@ -119,7 +119,7 @@ personal_writing_style.zip
 
 如果您的指令非常長，可以將其拆分成多個 `.md` 檔案，以保持主 `skill.md` 的清晰。
 
-  - **結構：** 在技能目錄中創建額外的 Markdown 檔案，例如 `advanced_forms.md`。
+  - **結構：** 在技能目錄中建立額外的 Markdown 檔案，例如 `advanced_forms.md`。
   - **引用：** 在 `skill.md` 中，引導 Claude 去閱讀其他檔案，例如：
     ```markdown
     For basic tasks, follow the steps below. For advanced form filling, please refer to the instructions in `advanced_forms.md`.
@@ -158,11 +158,11 @@ name: meeting_summarizer
 version: 1.0
 description: 將雜亂的會議逐字稿或筆記整理成標準化的會議記錄格式。
 ---
-你現在是一位專業的會議記錄員。你的任務是將使用者提供的文本整理成一份清晰、專業的會議記錄。請嚴格遵循以下格式輸出：
+你現在是一位專業的會議記錄員。你的任務是將使用者提供的文字整理成一份清晰、專業的會議記錄。請嚴格遵循以下格式輸出：
 
 ### 會議主題：[根據內容自動生成主題]
 * **日期：** [填寫今天的日期，格式為 YYYY-MM-DD]
-* **與會人員：** [從文本中識別並列出所有與會者，如果無法識別則填寫「未提供」]
+* **與會人員：** [從文字中識別並列出所有與會者，如果無法識別則填寫「未提供」]
 
 ---
 
@@ -181,7 +181,7 @@ description: 將雜亂的會議逐字稿或筆記整理成標準化的會議記�
 ---
 
 **指導原則：**
-- **決議事項** 必須包含明確的任務、唯一的負責人和完成日期。如果文本中沒有提到日期，請標示為「待定」。
+- **決議事項** 必須包含明確的任務、唯一的負責人和完成日期。如果文字中沒有提到日期，請標示為「待定」。
 - **重點摘要** 應高度概括，避免口語化，專注於結論和關鍵資訊。
 - 保持整體格式的簡潔與專業。
 ```
@@ -296,7 +296,7 @@ Returns:
 ```
 
 #### **🚀 如何使用**
-*您需要先在本地創建一個 Python 檔案，例如 `/Users/user/dev/my_app.py`*
+*您需要先在本地建立一個 Python 檔案，例如 `/Users/user/dev/my_app.py`*
 
 在對話框中輸入：
 > 請使用 `python_docstring_generator` 技能，幫我為這個檔案 `/Users/user/dev/my_app.py` 裡的所有函式加上註解。

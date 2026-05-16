@@ -1,10 +1,61 @@
-# LLM 應用工程
+# 3. LLM 應用工程
 
-本目錄涵蓋 LLM 從部署到實際應用的完整流程，包括 API 整合、Agent、RAG、推論優化、部署策略等實用技術。
+本目錄涵蓋 LLM 從部署到實際應用的完整流程,包括 API 整合、Agent、RAG、推論優化、部署策略等實用技術。
+
+> 本 README 採「課程大綱式」結構,各章節含可執行 code snippet。
+> **2026-05 補充**:在末段加入「📂 子目錄物理結構索引」與「本輪新增 deep-dive」清單,協助讀者從實體目錄找到對應 deep-dive 檔。
+
+對應 [全景圖](../2024-2026_AI完整領域全景圖.md) **#12 RAG + #13 Agent + #14 Harness + #6 多模態生成 + #19 Generative UI** 五大應用主軸。
 
 ---
 
-## 目錄
+## 📂 子目錄物理結構索引(2026-05)
+
+```
+3.LLM應用工程/
+├── 1.LLM 部署/              (1344 行)— 推論引擎入門、Ollama/vLLM/HF API、FastAPI 包裝
+├── 1.LangchainDemos/         (270 行) ⚠️ LangChain 0.x demos(已過時,建議下次合併或標 archive)
+├── 2.LLM as API/            (1142 行)— 三家 API、Streamlit、cost_tracker
+├── 3.Agent/                  (266 行)— ReAct、LangGraph、CrewAI、AutoGen
+├── 4.(RAG) 基礎/             (741 行)— embedding、chunking、向量庫
+├── 5.進階 RAG 與多元資料檢索/(188 行)— Hybrid、HyDE、Reranking、GraphRAG
+├── 6.推論優化/               (336 行)— 量化、KV-Cache、Flash Attention、vLLM
+├── 7.LLM應用部署/            (334 行) ⚠️ 與「1.LLM 部署」主題重疊,下次重構候選合併
+├── 8.LLM安全與防禦/          (199 行)— OWASP LLM Top 10、Prompt Injection 防禦(13.安全最佳實踐已合併進此)
+├── 9.實戰/                   (346 行)— 端到端 RAG-Agent 專案
+├── 10.多模態生成/            (594 行)— SD/Sora/MusicGen(語意上更靠近全景圖 #6,可考慮搬出主題 3)
+├── 11.MCP協議與工具調用/     (848 行)— MCP 標準、工具呼叫、整合 Claude/Cursor/LangGraph
+└── 12.進階提示工程與結構化輸出/(1126 行)— OpenAI structured output、DSPy、CoT/ToT/ReAct
+```
+
+**⚠️ 已知編號 / 結構問題**(下次大重構候選):
+1. `1.LLM 部署` 與 `1.LangchainDemos` 撞「1.」(後者建議改名為 archive/)
+2. `1.LLM 部署` 與 `7.LLM應用部署` 主題重疊(入門級 API wrapper vs 進階部署)
+3. `10.多模態生成` 與主題 1.4.DL 的多模態 deep-dive、`14.Voice_Audio_AI` 主題重疊
+4. **編號跳 13**:原 `13.LLM安全最佳實踐` 已於 2026-05 合併進 `8.LLM安全與防禦/2025_LLM安全最佳實踐.md`
+
+---
+
+## 🆕 2026-05 新增 deep-dive(本輪整合補強)
+
+| 位置 | 檔案 | 重點 |
+|---|---|---|
+| `3.Agent/` | [`LangGraph_supervisor_handoff_實戰.md`](./3.Agent/LangGraph_supervisor_handoff_實戰.md) | 3-agent supervisor + handoff 範例 150 行、checkpointer、HITL、LangSmith trace |
+| `3.Agent/` | [`Claude_Agent_SDK_DeepAgents.md`](./3.Agent/Claude_Agent_SDK_DeepAgents.md) | Claude Code harness 開放化、Skills/Subagents/Hooks、DeepAgents middleware |
+| `5.進階 RAG/` | [`GraphRAG_hands_on.md`](./5.進階%20RAG%20與多元資料檢索/GraphRAG_hands_on.md) | Microsoft GraphRAG / LightRAG / HippoRAG 2 對比;Leiden 社群偵測 + 多層摘要 |
+| `5.進階 RAG/` | [`ColPali_Late_Chunking_Contextual_Retrieval.md`](./5.進階%20RAG%20與多元資料檢索/ColPali_Late_Chunking_Contextual_Retrieval.md) | 三大 2024 新範式:ColPali(視覺 RAG)+ Late Chunking + Anthropic Contextual Retrieval |
+| `11.MCP/` | [`MCP_server_完整開發.md`](./11.MCP協議與工具調用/MCP_server_完整開發.md) | stdio + Streamable HTTP server 範例、OAuth 2.1、MCP × A2A 雙協定 |
+
+對應每個 deep-dive 都對齊到 [全景圖](../2024-2026_AI完整領域全景圖.md):
+- LangGraph supervisor → #13 Agent
+- Claude Agent SDK → #13 Agent + #14 Harness Engineering
+- GraphRAG → #12 RAG + #10 GNN
+- ColPali → #12 RAG + #5 CV
+- MCP server → #13 Agent
+
+---
+
+## 課程目錄(以下為原 README 內容,含可執行 code snippet)
 
 1. [LLM 部署與運行基礎](#1-llm-部署與運行基礎)
 2. [LLM 作為 API 與應用程式整合](#2-llm-作為-api-與應用程式整合)
@@ -16,7 +67,9 @@
 8. [LLM 安全與防禦](#8-llm-安全與防禦)
 9. [綜合案例與工作流程示範](#9-綜合案例與工作流程示範)
 10. [多模態生成 (Multimodal Generation)](#10-多模態生成-multimodal-generation)
-11. [2024-2025 最新發展](#11-2024-2025-最新發展)
+11. [MCP 協議與工具調用](./11.MCP協議與工具調用/)(子目錄,內含完整 deep-dive)
+12. [進階提示工程與結構化輸出](./12.進階提示工程與結構化輸出/)(子目錄,內含完整 deep-dive)
+13. [2024-2025 最新發展](#11-2024-2025-最新發展)
 
 ---
 
@@ -89,11 +142,11 @@ if __name__ == "__main__":
 
 ### 3.1 Agent 的概念：ReAct、Toolformer、LangChain Agents
 ### 3.2 常用代理(Agents)與工具整合 (Python REPL、搜尋引擎、資料庫查詢)
-### 3.3 LangChain Functions/Tools 使用範例 (調用外部 API)
+### 3.3 LangChain Functions/Tools 使用範例 (呼叫外部 API)
 ### 3.4 實作示例：
 - (程式碼) 建立一個 LangChain Agent，能接收使用者指令並自動選擇適合的工具 (如Google Search API 或 Python 執行器)
 - (程式碼) 使用 LangChain + SQL 資料庫工具：自動將使用者問題轉為 SQL 查詢並回傳結果
-- 透過 **LangGraph** 快速建立具備工具調用的 ReAct Agent：
+- 透過 **LangGraph** 快速建立具備工具呼叫的 ReAct Agent：
 
 ```python
 """LangGraph ReAct agent quickstart."""
@@ -152,11 +205,11 @@ if __name__ == "__main__":
 - 完整的 RAG 2.0 系統實作
 
 ### 5.1 Query Rewriting、HyDE、多查詢檢索器
-### 5.2 與結構化數據整合 (SQL, Graph DB)
+### 5.2 與結構化資料整合 (SQL, Graph DB)
 ### 5.3 多工具協作：LLM + RAG + Agents
 ### 5.4 實作示例：
 - (程式碼) 使用 LangChain 將 RAG 與 SQL 查詢合併，在回應中整合結構化資料
-- (程式碼) 建立複合管道：先使用 RAG 檢索文本，再用 Agent 從 API 取得最新資料補充回答
+- (程式碼) 建立複合管道：先使用 RAG 檢索文字，再用 Agent 從 API 取得最新資料補充回答
 
 ---
 
@@ -204,9 +257,9 @@ if __name__ == "__main__":
 ## 10. 多模態生成 (Multimodal Generation)
 
 ### 📚 [多模態生成完整指南](./10.多模態生成/README.md)
-深入探討AI圖片、視頻和音樂生成技術：
+深入探討AI圖片、影片和音樂生成技術：
 - Stable Diffusion、ControlNet、LoRA 訓練
-- Stable Video Diffusion、AnimateDiff 視頻生成
+- Stable Video Diffusion、AnimateDiff 影片生成
 - MusicGen、AudioLDM、Bark 音頻生成
 - 完整的端到端實戰項目
 
@@ -220,11 +273,11 @@ if __name__ == "__main__":
 
 ### 10.2 影片生成
 - [**Stable Video Diffusion 與 AnimateDiff**](./10.多模態生成/2.影片生成/README.md)
-  - 圖片到視頻生成 (SVD)
-  - 文本到視頻生成 (AnimateDiff)
+  - 圖片到影片生成 (SVD)
+  - 文字到影片生成 (AnimateDiff)
   - 運動控制與參數調節
-  - 視頻編輯與後處理
-  - 長視頻生成技術
+  - 影片編輯與後處理
+  - 長影片生成技術
 
 ### 10.3 音樂與音效生成
 - [**MusicGen、AudioLDM、Bark**](./10.多模態生成/3.音樂生成/README.md)
@@ -237,12 +290,12 @@ if __name__ == "__main__":
 ### 10.4 實戰項目
 - [**端到端多模態應用**](./10.多模態生成/4.實戰項目/README.md)
   - **項目1**: AI內容創作平台 (FastAPI + React)
-    - 圖片、視頻、音樂生成 API
+    - 圖片、影片、音樂生成 API
     - 任務隊列與狀態管理
     - 用戶認證與配額控制
-  - **項目2**: 自動短視頻生成器
+  - **項目2**: 自動短影片生成器
     - 從腳本到成品的全自動流程
-    - 整合圖片、視頻、旁白、音樂
+    - 整合圖片、影片、旁白、音樂
   - **項目3**: 產品營銷素材生成系統
     - 批量產品圖生成
     - 多平台尺寸適配
@@ -255,10 +308,10 @@ if __name__ == "__main__":
    - Stable Diffusion 基本使用
    - 提示詞工程技巧
    - 簡單的批量生成腳本
-2. **Week 3-4**: 視頻生成入門
-   - SVD 圖片轉視頻
+2. **Week 3-4**: 影片生成入門
+   - SVD 圖片轉影片
    - 基本參數調節
-   - 短視頻拼接
+   - 短影片拼接
 3. **Week 5-6**: 音頻生成基礎
    - MusicGen 音樂生成
    - Bark 語音合成
@@ -269,10 +322,10 @@ if __name__ == "__main__":
    - ControlNet 多種控制
    - LoRA 訓練流程
    - 圖片修復與編輯
-2. **Week 4-6**: 進階視頻生成
+2. **Week 4-6**: 進階影片生成
    - AnimateDiff 動畫
-   - 多段視頻製作
-   - 視頻穩定與插幀
+   - 多段影片製作
+   - 影片穩定與插幀
 3. **Week 7-9**: 進階音頻生成
    - 長音樂生成與拼接
    - 多音軌混合
@@ -292,14 +345,14 @@ if __name__ == "__main__":
    - 用戶管理與計費
    - 內容審核與合規
 3. **優化與運維**
-   - 生成質量監控
+   - 生成品質監控
    - 成本優化
    - A/B 測試與迭代
 
 ### 實作示例總覽
 
 ```python
-# 快速開始：生成圖片、視頻、音樂
+# 快速開始：生成圖片、影片、音樂
 from diffusers import StableDiffusionPipeline, StableVideoDiffusionPipeline
 from audiocraft.models import MusicGen
 import torch
@@ -313,7 +366,7 @@ image_pipe = StableDiffusionPipeline.from_pretrained(
 image = image_pipe("a beautiful sunset over mountains").images[0]
 image.save("sunset.png")
 
-# 2. 圖片轉視頻
+# 2. 圖片轉影片
 video_pipe = StableVideoDiffusionPipeline.from_pretrained(
     "stabilityai/stable-video-diffusion-img2vid-xt",
     torch_dtype=torch.float16
@@ -369,7 +422,7 @@ pipe.enable_model_cpu_offload()
 - 安裝 xformers 加速
 - 使用 FP16 精度
 
-**Q: 生成質量不理想？**
+**Q: 生成品質不理想？**
 - 優化提示詞，添加質量標籤
 - 使用 negative prompt 排除不需要的元素
 - 調整 guidance_scale (通常 7-12)
@@ -419,8 +472,8 @@ pipe.enable_model_cpu_offload()
 
 ### ✅ 下一步建議
 
-1. 依據應用情境挑選模型（多模態 / 長上下文 / 推理優化）。
-2. 以 LangGraph 或 CrewAI 打底，結合 MCP 或工具函式調用串接企業內資料源。
+1. 依據應用情境挑選模型（多模態 / 長上下文 / 推論優化）。
+2. 以 LangGraph 或 CrewAI 打底，結合 MCP 或工具函式呼叫串接企業內資料源。
 3. 導入多層檢索 + 重排序 + 答案驗證建立穩健的 RAG 2.0 管線。
 4. 使用 vLLM / TensorRT-LLM 優化推論成本與延遲，邊緣場景採用 GGUF + WebGPU。
 5. 建立自動化評測（MT-Bench、SWE-bench）與觀測性（OpenTelemetry GenAI + LangSmith）。

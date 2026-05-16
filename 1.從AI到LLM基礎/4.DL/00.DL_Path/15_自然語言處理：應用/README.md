@@ -18,7 +18,7 @@
 
 ```mermaid
 graph LR
-    A[文本預處理] --> B[情感分析]
+    A[文字預處理] --> B[情感分析]
     B --> C[RNN 實現]
     B --> D[CNN 實現]
     C --> E[自然語言推斷]
@@ -27,8 +27,8 @@ graph LR
 
 **學習順序:**
 1. **情感分析基礎** → `1_sentiment-analysis-and-dataset.ipynb`
-   - 了解文本分類任務
-   - IMDb 數據集處理
+   - 了解文字分類任務
+   - IMDb 資料集處理
    - 詞向量表示
 
 2. **RNN 實現** → `2_sentiment-analysis-rnn.ipynb`
@@ -42,8 +42,8 @@ graph LR
    - 多核卷積層
 
 4. **自然語言推斷** → `4_natural-language-inference-and-dataset.ipynb`
-   - SNLI 數據集
-   - 文本對分類
+   - SNLI 資料集
+   - 文字對分類
    - 蘊涵/矛盾/中性判斷
 
 5. **注意力機制** → `5_natural-language-inference-attention.ipynb`
@@ -77,9 +77,9 @@ graph LR
    - 各種 SOTA 模型
 
 4. **現代 NLP 應用** → `advanced/modern_nlp_apps.ipynb`
-   - 🆕 文本分類進階
+   - 🆕 文字分類進階
    - 🆕 命名實體識別 (NER)
-   - 🆕 文本摘要
+   - 🆕 文字摘要
    - 🆕 問答系統
 
 ### 階段 3: 實戰項目 (3-4 週)
@@ -105,7 +105,7 @@ graph LR
 ### 基礎環境
 
 ```bash
-# 創建虛擬環境
+# 建立虛擬環境
 python -m venv nlp_env
 source nlp_env/bin/activate  # Windows: nlp_env\Scripts\activate
 
@@ -146,7 +146,7 @@ python -c "import torch; print(torch.cuda.is_available())"
 
 ### 1. 情感分析 (Sentiment Analysis)
 
-**任務描述:** 判斷文本的情感傾向(正面/負面/中性)
+**任務描述:** 判斷文字的情感傾向(正面/負面/中性)
 
 **應用場景:**
 - 社交媒體監控
@@ -187,8 +187,8 @@ print(result)  # [{'label': 'POSITIVE', 'score': 0.9998}]
 
 **應用場景:**
 - 問答系統
-- 信息檢索
-- 文本去重
+- 資訊檢索
+- 文字去重
 - 事實核查
 
 **實現方法:**
@@ -216,7 +216,7 @@ print(result)  # entailment
 
 ## 🚀 進階應用
 
-### 3. 文本分類 (Text Classification)
+### 3. 文字分類 (Text Classification)
 
 **任務類型:**
 - 新聞分類
@@ -234,7 +234,7 @@ print(result)  # entailment
 
 ### 4. 命名實體識別 (Named Entity Recognition)
 
-**任務描述:** 識別文本中的實體(人名、地名、組織等)
+**任務描述:** 識別文字中的實體(人名、地名、組織等)
 
 **實體類型:**
 - PERSON (人名)
@@ -261,7 +261,7 @@ for entity in entities:
     print(f"{entity['word']}: {entity['entity']}")
 ```
 
-### 5. 文本摘要 (Text Summarization)
+### 5. 文字摘要 (Text Summarization)
 
 **任務類型:**
 - **抽取式摘要:** 選取關鍵句子
@@ -285,7 +285,7 @@ summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
 # 生成摘要
 article = """
 自然語言處理(NLP)是人工智能的一個重要分支...
-(長文本)
+(長文字)
 """
 
 summary = summarizer(article, max_length=130, min_length=30)
@@ -332,7 +332,7 @@ print(answer['answer'])  # Facebook AI 研究院
 - FastAPI
 - PyTorch
 - Docker
-- Redis (緩存)
+- Redis (快取)
 
 **快速部署:**
 ```bash
@@ -380,7 +380,7 @@ curl -X POST "http://localhost:8000/predict" \
 
 **架構 (RAG):**
 ```
-文檔 → 分塊 → 向量化 → 向量數據庫
+文檔 → 分塊 → 向量化 → 向量資料庫
               ↓
 用戶問題 → 檢索 → Top-K 文檔 → LLM → 答案
 ```
@@ -401,7 +401,7 @@ curl -X POST "http://localhost:8000/predict" \
 
 1. **函數生成:**
 ```python
-# 輸入注釋，Copilot 自動生成代碼
+# 輸入注釋，Copilot 自動生成程式碼
 # Function to tokenize text and convert to indices
 # 自動建議實現...
 ```
@@ -413,7 +413,7 @@ def test_sentiment_classifier():
     # Copilot 會自動建議測試用例
 ```
 
-3. **文檔字符串:**
+3. **文檔字串:**
 ```python
 def train_model(model, dataloader):
     """
@@ -426,24 +426,24 @@ def train_model(model, dataloader):
 
 **Prompt 範例:**
 
-1. **代碼審查:**
+1. **程式碼審查:**
 ```
-請審查以下 NLP 模型代碼，指出潛在問題和改進建議：
-[代碼]
+請審查以下 NLP 模型程式碼，指出潛在問題和改進建議：
+[程式碼]
 ```
 
 2. **調試協助:**
 ```
-我的 BERT 微調代碼出現以下錯誤：
-[錯誤信息]
-代碼如下：
-[代碼]
+我的 BERT 微調程式碼出現以下錯誤：
+[錯誤資訊]
+程式碼如下：
+[程式碼]
 請幫我找出問題並提供解決方案。
 ```
 
 3. **架構設計:**
 ```
-我需要設計一個情感分析系統，處理中文社交媒體文本，
+我需要設計一個情感分析系統，處理中文社交媒體文字，
 需要考慮：
 - 實時性要求高
 - 處理口語化表達
@@ -458,12 +458,12 @@ def train_model(model, dataloader):
 ```python
 from utils.ai_tools import (
     generate_with_gpt,      # GPT 輔助生成
-    review_code_with_ai,    # AI 代碼審查
+    review_code_with_ai,    # AI 程式碼審查
     generate_test_cases,    # 自動生成測試
     explain_error,          # 錯誤解釋
 )
 
-# 使用 AI 生成數據增強
+# 使用 AI 生成資料增強
 augmented_data = generate_with_gpt(
     prompt="生成 10 個關於產品評論的正面情感句子",
     temperature=0.7
@@ -472,17 +472,17 @@ augmented_data = generate_with_gpt(
 
 ## 🛠️ 實用工具
 
-### 數據預處理
+### 資料預處理
 
 **新增內容:** 🆕 `utils/preprocessing.py`
 
 ```python
 from utils.preprocessing import (
-    clean_text,           # 文本清理
+    clean_text,           # 文字清理
     tokenize_chinese,     # 中文分詞
     create_vocab,         # 詞表構建
     pad_sequences,        # 序列填充
-    augment_text,         # 數據增強
+    augment_text,         # 資料增強
 )
 
 # 使用示例
@@ -532,7 +532,7 @@ plot_confusion_matrix(y_true, y_pred, labels)
 
 ### 情感分析模型對比
 
-| 模型 | 準確率 | 訓練時間 | 推理速度 | 參數量 |
+| 模型 | 準確率 | 訓練時間 | 推論速度 | 參數量 |
 |------|--------|----------|----------|--------|
 | BiLSTM + GloVe | 86.4% | ~30min | 50ms | 5M |
 | TextCNN | 86.1% | ~20min | 30ms | 3M |
@@ -561,18 +561,18 @@ plot_confusion_matrix(y_true, y_pred, labels)
 2. **掌握工具鏈**
    - 熟悉 PyTorch 基礎
    - 學習 Hugging Face Transformers
-   - 了解數據處理流程
+   - 了解資料處理流程
 
 3. **做小項目**
    - 從情感分析 API 開始
    - 逐步增加功能
-   - 關注代碼質量
+   - 關注程式碼品質
 
 ### 進階 (3-12 個月經驗)
 
 1. **深入模型原理**
    - 閱讀經典論文
-   - 實現論文算法
+   - 實現論文演算法
    - 對比不同方法
 
 2. **優化性能**
@@ -619,16 +619,16 @@ plot_confusion_matrix(y_true, y_pred, labels)
 ### 實用工具
 
 - [Hugging Face Hub](https://huggingface.co/models) - 預訓練模型
-- [Papers with Code](https://paperswithcode.com/area/natural-language-processing) - 論文與代碼
+- [Papers with Code](https://paperswithcode.com/area/natural-language-processing) - 論文與程式碼
 - [NLP Progress](http://nlpprogress.com/) - SOTA 跟蹤
 
-### 數據集
+### 資料集
 
 - [IMDb Reviews](https://ai.stanford.edu/~amaas/data/sentiment/) - 情感分析
 - [SNLI](https://nlp.stanford.edu/projects/snli/) - 自然語言推斷
 - [GLUE](https://gluebenchmark.com/) - 通用語言理解
 - [SuperGLUE](https://super.gluebenchmark.com/) - 進階評測
-- [Chinese NLP Corpus](https://github.com/dbiir/UER-py/wiki/Datasets) - 中文數據集
+- [Chinese NLP Corpus](https://github.com/dbiir/UER-py/wiki/Datasets) - 中文資料集
 
 ## 💡 常見問題 (FAQ)
 
@@ -651,7 +651,7 @@ plot_confusion_matrix(y_true, y_pred, labels)
 **A:**
 - 分詞: jieba, pkuseg, HanLP
 - 預訓練模型: BERT-Chinese, RoBERTa-Chinese, ERNIE
-- 數據集: THUCNews, Weibo, Douban
+- 資料集: THUCNews, Weibo, Douban
 
 ### Q4: 如何選擇模型？
 
@@ -664,7 +664,7 @@ plot_confusion_matrix(y_true, y_pred, labels)
 ### Q5: 如何使用 AI 輔助開發？
 
 **A:**
-- GitHub Copilot: 代碼補全、生成
+- GitHub Copilot: 程式碼補全、生成
 - ChatGPT/Claude: 架構設計、調試
 - 結合使用效果最佳
 - 參考 `ai_assisted/` 目錄範例
@@ -685,7 +685,7 @@ plot_confusion_matrix(y_true, y_pred, labels)
 
 **改進:**
 - 📝 所有 notebook 增加詳細注釋
-- 🎨 統一代碼風格
+- 🎨 統一程式碼風格
 - 🧪 添加單元測試
 - 📊 增加可視化範例
 
@@ -701,7 +701,7 @@ plot_confusion_matrix(y_true, y_pred, labels)
 
 **貢獻指南:**
 1. Fork 本倉庫
-2. 創建特性分支
+2. 建立特性分支
 3. 提交更改
 4. 發起 Pull Request
 

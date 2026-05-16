@@ -10,7 +10,7 @@
 - [架構原理對比](#架構原理對比)
 - [性能對比](#性能對比)
 - [實際應用場景](#實際應用場景)
-- [代碼實現對比](#代碼實現對比)
+- [程式碼實現對比](#程式碼實現對比)
 - [最佳實踐](#最佳實踐)
 - [未來趨勢](#未來趨勢)
 
@@ -22,8 +22,8 @@
 
 | 場景 | 推薦模型 | 原因 |
 |------|---------|------|
-| **小數據集** (< 10K) | RNN/LSTM | 參數少，不易過擬合 |
-| **大數據集** (> 100K) | Transformer | 並行訓練，效果更好 |
+| **小資料集** (< 10K) | RNN/LSTM | 參數少，不易過擬合 |
+| **大資料集** (> 100K) | Transformer | 並行訓練，效果更好 |
 | **實時推理** | RNN | 逐步處理，延遲低 |
 | **批量處理** | Transformer | 並行計算，吞吐量高 |
 | **長序列** (> 1000) | Transformer | 注意力機制處理長程依賴 |
@@ -54,14 +54,14 @@
 **優點**:
 - ✅ 參數共享，模型小
 - ✅ 可處理任意長度序列
-- ✅ 隱藏狀態保存歷史信息
+- ✅ 隱藏狀態保存歷史資訊
 - ✅ 適合流式處理
 
 **缺點**:
 - ❌ 無法並行訓練（慢）
 - ❌ 梯度消失/爆炸
 - ❌ 長程依賴困難
-- ❌ 推理速度受序列長度限制
+- ❌ 推論速度受序列長度限制
 
 ---
 
@@ -89,7 +89,7 @@ Attention(Q, K, V) = softmax(QK^T/√d)V
 **缺點**:
 - ❌ 計算複雜度 O(n²)
 - ❌ 內存消耗大
-- ❌ 需要大量數據
+- ❌ 需要大量資料
 - ❌ 位置編碼需要額外處理
 
 ---
@@ -116,7 +116,7 @@ Time per epoch: ~180s (CPU) / ~15s (GPU)
 結論: Transformer 在 GPU 上快 4x
 ```
 
-### 2. 推理速度
+### 2. 推論速度
 
 | 模型 | 批量推理 (1000 樣本) | 實時推理 (單樣本) |
 |------|-------------------|------------------|
@@ -164,7 +164,7 @@ Transformer:
 
 ---
 
-## 💻 代碼實現對比
+## 💻 程式碼實現對比
 
 ### 情感分析任務
 
@@ -193,7 +193,7 @@ class SentimentRNN(nn.Module):
 model = SentimentRNN(vocab_size=10000)
 output = model(input_ids)  # (batch, 2)
 
-# 優點: 代碼簡潔，易於理解
+# 優點: 程式碼簡潔，易於理解
 # 缺點: 訓練慢，長序列性能差
 ```
 
@@ -237,7 +237,7 @@ model = SentimentTransformer(vocab_size=10000)
 output = model(input_ids)  # (batch, 2)
 
 # 優點: 性能好，可擴展性強
-# 缺點: 複雜度高，需要更多數據
+# 缺點: 複雜度高，需要更多資料
 ```
 
 ---
@@ -270,13 +270,13 @@ outputs = model(**inputs)
 
 ### 1. 自然語言處理
 
-#### 文本分類
+#### 文字分類
 
-**數據量小 (< 10K)**:
+**資料量小 (< 10K)**:
 ```python
 推薦: RNN/LSTM
 理由:
-  - 數據少，Transformer 容易過擬合
+  - 資料少，Transformer 容易過擬合
   - RNN 參數少，泛化能力好
   - 訓練快
 
@@ -284,7 +284,7 @@ outputs = model(**inputs)
 model = nn.LSTM(embed_dim, hidden_dim, num_layers=2)
 ```
 
-**數據量大 (> 100K)**:
+**資料量大 (> 100K)**:
 ```python
 推薦: Transformer (BERT fine-tuning)
 理由:
@@ -323,8 +323,8 @@ model = BertForTokenClassification.from_pretrained('bert-base-uncased', num_labe
 ```
 
 **選擇建議**:
-- 數據 < 10K: Bi-LSTM + CRF
-- 數據 > 100K: BERT fine-tuning
+- 資料 < 10K: Bi-LSTM + CRF
+- 資料 > 100K: BERT fine-tuning
 - 實時系統: Bi-LSTM（延遲低）
 
 ---
@@ -474,8 +474,8 @@ Problem 2: 梯度消失
 Solution: 使用 LSTM/GRU
 
 # Transformer 訓練常見問題
-Problem 1: 過擬合（小數據）
-Solution: 數據增強 + Dropout + 預訓練
+Problem 1: 過擬合（小資料）
+Solution: 資料增強 + Dropout + 預訓練
 
 Problem 2: 內存溢出
 Solution: 梯度累積 + 混合精度訓練
@@ -489,7 +489,7 @@ Solution: 梯度累積 + 混合精度訓練
 
 ✅ **適用場景**:
 
-1. **小數據集項目**
+1. **小資料集項目**
    ```python
    if dataset_size < 10000:
        use_rnn = True
@@ -522,7 +522,7 @@ Solution: 梯度累積 + 混合精度訓練
 
 ✅ **適用場景**:
 
-1. **大數據集項目**
+1. **大資料集項目**
    ```python
    if dataset_size > 100000:
        use_transformer = True
@@ -532,7 +532,7 @@ Solution: 梯度累積 + 混合精度訓練
 
 2. **複雜 NLP 任務**
    ```python
-   # 問答系統、文本摘要、翻譯
+   # 問答系統、文字摘要、翻譯
    from transformers import T5ForConditionalGeneration
    model = T5ForConditionalGeneration.from_pretrained('t5-base')
    ```
@@ -580,7 +580,7 @@ class HybridModel(nn.Module):
         transformer_out = self.transformer(lstm_out)
         return transformer_out
 
-# 應用場景: 語音識別、視頻理解
+# 應用場景: 語音識別、影片理解
 ```
 
 ---
@@ -675,7 +675,7 @@ graph TD
 - [Stanford CS224N](http://web.stanford.edu/class/cs224n/)
 - [Hugging Face NLP Course](https://huggingface.co/course)
 
-### 代碼
+### 程式碼
 - [PyTorch Tutorials](https://pytorch.org/tutorials/)
 - [Hugging Face Transformers](https://github.com/huggingface/transformers)
 
@@ -687,7 +687,7 @@ graph TD
 
 ```
 開始
-├── 數據量 < 10K?
+├── 資料量 < 10K?
 │   └── 是 → 使用 RNN/LSTM
 │   └── 否 → 繼續
 ├── 實時推理?

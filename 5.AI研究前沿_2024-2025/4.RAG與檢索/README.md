@@ -6,7 +6,7 @@
 
 ## 📋 論文列表
 
-| # | 論文 | 機構 | 發布時間 | 代碼 | 影響力 |
+| # | 論文 | 機構 | 發布時間 | 程式碼 | 影響力 |
 |---|------|------|----------|------|--------|
 | 1 | GraphRAG | Microsoft | 2024.04 | [GitHub](https://github.com/microsoft/graphrag) | ⭐⭐⭐⭐⭐ |
 | 2 | HyDE | CMU | 2024 | [GitHub](https://github.com/texttron/hyde) | ⭐⭐⭐⭐ |
@@ -21,7 +21,7 @@
 
 ---
 
-## 核心技術與代碼實現
+## 核心技術與程式碼實現
 
 ### 1. GraphRAG - 知識圖譜增強檢索
 
@@ -35,7 +35,7 @@ from graphrag.query.structured_search.global_search.search import GlobalSearch
 entities = read_indexer_entities("./output/artifacts")
 relationships = read_indexer_relationships("./output/artifacts")
 
-# 創建搜索引擎
+# 建立搜索引擎
 llm = ChatOpenAI(model="gpt-4o-mini")
 context = GlobalCommunityContext(entities, relationships)
 search_engine = GlobalSearch(llm=llm, context=context)
@@ -300,7 +300,7 @@ print(result.answer)
 
 1. **混合檢索**: 向量 + 關鍵字 + 語義
 2. **多階段Pipeline**: 檢索 → 重排序 → 生成 → 驗證
-3. **上下文壓縮**: 使用LongLLMLingua壓縮無關信息
+3. **上下文壓縮**: 使用LongLLMLingua壓縮無關資訊
 4. **結果驗證**: Self-RAG自我檢查機制
 5. **持續優化**: DSPy自動化優化提示詞和參數
 
