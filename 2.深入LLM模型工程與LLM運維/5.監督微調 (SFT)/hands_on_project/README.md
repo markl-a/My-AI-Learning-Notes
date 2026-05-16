@@ -1,6 +1,26 @@
 # 端到端 SFT 實戰項目：電商客服機器人
 
-這是一個完整的端到端監督微調項目，從數據準備到模型部署的完整流程。
+這是一個完整的端到端監督微調項目，從資料準備到模型部署的完整流程。
+
+---
+
+## ⚡ 一鍵跑 LoRA SFT(2026-05 新增)
+
+**沒時間搭整套電商客服 pipeline?**先跑這個 mini demo 在 30 分鐘內證明 LoRA 真的會動:
+
+📒 **[`notebooks/Colab_LoRA_SFT_Mini_Demo.ipynb`](./notebooks/Colab_LoRA_SFT_Mini_Demo.ipynb)**
+
+- **環境**:免費 Colab T4 GPU
+- **模型**:Qwen2.5-0.5B-Instruct(Apache 2.0,494M params,FP16 約 1GB)
+- **資料**:`tatsu-lab/alpaca` 前 1000 筆
+- **時間**:訓練 ~5-10 min(T4)、~3 min(A100)
+- **產出**:~4MB LoRA adapter,可重複載入 + base model swap
+- **整合**:含 phantom-mesh multi-tenant adapter swap、cost tracking、checkpoint resume、vLLM `--enable-lora` 部署等真實工程考量(notebook 第 9 節)
+- **延伸**:章節列出如何升級到 QLoRA(4-bit base + 7B model)、DoRA、接 DPO / GRPO 等
+
+跑完這個 demo 再回來看下面的完整項目,每一步的設計動機會清楚很多。
+
+---
 
 ## 項目概述
 
@@ -24,18 +44,18 @@
 ```
 hands_on_project/
 ├── README.md                 # 本文件
-├── data/                     # 數據目錄
-│   ├── raw/                  # 原始數據
-│   ├── processed/            # 處理後的數據
-│   └── sample/               # 示例數據
+├── data/                     # 資料目錄
+│   ├── raw/                  # 原始資料
+│   ├── processed/            # 處理後的資料
+│   └── sample/               # 示例資料
 ├── scripts/                  # 腳本目錄
-│   ├── 1_generate_data.py    # 數據生成
-│   ├── 2_prepare_data.py     # 數據準備
+│   ├── 1_generate_data.py    # 資料生成
+│   ├── 2_prepare_data.py     # 資料準備
 │   ├── 3_train_model.py      # 模型訓練
 │   ├── 4_evaluate_model.py   # 模型評估
 │   └── 5_deploy_model.py     # 模型部署
-├── configs/                  # 配置文件
-│   ├── data_config.yaml      # 數據配置
+├── configs/                  # 設定檔
+│   ├── data_config.yaml      # 資料配置
 │   └── train_config.yaml     # 訓練配置
 ├── notebooks/                # Jupyter Notebooks
 │   ├── 01_data_exploration.ipynb
@@ -57,34 +77,34 @@ cd hands_on_project
 # 安裝依賴
 pip install -r requirements.txt
 
-# 設置 API 密鑰（用於 AI 輔助數據生成）
+# 設置 API 密鑰（用於 AI 輔助資料生成）
 export ANTHROPIC_API_KEY="your-api-key"
 # 或
 export OPENAI_API_KEY="your-api-key"
 ```
 
-### 2. 數據準備
+### 2. 資料準備
 
-#### 選項 A: 使用 AI 生成數據（推薦用於學習）
+#### 選項 A: 使用 AI 生成資料（推薦用於學習）
 
 ```bash
-# 生成訓練數據
+# 生成訓練資料
 python scripts/1_generate_data.py \
     --num_examples 1000 \
     --output_dir data/raw \
     --topics "退換貨,物流,產品,優惠,投訴"
 
-# 處理數據
+# 處理資料
 python scripts/2_prepare_data.py \
     --input_dir data/raw \
     --output_dir data/processed \
     --val_ratio 0.1
 ```
 
-#### 選項 B: 使用自己的數據
+#### 選項 B: 使用自己的資料
 
 ```bash
-# 準備數據為標準格式
+# 準備資料為標準格式
 python scripts/2_prepare_data.py \
     --input_file your_data.json \
     --output_dir data/processed \
@@ -104,7 +124,7 @@ python scripts/3_train_model.py \
     --num_epochs 3 \
     --batch_size 4
 
-# 使用完整配置文件
+# 使用完整設定檔
 python scripts/3_train_model.py --config configs/train_config.yaml
 ```
 
@@ -128,7 +148,7 @@ python scripts/4_evaluate_model.py \
 ### 5. 部署模型
 
 ```bash
-# 啟動推理服務器
+# 啟動推理伺服器
 python scripts/5_deploy_model.py \
     --model_dir models/customer_service_bot \
     --port 8000
@@ -141,23 +161,23 @@ curl -X POST http://localhost:8000/chat \
 
 ## 詳細步驟
 
-### 步驟 1: 數據生成
+### 步驟 1: 資料生成
 
-使用 AI 輔助生成高質量的客服對話數據：
+使用 AI 輔助生成高品質的客服對話資料：
 
 ```python
 from ai_assisted_data_generator import AIDataGenerator
 
 generator = AIDataGenerator(provider="anthropic")
 
-# 生成退換貨相關數據
+# 生成退換貨相關資料
 refund_data = generator.generate_examples_from_topic(
     topic="電商退換貨客服對話",
     num_examples=200,
     example_types=["退貨流程", "換貨申請", "退款查詢", "退貨原因"]
 )
 
-# 生成物流相關數據
+# 生成物流相關資料
 shipping_data = generator.generate_examples_from_topic(
     topic="電商物流客服對話",
     num_examples=200,
@@ -167,7 +187,7 @@ shipping_data = generator.generate_examples_from_topic(
 # ... 其他類型
 ```
 
-**數據格式**：
+**資料格式**：
 
 ```json
 {
@@ -178,18 +198,18 @@ shipping_data = generator.generate_examples_from_topic(
 }
 ```
 
-### 步驟 2: 數據質量控制
+### 步驟 2: 資料品質控制
 
 ```python
 from data_quality_checker import DataQualityChecker
 
-# 檢查數據質量
+# 檢查資料品質
 checker = DataQualityChecker("data/raw/all_data.json")
 report = checker.check_all()
 
-# 根據報告改進數據
+# 根據報告改進資料
 if report.quality_score < 80:
-    print("數據質量需要改進！")
+    print("資料品質需要改進！")
     # 移除重複、填充空值等
 ```
 
@@ -288,7 +308,7 @@ from ai_judge import AIJudge
 
 judge = AIJudge(model_name="claude-3-5-sonnet-20241022")
 
-# 評估回答質量
+# 評估回答品質
 scores = judge.evaluate_responses(
     model=model,
     test_cases=test_data,
@@ -300,10 +320,10 @@ print(f"平均分數: {sum(scores) / len(scores):.2f}")
 
 #### 4.3 人工評估
 
-創建評估界面進行人工評估：
+建立評估界面進行人工評估：
 
 ```python
-# 使用 Gradio 創建評估界面
+# 使用 Gradio 建立評估界面
 import gradio as gr
 
 def evaluate_response(question, model_response):
@@ -330,7 +350,7 @@ demo.launch()
 
 ### 步驟 5: 模型部署
 
-#### 5.1 FastAPI 服務器
+#### 5.1 FastAPI 伺服器
 
 ```python
 from fastapi import FastAPI
@@ -492,14 +512,14 @@ model = AutoModelForCausalLM.from_pretrained(
 )
 ```
 
-### 3. 緩存策略
+### 3. 快取策略
 
 ```python
 from functools import lru_cache
 
 @lru_cache(maxsize=1000)
 def cached_response(message: str) -> str:
-    """緩存常見問題的回答"""
+    """快取常見問題的回答"""
     return generate_response(model, tokenizer, message)
 ```
 
@@ -571,10 +591,10 @@ class FeedbackCollector:
 
 ## 持續改進
 
-### 1. 收集真實數據
+### 1. 收集真實資料
 
 ```python
-# 從生產環境收集數據
+# 從生產環境收集資料
 def collect_production_data():
     """收集真實用戶對話"""
     # 匿名化
@@ -588,7 +608,7 @@ def collect_production_data():
 ```python
 # 每週或每月重新訓練
 def scheduled_retraining():
-    # 合併舊數據和新數據
+    # 合併舊資料和新資料
     new_data = collect_production_data()
     all_data = old_training_data + new_data
 
@@ -609,11 +629,11 @@ def scheduled_retraining():
 - 使用混合精度訓練 (fp16/bf16)
 - 考慮使用多 GPU
 
-### Q2: 模型回答質量不高？
+### Q2: 模型回答品質不高？
 
 **解決方案**：
-- 增加訓練數據量
-- 提高數據質量（人工審核）
+- 增加訓練資料量
+- 提高資料品質（人工審核）
 - 調整訓練超參數
 - 嘗試更大的基座模型
 - 添加更多示例到提示詞
@@ -621,7 +641,7 @@ def scheduled_retraining():
 ### Q3: 如何處理模型的幻覺問題？
 
 **解決方案**：
-- 在訓練數據中明確標註不確定的情況
+- 在訓練資料中明確標註不確定的情況
 - 使用檢索增強生成 (RAG)
 - 添加信心分數，低信心時提示人工介入
 - 定期更新知識庫

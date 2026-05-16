@@ -1,6 +1,23 @@
 # AI Agent 與 Agentic Workflows
 
-完整的 AI Agent 學習資源，從理論到實踐，涵蓋主流框架和實戰案例。
+完整的 AI Agent 學習資源,從理論到實踐,涵蓋主流框架和實戰案例。
+
+---
+
+## ⚡ 一鍵跑 demos(2026-05 新增)
+
+📒 **[`notebooks/Colab_LangGraph_Multi_Agent_Research_Demo.ipynb`](./notebooks/Colab_LangGraph_Multi_Agent_Research_Demo.ipynb)** — **30 分鐘跑通 3-agent supervisor + handoff**
+
+- **架構**:Supervisor → Planner / Researcher / Writer + Tavily web search tool
+- **環境**:Colab CPU(不需 GPU,全 API)、需 OpenAI + Tavily 兩把 key
+- **成本**:單次 demo run 約 $0.03-0.10
+- **產出**:結構化 Markdown 研究報告(含引用)
+- **整合**:第 14 節列 phantom-mesh 7 條真實工程考量(checkpoint persistence、parallel fan-out、cost tracking、provider fallback、streaming SSE、HITL、tool sandbox)
+- **延伸**:8 個練習(加 Critic / 並行 / 多 tool / Fact-checker / HITL / MCP / Mem0 / Eval)
+
+對應 deep-dive:[`./LangGraph_supervisor_handoff_實戰.md`](./LangGraph_supervisor_handoff_實戰.md);系統設計案例:[Case_04 Multi-Agent Research](../../9.面試準備與職業發展/2.系統設計案例/Case_04_Multi_Agent_Research_System.md)。
+
+---
 
 ## 📚 學習資源
 
@@ -25,7 +42,7 @@
 
 ### [examples/](./examples/)
 
-**完整的可運行代碼範例**，所有代碼都經過測試並可直接執行：
+**完整的可運行程式碼範例**，所有程式碼都經過測試並可直接執行：
 
 #### 📁 範例結構
 
@@ -83,7 +100,7 @@ python react_agent_basic.py  # 不需要 API 金鑰
 
 **學習目標**：
 - 理解 ReAct 循環機制
-- 掌握工具定義和調用
+- 掌握工具定義和呼叫
 - 學習提示工程技巧
 
 ##### 02. LangGraph Agent 🚧
@@ -112,7 +129,7 @@ python react_agent_basic.py  # 不需要 API 金鑰
 
 **將包含**：
 - 基礎對話 Agent
-- 代碼執行 Agent
+- 程式碼執行 Agent
 - 多 Agent 群聊
 - 教學助手範例
 
@@ -124,7 +141,7 @@ python react_agent_basic.py  # 不需要 API 金鑰
 - 自動搜尋和收集技術資料
 - 智能分析和總結
 - 生成結構化技術報告
-- 代碼示例生成
+- 程式碼示例生成
 - 成本追蹤和監控
 
 ## 🛠 工具與輔助模組
@@ -136,7 +153,7 @@ python react_agent_basic.py  # 不需要 API 金鑰
 - **agent_utils.py** - Agent 開發工具
   - `setup_environment()` - 環境設置
   - `get_llm()` - 獲取 LLM 實例
-  - `create_tool_from_function()` - 創建工具
+  - `create_tool_from_function()` - 建立工具
   - `safe_execute()` - 安全執行（帶重試）
 
 - **cost_tracker.py** - API 成本追蹤
@@ -146,7 +163,7 @@ python react_agent_basic.py  # 不需要 API 金鑰
 
 - **evaluator.py** - Agent 性能評估
   - `AgentEvaluator` 類別
-  - 使用 LLM 評估 Agent 輸出質量
+  - 使用 LLM 評估 Agent 輸出品質
   - 生成評估報告
 
 - **logger.py** - 統一日誌配置
@@ -166,7 +183,7 @@ python react_agent_basic.py  # 不需要 API 金鑰
 | **LangGraph** | 中-高 | 極高 | 手動編排 | 複雜業務流程 |
 | **CrewAI** | 低-中 | 中 | 原生支援 | 內容創作、團隊協作 |
 | **AutoGPT** | 中 | 低 | 不支援 | 實驗性自主任務 |
-| **AutoGen** | 中 | 高 | 原生支援 | 研究助手、代碼執行 |
+| **AutoGen** | 中 | 高 | 原生支援 | 研究助手、程式碼執行 |
 
 **選擇建議**：
 - 需要精確控制流程 → **LangGraph**
@@ -192,7 +209,7 @@ python react_agent_basic.py  # 不需要 API 金鑰
 
 ### 專家路徑
 
-1. **性能優化** - 成本控制、並行執行、緩存
+1. **性能優化** - 成本控制、並行執行、快取
 2. **安全性** - 輸入驗證、權限控制、審計
 3. **生產部署** - 監控、評估、持續改進
 4. **貢獻開源** - 分享你的實作和經驗
@@ -224,7 +241,7 @@ python react_agent_basic.py  # 不需要 API 金鑰
 歡迎貢獻！可以：
 
 - 提交 Issue 報告問題
-- 提交 PR 改進代碼或文檔
+- 提交 PR 改進程式碼或文檔
 - 分享你的 Agent 實作範例
 - 改進現有範例
 
@@ -254,7 +271,13 @@ A: 參考「框架比較」章節和主文檔的「框架比較與選擇指南�
 
 **更新日誌**：
 - ✅ 補充主文檔 6 個缺失章節
-- ✅ 創建完整的 examples 資料夾結構
+- ✅ 建立完整的 examples 資料夾結構
 - ✅ 實作工具模組（utils/）
 - ✅ 添加 ReAct Agent 可運行範例
 - 🚧 其他框架範例開發中...
+
+## 延伸閱讀
+- [14.Voice_Audio_AI](../../14.Voice_Audio_AI/README.md) — Voice Agent 端到端
+- [20.Generative_UI](../../20.Generative_UI/README.md) — Tool-rendered UI 模式
+- [13.Robotics_Embodied_AI](../../13.Robotics_Embodied_AI/README.md) — VLA 同源(GUI Agent ↔ Robot Agent)
+- [22.Self_Improving_AI](../../22.Self_Improving_AI/README.md) — Multi-Agent 自我改進
