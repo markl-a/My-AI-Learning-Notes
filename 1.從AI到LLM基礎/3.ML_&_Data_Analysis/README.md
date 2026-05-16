@@ -1,9 +1,9 @@
-## 機器學習與數據分析完整指南
+## 機器學習與資料分析完整指南
 
-本資料夾提供從基礎到進階的機器學習與數據分析學習路徑，結合傳統ML算法、現代工具鏈與最佳實踐。
+本資料夾提供從基礎到進階的機器學習與資料分析學習路徑，結合傳統ML演算法、現代工具鏈與最佳實踐。
 
 **📌 2024-2025 更新亮點**
-- ✅ 添加現代數據處理工具 (Polars, DuckDB, Vaex)
+- ✅ 添加現代資料處理工具 (Polars, DuckDB, Vaex)
 - ✅ 整合最新ML框架 (CatBoost, NGBoost, FLAML)
 - ✅ 擴展分散式計算 (Ray, Dask, Modin)
 - ✅ 強化MLOps實踐 (MLflow, Weights & Biases, DVC)
@@ -21,7 +21,7 @@
 
 ### 1_Data_Acquisition_and_Analysis
 - **Data_Sources.md**：描述常見資料來源（CSV、SQL 資料庫、NoSQL、API 爬取、雲端資料湖）
-- **新增**：現代數據處理工具 (Polars, DuckDB, Vaex) 高效處理大規模數據
+- **新增**：現代資料處理工具 (Polars, DuckDB, Vaex) 高效處理大規模資料
 - **Data_Cleaning_and_Processing.ipynb**：缺失值處理、異常值檢測、類別特徵編碼、數值轉換
 - **Exploratory_Data_Analysis.ipynb** (EDA)：統計量、相關係數、繪圖（箱型圖、直方圖、散佈圖）、資料分佈、主成分分析 (PCA) 用於初步降維探索
 - **新增**：互動式可視化 (Plotly, Altair, hvPlot)
@@ -31,7 +31,7 @@
 ### 2_Traditional_ML_Algorithms
 - **Linear_Models.ipynb**：線性回歸、羅吉斯迴歸、Ridge、Lasso、ElasticNet
 - **Tree_Based_Models.ipynb**：決策樹、隨機森林、梯度提升樹 (XGBoost、LightGBM、**CatBoost**)
-- **新增**：NGBoost、HistGradientBoosting 等現代提升算法
+- **新增**：NGBoost、HistGradientBoosting 等現代提升演算法
 - **SVM_and_KNN.ipynb**：支援向量機、k 最近鄰、進階核函數技巧
 - **Naive_Bayes.ipynb**：樸素貝葉斯分類器、變體與應用
 - **新增**：集成學習進階 (Stacking, Blending, Voting)
@@ -43,24 +43,24 @@
 ### 3_Kaggle_Case_Studies
 - **Kaggle_Competition_1.ipynb**：以 Kaggle 常見入門競賽（如泰坦尼克生存預測）為例，從 EDA、Feature Engineering、模型訓練到提交預測結果
 - **Kaggle_Competition_2.ipynb**：進階資料集（如房價預測），比較不同模型表現、使用集成方法提升準確率
-- **新增**：表格數據競賽最佳實踐 (2024 Top Solutions)
+- **新增**：表格資料競賽最佳實踐 (2024 Top Solutions)
 - **新增**：時間序列預測案例 (Store Sales Forecasting)
 - **Kaggle_Tips_and_Tricks.md**：整理常用方法、特徵工程想法、加強模型泛化的策略
 - **新增**：Kaggle Notebooks GPU/TPU 加速技巧
 - **新增**：模型融合與後處理技術
 
 ### 4_Distributed_Computing_and_BigData_Processing
-- **Introduction_to_Distributed_Computing.md**：分散式運算的概念與大數據生態系（Hadoop、Spark）
+- **Introduction_to_Distributed_Computing.md**：分散式運算的概念與大資料生態系（Hadoop、Spark）
 - **Spark_Basics.ipynb**：使用 PySpark 進行資料讀取、轉換、簡單分析
 - **新增**：現代分散式工具 - **Ray** (分散式ML與超參數調優)
 - **新增**：**Dask** 入門 (Pandas-like並行計算)
 - **新增**：**Modin** (加速Pandas操作)
 - **Scaling_ML_Models.ipynb**：在分散式環境中訓練 ML 模型（Spark MLlib、Ray Train）
 - **新增**：分散式超參數優化 (Ray Tune, Optuna Distributed)
-- **ETL_Pipeline_Integration.md**：ETL 流程概念、將數據處理管線整合到日常工作中
-- **新增**：現代數據編排工具 (Prefect, Dagster, Apache Airflow 2.0+)
+- **ETL_Pipeline_Integration.md**：ETL 流程概念、將資料處理管線整合到日常工作中
+- **新增**：現代資料編排工具 (Prefect, Dagster, Apache Airflow 2.0+)
 - **Data_Pipeline_Demo.ipynb**：展示如何在分散式環境中執行從資料擷取、清理到模型訓練的流程
-- **新增**：Delta Lake 與數據湖最佳實踐
+- **新增**：Delta Lake 與資料湖最佳實踐
 
 ### 5_Best_Practices_and_MLOps_Basics
 - **Model_Deployment_Introduction.md**：基本部署模型觀念（非深度學習模型的 Web API 建置）
@@ -70,8 +70,8 @@
 - **Version_Control_and_Experiment_Tracking.md**：DVC、MLflow、Git 等工具簡介
 - **新增**：**Weights & Biases** 完整實踐
 - **新增**：**Neptune.ai** 與 Comet.ml 替代方案
-- **新增**：DVC 數據版本控制進階用法
-- **Scalability_and_Performance_Tuning.md**：模型與數據的效能調校方法
+- **新增**：DVC 資料版本控制進階用法
+- **Scalability_and_Performance_Tuning.md**：模型與資料的效能調校方法
 - **新增**：模型優化技術 (Quantization, Pruning, Knowledge Distillation)
 - **新增**：推理加速 (ONNX Runtime, TensorRT, OpenVINO)
 - **新增**：CI/CD for ML (GitHub Actions, GitLab CI)
@@ -84,14 +84,14 @@
 
 ### 🎯 初學者路徑 (0-3個月)
 1. 從 `0_Introduction_and_Environment_Setup` 開始，設置開發環境
-2. 學習 `1_Data_Acquisition_and_Analysis` 的基礎數據處理
-3. 掌握 `2_Traditional_ML_Algorithms` 中的基本算法
+2. 學習 `1_Data_Acquisition_and_Analysis` 的基礎資料處理
+3. 掌握 `2_Traditional_ML_Algorithms` 中的基本演算法
 4. 嘗試 `3_Kaggle_Case_Studies` 中的入門競賽
 
 ### 🚀 進階路徑 (3-6個月)
 1. 深入學習進階特徵工程技巧
 2. 掌握集成學習與模型融合
-3. 學習 `4_Distributed_Computing` 處理大規模數據
+3. 學習 `4_Distributed_Computing` 處理大規模資料
 4. 開始使用 AutoML 工具加速實驗
 
 ### 💼 專業路徑 (6-12個月)
@@ -140,12 +140,12 @@
 3. **產品推薦系統**: 基於協同過濾的簡單推薦系統
 
 ### 中級項目
-1. **信用卡欺詐檢測**: 處理不平衡數據的分類問題
+1. **信用卡欺詐檢測**: 處理不平衡資料的分類問題
 2. **時間序列預測**: 銷售預測或股價預測
-3. **文本分類**: 新聞分類或情感分析 (結合 NLP)
+3. **文字分類**: 新聞分類或情感分析 (結合 NLP)
 
 ### 高級項目
-1. **端到端 ML Pipeline**: 從數據收集到模型部署的完整流程
+1. **端到端 ML Pipeline**: 從資料收集到模型部署的完整流程
 2. **AutoML 框架比較**: 比較不同 AutoML 工具的性能
 3. **生產級模型服務**: 使用 Docker + Kubernetes 部署模型
 4. **A/B Testing 框架**: 建立模型 A/B 測試系統
@@ -155,9 +155,9 @@
 ## 常見問題 FAQ
 
 **Q: 我應該選擇哪個 ML 庫？**
-A: 對於表格數據，scikit-learn 是基礎；XGBoost/LightGBM/CatBoost 用於競賽和生產；AutoML 工具(如 AutoGluon)適合快速原型開發。
+A: 對於表格資料，scikit-learn 是基礎；XGBoost/LightGBM/CatBoost 用於競賽和生產；AutoML 工具(如 AutoGluon)適合快速原型開發。
 
-**Q: 如何選擇合適的算法？**
+**Q: 如何選擇合適的演算法？**
 A: 從簡單模型開始(線性回歸/邏輯回歸)建立 baseline，然後嘗試樹模型(Random Forest, XGBoost)，最後考慮集成學習和 AutoML。
 
 **Q: 學習 ML 需要多久？**
@@ -175,7 +175,7 @@ A: 1) 做好 EDA 和特徵工程 2) 嘗試多種模型 3) 使用集成學習 4) 
 
 ### 2024-11 更新
 - ✅ 添加 2024-2025 最新技術和工具
-- ✅ 整合現代數據處理框架 (Polars, DuckDB)
+- ✅ 整合現代資料處理框架 (Polars, DuckDB)
 - ✅ 擴展分散式計算內容 (Ray, Dask)
 - ✅ 強化 MLOps 實踐和工具鏈
 - ✅ 加入 AutoML 工具完整指南
@@ -183,4 +183,8 @@ A: 1) 做好 EDA 和特徵工程 2) 嘗試多種模型 3) 使用集成學習 4) 
 
 ### 持續更新中...
 歡迎提出建議和改進意見！
+
+## 延伸閱讀
+- [17.Causal_ML](../../17.Causal_ML/README.md) — 從相關到因果的範式進化
+- [Time_Series_Tabular_FM_2024-2026.md](./Time_Series_Tabular_FM_2024-2026.md) — 時序/表格基礎模型 2024-2026
 
