@@ -113,9 +113,12 @@ jobs:
           name: codecov-umbrella
           fail_ci_if_error: false
 
-  # ==================== Notebook 測試 ====================
-  notebook-test:
-    name: Notebook 測試
+  # ==================== Notebook 格式驗證 ====================
+  # 註:原本是 execute 全 repo 所有 .ipynb,但 repo 內有 700+ d2l notebook +
+  # Colab notebook 需要 GPU/API key,在 free CI runner 上跑會 hang ~50 分鐘
+  # 才被 timeout。改為只驗證 nbformat 結構合法(秒級完成,壞 notebook 就擋)
+  notebook-validate:
+    name: Notebook 格式驗證
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Checkout 代碼
@@ -127,17 +130,38 @@ jobs:
           python-version: '3.11'
           cache: 'pip'
 
-      - name: 📦 安裝依賴
+      - name: 📦 安裝 nbformat
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install nbconvert nbformat jupyter
+          pip install nbformat
 
-      - name: 📓 驗證 Notebooks
+      - name: 📓 驗證所有 .ipynb 結構合法
         run: |
-          # 查找所有 notebook 文件並驗證格式
-          find . -name "*.ipynb" -not -path "*/\.*" -print0 | xargs -0 -I {} jupyter nbconvert --to notebook --execute --inplace {} || true
-        continue-on-error: true
+          python <<'PY'
+          import nbformat
+          import pathlib
+          import sys
+
+          errors = []
+          checked = 0
+          for nb_path in pathlib.Path('.').rglob('*.ipynb'):
+              if '.ipynb_checkpoints' in nb_path.parts:
+                  continue
+              checked += 1
+              try:
+                  nb = nbformat.read(nb_path, as_version=4)
+                  nbformat.validate(nb)
+              except Exception as e:
+                  errors.append((str(nb_path), type(e).__name__, str(e)[:200]))
+
+          print(f"檢查了 {checked} 個 .ipynb")
+          if errors:
+              print(f"\n❌ {len(errors)} 個 notebook 格式異常:")
+              for path, err_type, msg in errors:
+                  print(f"  - {path}: {err_type}: {msg}")
+              sys.exit(1)
+          print("✅ 所有 notebook 格式合法")
+          PY
 
   # ==================== 安全掃描 ====================
   security:
