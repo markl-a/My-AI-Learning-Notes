@@ -1,5 +1,9 @@
 # 推理模型 (Reasoning Models) 深度解析 - OpenAI o1 與 DeepSeek-R1
 
+> ⚠️ **本檔已被 [`../12.推理模型應用/`](../12.推理模型應用/) 取代**(2026-05 整合)
+> 內容保留以提供歷史參考,新讀者請優先閱讀 12.推理模型應用 章節。
+> 本檔的「實作應用」與「未來發展」段落待擷取後合併到 12 章。
+
 ## 目錄
 - [概述](#概述)
 - [推理模型的突破性意義](#推理模型的突破性意義)
@@ -14,7 +18,7 @@
 
 ## 概述
 
-2024年9月，OpenAI 發布了 **o1 系列推理模型**，標誌著大型語言模型從單純的文本生成轉向深度推理能力的重大突破。緊接著，2024年12月 DeepSeek 發布了 **DeepSeek-R1**，以更低的成本實現了相當甚至更好的推理性能。
+2024年9月，OpenAI 發布了 **o1 系列推理模型**，標誌著大型語言模型從單純的文字生成轉向深度推理能力的重大突破。緊接著，2024年12月 DeepSeek 發布了 **DeepSeek-R1**，以更低的成本實現了相當甚至更好的推理性能。
 
 ### 什麼是推理模型？
 
@@ -56,7 +60,7 @@
 |------|-----------------|------------------|
 | 思考方式 | 快速直覺反應 | 深度逐步推理 |
 | 數學能力 | 基礎計算 | 競賽級數學 |
-| 代碼能力 | 編寫簡單程序 | 複雜算法設計 |
+| 程式碼能力 | 編寫簡單程序 | 複雜演算法設計 |
 | 科學推理 | 知識回答 | 深度分析推導 |
 | 錯誤率 | 較高 | 顯著降低 |
 | 可解釋性 | 黑箱 | 透明思維過程 |
@@ -94,7 +98,7 @@
 
 3. **o1-mini**
    - 針對 STEM 領域優化
-   - 更快的推理速度
+   - 更快的推論速度
    - 更經濟的定價
 
 ### 核心技術
@@ -222,12 +226,12 @@ response = client.chat.completions.create(
 print(response.choices[0].message.content)
 ```
 
-#### 2. 複雜代碼生成
+#### 2. 複雜程式碼生成
 
 ```python
-# 要求 o1 設計複雜算法
+# 要求 o1 設計複雜演算法
 prompt = """
-設計一個高效的算法來解決以下問題：
+設計一個高效的演算法來解決以下問題：
 
 給定一個 N×N 的網格，每個格子有一個權重。
 從左上角開始，只能向右或向下移動，目標是到達右下角。
@@ -252,7 +256,7 @@ response = client.chat.completions.create(
 
 ```python
 prompt = """
-分析以下實驗數據並提出假設：
+分析以下實驗資料並提出假設：
 
 實驗組 A：溫度 25°C，反應時間 120 秒，產率 78%
 實驗組 B：溫度 35°C，反應時間 90 秒，產率 82%
@@ -276,7 +280,7 @@ response = client.chat.completions.create(
 1. **不支持某些功能**
    - 系統消息（system message）
    - 流式輸出（streaming）
-   - 工具/函數調用
+   - 工具/函式呼叫
    - 圖像輸入
 
 2. **成本較高**
@@ -365,7 +369,7 @@ class SelfEvolution:
     """自我演化機制"""
 
     def evolve(self, model, unlabeled_data):
-        """使用無標註數據自我演化"""
+        """使用無標註資料自我演化"""
 
         for batch in unlabeled_data:
             # 1. 生成候選解決方案
@@ -385,7 +389,7 @@ class SelfEvolution:
                 # 4. 作為新的訓練樣本
                 self.add_to_training_set(problem, best_solution)
 
-        # 5. 在新數據上繼續訓練
+        # 5. 在新資料上繼續訓練
         model.train(self.training_set)
 
     def self_evaluate(self, solutions):
@@ -453,10 +457,10 @@ for step in response.reasoning_steps:
 
 print(f"\n最終答案：{response.final_answer}")
 
-# 代碼生成
+# 程式碼生成
 code_response = client.reason(
     problem="""
-    實現一個高效的算法來找出數組中所有和為零的三元組。
+    實現一個高效的演算法來找出陣列中所有和為零的三元組。
     要求：時間複雜度 O(n²)，空間複雜度 O(1)
     """,
     domain="coding"
@@ -467,7 +471,7 @@ code_response = client.reason(
 
 1. **成本效益**
    - 訓練成本：< $1M（估計）
-   - 推理成本：比 o1 低得多
+   - 推論成本：比 o1 低得多
 
 2. **開放性**
    - 部分模型權重開源
@@ -933,19 +937,19 @@ class ResearchReasoningAssistant:
         self.reasoner = SimpleReasoningSystem(model="o1-preview")
 
     def analyze_experimental_data(self, data: Dict, hypothesis: str):
-        """分析實驗數據並檢驗假設"""
+        """分析實驗資料並檢驗假設"""
 
         analysis_prompt = f"""
-        實驗數據：
+        實驗資料：
         {self.format_data(data)}
 
         研究假設：
         {hypothesis}
 
         請：
-        1. 分析數據的統計特性
-        2. 識別數據中的模式和趨勢
-        3. 評估假設與數據的一致性
+        1. 分析資料的統計特性
+        2. 識別資料中的模式和趨勢
+        3. 評估假設與資料的一致性
         4. 提出可能的替代解釋
         5. 建議後續實驗方向
         """
@@ -975,7 +979,7 @@ class ResearchReasoningAssistant:
         1. 實驗假設
         2. 變量設計（自變量、因變量、控制變量）
         3. 實驗步驟
-        4. 數據收集方法
+        4. 資料收集方法
         5. 統計分析計劃
         6. 潛在問題和解決方案
         """
@@ -1013,7 +1017,7 @@ class ResearchReasoningAssistant:
 from datasets import load_dataset
 
 def evaluate_on_math_dataset(model, n_samples=1000):
-    """在 MATH 數據集上評估"""
+    """在 MATH 資料集上評估"""
 
     dataset = load_dataset("competition_math")
     results = []
@@ -1048,11 +1052,11 @@ def evaluate_on_math_dataset(model, n_samples=1000):
 
 #### 3. MMLU（多任務語言理解）
 
-### 推理質量評估
+### 推理品質評估
 
 ```python
 class ReasoningQualityEvaluator:
-    """推理質量評估器"""
+    """推理品質評估器"""
 
     def evaluate_reasoning_quality(self, reasoning_chain: List[str]) -> Dict:
         """評估推理鏈質量"""
@@ -1138,7 +1142,7 @@ class MultimodalReasoningModel:
 
 1. **推理能力是下一代 LLM 的核心**
 2. **開源推理模型（如 DeepSeek-R1）使技術民主化**
-3. **推理質量評估需要新的指標體系**
+3. **推理品質評估需要新的指標體系**
 4. **應用場景：數學、編程、科學研究、複雜決策**
 
 ---

@@ -21,7 +21,7 @@
 | **分享便利性** | ⭐⭐⭐⭐ 好 | ⭐⭐⭐ 一般 | ⭐⭐⭐⭐⭐ 最好 |
 | **社群支持** | ⭐⭐⭐⭐⭐ 很好 | ⭐⭐⭐⭐⭐ 很好 | ⭐⭐⭐⭐ 好 |
 | **免費託管** | ❌ | ❌ | ✅ 永久免費 |
-| **最佳用途** | ML 模型演示 | 數據儀表板 | 公開分享模型 |
+| **最佳用途** | ML 模型演示 | 資料儀表板 | 公開分享模型 |
 
 ## 📁 目錄結構
 
@@ -39,7 +39,7 @@
 │   └── streamlit/
 │       ├── 01_basic_chat.py          # 基礎聊天應用
 │       ├── 02_rag_demo.py            # RAG 文檔問答
-│       ├── 03_data_analysis.py       # 數據分析助手
+│       ├── 03_data_analysis.py       # 資料分析助手
 │       └── requirements.txt          # Streamlit 依賴
 └── huggingface_spaces_guide.md        # HF Spaces 部署指南
 ```
@@ -124,11 +124,11 @@ demo.launch()
 - 降低感知延遲
 
 #### 範例 4：AI 輔助功能 (`04_ai_assistant.py`)
-- 📝 文本摘要
+- 📝 文字摘要
 - 🌐 多語言翻譯
 - 😊 情感分析
 - 🔑 關鍵詞提取
-- ✍️ 文本改寫
+- ✍️ 文字改寫
 
 #### 範例 5：多模態聊天 (`05_image_chat.py`)
 - 支持圖像+文字輸入
@@ -137,11 +137,11 @@ demo.launch()
 
 ---
 
-## 🎨 Streamlit：構建數據應用的利器
+## 🎨 Streamlit：構建資料應用的利器
 
 ### 為什麼選擇 Streamlit？
 
-1. **數據科學友好**：原生支持 Pandas, Matplotlib, Plotly
+1. **資料科學友好**：原生支持 Pandas, Matplotlib, Plotly
 2. **組件豐富**：豐富的 UI 組件庫
 3. **狀態管理**：內建 session state 管理
 4. **部署簡單**：Streamlit Cloud 免費託管
@@ -186,7 +186,7 @@ st.session_state.messages.append({"role": "user", "content": "你好"})
 ```python
 import streamlit as st
 
-@st.cache_data  # 快取數據
+@st.cache_data  # 快取資料
 def load_data():
     return expensive_computation()
 
@@ -207,8 +207,8 @@ def load_model():
 - 向量化檢索
 - 引用來源顯示
 
-#### 範例 3：數據分析助手 (`03_data_analysis.py`)
-- CSV 數據上傳
+#### 範例 3：資料分析助手 (`03_data_analysis.py`)
+- CSV 資料上傳
 - AI 自動分析
 - 圖表視覺化
 
@@ -228,7 +228,7 @@ Hugging Face Spaces 是一個免費的機器學習應用託管平台，支持：
 
 #### 方法 1：從本地上傳
 
-1. **創建 Space**
+1. **建立 Space**
    - 訪問 https://huggingface.co/spaces
    - 點擊 "Create new Space"
    - 選擇 SDK（Gradio/Streamlit）
@@ -258,9 +258,9 @@ Hugging Face Spaces 是一個免費的機器學習應用託管平台，支持：
 2. 直接在瀏覽器中編輯 `app.py`
 3. 保存後自動部署
 
-### 配置文件
+### 設定檔
 
-#### README.md（Space 元數據）
+#### README.md（Space 元資料）
 
 ```yaml
 ---
@@ -294,7 +294,7 @@ python-dotenv==1.0.0
 1. 點擊 Settings → Repository secrets
 2. 添加 `OPENAI_API_KEY`、`ANTHROPIC_API_KEY` 等
 
-在代碼中使用：
+在程式碼中使用：
 ```python
 import os
 openai_api_key = os.environ.get("OPENAI_API_KEY")
@@ -389,19 +389,19 @@ def chat(message, history):
 ## 🎓 實戰練習
 
 ### 練習 1：基礎聊天機器人（30 分鐘）
-1. 使用 Gradio ChatInterface 創建聊天機器人
+1. 使用 Gradio ChatInterface 建立聊天機器人
 2. 整合 OpenAI API
 3. 添加錯誤處理
 4. 部署到 Hugging Face Spaces
 
 ### 練習 2：多功能 AI 助手（1 小時）
-1. 使用 Gradio Blocks 創建多標籤頁應用
+1. 使用 Gradio Blocks 建立多標籤頁應用
 2. 實現：聊天、摘要、翻譯三個功能
 3. 添加模型選擇（GPT-3.5 vs Claude）
 4. 實現流式回應
 
 ### 練習 3：RAG 文檔問答（2 小時）
-1. 使用 Streamlit 創建文檔上傳界面
+1. 使用 Streamlit 建立文檔上傳界面
 2. 整合向量資料庫（FAISS/Chroma）
 3. 實現語義檢索
 4. 顯示引用來源
@@ -420,7 +420,7 @@ def chat(message, history):
 - [Streamlit Gallery](https://streamlit.io/gallery)
 - [HF Spaces 熱門應用](https://huggingface.co/spaces)
 
-### 視頻教程
+### 影片教程
 - [Gradio 速成課程](https://www.youtube.com/watch?v=RiCQzBluTxU)
 - [Streamlit 入門](https://www.youtube.com/watch?v=8M20LyCZDOY)
 
@@ -460,7 +460,7 @@ if "messages" not in st.session_state:
 2. `app.py` 是否有語法錯誤
 3. 查看 Space 的 "Logs" 標籤頁
 
-### Q4: API 調用超時？
+### Q4: API 呼叫超時？
 
 **A:** 設置合理的 timeout：
 ```python

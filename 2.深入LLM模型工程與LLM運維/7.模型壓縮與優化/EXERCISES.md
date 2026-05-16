@@ -18,12 +18,12 @@
 **目標**：使用 PyTorch 對簡單模型進行動態量化。
 
 **任務**：
-1. 創建一個 3 層的 MLP 模型
+1. 建立一個 3 層的 MLP 模型
 2. 訓練模型完成簡單分類任務
 3. 應用動態量化
-4. 比較量化前後的模型大小和推理速度
+4. 比較量化前後的模型大小和推論速度
 
-**提示代碼**：
+**提示程式碼**：
 ```python
 import torch
 import torch.nn as nn
@@ -57,11 +57,11 @@ quantized_model = quant.quantize_dynamic(
 
 **檢查點**：
 - [ ] 量化後模型大小是否減少約 4 倍？
-- [ ] 推理速度是否有提升？
+- [ ] 推論速度是否有提升？
 - [ ] 精度損失是否在可接受範圍（< 1%）？
 
 **擴展挑戰**：
-- 嘗試靜態量化（需要校準數據）
+- 嘗試靜態量化（需要校準資料）
 - 比較不同量化方法的效果
 
 ---
@@ -74,9 +74,9 @@ quantized_model = quant.quantize_dynamic(
 1. 載入 GPT-2 模型（FP16）
 2. 使用 bitsandbytes 載入 8-bit 量化版本
 3. 比較顯存使用
-4. 測試生成質量
+4. 測試生成品質
 
-**代碼模板**：
+**程式碼模板**：
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
@@ -105,12 +105,12 @@ model_8bit = AutoModelForCausalLM.from_pretrained(
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 prompt = "Once upon a time"
 
-# TODO: 生成文本並比較
+# TODO: 生成文字並比較
 ```
 
 **檢查點**：
 - [ ] 8-bit 模型顯存是否約為 FP16 的一半？
-- [ ] 生成文本質量是否相似？
+- [ ] 生成文字質量是否相似？
 - [ ] 能否解釋為什麼顯存減少了？
 
 ---
@@ -123,7 +123,7 @@ prompt = "Once upon a time"
 1. 安裝 llama.cpp
 2. 下載並轉換 TinyLlama 模型
 3. 量化為 Q4_K_M
-4. 測試推理速度
+4. 測試推論速度
 
 **步驟**：
 ```bash
@@ -158,10 +158,10 @@ make
 **任務**：
 1. 使用 4-bit 量化載入 LLaMA-7B
 2. 配置 LoRA 適配器
-3. 在 Alpaca 數據集子集上微調
+3. 在 Alpaca 資料集子集上微調
 4. 保存和載入 LoRA 適配器
 
-**代碼框架**：
+**程式碼框架**：
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments, Trainer
 from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
@@ -183,8 +183,8 @@ model_name = "meta-llama/Llama-2-7b-hf"
 # 3. 準備 LoRA 訓練
 # TODO: 配置 LoRA
 
-# 4. 載入數據
-# TODO: 準備 Alpaca 數據集
+# 4. 載入資料
+# TODO: 準備 Alpaca 資料集
 
 # 5. 訓練
 # TODO: 配置 TrainingArguments 和 Trainer
@@ -205,7 +205,7 @@ model_name = "meta-llama/Llama-2-7b-hf"
 **進階挑戰**：
 - 嘗試不同的 `r` 值（4, 8, 16），比較效果
 - 實驗不同的 `target_modules` 組合
-- 使用自己的數據集微調
+- 使用自己的資料集微調
 
 ---
 
@@ -240,7 +240,7 @@ def analyze_layer_sensitivity(model, test_data):
 
 # 2. 配置混合精度
 def create_mixed_precision_config(sensitivity_map, target_compression=2.0):
-    """根據敏感度創建混合精度配置"""
+    """根據敏感度建立混合精度配置"""
     precision_config = {}
 
     # TODO: 實現自動配置生成
@@ -277,21 +277,21 @@ mixed_model = apply_mixed_precision(model, config)
 **目標**：使用 GPTQ 對模型進行 4-bit 量化。
 
 **任務**：
-1. 準備校準數據集
+1. 準備校準資料集
 2. 使用 AutoGPTQ 量化模型
 3. 保存量化模型
 4. 使用 vLLM 部署
 
-**代碼模板**：
+**程式碼模板**：
 ```python
 from transformers import AutoTokenizer
 from auto_gptq import AutoGPTQForCausalLM, BaseQuantizeConfig
 from datasets import load_dataset
 
-# 1. 準備校準數據
+# 1. 準備校準資料
 def prepare_calibration_data(dataset_name="c4", n_samples=128):
-    """準備校準數據集"""
-    # TODO: 載入和預處理數據
+    """準備校準資料集"""
+    # TODO: 載入和預處理資料
     pass
 
 # 2. 量化配置
@@ -323,7 +323,7 @@ model.quantize(calibration_data)
 - [ ] 量化過程是否成功完成？
 - [ ] 量化後模型大小約為原始的 1/4？
 - [ ] 困惑度變化是否在 1% 以內？
-- [ ] 推理速度是否有提升？
+- [ ] 推論速度是否有提升？
 
 ---
 
@@ -331,7 +331,7 @@ model.quantize(calibration_data)
 
 ### 練習 7：自定義量化方法
 
-**目標**：實現自定義的量化算法。
+**目標**：實現自定義的量化演算法。
 
 **任務**：
 1. 實現非對稱量化
@@ -474,7 +474,7 @@ async def generate(request: GenerateRequest):
 3. 優化策略
    - 量化方法選擇
    - LoRA 配置
-   - 推理優化
+   - 推論優化
 
 4. 實施
    - 量化模型
@@ -493,7 +493,7 @@ async def generate(request: GenerateRequest):
 ```
 
 **提交內容**：
-- [ ] 完整代碼
+- [ ] 完整程式碼
 - [ ] 性能測試報告
 - [ ] 優化決策說明
 - [ ] 未來改進建議
@@ -502,9 +502,9 @@ async def generate(request: GenerateRequest):
 
 ## 🏆 挑戰項目
 
-### 項目 1：多模型推理服務
+### 項目 1：多模型推論服務
 
-**描述**：構建支持多個量化模型的推理服務，用戶可以選擇不同的模型和精度。
+**描述**：構建支持多個量化模型的推論服務，用戶可以選擇不同的模型和精度。
 
 **要求**：
 - 支持至少 3 個不同大小的模型
@@ -521,7 +521,7 @@ async def generate(request: GenerateRequest):
 **要求**：
 - iOS 或 Android 平台
 - 使用量化模型（< 2GB）
-- 推理延遲 < 200ms
+- 推論延遲 < 200ms
 - 提供友好的 UI
 
 ---
@@ -542,15 +542,15 @@ async def generate(request: GenerateRequest):
 ## 📊 評分標準
 
 ### 初級練習
-- 代碼正確性：40%
+- 程式碼正確性：40%
 - 結果準確性：30%
-- 代碼質量：20%
+- 程式碼品質：20%
 - 文檔完整性：10%
 
 ### 中級練習
 - 實現完整性：30%
 - 性能優化：30%
-- 代碼質量：20%
+- 程式碼品質：20%
 - 實驗分析：20%
 
 ### 高級練習
@@ -582,13 +582,13 @@ async def generate(request: GenerateRequest):
 
 ## ✅ 提交指南
 
-1. **代碼**：上傳到 GitHub repo
+1. **程式碼**：上傳到 GitHub repo
 2. **報告**：Markdown 格式，包含：
    - 實驗設置
    - 結果分析
    - 遇到的問題和解決方案
-   - 性能數據和圖表
-3. **演示**：錄製簡短演示視頻（可選）
+   - 性能資料和圖表
+3. **演示**：錄製簡短演示影片（可選）
 
 ---
 

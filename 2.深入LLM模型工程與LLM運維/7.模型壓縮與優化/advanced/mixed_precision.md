@@ -52,7 +52,7 @@
 
 **常見精度格式**：
 ```
-FP32 (32-bit)   ████████ 最高精度，訓練默認
+FP32 (32-bit)   ████████ 最高精度，訓練預設
   ↓
 BF16 (16-bit)   ████     訓練穩定，範圍大
   ↓
@@ -108,7 +108,7 @@ INT2 (2-bit)    ▌        實驗性，16x 壓縮
 import torch
 from torch.cuda.amp import autocast, GradScaler
 
-# 模型、優化器、數據
+# 模型、優化器、資料
 model = YourModel().cuda()
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
 scaler = GradScaler()
@@ -141,7 +141,7 @@ for epoch in range(num_epochs):
 ✓ 訓練速度提升 2-3x（在 Tensor Core GPU）
 ✓ 顯存佔用減少 ~50%
 ✓ 精度損失極小（< 0.1%）
-✓ 易於實現（幾行代碼）
+✓ 易於實現（幾行程式碼）
 ```
 
 ### 2.3 Transformers 中的 AMP
@@ -406,7 +406,7 @@ for name, sens in sorted_layers[:10]:
 
 #### 方法 2：Hessian 追蹤
 
-**基於二階信息**：
+**基於二階資訊**：
 ```python
 def hessian_sensitivity(model, dataloader):
     """使用 Hessian 對角線估計敏感度"""
@@ -656,7 +656,7 @@ output = quantized_model.generate(input_ids, max_length=50)
 ```python
 import tensorrt as trt
 
-# 創建 builder
+# 建立 builder
 builder = trt.Builder(TRT_LOGGER)
 network = builder.create_network(1 << int(trt.NetworkDefinitionCreationFlag.EXPLICIT_BATCH))
 config = builder.create_builder_config()
@@ -698,7 +698,7 @@ engine = builder.build_engine(network, config)
 可以使用低精度：
 - FFN 中間層
 - 大部分 Attention 投影（Q/K/V/O）
-- 激活函數（ReLU, GELU）
+- 激活函式（ReLU, GELU）
 ```
 
 **2. 不同模型架構**：
@@ -720,7 +720,7 @@ Vision Transformer：
 - 其他類似 BERT
 ```
 
-**3. 數據類型選擇**：
+**3. 資料類型選擇**：
 ```
 精度      訓練    推理    硬體需求
 FP32      ✓       ✓       任意
@@ -764,7 +764,7 @@ def validate_precision(model, test_data):
     # 測試困惑度
     ppl = evaluate_perplexity(model, test_data)
 
-    # 測試生成質量
+    # 測試生成品質
     gen_quality = evaluate_generation(model, test_prompts)
 
     # 測試特定任務
@@ -779,7 +779,7 @@ def validate_precision(model, test_data):
 
 ### 6.3 常見陷阱
 
-**陷阱 1：忽視數據類型轉換開銷**
+**陷阱 1：忽視資料類型轉換開銷**
 ```python
 # ❌ 錯誤：頻繁轉換
 for layer in model:

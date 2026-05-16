@@ -5,7 +5,7 @@
 這是一個多層次的 Prompt Injection 檢測系統，包含：
 
 1. **基於規則的檢測器** - 使用正則表達式匹配已知的攻擊模式
-2. **FlipAttack 檢測器** - 檢測反轉文本攻擊
+2. **FlipAttack 檢測器** - 檢測反轉文字攻擊
 3. **AI 輔助檢測器** - 檢測更隱蔽的操縱嘗試（如 Sugar-Coated Poison）
 4. **組合檢測器** - 綜合所有檢測器的結果
 
@@ -55,7 +55,7 @@
 ```python
 from prompt_injection_detector import CombinedDetector
 
-# 創建檢測器實例
+# 建立檢測器實例
 detector = CombinedDetector()
 
 # 檢測用戶輸入

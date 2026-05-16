@@ -17,7 +17,7 @@
 
 | 場景 | 模型大小 | 硬體 | 量化方法 | 主要挑戰 |
 |------|---------|------|----------|---------|
-| 企業 QA | 7B-13B | GPU 服務器 | INT8/INT4 | 延遲 < 1s |
+| 企業 QA | 7B-13B | GPU 伺服器 | INT8/INT4 | 延遲 < 1s |
 | 移動應用 | 1B-3B | 移動設備 | INT4/INT2 | 內存 < 4GB |
 | API 服務 | 7B-70B | 多 GPU | INT8 + LoRA | 高吞吐量 |
 | 邊緣設備 | 1B-7B | CPU/NPU | INT8/GGUF | 功耗 < 10W |
@@ -37,7 +37,7 @@
 
 **技術限制**：
 - 預算：4張 A100 GPU (40GB)
-- 不能使用外部 API（數據隱私）
+- 不能使用外部 API（資料隱私）
 - 需要支持持續學習
 
 ### 2.2 解決方案
@@ -90,7 +90,7 @@ model = AutoGPTQForCausalLM.from_pretrained(
     quantize_config=quantize_config
 )
 
-# 量化（使用企業文檔作為校準數據）
+# 量化（使用企業文檔作為校準資料）
 model.quantize(calibration_dataset)
 
 # 保存
@@ -106,7 +106,7 @@ lora_config = LoraConfig(
     lora_dropout=0.05,
 )
 
-# 在內部數據上微調
+# 在內部資料上微調
 model = get_peft_model(quantized_model, lora_config)
 # ... 訓練過程 ...
 model.save_pretrained("./lora-adapters/enterprise-qa")
@@ -196,7 +196,7 @@ vs. GPT-4 API：~$5,000/month (估計)
 - 離線語音助手（iOS/Android）
 - 設備內推理（隱私）
 - 應用大小 < 500MB
-- 推理延遲 < 200ms
+- 推論延遲 < 200ms
 - 功耗合理（不發燙）
 
 **技術限制**：
@@ -318,7 +318,7 @@ val response = engine.generate("Tell me a joke")
 #include <arm_neon.h>
 #endif
 
-// 量化推理優化
+// 量化推論優化
 void optimized_inference() {
     llama_context_params params = llama_context_default_params();
 
@@ -356,9 +356,9 @@ MyApp/
 
 **功能實現**：
 ```python
-# 智能緩存策略
+# 智能快取策略
 class ResponseCache:
-    """緩存常見查詢以減少推理"""
+    """快取常見查詢以減少推理"""
 
     def __init__(self, max_size=1000):
         self.cache = {}
@@ -411,7 +411,7 @@ class BatchProcessor:
 **性能指標（iPhone 14 Pro）**：
 ```
 首次載入：2.3s
-推理延遲：150-180ms (per token)
+推論延遲：150-180ms (per token)
 RAM 使用：~2.1 GB
 電池消耗：~5% per hour (持續使用)
 應用大小：420 MB
@@ -420,7 +420,7 @@ RAM 使用：~2.1 GB
 **Android（Snapdragon 8 Gen 2）**：
 ```
 首次載入：2.8s
-推理延遲：180-220ms (per token)
+推論延遲：180-220ms (per token)
 RAM 使用：~2.3 GB
 應用大小：450 MB
 ```
@@ -432,7 +432,7 @@ RAM 使用：~2.3 GB
 ### 3.1 需求分析
 
 **業務需求**：
-- SaaS 文本生成 API
+- SaaS 文字生成 API
 - 支持 10,000+ QPS
 - 多租戶（每個租戶自定義模型）
 - 成本可控
@@ -510,12 +510,12 @@ class MultiTenantLLMService:
         self.lora_cache = {}
 
     async def generate(self, tenant_id: str, prompt: str):
-        """為特定租戶生成文本"""
+        """為特定租戶生成文字"""
 
         # 獲取租戶的 LoRA 路徑
         lora_path = await self.get_tenant_lora(tenant_id)
 
-        # 創建 LoRA 請求
+        # 建立 LoRA 請求
         lora_request = LoRARequest(
             lora_name=f"tenant_{tenant_id}",
             lora_int_id=hash(tenant_id) % 32,  # 分配 LoRA slot
@@ -537,9 +537,9 @@ class MultiTenantLLMService:
         return outputs[0].outputs[0].text
 
     async def get_tenant_lora(self, tenant_id: str):
-        """獲取租戶 LoRA（帶緩存）"""
+        """獲取租戶 LoRA（帶快取）"""
 
-        # 檢查緩存
+        # 檢查快取
         if tenant_id in self.lora_cache:
             return self.lora_cache[tenant_id]
 
@@ -686,7 +686,7 @@ GPU 利用率：~85%
 vs. OpenAI GPT-3.5：
   - OpenAI：$0.002 per 1K tokens（輸出）
   - 但需要考慮：
-    * 數據隱私
+    * 資料隱私
     * 可定制性（LoRA）
     * 服務穩定性
 ```
@@ -755,7 +755,7 @@ python convert.py ~/models/TinyLlama-1.1B --outtype f16
 from llama_cpp import Llama
 
 class EdgeLLM:
-    """邊緣設備 LLM 推理引擎"""
+    """邊緣設備 LLM 推論引擎"""
 
     def __init__(self, model_path, n_ctx=512, n_threads=4):
         self.llm = Llama(
@@ -768,7 +768,7 @@ class EdgeLLM:
         )
 
     def generate(self, prompt, max_tokens=100):
-        """生成文本"""
+        """生成文字"""
         output = self.llm(
             prompt,
             max_tokens=max_tokens,
@@ -821,7 +821,7 @@ print(description)
 **Raspberry Pi 5 性能**：
 ```
 模型：TinyLlama-1.1B-Q4_0
-推理速度：~8 tokens/second
+推論速度：~8 tokens/second
 首 token 延遲：~500ms
 RAM 使用：~800MB
 功耗：~5W
@@ -831,7 +831,7 @@ RAM 使用：~800MB
 **Jetson Orin Nano 性能**：
 ```
 模型：Phi-2-Q4_K_M
-推理速度：~35 tokens/second
+推論速度：~35 tokens/second
 首 token 延遲：~150ms
 RAM 使用：~2.5GB
 功耗：~8W
@@ -884,7 +884,7 @@ cd text-generation-webui
 # 2. 在 UI 中搜索並下載模型
 # 搜索 "llama-2-13b" -> 選擇 Q4_K_M 格式
 
-# 3. 本地 API 服務器
+# 3. 本地 API 伺服器
 # Settings -> Local Server -> Start Server
 # 兼容 OpenAI API 格式
 ```
@@ -960,7 +960,7 @@ services:
 **RTX 4090 (24GB)**：
 ```
 模型：Llama-2-13B-GPTQ-4bit
-推理速度：~60 tokens/second
+推論速度：~60 tokens/second
 並發用戶：1-2
 顯存使用：~9GB
 成本：$1,600 (GPU)
@@ -969,7 +969,7 @@ services:
 **Mac Studio (M2 Ultra, 192GB)**：
 ```
 模型：Llama-2-13B-Q5_K_M (GGUF)
-推理速度：~25 tokens/second
+推論速度：~25 tokens/second
 並發用戶：1
 RAM 使用：~15GB
 成本：$6,000+
@@ -1000,10 +1000,10 @@ RAM 使用：~15GB
   - 優勢：彈性擴展、免維護
   - 適合：流量波動大
 
-自建（本地數據中心）：
+自建（本地資料中心）：
   - 成本：$40k (初始) + $200/month (電力)
   - ROI：~2 個月
-  - 優勢：長期成本低、數據隱私
+  - 優勢：長期成本低、資料隱私
   - 適合：穩定負載、隱私敏感
 ```
 
@@ -1014,7 +1014,7 @@ RAM 使用：~15GB
 需要極低延遲 (< 100ms) ?
 ├─ Yes → 使用更小模型 (1B-7B) + 激進量化
 └─ No
-    └─ 數據敏感 ?
+    └─ 資料敏感 ?
         ├─ Yes → 本地部署
         └─ No
             └─ 高 QPS (> 1000) ?
@@ -1037,7 +1037,7 @@ RAM 使用：~15GB
    - 配合合適工具（GPTQ/AWQ/GGUF）
 
 3. **硬體利用**：
-   - vLLM 適合 GPU 服務器
+   - vLLM 適合 GPU 伺服器
    - llama.cpp 適合 CPU/邊緣設備
    - TensorRT-LLM 適合 NVIDIA 生態
 

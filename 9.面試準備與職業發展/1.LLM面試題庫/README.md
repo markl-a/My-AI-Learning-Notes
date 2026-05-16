@@ -4,13 +4,15 @@
 > **題目數量**: 100題
 > **難度分佈**: 基礎30% | 中等40% | 高級30%
 
+> ⚠️ **目錄完整性說明**:本 `9.面試準備與職業發展/` 目前只有「1.LLM面試題庫」子目錄。早期版本曾規劃「2.系統設計案例」與「3.職業發展指南」兩節,目前皆為 **placeholder,內容待補**。文末「相關資源」段落的兩條相對連結為已知 dead link,已改為 TODO 註解。
+
 ---
 
 ## 📋 目錄
 
 1. [基礎概念題](#1-基礎概念題)
 2. [架構設計題](#2-架構設計題)
-3. [代碼實現題](#3-代碼實現題)
+3. [程式碼實現題](#3-程式碼實現題)
 4. [系統設計題](#4-系統設計題)
 5. [實戰場景題](#5-實戰場景題)
 
@@ -66,7 +68,7 @@ head_i = Attention(QW_i^Q, KW_i^K, VW_i^V)
 
 **為什麼需要**:
 - Self-Attention是位置無關的（permutation equivariant）
-- 沒有位置信息，模型無法區分"狗咬人"和"人咬狗"
+- 沒有位置資訊，模型無法區分"狗咬人"和"人咬狗"
 
 **常見方法**:
 1. **正弦位置編碼** (原始Transformer):
@@ -97,11 +99,11 @@ PE(pos, 2i+1) = cos(pos / 10000^(2i/d))
 自回歸生成時，每生成一個token需要計算所有之前token的注意力，導致O(n²)的計算複雜度。
 
 **KV-Cache原理**:
-- 緩存之前計算過的K和V矩陣
-- 新token只需計算自己的Q，與緩存的K、V計算注意力
+- 快取之前計算過的K和V矩陣
+- 新token只需計算自己的Q，與快取的K、V計算注意力
 - 將生成複雜度從O(n²)降為O(n)
 
-**代碼示意**:
+**程式碼示意**:
 ```python
 class KVCache:
     def __init__(self):
@@ -131,7 +133,7 @@ class KVCache:
 **核心思想**:
 1. **分塊計算**: 將Q、K、V分成小塊
 2. **在線Softmax**: 使用數學技巧增量計算softmax
-3. **IO優化**: 減少GPU HBM和SRAM之間的數據傳輸
+3. **IO優化**: 減少GPU HBM和SRAM之間的資料傳輸
 
 **效果**:
 - 記憶體從O(N²)降為O(N)
@@ -155,9 +157,9 @@ output_new = (output_old * l_old * exp(m_old - m_new) +
 
 **參考答案**:
 
-| 階段 | 目標 | 數據 | 損失函數 |
+| 階段 | 目標 | 資料 | 損失函式 |
 |------|------|------|---------|
-| **預訓練** | 學習語言知識 | 大規模無標註文本 | 下一個詞預測 |
+| **預訓練** | 學習語言知識 | 大規模無標註文字 | 下一個詞預測 |
 | **SFT** | 學習任務格式 | 指令-回答對 | 交叉熵 |
 | **RLHF** | 符合人類偏好 | 人類偏好排序 | PPO |
 
@@ -165,7 +167,7 @@ output_new = (output_old * l_old * exp(m_old - m_new) +
 
 **關鍵洞察**:
 - 預訓練學習"能力"，SFT學習"格式"，RLHF學習"偏好"
-- 每個階段的數據量遞減，但質量遞增
+- 每個階段的資料量遞減，但質量遞增
 - RLHF可以用DPO等方法替代（更簡單高效）
 
 ---
@@ -216,18 +218,18 @@ lora_dropout = 0.05
 3. 計算資源消耗大（需要多個模型）
 
 **DPO的優勢**:
-1. **無需獎勵模型**: 直接從偏好數據學習
+1. **無需獎勵模型**: 直接從偏好資料學習
 2. **訓練穩定**: 簡化為分類問題
 3. **計算高效**: 只需要訓練一個模型
 
-**DPO損失函數**:
+**DPO損失函式**:
 ```
 L_DPO = -log σ(β * (log π(y_w|x)/π_ref(y_w|x) - log π(y_l|x)/π_ref(y_l|x)))
 ```
 
 **適用場景**:
-- 有高質量配對偏好數據時優先使用DPO
-- 如果只有評分數據（非配對），考慮KTO
+- 有高品質配對偏好資料時優先使用DPO
+- 如果只有評分資料（非配對），考慮KTO
 
 ---
 
@@ -244,7 +246,7 @@ L_DPO = -log σ(β * (log π(y_w|x)/π_ref(y_w|x) - log π(y_l|x)/π_ref(y_l|x))
 |------|------|------|
 | **PTQ** | INT8 | 訓練後量化，簡單但精度損失可能較大 |
 | **QAT** | INT8 | 量化感知訓練，精度更好但需要重新訓練 |
-| **GPTQ** | INT4 | 基於二階信息的權重量化，適合LLM |
+| **GPTQ** | INT4 | 基於二階資訊的權重量化，適合LLM |
 | **AWQ** | INT4 | 基於激活感知的量化，保護重要權重 |
 | **GGML/GGUF** | 多種 | llama.cpp使用，支持CPU推理 |
 
@@ -271,7 +273,7 @@ x' = (Q(x) - zero_point) * scale
 
 ```
 1. 索引階段:
-   文檔 → 分塊 → Embedding → 存入向量數據庫
+   文檔 → 分塊 → Embedding → 存入向量資料庫
 
 2. 查詢階段:
    Query → Embedding → 向量檢索 → Top-K文檔
@@ -309,8 +311,8 @@ x' = (Q(x) - zero_point) * scale
 | 維度 | 指標 | 說明 |
 |------|------|------|
 | **檢索質量** | NDCG@K, MRR, Recall@K | 評估檢索的相關性 |
-| **回答質量** | Faithfulness | 回答是否忠實於上下文 |
-| **回答質量** | Relevancy | 回答是否相關於問題 |
+| **回答品質** | Faithfulness | 回答是否忠實於上下文 |
+| **回答品質** | Relevancy | 回答是否相關於問題 |
 | **端到端** | Answer Correctness | 最終答案是否正確 |
 
 **常用框架**:
@@ -357,7 +359,7 @@ Embedding假設答案
 返回真實文檔
 ```
 
-**代碼示例**:
+**程式碼示例**:
 ```python
 def hyde_search(query: str, retriever, llm):
     # 1. 生成假設文檔
@@ -424,7 +426,7 @@ while not done:
 
 1. **清晰的名稱**: 動詞+名詞格式
 2. **詳細的描述**: 說明用途和使用場景
-3. **參數說明**: 包括類型、約束、默認值
+3. **參數說明**: 包括類型、約束、預設值
 4. **示例**: 提供使用示例
 
 **示例對比**:
@@ -442,11 +444,11 @@ while not done:
 ```json
 {
   "name": "search_documents",
-  "description": "在知識庫中搜索相關文檔。適用於需要查找特定信息、回答事實性問題的場景。返回最相關的文檔片段。",
+  "description": "在知識庫中搜索相關文檔。適用於需要查找特定資訊、回答事實性問題的場景。返回最相關的文檔片段。",
   "parameters": {
     "query": {
       "type": "string",
-      "description": "搜索查詢，使用自然語言描述需要查找的信息"
+      "description": "搜索查詢，使用自然語言描述需要查找的資訊"
     },
     "max_results": {
       "type": "integer",
@@ -513,7 +515,7 @@ while not done:
    - 資源隔離: 獨立的請求隊列和配額
 
 2. **限流機制**:
-   - 令牌桶算法
+   - 令牌桶演算法
    - 按租戶配置不同的限制
    ```python
    rate_limits = {
@@ -581,9 +583,9 @@ while not done:
 
 1. **多區域部署**:
    - 至少3個可用區
-   - 數據同步複製
+   - 資料同步複製
 
-2. **向量數據庫HA**:
+2. **向量資料庫HA**:
    - 主從複製
    - 自動故障切換
    - 定期備份
@@ -593,9 +595,9 @@ while not done:
    - 重試機制
    - 熔斷器
 
-4. **緩存策略**:
+4. **快取策略**:
    ```python
-   # 多級緩存
+   # 多級快取
    cache_layers = [
        "local_memory_cache",   # 毫秒級
        "redis_cluster",         # 10ms
@@ -605,7 +607,7 @@ while not done:
 
 ---
 
-## 3. 代碼實現題 (20題)
+## 3. 程式碼實現題 (20題)
 
 #### Q17: 實現一個簡單的Transformer Attention ⭐⭐⭐
 **難度**: 中等
@@ -764,15 +766,15 @@ class TokenManager:
         truncate_from: str = "end"
     ) -> str:
         """
-        截斷文本到指定token數
+        截斷文字到指定token數
 
         Args:
-            text: 輸入文本
+            text: 輸入文字
             max_tokens: 最大token數
             truncate_from: "start"或"end"
 
         Returns:
-            截斷後的文本
+            截斷後的文字
         """
         tokens = self.encoding.encode(text)
 
@@ -793,10 +795,10 @@ class TokenManager:
         overlap: int = 0
     ) -> List[str]:
         """
-        將文本分割成chunks
+        將文字分割成chunks
 
         Args:
-            text: 輸入文本
+            text: 輸入文字
             chunk_size: 每個chunk的token數
             overlap: 重疊的token數
 
@@ -864,7 +866,7 @@ print(tm.truncate_to_limit("This is a long text...", max_tokens=5))
 
 ## 4. 系統設計題 (15題)
 
-#### Q20: 設計一個AI代碼審查系統 ⭐⭐⭐⭐
+#### Q20: 設計一個AI程式碼審查系統 ⭐⭐⭐⭐
 **難度**: 高級
 
 **題目**: 設計一個能夠自動審查Pull Request的AI系統。
@@ -882,7 +884,7 @@ GitHub Webhook
         │
         ▼
 ┌───────────────┐     ┌───────────────┐
-│   代碼分析    │ ──► │  上下文收集   │
+│   程式碼分析    │ ──► │  上下文收集   │
 │   (AST解析)   │     │  (歷史/規範)  │
 └───────┬───────┘     └───────┬───────┘
         │                     │
@@ -908,7 +910,7 @@ GitHub Webhook
 
 **關鍵組件**:
 
-1. **代碼分析器**:
+1. **程式碼分析器**:
 ```python
 class CodeAnalyzer:
     def analyze_diff(self, diff: str) -> dict:
@@ -921,26 +923,26 @@ class CodeAnalyzer:
 
 2. **上下文收集**:
    - PR描述和關聯Issue
-   - 代碼規範文檔
+   - 程式碼規範文檔
    - 相關的歷史變更
    - 測試結果
 
 3. **審查Prompt設計**:
 ```python
 review_prompt = """
-你是一個專業的代碼審查員。請審查以下代碼變更：
+你是一個專業的程式碼審查員。請審查以下程式碼變更：
 
 ## 變更概述
 {pr_description}
 
-## 代碼變更
+## 程式碼變更
 {code_diff}
 
 ## 審查重點
-1. 代碼正確性
+1. 程式碼正確性
 2. 性能問題
 3. 安全漏洞
-4. 代碼風格
+4. 程式碼風格
 5. 測試覆蓋
 
 請以建設性的方式提供具體的改進建議。
@@ -997,7 +999,7 @@ class HallucinationDetector:
 
 ---
 
-#### Q22: 如何優化LLM推理延遲？ ⭐⭐⭐
+#### Q22: 如何優化LLM推論延遲？ ⭐⭐⭐
 **難度**: 中等
 
 **參考答案**:
@@ -1097,11 +1099,11 @@ class PromptDefense:
 
     def output_validation(self, response: str) -> str:
         """輸出驗證"""
-        # 檢查是否洩露系統信息
+        # 檢查是否洩露系統資訊
         if "system prompt" in response.lower():
             return "[回答被過濾]"
 
-        # 檢查是否包含敏感信息
+        # 檢查是否包含敏感資訊
         if self.contains_pii(response):
             return self.redact_pii(response)
 
@@ -1140,5 +1142,6 @@ class PromptDefense:
 ## 🔗 相關資源
 
 - [LLM面試高頻問題匯總](https://github.com/...)
-- [系統設計面試指南](../2.系統設計案例/README.md)
-- [職業發展指南](../3.職業發展指南/README.md)
+<!-- TODO: 待補章節 -->
+- 系統設計面試指南(待補建立 — 原規劃路徑 `../2.系統設計案例/`)
+- 職業發展指南(待補建立 — 原規劃路徑 `../3.職業發展指南/`)

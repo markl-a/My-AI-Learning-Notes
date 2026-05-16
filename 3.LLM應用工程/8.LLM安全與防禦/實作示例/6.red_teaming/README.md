@@ -18,7 +18,7 @@
 3. **System Prompt Leak** - 系統提示洩露
 4. **Encoding Bypass** - 編碼繞過
 5. **Context Overflow** - 上下文溢出
-6. **FlipAttack** - 反轉文本攻擊
+6. **FlipAttack** - 反轉文字攻擊
 
 ## 使用方法
 
@@ -42,7 +42,7 @@ def my_system(user_input: str):
     # 你的 LLM 系統邏輯
     return process(user_input)
 
-# 創建測試器
+# 建立測試器
 tester = RedTeamTester(my_system)
 
 # 運行測試

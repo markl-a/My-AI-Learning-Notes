@@ -2,6 +2,8 @@
 
 > **最後更新**: 2025-12-14
 > **涵蓋模型**: OpenAI o1/o3, DeepSeek-R1, Gemini 2.0 Flash Thinking
+>
+> 📚 補充歷史視角請見 [`../1.LLM 基礎與架構/推理模型_Reasoning_Models_深度解析.md`](../1.LLM%20基礎與架構/推理模型_Reasoning_Models_深度解析.md)(2025-01 版本)
 
 ---
 
@@ -11,7 +13,7 @@
 2. [主要推理模型對比](#2-主要推理模型對比)
 3. [使用場景與最佳實踐](#3-使用場景與最佳實踐)
 4. [成本效益分析](#4-成本效益分析)
-5. [實戰代碼示例](#5-實戰代碼示例)
+5. [實戰程式碼示例](#5-實戰程式碼示例)
 6. [與傳統模型的協同使用](#6-與傳統模型的協同使用)
 
 ---
@@ -136,7 +138,7 @@ deepseek_r1 = {
 ✅ **高度推薦**:
 - 複雜數學問題和證明
 - 多步驟邏輯推理
-- 代碼調試和複雜算法設計
+- 程式碼調試和複雜演算法設計
 - 科學研究問題
 - 策略規劃和決策分析
 
@@ -170,19 +172,19 @@ good_prompt = """
 # ❌ 不好的提示詞
 bad_prompt = "球從10米高落下，每次彈起3/4高度，求總路程"
 
-# ✅ 代碼任務的好提示詞
+# ✅ 程式碼任務的好提示詞
 code_prompt = """
-任務：實現一個高效的LRU緩存。
+任務：實現一個高效的LRU快取。
 
 要求：
 1. 支持get(key)和put(key, value)操作
 2. 兩種操作的時間複雜度都是O(1)
-3. 當緩存滿時，移除最近最少使用的項目
-4. 緩存容量在初始化時指定
+3. 當快取滿時，移除最近最少使用的項目
+4. 快取容量在初始化時指定
 
 請提供：
 1. 設計思路
-2. 數據結構選擇的原因
+2. 資料結構選擇的原因
 3. 完整的Python實現
 4. 時間和空間複雜度分析
 5. 測試用例
@@ -220,7 +222,7 @@ response = client.chat.completions.create(
     max_completion_tokens=8000  # o1使用這個參數而非max_tokens
 )
 
-# ✅ 獲取推理token消耗
+# ✅ 獲取推論token消耗
 usage = response.usage
 print(f"輸入Tokens: {usage.prompt_tokens}")
 print(f"輸出Tokens: {usage.completion_tokens}")
@@ -250,7 +252,7 @@ def calculate_cost(
     output_tokens: int,
     reasoning_tokens: int = 0
 ) -> dict:
-    """計算API調用成本"""
+    """計算API呼叫成本"""
 
     prices = {
         "gpt-4o": {"input": 2.50, "output": 10.0},
@@ -264,7 +266,7 @@ def calculate_cost(
 
     price = prices[model]
 
-    # 推理tokens計入輸出
+    # 推論tokens計入輸出
     total_output = output_tokens + reasoning_tokens
 
     input_cost = (input_tokens / 1_000_000) * price["input"]
@@ -286,7 +288,7 @@ result = calculate_cost(
     model="o1",
     input_tokens=500,
     output_tokens=2000,
-    reasoning_tokens=10000  # o1會使用大量推理tokens
+    reasoning_tokens=10000  # o1會使用大量推論tokens
 )
 print(result)
 # {'model': 'o1', 'total_cost': '$0.7275'}
@@ -373,7 +375,7 @@ print(should_use_reasoning_model(task))
 
 ---
 
-## 5. 實戰代碼示例
+## 5. 實戰程式碼示例
 
 ### 5.1 數學問題求解
 
@@ -420,7 +422,7 @@ x + y = 7
 print(result["solution"])
 ```
 
-### 5.2 複雜代碼調試
+### 5.2 複雜程式碼調試
 
 ```python
 def debug_code_with_reasoning(
@@ -428,17 +430,17 @@ def debug_code_with_reasoning(
     error_message: str,
     expected_behavior: str
 ) -> dict:
-    """使用推理模型調試代碼"""
+    """使用推理模型調試程式碼"""
 
     prompt = f"""
-我有以下代碼出現問題，請幫我分析並修復。
+我有以下程式碼出現問題，請幫我分析並修復。
 
-## 代碼
+## 程式碼
 ```python
 {code}
 ```
 
-## 錯誤信息
+## 錯誤資訊
 ```
 {error_message}
 ```
@@ -449,7 +451,7 @@ def debug_code_with_reasoning(
 請：
 1. 分析錯誤的根本原因
 2. 解釋為什麼會出現這個問題
-3. 提供修復後的代碼
+3. 提供修復後的程式碼
 4. 解釋修改的內容和原因
 5. 建議如何避免類似問題
 """
@@ -528,7 +530,7 @@ def setup_local_deepseek_r1():
         "ollama pull deepseek-r1:32b", # 32B蒸餾版
     ]
 
-    # Python調用
+    # Python呼叫
     from ollama import Client
 
     client = Client()
@@ -574,8 +576,8 @@ class HybridReasoningSystem:
                     "content": """分析任務複雜度，回答一個詞：
                     - simple: 簡單問答、翻譯、摘要
                     - medium: 需要分析但邏輯直接的任務
-                    - complex: 多步推理、數學問題、代碼調試
-                    - very_complex: 複雜數學證明、算法設計、策略規劃"""
+                    - complex: 多步推理、數學問題、程式碼調試
+                    - very_complex: 複雜數學證明、演算法設計、策略規劃"""
                 },
                 {"role": "user", "content": f"任務: {task}"}
             ],
@@ -600,7 +602,7 @@ class HybridReasoningSystem:
         model_tier = self.classify_task(task)
         model = self.models[model_tier]
 
-        # 2. 根據模型類型調用
+        # 2. 根據模型類型呼叫
         if model in ["o1", "o1-mini"]:
             response = self.client.chat.completions.create(
                 model=model,
@@ -658,7 +660,7 @@ class ReasonExecuteSeparation:
 
 {task}
 
-請以JSON數組格式輸出計劃步驟，每個步驟包含：
+請以JSON陣列格式輸出計劃步驟，每個步驟包含：
 - step_id: 步驟編號
 - description: 步驟描述
 - dependencies: 依賴的步驟ID列表

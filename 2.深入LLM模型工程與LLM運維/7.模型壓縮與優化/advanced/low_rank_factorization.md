@@ -256,7 +256,7 @@ r=64+   : 高性能要求，參數效率降低
 
 **Alpha (α)**：
 ```
-α = r   : 默認設置
+α = r   : 預設設置
 α = 2r  : 更大的學習率
 α = r/2 : 更保守的更新
 ```
@@ -494,7 +494,7 @@ from peft import LoraConfig, get_peft_model, TaskType
 from datasets import load_dataset
 
 # ============================================================================
-# 1. 載入模型和數據
+# 1. 載入模型和資料
 # ============================================================================
 model_name = "meta-llama/Llama-2-7b-hf"
 
@@ -508,7 +508,7 @@ model = AutoModelForCausalLM.from_pretrained(
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 tokenizer.pad_token = tokenizer.eos_token
 
-# 載入數據
+# 載入資料
 dataset = load_dataset("tatsu-lab/alpaca", split="train[:1000]")
 
 # ============================================================================
@@ -532,10 +532,10 @@ model = get_peft_model(model, lora_config)
 model.print_trainable_parameters()
 
 # ============================================================================
-# 3. 數據預處理
+# 3. 資料預處理
 # ============================================================================
 def preprocess_function(examples):
-    """預處理數據"""
+    """預處理資料"""
     texts = [
         f"Instruction: {inst}\nInput: {inp}\nOutput: {out}"
         for inst, inp, out in zip(
@@ -621,7 +621,7 @@ tasks = ["summarization", "translation", "qa"]
 
 for task in tasks:
     # 訓練特定任務的 LoRA
-    # ... 訓練代碼 ...
+    # ... 訓練程式碼 ...
     model.save_pretrained(f"./lora-{task}")
 
 # 使用時動態切換
@@ -695,7 +695,7 @@ LoRA (r=8)        0.3%          90.0
 
 **LLaMA-7B 指令微調（Alpaca）**：
 ```
-方法              參數量        ROUGE-L    推理速度
+方法              參數量        ROUGE-L    推論速度
 全微調            7B (100%)     0.432      1.0x
 LoRA (r=8)        4M (0.06%)    0.428      1.0x
 LoRA (r=16)       8M (0.11%)    0.430      1.0x
@@ -704,7 +704,7 @@ LoRA (r=16)       8M (0.11%)    0.430      1.0x
 **觀察**：
 - LoRA 能達到接近全微調的性能
 - 秩 r=8 通常足夠
-- 推理速度無差異（合併後）
+- 推論速度無差異（合併後）
 
 ---
 
@@ -717,8 +717,8 @@ LoRA (r=16)       8M (0.11%)    0.430      1.0x
 任務複雜度低（分類、情感分析）：r=4~8
 任務複雜度中（NER、QA）：r=8~16
 任務複雜度高（生成、推理）：r=16~32
-數據量小：較小的 r（避免過擬合）
-數據量大：可以使用較大的 r
+資料量小：較小的 r（避免過擬合）
+資料量大：可以使用較大的 r
 ```
 
 **實驗策略**：

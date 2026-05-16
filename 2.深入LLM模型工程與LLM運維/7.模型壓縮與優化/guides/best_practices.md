@@ -37,7 +37,7 @@ INT4 (激進量化)
 混合精度 (精細調優)
 ```
 
-### 3. 數據驅動決策
+### 3. 資料驅動決策
 
 **記錄所有實驗**：
 ```python
@@ -75,13 +75,13 @@ wandb.log({
     └─ CPU → llama.cpp (GGUF)
 ```
 
-### 2. 校準數據很關鍵
+### 2. 校準資料很關鍵
 
 ```python
-# ❌ 錯誤：使用隨機或不相關數據
+# ❌ 錯誤：使用隨機或不相關資料
 calibration_data = random_data()
 
-# ✅ 正確：使用目標領域數據
+# ✅ 正確：使用目標領域資料
 calibration_data = load_dataset("your_domain", split="train[:1000]")
 
 # ✅ 更好：使用代表性樣本
@@ -108,7 +108,7 @@ def validate_quantization(original_model, quantized_model, test_data):
         results[f'{task}_original'] = evaluate_task(original_model, task)
         results[f'{task}_quantized'] = evaluate_task(quantized_model, task)
 
-    # 3. 推理速度
+    # 3. 推論速度
     results['speed_original'] = benchmark(original_model)
     results['speed_quantized'] = benchmark(quantized_model)
     results['speedup'] = results['speed_quantized'] / results['speed_original']
@@ -202,7 +202,7 @@ model.save_pretrained("./lora-adapter")  # ~4MB
 base_model = AutoModelForCausalLM.from_pretrained("base")
 model = PeftModel.from_pretrained(base_model, "./lora-adapter")
 
-# 推理優化：合併權重
+# 推論優化：合併權重
 merged_model = model.merge_and_unload()
 merged_model.save_pretrained("./merged-model")  # 完整模型
 ```
@@ -211,15 +211,15 @@ merged_model.save_pretrained("./merged-model")  # 完整模型
 
 ## 部署最佳實踐
 
-### 1. 推理優化
+### 1. 推論優化
 
-**使用專用推理引擎**：
+**使用專用推論引擎**：
 ```python
 # ❌ 避免：直接使用 Transformers 推理（生產環境）
 from transformers import pipeline
 pipe = pipeline("text-generation", model="model")
 
-# ✅ 推薦：使用優化的推理引擎
+# ✅ 推薦：使用優化的推論引擎
 from vllm import LLM
 
 llm = LLM(
@@ -350,13 +350,13 @@ class LLMService:
 - [ ] 使用混合精度訓練 (FP16/BF16)
 - [ ] 啟用梯度檢查點
 - [ ] 使用梯度累積模擬大批次
-- [ ] 優化數據加載（多進程、預取）
+- [ ] 優化資料加載（多進程、預取）
 - [ ] 使用高效優化器（paged_adamw）
 - [ ] 啟用 torch.compile（PyTorch 2.0+）
 
-### 推理優化
+### 推論優化
 - [ ] 使用量化（INT8/INT4）
-- [ ] 使用專用推理引擎（vLLM/TRT）
+- [ ] 使用專用推論引擎（vLLM/TRT）
 - [ ] 啟用 KV cache
 - [ ] 批次推理
 - [ ] 使用合適的採樣策略
@@ -367,7 +367,7 @@ class LLMService:
 - [ ] 自動擴展
 - [ ] 監控和告警
 - [ ] 錯誤處理和重試
-- [ ] 緩存常見查詢
+- [ ] 快取常見查詢
 - [ ] API 速率限制
 
 ---
@@ -398,10 +398,10 @@ def filter_output(text: str) -> str:
     return text
 ```
 
-### 2. 數據隱私
+### 2. 資料隱私
 
 ```python
-# 1. 不記錄敏感數據
+# 1. 不記錄敏感資料
 logger.info(f"Request from user: {hash(user_id)}")  # ✅ 散列
 logger.info(f"Request from user: {user_id}")        # ❌ 明文
 
@@ -507,7 +507,7 @@ class BatchProcessor:
 ## 總結
 
 **金律**：
-1. **測量 → 優化 → 驗證**：永遠基於數據決策
+1. **測量 → 優化 → 驗證**：永遠基於資料決策
 2. **漸進式優化**：不要一次性應用所有優化
 3. **記錄一切**：實驗、配置、結果
 4. **自動化**：測試、部署、監控

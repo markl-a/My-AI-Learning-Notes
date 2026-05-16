@@ -116,7 +116,7 @@ services:
 
 ### GET /
 
-根端點，返回 API 信息
+根端點，返回 API 資訊
 
 ### GET /health
 

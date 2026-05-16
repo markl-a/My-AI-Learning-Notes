@@ -36,7 +36,7 @@
 
 #### 核心技術
 - **Gradio**：最流行的 Python UI 框架，專為 ML 模型設計
-- **Streamlit**：快速構建數據應用的框架
+- **Streamlit**：快速構建資料應用的框架
 - **Hugging Face Spaces**：免費的模型部署平台
 
 #### 適用場景
@@ -242,7 +242,7 @@ graph TD
 ```bash
 # 解決方案：使用隧道工具
 pip install pyngrok
-# 在代碼中配置 ngrok token
+# 在程式碼中配置 ngrok token
 ```
 
 #### 2. Docker 容器內 GPU 不可用

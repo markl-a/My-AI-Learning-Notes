@@ -18,7 +18,7 @@
 └── production_api/                    # 示例 2：生產級 API
     ├── src/
     │   ├── main.py                   # FastAPI 應用
-    │   ├── models.py                 # 數據模型
+    │   ├── models.py                 # 資料模型
     │   ├── auth.py                   # 認證邏輯
     │   └── utils.py                  # 工具函數
     ├── docker/
@@ -52,7 +52,7 @@
 ### 快速開始
 
 ```bash
-# 1. 克隆或複製代碼到本地
+# 1. 克隆或複製程式碼到本地
 cd gradio_chatbot
 
 # 2. 安裝依賴
@@ -71,7 +71,7 @@ python app.py
 ### 部署到 Hugging Face Spaces
 
 ```bash
-# 1. 創建 Space
+# 1. 建立 Space
 # 訪問 https://huggingface.co/spaces
 # 點擊 "Create new Space"，選擇 Gradio SDK
 
@@ -107,19 +107,19 @@ def chat(message, history):
 #### 2. AI 輔助功能
 
 ```python
-# 文本摘要
+# 文字摘要
 def summarize(text):
-    prompt = f"請總結以下文本：\n\n{text}"
+    prompt = f"請總結以下文字：\n\n{text}"
     return call_llm(prompt)
 
 # 翻譯
 def translate(text, target_lang):
-    prompt = f"將以下文本翻譯成{target_lang}：\n\n{text}"
+    prompt = f"將以下文字翻譯成{target_lang}：\n\n{text}"
     return call_llm(prompt)
 
 # 情感分析
 def analyze_sentiment(text):
-    prompt = f"分析以下文本的情感（正面/負面/中性）：\n\n{text}"
+    prompt = f"分析以下文字的情感（正面/負面/中性）：\n\n{text}"
     return call_llm(prompt)
 ```
 
@@ -193,7 +193,7 @@ pip install -r requirements.txt
 # 配置環境變數
 cp .env.example .env
 
-# 運行開發服務器
+# 運行開發伺服器
 uvicorn src.main:app --reload
 
 # 訪問 API 文檔
@@ -384,7 +384,7 @@ ssh -i key.pem ubuntu@your-ec2-ip
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 
-# 4. 克隆代碼
+# 4. 克隆程式碼
 git clone your-repo-url
 cd production_api/docker
 

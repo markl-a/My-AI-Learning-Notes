@@ -19,23 +19,23 @@ Hugging Face Spaces 是一個**免費**的機器學習應用託管平台，讓�
 
 ## 🚀 快速開始：3 種部署方式
 
-### 方式 1：網頁直接創建（最簡單，5 分鐘）
+### 方式 1：網頁直接建立（最簡單，5 分鐘）
 
-#### 步驟 1：創建 Space
+#### 步驟 1：建立 Space
 
 1. 訪問 https://huggingface.co/spaces
 2. 點擊右上角 "Create new Space"
-3. 填寫信息：
+3. 填寫資訊：
    - **Space name**：你的應用名稱（例如：`my-chatbot`）
    - **License**：選擇 MIT 或 Apache 2.0
    - **SDK**：選擇 `Gradio` 或 `Streamlit`
    - **Visibility**：Public（公開）或 Private（私密）
 
-#### 步驟 2：在線編輯代碼
+#### 步驟 2：在線編輯程式碼
 
-1. 創建後會自動生成一個基礎模板
+1. 建立後會自動生成一個基礎模板
 2. 點擊 "Files" → "app.py" → "Edit"
-3. 將你的代碼貼上去
+3. 將你的程式碼貼上去
 4. 點擊 "Commit changes to main"
 
 #### 步驟 3：添加依賴
@@ -65,9 +65,9 @@ Hugging Face Spaces 是一個**免費**的機器學習應用託管平台，讓�
 
 ### 方式 2：Git 命令行部署（適合開發者）
 
-#### 步驟 1：創建 Space（同方式 1）
+#### 步驟 1：建立 Space（同方式 1）
 
-在網頁上創建一個空的 Space。
+在網頁上建立一個空的 Space。
 
 #### 步驟 2：克隆 Space 倉庫
 
@@ -84,7 +84,7 @@ cd 你的space名稱
 cp /path/to/your/app.py ./
 cp /path/to/your/requirements.txt ./
 
-# 或者直接創建文件
+# 或者直接建立文件
 cat > app.py << 'EOF'
 import gradio as gr
 
@@ -143,7 +143,7 @@ from huggingface_hub import HfApi, create_repo
 # 初始化 API
 api = HfApi()
 
-# 創建 Space
+# 建立 Space
 repo_id = "你的用戶名/my-chatbot"
 create_repo(
     repo_id=repo_id,
@@ -215,7 +215,7 @@ my-professional-space/
 
 ## 🔧 README.md 配置（重要！）
 
-README.md 的開頭需要包含 YAML 元數據，用於配置 Space：
+README.md 的開頭需要包含 YAML 元資料，用於配置 Space：
 
 ### Gradio Space README.md
 
@@ -258,7 +258,7 @@ license: mit
 
 ```yaml
 ---
-title: 數據分析助手
+title: 資料分析助手
 emoji: 📊
 colorFrom: green
 colorTo: blue
@@ -269,9 +269,9 @@ pinned: false
 license: apache-2.0
 ---
 
-# 數據分析 AI 助手
+# 資料分析 AI 助手
 
-使用 AI 自動分析你的數據！
+使用 AI 自動分析你的資料！
 ```
 
 ### README 配置選項說明
@@ -303,7 +303,7 @@ license: apache-2.0
    - Value: `sk-proj-...`
 6. 點擊 "Add"
 
-### 在代碼中使用 Secrets
+### 在程式碼中使用 Secrets
 
 ```python
 import os
@@ -339,7 +339,7 @@ if not OPENAI_KEY:
 
 | 等級 | GPU 型號 | 顯存 | 費用 | 適用場景 |
 |------|----------|------|------|----------|
-| **CPU** | - | - | 免費 | 輕量應用、API 調用 |
+| **CPU** | - | - | 免費 | 輕量應用、API 呼叫 |
 | **T4 small** | NVIDIA T4 | 16GB | 免費（需申請）| 中小型模型推論 |
 | **T4 medium** | NVIDIA T4 | 16GB | $0.60/小時 | 大型模型 |
 | **A10G small** | NVIDIA A10G | 24GB | $1.05/小時 | 高性能需求 |
@@ -358,7 +358,7 @@ if not OPENAI_KEY:
    ```
 6. 提交並等待審核（通常 1-3 天）
 
-### 使用 GPU 的代碼示例
+### 使用 GPU 的程式碼示例
 
 ```python
 import torch
@@ -379,7 +379,7 @@ model = AutoModel.from_pretrained("模型名稱").to(device)
 ### Git Push 自動部署
 
 每次 `git push` 到 main 分支時，Space 會自動：
-1. 拉取最新代碼
+1. 拉取最新程式碼
 2. 安裝 requirements.txt 中的依賴
 3. 重新啟動應用
 
@@ -411,7 +411,7 @@ ModuleNotFoundError: No module named 'xxx'
 
 **解決方案：**
 - 確保 `requirements.txt` 包含所有依賴
-- 重新推送代碼觸發重新構建
+- 重新推送程式碼觸發重新構建
 
 #### 錯誤 3：API 金鑰錯誤
 
@@ -421,7 +421,7 @@ AuthenticationError: Invalid API key
 
 **解決方案：**
 - 檢查 Secrets 中的 API 金鑰是否正確
-- 確保代碼中正確讀取環境變數
+- 確保程式碼中正確讀取環境變數
 
 ---
 
@@ -455,7 +455,7 @@ with gr.Blocks(analytics_enabled=True, head="""
   gtag('config', 'G-XXXXXXXXXX');
 </script>
 """) as demo:
-    # 你的應用代碼
+    # 你的應用程式碼
     pass
 ```
 
@@ -492,7 +492,7 @@ Gradio 提供更好的嵌入支持：
 
 ### 1. 使用 Docker SDK（完全自定義）
 
-創建 `Dockerfile`:
+建立 `Dockerfile`:
 
 ```dockerfile
 FROM python:3.10-slim
@@ -519,7 +519,7 @@ app_port: 7860
 
 ### 2. 多頁面應用
 
-使用 Gradio Blocks 創建多頁面：
+使用 Gradio Blocks 建立多頁面：
 
 ```python
 import gradio as gr
@@ -538,15 +538,15 @@ demo.launch()
 
 ### 3. 持久化存儲
 
-Space 重啟後會清空數據，使用外部存儲：
+Space 重啟後會清空資料，使用外部存儲：
 
 ```python
 import gradio as gr
 from huggingface_hub import hf_hub_download
 
-# 下載數據文件
+# 下載資料文件
 data_path = hf_hub_download(
-    repo_id="你的用戶名/你的數據集",
+    repo_id="你的用戶名/你的資料集",
     filename="data.json",
     repo_type="dataset"
 )
@@ -616,7 +616,7 @@ def chat(message, history):
 
 **答案：** 目前 Hugging Face Spaces 不支持自定義域名，但你可以：
 - 使用 iframe 嵌入到你的網站
-- 使用反向代理（需要自己的服務器）
+- 使用反向代理（需要自己的伺服器）
 
 ---
 
@@ -625,13 +625,13 @@ def chat(message, history):
 ### 範例 1：部署 Gradio 聊天機器人
 
 ```bash
-# 1. 創建 Space（在網頁上操作）
+# 1. 建立 Space（在網頁上操作）
 
 # 2. 克隆倉庫
 git clone https://huggingface.co/spaces/你的用戶名/chatbot
 cd chatbot
 
-# 3. 創建文件
+# 3. 建立文件
 cat > app.py << 'EOF'
 import os
 import gradio as gr
@@ -694,14 +694,14 @@ git push
 
 ### 1. 安全性
 
-- ✅ 永遠不要在代碼中硬編碼 API 金鑰
-- ✅ 使用 Secrets 管理敏感信息
+- ✅ 永遠不要在程式碼中硬編碼 API 金鑰
+- ✅ 使用 Secrets 管理敏感資訊
 - ✅ 添加速率限制防止濫用
 - ✅ 驗證用戶輸入
 
 ### 2. 性能優化
 
-- ✅ 使用 `@st.cache_data` (Streamlit) 或 `gr.State` (Gradio) 快取數據
+- ✅ 使用 `@st.cache_data` (Streamlit) 或 `gr.State` (Gradio) 快取資料
 - ✅ 延遲加載大型模型
 - ✅ 優化圖片和資源大小
 - ✅ 使用 GPU 加速推論

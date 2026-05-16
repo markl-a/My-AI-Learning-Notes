@@ -72,7 +72,7 @@ tokenizer(
 model.gradient_checkpointing_enable()
 ```
 
-**方法 5：清理緩存**
+**方法 5：清理快取**
 ```python
 import torch
 torch.cuda.empty_cache()
@@ -83,7 +83,7 @@ torch.cuda.empty_cache()
 **問題**：顯存隨著訓練步數逐漸增加。
 
 **原因**：
-- Python 對象未正確釋放
+- Python 物件未正確釋放
 - 計算圖未正確分離
 - 日誌記錄保存過多張量
 
@@ -161,7 +161,7 @@ for new_text in streamer:
 
 **原因**：
 1. 量化方法不適合
-2. 校準數據不足或不合適
+2. 校準資料不足或不合適
 3. 敏感層被量化
 
 **解決方案**：
@@ -174,12 +174,12 @@ quantize_config = BaseQuantizeConfig(
 )
 ```
 
-**方法 2：改進校準數據**
+**方法 2：改進校準資料**
 ```python
-# ❌ 錯誤：使用不相關數據
+# ❌ 錯誤：使用不相關資料
 calibration_data = load_dataset("random_text")
 
-# ✅ 正確：使用目標領域數據
+# ✅ 正確：使用目標領域資料
 calibration_data = load_dataset("your_domain_data")
 ```
 
@@ -263,7 +263,7 @@ python -c "import bitsandbytes as bnb; print(bnb.cuda_setup.main())"
 **原因**：
 1. 學習率不當
 2. LoRA 秩太小
-3. 數據問題
+3. 資料問題
 
 **解決方案**：
 
@@ -325,7 +325,7 @@ training_args = TrainingArguments(
     learning_rate=1e-4,  # 降低
 )
 
-# 4. 檢查數據
+# 4. 檢查資料
 def check_data(batch):
     for k, v in batch.items():
         if torch.isnan(v).any():
@@ -341,7 +341,7 @@ def check_data(batch):
 **原因**：
 - 批次大小太小
 - 未使用高效優化器
-- 數據加載瓶頸
+- 資料加載瓶頸
 
 **解決方案**：
 
@@ -357,7 +357,7 @@ training_args = TrainingArguments(
     optim="paged_adamw_32bit",  # 分頁優化器
 )
 
-# 3. 優化數據加載
+# 3. 優化資料加載
 training_args = TrainingArguments(
     dataloader_num_workers=4,
     dataloader_pin_memory=True,
@@ -371,9 +371,9 @@ model = torch.compile(model)
 
 ## 4. 推理問題
 
-### Q4.1: 推理速度慢
+### Q4.1: 推論速度慢
 
-**問題**：推理速度遠低於預期。
+**問題**：推論速度遠低於預期。
 
 **診斷**：
 
@@ -381,7 +381,7 @@ model = torch.compile(model)
 import time
 
 def benchmark_inference(model, tokenizer, prompt, num_runs=10):
-    """基準測試推理速度"""
+    """基準測試推論速度"""
     input_ids = tokenizer(prompt, return_tensors="pt").input_ids.cuda()
 
     # 預熱
@@ -439,7 +439,7 @@ outputs = model.generate(
 )
 ```
 
-### Q4.2: 生成質量差
+### Q4.2: 生成品質差
 
 **問題**：量化後生成重複、不連貫或錯誤。
 
@@ -555,7 +555,7 @@ python build.py \
 
 ### Q5.3: llama.cpp 在 Mac 上性能差
 
-**問題**：在 M1/M2 Mac 上推理速度慢。
+**問題**：在 M1/M2 Mac 上推論速度慢。
 
 **解決方案**：
 
@@ -594,7 +594,7 @@ python -m torch.utils.bottleneck your_script.py
 
 **原因**：
 1. 批次大小太小
-2. 數據加載瓶頸
+2. 資料加載瓶頸
 3. CPU 預處理慢
 
 **解決方案**：
@@ -605,7 +605,7 @@ training_args = TrainingArguments(
     per_device_train_batch_size=8,  # 增加
 )
 
-# 2. 優化數據加載
+# 2. 優化資料加載
 dataloader = DataLoader(
     dataset,
     batch_size=32,
@@ -665,13 +665,13 @@ llm = LLM(
 - [ ] 啟用梯度檢查點
 
 ### 精度問題
-- [ ] 檢查校準數據
+- [ ] 檢查校準資料
 - [ ] 使用更高精度量化
 - [ ] 識別並保留敏感層
 - [ ] 評估困惑度變化
 
 ### 速度問題
-- [ ] 使用專用推理引擎（vLLM）
+- [ ] 使用專用推論引擎（vLLM）
 - [ ] 啟用量化
 - [ ] 優化批次大小
 - [ ] 使用合適的採樣方法
@@ -681,7 +681,7 @@ llm = LLM(
 - [ ] 調整學習率
 - [ ] 增加 LoRA 秩
 - [ ] 啟用梯度裁剪
-- [ ] 檢查數據質量
+- [ ] 檢查資料品質
 - [ ] 使用預熱策略
 
 ---
@@ -690,7 +690,7 @@ llm = LLM(
 
 **報告 Bug**：
 1. 提供完整錯誤堆棧
-2. 環境信息（CUDA、PyTorch 版本等）
+2. 環境資訊（CUDA、PyTorch 版本等）
 3. 最小可復現示例
 4. 已嘗試的解決方案
 

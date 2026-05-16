@@ -8,11 +8,11 @@
 
 | 優勢 | 說明 |
 |------|------|
-| **隱私保護** | 數據不離開設備，符合 GDPR 等法規 |
+| **隱私保護** | 資料不離開設備，符合 GDPR 等法規 |
 | **低延遲** | 無需網路往返，毫秒級回應 |
 | **離線可用** | 無網路環境也能使用 |
-| **成本節省** | 減少雲端 API 調用費用 |
-| **可擴展** | 用戶設備承擔計算，無服務器壓力 |
+| **成本節省** | 減少雲端 API 呼叫費用 |
+| **可擴展** | 用戶設備承擔計算，無伺服器壓力 |
 
 ## 📊 技術棧對比
 
@@ -49,7 +49,7 @@ npm install @xenova/transformers
 </head>
 <body>
     <h1>瀏覽器端 LLM</h1>
-    <textarea id="input" placeholder="輸入文本..."></textarea>
+    <textarea id="input" placeholder="輸入文字..."></textarea>
     <button onclick="generate()">生成</button>
     <div id="output"></div>
 
@@ -74,11 +74,11 @@ npm install @xenova/transformers
 
 ### 支持的任務
 
-- **文本生成**：GPT-2, DistilGPT2
-- **文本分類**：情感分析、主題分類
+- **文字生成**：GPT-2, DistilGPT2
+- **文字分類**：情感分析、主題分類
 - **問答**：BERT-QA
 - **翻譯**：多語言翻譯
-- **摘要**：文本摘要
+- **摘要**：文字摘要
 
 ### 完整範例：聊天機器人
 
@@ -302,7 +302,7 @@ inputs = tokenizer("Hello, how are you?", return_tensors="pt")
 outputs = model.generate(**inputs, max_length=50)
 text = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
-print(f"生成文本: {text}")
+print(f"生成文字: {text}")
 ```
 
 ---
@@ -343,7 +343,7 @@ python convert.py --model_dir /path/to/llama-2-7b
 ./main -m llama-2-7b-chat.Q4_K_M.gguf -n 256 --color -i -r "User:" \
   -p "You are a helpful assistant."
 
-# 啟動 API 服務器
+# 啟動 API 伺服器
 ./server -m llama-2-7b-chat.Q4_K_M.gguf -c 2048
 ```
 
@@ -360,7 +360,7 @@ llm = Llama(
     n_gpu_layers=0  # 使用 GPU 層數（0 = 純 CPU）
 )
 
-# 生成文本
+# 生成文字
 output = llm(
     "請用一句話介紹機器學習",
     max_tokens=100,
@@ -510,7 +510,7 @@ graph TD
 - ✅ 邊緣部署實現隱私保護和離線可用
 - ✅ 選擇合適的模型大小和量化等級
 - ✅ 利用快取減少載入時間
-- ✅ 權衡模型質量和資源占用
+- ✅ 權衡模型品質和資源占用
 
 ---
 

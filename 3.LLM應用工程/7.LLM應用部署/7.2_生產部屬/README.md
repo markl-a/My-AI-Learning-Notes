@@ -137,7 +137,7 @@ CMD ["python", "app.py"]
 #### 2. 利用層快取（加速構建）
 
 ```dockerfile
-# ❌ 錯誤：每次代碼改變都重裝依賴
+# ❌ 錯誤：每次程式碼改變都重裝依賴
 FROM python:3.10-slim
 COPY . .
 RUN pip install -r requirements.txt
@@ -175,7 +175,7 @@ tests/
 
 vLLM 是一個快速且易用的 LLM 推論和服務庫，具有以下特點：
 
-- **PagedAttention**：高效的記憶體管理，比 HuggingFace 快 24 倍
+- **PagedAttention**：高效的記憶體管理，比 Hugging Face 快 24 倍
 - **連續批處理**：自動批處理請求，提高吞吐量
 - **GPU 優化**：充分利用 GPU 資源
 - **兼容 OpenAI API**：無縫替換 OpenAI API
@@ -184,7 +184,7 @@ vLLM 是一個快速且易用的 LLM 推論和服務庫，具有以下特點：
 
 | 方案 | 吞吐量 | 延遲 | 易用性 | GPU 利用率 |
 |------|--------|------|--------|------------|
-| **HuggingFace Transformers** | ⭐⭐ | ⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐ |
+| **Hugging Face Transformers** | ⭐⭐ | ⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐ |
 | **vLLM** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
 | **TensorRT-LLM** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐ | ⭐⭐⭐⭐⭐ |
 | **Text Generation Inference** | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ |
@@ -216,10 +216,10 @@ for output in outputs:
     print(f"Generated text: {output.outputs[0].text}")
 ```
 
-#### OpenAI 兼容服務器
+#### OpenAI 兼容伺服器
 
 ```bash
-# 啟動 vLLM 服務器
+# 啟動 vLLM 伺服器
 python -m vllm.entrypoints.openai.api_server \
     --model facebook/opt-1.3b \
     --port 8000
@@ -361,7 +361,7 @@ async def chat(request: ChatRequest, background_tasks: BackgroundTasks):
 ### 三大支柱
 
 1. **日誌（Logs）**：記錄事件
-2. **指標（Metrics）**：量化數據
+2. **指標（Metrics）**：量化資料
 3. **追蹤（Traces）**：請求鏈路
 
 ### 實現監控
@@ -585,7 +585,7 @@ def cache_key(prompt: str) -> str:
 
 @lru_cache(maxsize=1000)
 def get_cached_response(prompt_hash: str, prompt: str):
-    # 調用 LLM
+    # 呼叫 LLM
     return llm.generate(prompt)
 
 @app.post("/chat")
@@ -612,7 +612,7 @@ model = AutoModelForCausalLM.from_pretrained(
 ## 📚 實戰練習
 
 ### 練習 1：Docker 化 FastAPI 應用（1 小時）
-1. 創建一個 FastAPI LLM API
+1. 建立一個 FastAPI LLM API
 2. 編寫 Dockerfile 和 docker-compose.yml
 3. 添加健康檢查和日誌
 4. 本地運行並測試

@@ -13,7 +13,7 @@ pip install -r requirements.txt
 ### 2. 配置 API 金鑰
 
 ```bash
-# 創建 .env 文件
+# 建立 .env 文件
 echo "OPENAI_API_KEY=your-api-key-here" > .env
 ```
 
@@ -50,10 +50,10 @@ curl -X POST http://localhost:8000/chat \
 
 ### POST /summarize
 
-文本摘要
+文字摘要
 
 ```bash
-curl -X POST "http://localhost:8000/summarize?text=這是一段很長的文本..."
+curl -X POST "http://localhost:8000/summarize?text=這是一段很長的文字..."
 ```
 
 ### POST /translate
@@ -67,8 +67,8 @@ curl -X POST "http://localhost:8000/translate?text=Hello&target_language=中文"
 ## 學習要點
 
 1. **FastAPI 基礎**：路由、請求/回應模型
-2. **Pydantic 驗證**：自動數據驗證
-3. **OpenAI 整合**：調用 LLM API
+2. **Pydantic 驗證**：自動資料驗證
+3. **OpenAI 整合**：呼叫 LLM API
 4. **錯誤處理**：HTTPException
 5. **自動文檔**：Swagger UI
 

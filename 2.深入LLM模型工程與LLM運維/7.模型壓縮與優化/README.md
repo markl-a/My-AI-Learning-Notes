@@ -32,7 +32,7 @@
 
 ## 1. 前言
 
-隨著大型語言模型 (LLM) 的參數規模不斷增長，模型的部署和推理成本成為重要挑戰：
+隨著大型語言模型 (LLM) 的參數規模不斷增長，模型的部署和推論成本成為重要挑戰：
 
 - **GPT-3 (175B)**：需要 ~350GB 顯存 (FP16)
 - **LLaMA-2-70B**：需要 ~140GB 顯存 (FP16)
@@ -41,7 +41,7 @@
 **模型壓縮與優化的目標**：
 - 減少模型大小（降低存儲需求）
 - 降低記憶體佔用（適應消費級硬體）
-- 加速推理速度（降低延遲）
+- 加速推論速度（降低延遲）
 - 保持模型性能（最小化精度損失）
 
 **主要技術**：
@@ -106,7 +106,7 @@ x_float ≈ x_quant × scale + zero_point
 
 **應用**：
 - 幾乎所有現代深度學習訓練
-- 高質量推理
+- 高品質推理
 
 **PyTorch 使用**：
 ```python
@@ -130,7 +130,7 @@ model = model.to(torch.float16)
 **特性**：
 - 8 位元整數
 - 模型大小減少 4 倍（相對 FP32）
-- 推理速度提升 2-4 倍
+- 推論速度提升 2-4 倍
 - 精度損失 < 1%（適當校準後）
 
 **應用場景**：
@@ -138,7 +138,7 @@ model = model.to(torch.float16)
 - 邊緣設備部署
 
 **挑戰**：
-- 需要校準數據
+- 需要校準資料
 - 量化感知訓練可能需要較長時間
 
 #### 2.2.4 4-bit 量化
@@ -170,7 +170,7 @@ model = model.to(torch.float16)
 
 **流程**：
 ```
-1. 準備校準數據集（通常 100-1000 樣本）
+1. 準備校準資料集（通常 100-1000 樣本）
 2. 運行前向傳播，收集激活值統計
 3. 計算量化參數（scale, zero_point）
 4. 應用量化
@@ -188,7 +188,7 @@ model = model.to(torch.float16)
 **缺點**：
 - 需要完整訓練流程
 - 計算成本高
-- 需要訓練數據和算力
+- 需要訓練資料和算力
 
 **偽量化**：
 ```
@@ -215,7 +215,7 @@ backward pass:
 
 **NF4 (4-bit NormalFloat)**：
 - 專為正態分佈設計的量化格式
-- 理論上最優化信息熵
+- 理論上最優化資訊熵
 
 **優勢**：
 - 7B 模型僅需 ~5GB 顯存（含 LoRA）
@@ -244,13 +244,13 @@ model = AutoModelForCausalLM.from_pretrained(
 
 **核心思想**：
 - 逐層量化，最小化重建誤差
-- 使用二階信息（Hessian 矩陣）
+- 使用二階資訊（Hessian 矩陣）
 - Group-wise quantization
 
 **特點**：
 - INT4/INT3 量化，精度損失 < 1%
-- 僅需少量校準數據（128 樣本）
-- 推理速度快（搭配專用 kernel）
+- 僅需少量校準資料（128 樣本）
+- 推論速度快（搭配專用 kernel）
 
 **適用場景**：
 - 推理部署
@@ -268,7 +268,7 @@ model = AutoModelForCausalLM.from_pretrained(
 **優勢**：
 - 相比 GPTQ，精度更高
 - 特別適合 3-4 bit 量化
-- 推理速度與 GPTQ 相當
+- 推論速度與 GPTQ 相當
 
 **適用場景**：
 - 超低精度量化（INT3/INT4）
@@ -279,7 +279,7 @@ model = AutoModelForCausalLM.from_pretrained(
 **GGUF (GPT-Generated Unified Format)**：
 - llama.cpp 生態系統的量化格式
 - 支持多種量化方案（Q4_0, Q5_1, Q8_0 等）
-- CPU 推理優化
+- CPU 推論優化
 
 **特點**：
 - 針對 CPU 優化（支援 AVX2, ARM NEON）
@@ -291,7 +291,7 @@ model = AutoModelForCausalLM.from_pretrained(
 Q2_K: 2.5-3 bpw (bits per weight) - 極限壓縮
 Q3_K_M: ~3.5 bpw - 平衡
 Q4_K_M: ~4.5 bpw - 推薦
-Q5_K_M: ~5.5 bpw - 高質量
+Q5_K_M: ~5.5 bpw - 高品質
 Q6_K: ~6 bpw - 幾乎無損
 Q8_0: 8 bpw - 高精度
 ```
@@ -360,7 +360,7 @@ Q8_0: 8 bpw - 高精度
 
 訓練小模型（學生）模仿大模型（教師）的行為。
 
-**損失函數**：
+**損失函式**：
 ```
 L = α × L_hard + (1-α) × L_soft
 
@@ -372,13 +372,13 @@ L_soft: 學生與教師輸出分佈的 KL 散度
 ```
 p_soft = softmax(logits / T)
 ```
-其中 T 為溫度，T > 1 使分佈更平滑，包含更多信息。
+其中 T 為溫度，T > 1 使分佈更平滑，包含更多資訊。
 
 ### 4.2 蒸餾方法
 
 #### 4.2.1 Response-based Distillation
 - 匹配最終輸出層
-- 最簡單，但信息有限
+- 最簡單，但資訊有限
 
 #### 4.2.2 Feature-based Distillation
 - 匹配中間層特徵
@@ -391,7 +391,7 @@ p_soft = softmax(logits / T)
 ### 4.3 LLM 蒸餾特殊考慮
 
 - **序列級蒸餾**：匹配生成序列分佈
-- **On-policy distillation**：使用學生模型生成數據
+- **On-policy distillation**：使用學生模型生成資料
 - **Chain-of-thought distillation**：遷移推理能力
 
 ---
@@ -427,7 +427,7 @@ p_soft = softmax(logits / T)
 配置：
 - INT4 量化
 - 搭配 vLLM 或 TGI
-優勢：推理速度快，吞吐量高
+優勢：推論速度快，吞吐量高
 ```
 
 #### 場景 3：本地/邊緣設備
@@ -450,9 +450,9 @@ p_soft = softmax(logits / T)
 
 ### 5.3 精度與速度權衡
 
-**經驗數據（LLaMA-7B）**：
+**經驗資料（LLaMA-7B）**：
 
-| 格式 | 模型大小 | 推理速度 | 困惑度 (PPL) | 顯存 (推理) |
+| 格式 | 模型大小 | 推論速度 | 困惑度 (PPL) | 顯存 (推理) |
 |------|---------|---------|-------------|-----------|
 | FP32 | 28 GB | 1.0x | 5.68 | 30 GB |
 | FP16 | 14 GB | 1.8x | 5.68 | 16 GB |
@@ -495,7 +495,7 @@ def dynamic_quantization_demo():
     print("動態量化 (Dynamic Quantization)")
     print("=" * 60)
 
-    # 創建模型
+    # 建立模型
     model = SimpleModel()
     model.eval()
 
@@ -533,7 +533,7 @@ def static_quantization_demo():
     print("靜態量化 (Static Quantization)")
     print("=" * 60)
 
-    # 創建模型
+    # 建立模型
     model = SimpleModel()
     model.eval()
 
@@ -544,7 +544,7 @@ def static_quantization_demo():
     # 插入觀察器
     model_prepared = quant.prepare(model)
 
-    # 校準（用代表性數據）
+    # 校準（用代表性資料）
     print("開始校準...")
     calibration_data = [torch.randn(1, 128) for _ in range(100)]
 
@@ -691,7 +691,7 @@ def gptq_quantization():
     model_name = "facebook/opt-125m"
     tokenizer = AutoTokenizer.from_pretrained(model_name)
 
-    # 準備校準數據
+    # 準備校準資料
     calibration_data = [
         "The quick brown fox jumps over the lazy dog.",
         "Machine learning is a subset of artificial intelligence.",
@@ -702,7 +702,7 @@ def gptq_quantization():
     # GPTQ 配置
     gptq_config = GPTQConfig(
         bits=4,  # 4-bit 量化
-        dataset="c4",  # 或提供自定義數據
+        dataset="c4",  # 或提供自定義資料
         group_size=128,  # Group size
         desc_act=False  # 是否量化 activation
     )
@@ -745,7 +745,7 @@ def pruning_demo():
     print("神經網路剪枝 (Pruning)")
     print("=" * 60)
 
-    # 創建簡單模型
+    # 建立簡單模型
     class SimpleNN(nn.Module):
         def __init__(self):
             super().__init__()
@@ -805,7 +805,7 @@ def pruning_demo():
     # ========================================================================
     print("\n3. 結構化剪枝（移除神經元）")
 
-    # 創建新模型
+    # 建立新模型
     model2 = SimpleNN()
 
     # 對 fc1 進行結構化剪枝（移除輸出神經元）
@@ -877,7 +877,7 @@ def knowledge_distillation_demo():
             x = F.relu(self.fc1(x))
             return self.fc2(x)
 
-    # 蒸餾損失函數
+    # 蒸餾損失函式
     def distillation_loss(student_logits, teacher_logits, labels, temperature=3.0, alpha=0.5):
         """
         組合硬標籤損失和軟標籤損失
@@ -936,7 +936,7 @@ def knowledge_distillation_demo():
             avg_loss = total_loss / len(train_loader)
             print(f"Epoch {epoch+1}/{epochs}, Loss: {avg_loss:.4f}")
 
-    # 創建模型
+    # 建立模型
     teacher = TeacherModel()
     student = StudentModel()
 
@@ -948,11 +948,11 @@ def knowledge_distillation_demo():
     print(f"學生模型參數: {student_params:,}")
     print(f"壓縮比: {teacher_params / student_params:.2f}x")
 
-    # 模擬訓練（實際使用時需要真實數據）
+    # 模擬訓練（實際使用時需要真實資料）
     print("\n開始蒸餾訓練...")
-    print("（這是模擬，實際需要真實數據集）")
+    print("（這是模擬，實際需要真實資料集）")
 
-    # 創建假數據用於演示
+    # 建立假資料用於演示
     fake_data = [(torch.randn(32, 128), torch.randint(0, 10, (32,))) for _ in range(10)]
 
     train_student(teacher, student, fake_data, epochs=3)
@@ -969,7 +969,7 @@ knowledge_distillation_demo()
 
 ### 7.1 評估指標
 
-#### 模型質量指標
+#### 模型品質指標
 - **困惑度 (Perplexity)**：語言模型的標準指標
 - **準確率**：分類任務
 - **BLEU/ROUGE**：生成任務
@@ -977,7 +977,7 @@ knowledge_distillation_demo()
 
 #### 效率指標
 - **模型大小**：磁碟空間（MB/GB）
-- **推理速度**：tokens/second
+- **推論速度**：tokens/second
 - **延遲 (Latency)**：首token時間 (TTFT), 平均token時間
 - **吞吐量 (Throughput)**：requests/second
 - **顯存佔用**：推理時的峰值顯存
@@ -1026,7 +1026,7 @@ def benchmark_model(model_path, quantization=None):
     total_params = sum(p.numel() for p in model.parameters())
     print(f"參數數量: {total_params / 1e9:.2f}B")
 
-    # 推理速度測試
+    # 推論速度測試
     prompt = "Once upon a time, in a land far away,"
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
 
@@ -1118,7 +1118,7 @@ def evaluate_perplexity(model, tokenizer, dataset_name="wikitext", subset="wikit
     print("困惑度評估 (Perplexity Evaluation)")
     print("=" * 60)
 
-    # 載入數據集
+    # 載入資料集
     dataset = load_dataset(dataset_name, subset, split=split)
 
     # 計算困惑度
@@ -1206,7 +1206,7 @@ def evaluate_perplexity(model, tokenizer, dataset_name="wikitext", subset="wikit
 
 - **r/LocalLLaMA** (Reddit): 本地 LLM 部署討論
 - **Hugging Face Forums**: 量化技術討論
-- **llama.cpp Discussions**: CPU 推理優化
+- **llama.cpp Discussions**: CPU 推論優化
 
 ---
 
