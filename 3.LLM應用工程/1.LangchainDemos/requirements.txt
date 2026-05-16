@@ -1,12 +1,12 @@
 # LangChain 核心套件
-langchain>=0.1.0
-langchain-community>=0.0.20
-langchain-openai>=0.0.5
+langchain>=0.3.0
+langchain-community>=0.3.0
+langchain-openai>=0.2.0
 langchain-chroma>=0.1.0
 langchainhub>=0.1.14
 
 # LLM 提供商
-openai>=1.10.0
+openai>=1.50.0
 
 # 向量資料庫
 chromadb>=0.4.22
