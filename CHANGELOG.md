@@ -12,6 +12,48 @@
 
 ---
 
+## [1.3.0] - 2026-05-16
+
+第二輪健全化:由 Gemini / Codex / Claude subagent 三方獨立審計觸發,
+逐項 verify 後動真實必修 + dependabot 大清理 + CI 從「裝飾性綠」改為「有意義的綠」。
+
+### Added
+- `三方審計優化建議_2026-05.md`:三方獨立審計合成,共識項目歸為 P0/P1/P2/P3,並標出 agent 誇大/過時項
+
+### Changed
+- **CI security 從「擺設」變「真實擋錯」**(`.github/workflows/ci.yml`)
+  - Safety(API 已過時)→ 改用 `pip-audit --strict` 一支
+  - Bandit 仍標 `continue-on-error`(教學 repo dummy keys 會誤報)
+  - status job 把 `security` 加入成功 / 失敗條件
+  - 移除 build job(repo 非 PyPI 套件,根目錄多個 top-level dir 導致 setuptools 偵測失敗)
+  - Notebook 測試從 `nbconvert --execute` 全 repo(常 hang ~50 分鐘)改為 `nbformat.validate`(秒級)
+- **SFT 訓練腳本升 TRL 0.12+ API**(`2.深入LLM/5.SFT/hands_on_project/scripts/3_train_model.py`)
+  - `TrainingArguments` → `SFTConfig`、`evaluation_strategy` → `eval_strategy`
+  - `dataset_text_field` / `max_seq_length` 從 SFTTrainer kwargs 移到 SFTConfig
+  - `tokenizer=` → `processing_class=`
+- **統一 langchain / openai 版本**(7 個子專案 requirements.txt)
+  - `langchain>=0.1.0` → `>=0.3.0`、`langchain-openai>=0.0.5` → `>=0.2.0`、`openai>=1.0-1.12` → `>=1.50.0`,對齊根 `requirements-llm.txt`
+
+### Fixed
+- **Dependabot:75 → 22 alerts**(清掉 1 critical + 30 high + 22 moderate)
+  - next 14.0.3 → 14.2.35(+ eslint-config-next 同步)
+  - python-multipart 0.0.6 → 0.0.27(3 個檔)
+  - GitPython 3.1.40 → 3.1.45、lxml 4.9.3 → 6.1.0、black 23.11.0 → 24.10.0
+  - requests 2.31.0 → 2.33.0(4 個 d2l setup.py + 1 個 docker)
+  - python-dotenv 1.0.0 → 1.2.2(5 個檔)、pytest 7.4.3 → 8.4.0
+  - Markdown 3.5.1 → 3.8.1、PyPDF2 3.0.1 → 3.9.0、postcss 8.4.31 → 8.5.10
+  - 剩 22 alerts 全在 archive `web-ui` demo 的 next.js 需要 major upgrade,user 決定保留
+- **11 個壞 notebook 修復**(被新 nbformat 驗證抓出)
+  - `1.從AI到LLM基礎/4.DL/03.Pytorch/1.ResNet/ResNet.ipynb`:cell stream output 有非法 `metadata` 欄
+  - `1.從AI到LLM基礎/3.ML_&_Data_Analysis/` 內 10 個檔:`metadata.kernelspec.name` 缺失、cell 缺 `id` / `outputs` / `execution_count`、stream output 缺 `name`
+- D2L_Jupyter_Notebooks/tensorflow/* 內 ~30 個 0-byte 空檔(d2l 上游 archive)在 CI validation 跳過
+
+### Known Issues
+- 剩 22 個 dependabot alerts(web-ui demo 內 next.js 14.x 無 patch,需升 next 15.x major)
+- 11-22 章的 hype 章節仍用具體數字 / 月份 / 版本,只在章首加 disclaimer(未逐段加 `[Confirmed]`/`[Reported]`/`[Speculative]` 標籤)
+
+---
+
 ## [1.2.0] - 2026-05-16
 
 ### Added
