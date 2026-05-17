@@ -1,5 +1,9 @@
 # ReAct Agent 範例
 
+> **⚠️ 教學示範 — AST 沙箱 `safe_eval` 也僅供教學**
+>
+> `react_agent_basic.py:101-112` 的 calculator tool 用 `ast` 模組自實作 `safe_eval`(白名單運算符)當算式求值器,**比 `eval()` 安全但仍非生產級**。Production tool calling 請改用 `simpleeval` / `numexpr` 等專門套件,或乾脆把算式委派給可驗證的數學服務。
+
 ReAct (Reasoning + Acting) 是一種讓 LLM 交替進行推理和行動的模式。
 
 ## 📖 ReAct 模式簡介

@@ -13,6 +13,14 @@
 >
 > **延伸 / 反向連結**:[3.LLM應用工程/3.Agent](../3.LLM應用工程/3.Agent/) | [Multimodal_Generation_2024-2026.md](../1.從AI到LLM基礎/4.DL/Multimodal_Generation_2024-2026.md)
 
+> **⚠️ 鮮度與可信度說明 / Freshness & Reliability**
+> 本章涉及 **TTS / ASR 模型版本(ElevenLabs v3 / Suno v5 / OpenAI Realtime / Cartesia Sonic / Deepgram Nova-3 等)、發布月份、latency 數據、價格、商業案例規模** 等高頻變動數字。這些資訊混合三類來源:
+> 1. **官方文件 / model card / 公開定價頁**(高信任度)
+> 2. **媒體報導 / vendor blog / 業內 changelog**(屬「報導」非「事實」,且 vendor 自報指標常無公正基準)
+> 3. **AI agent 整理 + 我手動驗證**(可能有誤標,尤其 ElevenLabs v3 GA 月份、Suno 時長、Realtime API 規格細節)
+>
+> 任何要拿來做選型 / 報價 / 架構決策的數字(latency、價格、context window、語言支援、商用條款),**請以原廠官方文件為準**。本章對「從串接 pipeline 走向原生語音 LLM」這類 *典範轉移敘事* 較高信心,對「2026.03 ElevenLabs v3 GA」這類 *精確時點* 較低信心。
+
 ---
 
 ## 1. ASR(語音辨識)

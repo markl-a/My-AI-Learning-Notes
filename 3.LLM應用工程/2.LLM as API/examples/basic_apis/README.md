@@ -1,5 +1,9 @@
 # 基礎 LLM API 使用示例
 
+> **⚠️ 教學示範 — `01_openai_basic.py` 的 calculator tool 用 AST `safe_eval`**
+>
+> `01_openai_basic.py:152-175` 自實作 `safe_eval`(AST + 白名單運算符)當 OpenAI function calling 的 calculator tool 示範。雖比 `eval()` 安全,production 請改用 `simpleeval`/`numexpr` 套件,並對所有 tool call 結果加 schema validate。
+
 本目錄包含多個主流 LLM API 的完整使用示例，所有程式碼都經過測試並可直接運行。
 
 ## 📁 文件說明

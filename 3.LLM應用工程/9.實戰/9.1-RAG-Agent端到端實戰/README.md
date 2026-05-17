@@ -1,5 +1,13 @@
 # 9.1 RAG + Agent + 部署的端到端實戰：智能文檔問答系統
 
+> **⚠️ 教學示範 — 生產環境請勿直接使用**
+>
+> 本範例為展示 RAG + Agent + 部署的完整端到端流程而設計,內含教學用的不安全寫法,**雖標題為「實戰」,但本意是教概念架構,不是 production-ready blueprint**。已知教學取捨:
+> - `src/agent_tools.py:136` 使用 `eval()`、`:285` 使用 `exec()` 作為 code interpreter 工具示範。雖加了 `{"__builtins__": {}}` 限制,**接受任意外部輸入後 `eval/exec` 都不該上線**。
+> - `src/app.py:112-119` CORS 在 config 載入前回退到 `["*"]`,`:236-239` 用 `file.filename` 直接寫入(path traversal 風險),`config/config.yaml:78` `api_key_required: false` 無 auth gate。
+>
+> 要部署請改用:算式 → `ast.literal_eval` 或 `simpleeval`;程式執行 → 獨立沙箱(Docker / nsjail / WebAssembly + memory/CPU limit);上傳檔名 → `Path(filename).name` 或 UUID;API → 強制 auth gate + restrict CORS origins。
+
 ## 項目概述
 
 這是一個完整的生產級智能文檔問答系統，結合了：

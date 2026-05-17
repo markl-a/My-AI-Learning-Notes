@@ -13,6 +13,14 @@
 >
 > **延伸 / 反向連結**:[3.LLM應用工程/6.推論優化](../3.LLM應用工程/6.推論優化/) | [Neuromorphic_Computing.md](./Neuromorphic_Computing.md)
 
+> **⚠️ 鮮度與可信度說明 / Freshness & Reliability**
+> 本章涉及 **GPU 路線圖、HBM 容量、機櫃功耗、TPU/MI300/Apple AI 晶片時程、Rubin/Blackwell 發布月份、各 frontier datacenter 容量** 等高度具體的硬體數字。這些資訊混合三類來源:
+> 1. **NVIDIA / AMD / TSMC / SK Hynix 官方規格表 / 財報**(高信任度)
+> 2. **媒體報導 / 供應鏈傳聞(Bloomberg / The Information / SemiAnalysis 等)**(屬「報導」非「事實」)
+> 3. **AI agent 整理 + 我手動驗證**(可能有誤標,尤其 Apple AI server 晶片量產時程、Rubin Ultra 細節、Stargate 容量數字)
+>
+> 任何要做硬體選型或投資決策的數字(規格、容量、價格、上市月份、產能爬坡),**請以原廠官方為準**。本章對「Hopper → Blackwell → Rubin 的指數爬坡」這類 *結構性趨勢* 較高信心,對「2026 H2 量產 X 顆」這類 *時點預測* 較低信心。
+
 ---
 
 ## 1. NVIDIA GPU 路線:從 Hopper 到 Rubin 的指數爬坡

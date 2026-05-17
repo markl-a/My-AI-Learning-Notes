@@ -1,5 +1,9 @@
 # AI Agents 範例
 
+> **⚠️ 教學示範 — `agent_demo.py` 用 `eval()`,生產勿直接使用**
+>
+> `agent_demo.py:44` 用 `eval(expression, {"__builtins__": {}}, {})` 作為 calculator agent tool 示範。雖然加了 builtins 限制,**接受 LLM 生成輸入後直接 `eval` 在生產環境一律該替換**。建議:算式 → `ast.literal_eval` / `simpleeval`;一般程式 → 沙箱(Docker / nsjail / WebAssembly + resource limit)。
+
 ## 📚 什麼是 AI Agent？
 
 AI Agent 是一種能夠：

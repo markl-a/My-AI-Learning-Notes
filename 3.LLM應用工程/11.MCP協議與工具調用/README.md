@@ -3,6 +3,13 @@
 > **最後更新**: 2025-12-14
 > **狀態**: 2024-2025年AI工具呼叫的新標準
 
+> **⚠️ 教學示範 — 範例 MCP server 含 `eval()`,生產勿用**
+>
+> 本目錄的 `examples/01_basic_mcp_server.py:51` 使用 `eval()` 作為 calculator tool 的算式求值示範。雖然加了 `{"__builtins__": {}}` 限制,但**接受外部輸入後執行 `eval` 在任何情境下都不該上線**。要做 production MCP tool 請改用:
+> - 算式 → `ast.literal_eval` 或 `simpleeval`
+> - 程式碼執行 → 獨立沙箱(Docker / nsjail / WebAssembly + memory/CPU limit)
+> - Tool schema → JSON Schema 嚴格 validate + 白名單參數
+
 ---
 
 ## 📋 目錄

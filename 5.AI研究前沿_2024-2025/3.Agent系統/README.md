@@ -2,6 +2,10 @@
 
 > 2024-2025年AI Agent的自主決策與工作流編排突破，包含LangGraph、CrewAI、AutoGen等關鍵技術及完整程式碼實現
 
+> **⚠️ 教學示範 — `examples/` 內 demo 含 AST 沙箱 `safe_eval`,生產勿直接複用**
+>
+> `examples/02_crewai_multi_agent.py:344-355` 用 `ast` 模組白名單實作 `safe_eval` 給 CrewAI agent 當算式工具。雖比 `eval()` 安全,但 production 請改用 `simpleeval`/`numexpr` 套件或專門數學服務,並對任何 agent tool 輸入加 schema validate + timeout。
+
 ---
 
 ## 📋 論文與項目列表
