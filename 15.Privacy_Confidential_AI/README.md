@@ -13,6 +13,14 @@
 >
 > **延伸 / 反向連結**:[2.深入LLM模型工程與LLM運維/8.模型部署與運維](../2.深入LLM模型工程與LLM運維/8.模型部署與運維/) | [16.AI_Content_Authenticity](../16.AI_Content_Authenticity/README.md)
 
+> **⚠️ 鮮度與可信度說明 / Freshness & Reliability**
+> 本章涉及 **Apple PCC、NVIDIA Blackwell TEE-I/O、Intel TDX、AMD SEV-SNP、Google Confidential VMs 等 TEE 平台規格與時程,以及 Apple 自研 AI server 晶片量產推測、聯邦學習在 Gboard 規模、ε 等 DP 預算數字** 等具體陳述。這些資訊混合三類來源:
+> 1. **NIST/IEEE 標準、Apple/NVIDIA 白皮書、學術 paper**(高信任度)
+> 2. **媒體報導 / 供應鏈推測 / vendor blog**(屬「報導」非「事實」)
+> 3. **AI agent 整理 + 我手動驗證**(可能有誤標,尤其 Apple 自研 AI server 晶片 2026 H2 量產、Blackwell TEE-I/O 細節)
+>
+> 任何要做合規 / 採購 / 架構決策的陳述(TEE 規格、認證等級、performance penalty、上市時程),**請以原廠 documentation 與相關監管文件為準**。本章對「TEE + FL + DP 三者進入規模化生產」這類 *結構性訊號* 較高信心,對「Apple 2026 H2 量產 X」這類 *時點推測* 較低信心。
+
 ---
 
 ## 1. 聯邦學習 (Federated Learning)

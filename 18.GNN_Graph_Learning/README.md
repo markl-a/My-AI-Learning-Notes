@@ -13,6 +13,14 @@
 >
 > **延伸 / 反向連結**:[12.AI_For_Science](../12.AI_For_Science/README.md)(分子 / 蛋白質皆為等變圖任務) | [3.LLM應用工程/5.進階 RAG 與多元資料檢索](<../3.LLM應用工程/5.進階 RAG 與多元資料檢索/>)(GraphRAG)
 
+> **⚠️ 鮮度與可信度說明 / Freshness & Reliability**
+> 本章涉及 **UltraGCN / LightGCN / GraphTransformer 等模型在 OGB / Citation / Amazon / Movielens 上的 benchmark 分數、Graph Foundation Models 訓練規模、GraphRAG 在企業內部的效能提升百分比** 等具體陳述。這些資訊混合三類來源:
+> 1. **論文 / OGB Leaderboard / 開源實作 reproduce**(高信任度)
+> 2. **公司技術 blog / 業內 talk slides**(屬「報導」非「事實」,且 benchmark 提升常隨資料集 / 評估設定變動)
+> 3. **AI agent 整理 + 我手動驗證**(可能有誤標,尤其 §6 「UltraGCN NDCG@20 +4% 至 +20%」這類 *跨資料集合併* 的數字)
+>
+> 任何要做架構選型 / 引用的具體分數,**請以原 paper 或 OGB Leaderboard 當前值為準**。本章對「GNN 找到不可替代位置」這類 *生態定位* 較高信心,對單一 benchmark 提升幅度較低信心。
+
 ---
 
 ## 1. GNN 經典與現況

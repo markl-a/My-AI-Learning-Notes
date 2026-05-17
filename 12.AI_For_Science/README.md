@@ -13,6 +13,14 @@
 >
 > **延伸 / 反向連結**:[18.GNN_Graph_Learning](../18.GNN_Graph_Learning/README.md)(等變網路、Graph Foundation Models)
 
+> **⚠️ 鮮度與可信度說明 / Freshness & Reliability**
+> 本章涉及 **AlphaFold 系列版本、RFdiffusion 各代、Boltz-1/2、Evo 2、ESM3、MACE-MP-0 等模型發布時程,以及製藥/材料公司導入案例規模、Nobel 委員會背書時程** 等具體陳述。這些資訊混合三類來源:
+> 1. **Nature/Science/bioRxiv 一手論文 + 官方 model card**(高信任度)
+> 2. **媒體報導 / 公司新聞稿 / 學會演講摘要**(屬「報導」非「事實」)
+> 3. **AI agent 整理 + 我手動驗證**(可能有誤標,尤其 RFdiffusion3 等「傳聞中釋出」段落、Isomorphic Labs 商業合作數字)
+>
+> 任何要做研究方向 / 採購 / 合作決策的陳述(模型可用性、產業導入規模、效能數字),**請以原 paper 或官方 release 為準**。本章對「AI 改變生物 / 化學 / 材料」這類 *典範轉移敘事* 較高信心,對「2026 H1 釋出 RFdiffusion3」這類 *傳聞性時點* 較低信心。
+
 ---
 
 ## 1. 蛋白質與結構生物學

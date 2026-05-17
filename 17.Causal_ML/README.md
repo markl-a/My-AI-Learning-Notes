@@ -13,6 +13,14 @@
 >
 > **延伸 / 反向連結**:[2.深入LLM模型工程與LLM運維/9.模型評估 (Evaluation)](<../2.深入LLM模型工程與LLM運維/9.模型評估 (Evaluation)/>) | [3.LLM應用工程/5.進階 RAG 與多元資料檢索](<../3.LLM應用工程/5.進階 RAG 與多元資料檢索/>)
 
+> **⚠️ 鮮度與可信度說明 / Freshness & Reliability**
+> 本章涉及 **DoWhy / EconML / CausalForest 等套件版本、Causal LLM benchmark 分數、CRT/uplift modeling 在 Criteo/Uber/Meta 的內部案例規模** 等具體陳述。這些資訊混合三類來源:
+> 1. **論文 / arXiv / 開源 repo README + 公開技術 blog**(高信任度)
+> 2. **公司工程 blog / 業內報告**(屬「報導」非「事實」,且企業內部 metric 公開時常經選擇性呈現)
+> 3. **AI agent 整理 + 我手動驗證**(可能有誤標,尤其 LLM-based causal reasoning benchmark 數字)
+>
+> 任何要做研究方向 / 企業決策的具體數字,**請以原 paper 或內部實驗為準**。本章對「causal ML 從學術角落升為 AI 可靠性核心軸線」這類 *結構性訊號* 較高信心,對精確 benchmark 分數較低信心。
+
 ---
 
 ## 1. 理論基礎:兩大學派的歷史張力與融合

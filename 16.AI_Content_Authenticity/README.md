@@ -13,6 +13,14 @@
 >
 > **延伸 / 反向連結**:[14.Voice_Audio_AI](../14.Voice_Audio_AI/README.md)(語音 deepfake) | [19.Synthetic_Data_Engineering](../19.Synthetic_Data_Engineering/README.md)(合成資料溯源) | [Multimodal_Generation_2024-2026.md](../1.從AI到LLM基礎/4.DL/Multimodal_Generation_2024-2026.md)
 
+> **⚠️ 鮮度與可信度說明 / Freshness & Reliability**
+> 本章涉及 **C2PA 規格版本、ISO/IEC 22144 草案進度、SynthID 在各 Google 產品整合月份、Adobe/OpenAI/Meta 等公司加入 CAI 時程、各國立法時程(EU AI Act、美國行政命令)** 等具體陳述。這些資訊混合三類來源:
+> 1. **C2PA / W3C / ISO 官方文件、各公司白皮書、政府公報**(高信任度)
+> 2. **媒體報導 / 業內動向 / 標準會議簡報**(屬「報導」非「事實」)
+> 3. **AI agent 整理 + 我手動驗證**(可能有誤標,尤其各 SynthID 模態 GA 月份、各國法規生效日期)
+>
+> 任何要做合規 / 產品整合決策的陳述(規格版本、簽章驗證流程、立法時程),**請以原 standard / 政府公報為準**。本章對「從事後偵測到源頭簽章的典範轉移」較高信心,對精確版本月份較低信心。
+
 ---
 
 ## 1. C2PA (Content Credentials) 與 ISO/IEC 22144

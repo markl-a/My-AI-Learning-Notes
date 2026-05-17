@@ -13,6 +13,14 @@
 >
 > **延伸 / 反向連結**:[2.深入LLM模型工程與LLM運維/3.資料集準備與建立](../2.深入LLM模型工程與LLM運維/3.資料集準備與建立/) | [16.AI_Content_Authenticity](../16.AI_Content_Authenticity/README.md)(合成資料溯源 / 訓練資料簽章)
 
+> **⚠️ 鮮度與可信度說明 / Freshness & Reliability**
+> 本章涉及 **distilabel / Magpie / NeMo Data Designer 等套件版本與發布月份、Epoch AI Data Wall 倒數推估、各 frontier lab 訓練 token 量數字、RLAIF / Constitutional AI 在 Anthropic/Meta 的內部規模** 等具體陳述。這些資訊混合三類來源:
+> 1. **arXiv 論文 / Hugging Face datasets / 開源套件 release notes**(高信任度)
+> 2. **公司 blog / 業內訪談 / 推測性報導**(屬「報導」非「事實」)
+> 3. **AI agent 整理 + 我手動驗證**(可能有誤標,尤其 frontier 模型訓練 token 量、Data Wall 倒數時程)
+>
+> 任何要做資料工程方案 / 訓練估算決策的具體數字,**請以原 source 為準**。本章對「資料品質與合成成為核心瓶頸」這類 *結構性論點* 較高信心,對精確 token 量 / 時程較低信心。
+
 ---
 
 ## 1. 為何 Synthetic Data 成為核心議題
