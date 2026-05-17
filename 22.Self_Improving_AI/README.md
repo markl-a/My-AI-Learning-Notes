@@ -13,6 +13,14 @@
 >
 > **延伸 / 反向連結**:[2.深入LLM模型工程與LLM運維/12.推理模型應用](../2.深入LLM模型工程與LLM運維/12.推理模型應用/) | [21.AI_Forecasting_Economics](../21.AI_Forecasting_Economics/README.md)
 
+> **⚠️ 鮮度與可信度說明 / Freshness & Reliability**
+> 本章涉及 **AI 自動化研究、AlphaEvolve、Sakana AI Scientist、AGI 時程、RSI 風險、ASL 級別、Anthropic vs OpenAI 比較** 等 2024-2026 frontier 議題,**特別容易混入媒體推測與業內傳聞**。本章內容混合三類來源:
+> 1. **論文 / 官方 blog / 已發表 benchmark**(高信任度)
+> 2. **媒體報導 / vendor 公告 / 工程師訪談**(屬「報導」非「事實」)
+> 3. **AI agent 整理 + 我手動驗證**(可能有誤標,尤其 ICLR workshop 評分、AlphaEvolve 具體成果數字、ASL-X 預測時程)
+>
+> 任何要拿來做決策或公開引用的具體陳述(時程預測、AGI 倒數、ARR 對比、ICLR/NeurIPS 評分、AlphaEvolve compute 節省百分比),**請以一手 source 為準**。本章**未逐一回查 source**,對「RSI 是 frontier lab 監測門檻」這種 *結構性敘事* 較高信心,對「2026 末突破 ASL-3」這種 *時點預測* 較低信心。
+
 ---
 
 ## 1. 概念光譜:從工具到 RSI

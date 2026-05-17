@@ -13,6 +13,14 @@
 >
 > **延伸 / 反向連結**:[AI安全與對齊指南](../2.深入LLM模型工程與LLM運維/10.進階話題/AI安全與對齊指南.md) | [22.Self_Improving_AI](../22.Self_Improving_AI/README.md)
 
+> **⚠️ 鮮度與可信度說明 / Freshness & Reliability**
+> 本章是 2026 H1 frontier briefing,密集列出 **ARR、版本號、發布月份、benchmark 分數、機構排名** 等具體數字。這些數字混合三類來源:
+> 1. **官方文件 / 學術論文 / 一手 benchmark**(高信任度)
+> 2. **媒體報導 / vendor blog / 業內消息**(屬「報導」非「事實」)
+> 3. **AI agent 整理 + 我手動驗證**(可能有誤標)
+>
+> 任何要拿來做決策的數字(估值、ROI、benchmark 排名、ECI / time horizon 數值、產品版本月份),**請以官方公告為準**。本章**未逐一回查 source**,對訊號方向、生態結構、敘事邏輯較高信心,對具體數字較低信心。Anthropic / OpenAI ARR 比較、Epoch ECI 排名、METR doubling time 等具體數字易隨時間漂移,引用時請至原始來源確認當前值。
+
 ---
 
 ## 1. AI 能力預測機構地圖
