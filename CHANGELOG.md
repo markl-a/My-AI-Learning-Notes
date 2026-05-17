@@ -12,6 +12,30 @@
 
 ---
 
+## [1.4.0] - 2026-05-17
+
+第三輪收尾:把章節 hype 風險用 disclaimer 一次性顯化,並把審計過程的原始產物
+歷史化進 `docs/audits/`,讓未來自己 / 協作者能回溯本輪決策。
+
+### Added
+- **`docs/audits/2026-05/` 永久審計記錄**
+  - 三份原始報告:`gemini_report.md`、`codex_report.md`、`claude_subagent_report.md`
+  - 三份 audit prompts(Gemini / Codex / Claude subagent)
+  - `README.md` 索引 + 三句共識診斷 + 「agent 已過時 / 誇大」決策記錄
+  - 從 `.tmp/audit_results/`(.gitignore)歷史化進 git
+- **18 處章節 disclaimer**
+  - **12 個 frontier deep-dive 章節(11-22)章首加「⚠️ 鮮度與可信度說明」**:把「具體 ARR / 版本 / 月份 / benchmark 數字」混合三類來源(官方 / 報導 / agent 整理)分離,提醒讀者決策級數字以原 source 為準
+  - **6 個含 `eval`/`exec`/AST `safe_eval` 的 demo README 加「⚠️ 教學示範 — 生產勿用」橫幅**:9.1 RAG-Agent(順帶列 CORS / path traversal / auth gate 安全洞)、11 MCP、ReAct agent、CrewAI 範例、LangChain Agents 範例、basic_apis
+- **Memory 系統**(在 `C:\Users\m4932\.claude\projects\.../memory/`)
+  - `feedback_verify_before_act.md` — verify agent claims 再行動的工作節奏
+  - `project_repo_positioning.md` — 此 repo 是個人筆記 + phantom-mesh demo,非 production library
+  - `reference_audit_artifacts.md` — audit 檔位置 + Gemini/Codex CLI / gh API 慣例
+
+### Changed
+- `三方審計優化建議_2026-05.md` 內所有 `.tmp/...` 連結改指 `docs/audits/2026-05/`
+
+---
+
 ## [1.3.0] - 2026-05-16
 
 第二輪健全化:由 Gemini / Codex / Claude subagent 三方獨立審計觸發,
